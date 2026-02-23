@@ -1,0 +1,1649 @@
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>TRIAGE MCI – System Zarządzania Zdarzeniem Masowym</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0C0F14;
+  --surface: #141820;
+  --border: #1E293B;
+  --border2: #334155;
+  --text: #E8ECF1;
+  --text2: #94A3B8;
+  --text3: #64748B;
+  --text4: #475569;
+  --white: #F8FAFC;
+  --red: #DC2626;
+  --red-glow: #DC262644;
+  --yellow: #D97706;
+  --yellow-light: #FBBF24;
+  --green: #16A34A;
+  --green-light: #4ADE80;
+  --black-t: #1F2937;
+  --font: 'JetBrains Mono', 'Fira Code', 'SF Mono', monospace;
+}
+
+html { font-size: 14px; }
+
+body {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* HEADER */
+#header {
+  background: linear-gradient(180deg, var(--surface) 0%, var(--bg) 100%);
+  border-bottom: 2px solid var(--red);
+  padding: 8px 12px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.header-time {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+.logo-icon {
+  background: var(--red);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 900; color: #fff;
+}
+
+.stats-bar {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex-wrap: wrap;
+}
+
+.stat-badge {
+  display: flex; align-items: center; gap: 4px;
+  padding: 4px 8px;
+  border-radius: 5px;
+  font-size: 13px; font-weight: 800;
+  font-family: var(--font);
+}
+
+.stat-op {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text4);
+  padding: 0 4px;
+  font-family: var(--font);
+}
+
+.stat-T1 { background: #DC262622; border: 1px solid #DC262666; color: var(--red); }
+.stat-T2 { background: #D9770622; border: 1px solid #D9770666; color: var(--yellow); }
+.stat-T3 { background: #16A34A22; border: 1px solid #16A34A66; color: var(--green); }
+.stat-T4 { background: #1F293722; border: 1px solid #6B728066; color: #9CA3AF; }
+
+.stat-total {
+  display: flex; align-items: center; gap: 4px;
+  padding: 4px 10px;
+  background: var(--border);
+  border: 1px solid var(--border2);
+  border-radius: 5px;
+  font-size: 13px; font-weight: 800; color: var(--white);
+  font-family: var(--font);
+}
+
+.nav { display: flex; gap: 4px; margin-left: auto; }
+
+.nav-btn {
+  padding: 7px 14px;
+  background: transparent;
+  color: var(--text2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 600;
+  font-family: var(--font);
+  letter-spacing: 0.04em;
+  transition: all 0.15s;
+}
+
+.nav-btn.active {
+  background: var(--red);
+  color: #fff;
+  border-color: var(--red);
+}
+
+/* CONTENT */
+.content { padding: 16px; max-width: 1100px; margin: 0 auto; }
+
+.section { margin-bottom: 20px; }
+
+.section-title {
+  font-size: 11px; font-weight: 700; color: var(--text3);
+  letter-spacing: 0.12em; text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+/* PATIENT CARDS */
+.patient-card {
+  background: var(--surface);
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 7px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.pc-T1 { border: 1px solid #DC262655; border-left: 4px solid var(--red); }
+.pc-T2 { border: 1px solid #D9770655; border-left: 4px solid var(--yellow); }
+.pc-T3 { border: 1px solid #16A34A55; border-left: 4px solid var(--green); }
+.pc-T4 { border: 1px solid #6B728055; border-left: 4px solid var(--black-t); }
+
+.p-tag {
+  padding: 3px 9px;
+  border-radius: 4px;
+  font-weight: 800;
+  font-size: 13px;
+  min-width: 62px;
+  text-align: center;
+  font-family: var(--font);
+  color: #fff;
+}
+
+.p-tag-T1 { background: var(--red); }
+.p-tag-T2 { background: var(--yellow); color: #000; }
+.p-tag-T3 { background: var(--green); }
+.p-tag-T4 { background: var(--black-t); }
+
+.p-info { flex: 1; min-width: 100px; }
+.p-time { font-size: 10px; color: var(--text3); }
+
+.p-notes {
+  width: 100%;
+  margin-top: 5px;
+  padding: 5px 9px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text);
+  font-size: 11px;
+  font-family: var(--font);
+  outline: none;
+}
+
+.p-notes::placeholder { color: var(--text4); }
+
+.triage-dots {
+  display: flex;
+  gap: 4px;
+  margin-left: auto;
+}
+
+.t-dot {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  border: 2px solid;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.15s;
+}
+
+.t-dot-T1 { border-color: var(--red); }
+.t-dot-T2 { border-color: var(--yellow); }
+.t-dot-T3 { border-color: var(--green); }
+.t-dot-T4 { border-color: var(--black-t); }
+
+.t-dot.active-T1 { background: var(--red); }
+.t-dot.active-T2 { background: var(--yellow); }
+.t-dot.active-T3 { background: var(--green); }
+.t-dot.active-T4 { background: var(--black-t); }
+
+.btn-remove {
+  padding: 3px 9px;
+  background: transparent;
+  border: 1px solid #EF444466;
+  color: #EF4444;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 10px;
+  font-weight: 600;
+  font-family: var(--font);
+}
+
+/* TRANSPORT CARD */
+.transport-card {
+  background: var(--surface);
+  border: 1px solid #D9770644;
+  border-left: 4px solid var(--yellow);
+  border-radius: 8px;
+  padding: 8px 14px;
+  margin-bottom: 7px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-size: 12px;
+}
+
+.transport-card .team { color: var(--yellow-light); font-weight: 600; }
+.transport-card .arrow { color: var(--text4); }
+.transport-card .hospital { color: var(--white); }
+.transport-card .time { color: var(--text4); font-size: 10px; margin-left: auto; }
+
+.btn-delivered {
+  padding: 3px 9px;
+  background: transparent;
+  border: 1px solid var(--green-light);
+  color: var(--green-light);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 10px;
+  font-weight: 600;
+  font-family: var(--font);
+}
+
+/* DISPATCH FORM */
+.dispatch-form {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.form-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+
+.form-group { flex: 1; min-width: 170px; }
+
+.form-label {
+  display: block;
+  font-size: 10px;
+  color: var(--text3);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+.form-select {
+  width: 100%;
+  padding: 9px 10px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  font-size: 12px;
+  font-family: var(--font);
+  outline: none;
+  cursor: pointer;
+}
+
+.btn-dispatch {
+  padding: 9px 24px;
+  background: var(--red);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: var(--font);
+  letter-spacing: 0.04em;
+  margin-top: 4px;
+}
+
+.btn-dispatch:disabled { opacity: 0.4; cursor: default; }
+
+/* MANAGE PANELS */
+.manage-row {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.manage-panel {
+  flex: 1;
+  min-width: 240px;
+}
+
+.manage-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px;
+}
+
+.manage-item {
+  font-size: 12px;
+  padding: 4px 0;
+  border-bottom: 1px dashed #1E293B44;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.manage-item .btn-rm {
+  background: transparent;
+  border: none;
+  color: #EF444488;
+  cursor: pointer;
+  font-size: 11px;
+  font-family: var(--font);
+  padding: 2px 6px;
+}
+
+.add-row {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.add-input {
+  flex: 1;
+  padding: 7px 10px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  font-size: 11px;
+  font-family: var(--font);
+  outline: none;
+}
+
+.add-input::placeholder { color: var(--text4); }
+
+.add-btn {
+  padding: 7px 14px;
+  background: var(--border);
+  color: var(--text2);
+  border: 1px solid var(--border2);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 600;
+  font-family: var(--font);
+}
+
+/* REPORT */
+.report-block {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 14px;
+}
+
+.report-hospital {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 8px;
+  padding-bottom: 7px;
+  border-bottom: 1px solid var(--border);
+}
+
+.report-hospital small {
+  font-size: 11px;
+  color: var(--text3);
+  font-weight: 400;
+}
+
+.report-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 0;
+  border-bottom: 1px dashed #1E293B22;
+  font-size: 12px;
+  flex-wrap: wrap;
+}
+
+.status-badge {
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-size: 9px;
+  font-weight: 700;
+  font-family: var(--font);
+  letter-spacing: 0.04em;
+  margin-left: auto;
+}
+
+.status-transport { background: #D9770633; color: var(--yellow-light); }
+.status-delivered { background: #16A34A33; color: var(--green-light); }
+.status-onsite { background: var(--border); color: var(--text2); }
+
+.report-summary {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  align-items: center;
+}
+
+.report-summary .total {
+  font-weight: 700;
+  color: var(--white);
+  margin-left: auto;
+}
+
+.btn-copy {
+  padding: 8px 20px;
+  background: var(--border);
+  color: var(--white);
+  border: 1px solid var(--border2);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: var(--font);
+  letter-spacing: 0.03em;
+}
+
+.btn-copy:active { background: var(--border2); }
+
+/* EVENT SETUP */
+.event-setup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  gap: 18px;
+  text-align: center;
+  padding: 20px;
+}
+
+.event-title { font-size: 26px; font-weight: 800; letter-spacing: 0.06em; }
+.event-sub { font-size: 11px; color: var(--text3); letter-spacing: 0.14em; text-transform: uppercase; }
+
+.event-input {
+  padding: 12px 18px;
+  background: var(--surface);
+  border: 2px solid var(--red);
+  border-radius: 8px;
+  color: var(--white);
+  font-size: 15px;
+  font-family: var(--font);
+  outline: none;
+  width: 340px;
+  max-width: 90vw;
+  text-align: center;
+}
+
+.event-input::placeholder { color: var(--text4); }
+
+.btn-start {
+  padding: 13px 44px;
+  background: var(--red);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 800;
+  font-family: var(--font);
+  letter-spacing: 0.06em;
+}
+
+.btn-start:active { transform: scale(0.97); }
+
+.empty { color: var(--text4); font-size: 12px; font-style: italic; }
+
+/* WIZARD */
+.wizard-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+}
+
+.wizard-step-num {
+  font-size: 10px;
+  color: var(--text3);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.wizard-question {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.4;
+  margin-bottom: 6px;
+}
+
+.wizard-hint {
+  font-size: 11px;
+  color: var(--text3);
+  margin-bottom: 18px;
+  line-height: 1.4;
+}
+
+.wizard-btns {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.wiz-btn {
+  padding: 16px 40px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 800;
+  font-family: var(--font);
+  letter-spacing: 0.04em;
+  transition: all 0.12s;
+  min-width: 120px;
+}
+
+.wiz-btn:active { transform: scale(0.95); }
+
+.wiz-btn-yes {
+  background: var(--green);
+  color: #fff;
+  box-shadow: 0 4px 16px #16A34A44;
+}
+
+.wiz-btn-no {
+  background: var(--red);
+  color: #fff;
+  box-shadow: 0 4px 16px #DC262644;
+}
+
+.wizard-progress {
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.prog-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--border);
+  transition: all 0.2s;
+}
+
+.prog-dot.active { background: var(--red); transform: scale(1.3); }
+.prog-dot.done { background: var(--text3); }
+
+/* RESULT CARD */
+.result-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px 20px;
+  animation: resultIn 0.3s ease-out;
+}
+
+@keyframes resultIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.result-color {
+  width: 56px; height: 56px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px;
+  font-weight: 900;
+  color: #fff;
+  font-family: var(--font);
+  flex-shrink: 0;
+}
+
+.result-color.rc-T1 { background: var(--red); box-shadow: 0 0 24px var(--red-glow); }
+.result-color.rc-T2 { background: var(--yellow); color: #000; box-shadow: 0 0 24px #D9770644; }
+.result-color.rc-T3 { background: var(--green); box-shadow: 0 0 24px #16A34A44; }
+.result-color.rc-T4 { background: var(--black-t); box-shadow: 0 0 24px #1F293744; }
+
+.result-info { flex: 1; text-align: left; }
+
+.result-label {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--white);
+  margin-bottom: 3px;
+}
+
+.result-path {
+  font-size: 11px;
+  color: var(--text3);
+  line-height: 1.4;
+}
+
+.result-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.btn-confirm {
+  padding: 12px 28px;
+  background: var(--red);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: var(--font);
+  letter-spacing: 0.04em;
+}
+
+.btn-confirm:active { transform: scale(0.97); }
+
+.btn-restart {
+  padding: 12px 20px;
+  background: var(--border);
+  color: var(--text2);
+  border: 1px solid var(--border2);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: var(--font);
+}
+
+.btn-override {
+  padding: 12px 16px;
+  background: transparent;
+  color: var(--text4);
+  border: 1px dashed var(--border2);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 600;
+  font-family: var(--font);
+  letter-spacing: 0.03em;
+}
+
+.override-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.triage-mini {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 800;
+  font-family: var(--font);
+  color: #fff;
+  transition: all 0.12s;
+}
+
+.triage-mini:active { transform: scale(0.95); }
+.triage-mini.btn-T1 { background: var(--red); }
+.triage-mini.btn-T2 { background: var(--yellow); color: #000; }
+.triage-mini.btn-T3 { background: var(--green); }
+.triage-mini.btn-T4 { background: var(--black-t); }
+
+.hidden { display: none; }
+
+.report-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* MODAL */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.modal-overlay.open { display: flex; }
+
+.modal {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 14px;
+  width: 100%;
+  max-width: 640px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.04);
+  animation: modalIn 0.2s ease-out;
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.95) translateY(12px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.modal-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.modal-close {
+  width: 30px; height: 30px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text2);
+  font-size: 16px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font);
+  transition: all 0.15s;
+}
+
+.modal-close:hover { background: var(--border); color: var(--white); }
+
+.modal-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 18px;
+  min-height: 0;
+}
+
+.modal-report-text {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 16px;
+  font-family: var(--font);
+  font-size: 11px;
+  line-height: 1.65;
+  color: var(--text);
+  white-space: pre-wrap;
+  word-break: break-word;
+  user-select: all;
+  -webkit-user-select: all;
+}
+
+.modal-footer {
+  padding: 12px 18px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  flex-shrink: 0;
+}
+
+.btn-modal-copy {
+  padding: 10px 28px;
+  background: var(--red);
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: var(--font);
+  letter-spacing: 0.04em;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-modal-copy:active { transform: scale(0.97); }
+
+.btn-modal-copy.copied {
+  background: var(--green);
+}
+
+.btn-modal-close {
+  padding: 10px 20px;
+  background: var(--border);
+  color: var(--text2);
+  border: 1px solid var(--border2);
+  border-radius: 7px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: var(--font);
+}
+</style>
+</head>
+<body>
+
+<!-- EVENT SETUP -->
+<div id="setup" class="event-setup">
+  <div class="logo-icon" style="width:44px;height:44px;font-size:22px;">✚</div>
+  <div>
+    <div class="event-title">TRIAGE MCI</div>
+    <div class="event-sub">System zarządzania zdarzeniem masowym</div>
+  </div>
+  <input id="eventNameInput" class="event-input" placeholder="Nazwa zdarzenia (np. Wypadek A4 km 312)">
+  <button class="btn-start" onclick="startEvent()">ROZPOCZNIJ TRIAGE</button>
+</div>
+
+<!-- MAIN APP -->
+<div id="app" class="hidden">
+
+  <!-- HEADER -->
+  <div id="header">
+    <div class="header-top">
+      <div class="header-time" id="headerTime"></div>
+      <div class="stats-bar" id="statsBar"></div>
+      <div class="nav">
+        <button class="nav-btn active" data-view="triage" onclick="switchView('triage')">SEGREGACJA</button>
+        <button class="nav-btn" data-view="dispatch" onclick="switchView('dispatch')">DYSPONOWANIE</button>
+        <button class="nav-btn" data-view="report" onclick="switchView('report')">RAPORT</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+    <!-- TRIAGE VIEW -->
+    <div id="view-triage">
+      <div class="section" id="triageWizard">
+        <div class="section-title">Segregacja START – nowy pacjent</div>
+        <div class="wizard-box" id="wizardBox">
+          <!-- Steps rendered by JS -->
+        </div>
+      </div>
+
+      <div class="section" id="triageResult" style="display:none">
+        <div class="result-card" id="resultCard">
+          <div class="result-color" id="resultColor"></div>
+          <div class="result-info">
+            <div class="result-label" id="resultLabel"></div>
+            <div class="result-path" id="resultPath"></div>
+          </div>
+        </div>
+        <div style="margin-top:10px">
+          <input class="p-notes" id="resultNotes" placeholder="Dodatkowe notatki (obrażenia, mechanizm...)">
+        </div>
+        <div class="result-actions">
+          <button class="btn-confirm" onclick="confirmPatient()">✓ ZATWIERDŹ PACJENTA</button>
+          <button class="btn-restart" onclick="resetWizard()">↺ OD NOWA</button>
+          <button class="btn-override" onclick="showOverride()">ZMIEŃ KOLOR RĘCZNIE</button>
+        </div>
+        <div class="override-row" id="overrideRow" style="display:none">
+          <button class="triage-mini btn-T1" onclick="overrideColor('T1')">🔴 T1</button>
+          <button class="triage-mini btn-T2" onclick="overrideColor('T2')">🟡 T2</button>
+          <button class="triage-mini btn-T3" onclick="overrideColor('T3')">🟢 T3</button>
+          <button class="triage-mini btn-T4" onclick="overrideColor('T4')">⚫ T4</button>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title" id="onSiteTitle">Pacjenci na miejscu (0)</div>
+        <div id="patientList"></div>
+      </div>
+      <div class="section" id="transportSection" style="display:none">
+        <div class="section-title" id="transportTitle">W transporcie (0)</div>
+        <div id="transportingList"></div>
+      </div>
+    </div>
+
+    <!-- DISPATCH VIEW -->
+    <div id="view-dispatch" class="hidden">
+      <div class="section">
+        <div class="section-title">Zadysponuj transport</div>
+        <div class="dispatch-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Pacjent</label>
+              <select class="form-select" id="selPatient"><option value="">— wybierz pacjenta —</option></select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Zespół ZRM</label>
+              <select class="form-select" id="selTeam"><option value="">— wybierz zespół —</option></select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Szpital docelowy</label>
+              <select class="form-select" id="selHospital"><option value="">— wybierz szpital —</option></select>
+            </div>
+          </div>
+          <button class="btn-dispatch" id="btnDispatch" disabled onclick="dispatchTransport()">DYSPONUJ TRANSPORT</button>
+        </div>
+      </div>
+
+      <div class="manage-row">
+        <div class="manage-panel">
+          <div class="section-title">Zespoły ZRM</div>
+          <div class="manage-box">
+            <div id="teamsList"></div>
+            <div class="add-row">
+              <input class="add-input" id="newTeamInput" placeholder="Nowy zespół...">
+              <button class="add-btn" onclick="addTeam()">+ Dodaj</button>
+            </div>
+          </div>
+        </div>
+        <div class="manage-panel">
+          <div class="section-title">Szpitale</div>
+          <div class="manage-box">
+            <div id="hospitalsList"></div>
+            <div class="add-row">
+              <input class="add-input" id="newHospitalInput" placeholder="Nowy szpital...">
+              <button class="add-btn" onclick="addHospital()">+ Dodaj</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section" id="historySection" style="display:none;margin-top:20px">
+        <div class="section-title">Historia transportów</div>
+        <div id="historyList"></div>
+      </div>
+    </div>
+
+    <!-- REPORT VIEW -->
+    <div id="view-report" class="hidden">
+      <div class="report-header-row">
+        <div class="section-title" style="margin-bottom:0">Raport dla dyspozytora</div>
+        <button class="btn-copy" onclick="copyReport()">📋 Raport tekstowy</button>
+      </div>
+      <div id="reportContent"></div>
+    </div>
+  </div>
+</div>
+
+<!-- REPORT MODAL -->
+<div class="modal-overlay" id="reportModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">📋 Raport tekstowy</div>
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-report-text" id="modalReportText"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-modal-close" onclick="closeModal()">Zamknij</button>
+      <button class="btn-modal-copy" id="btnModalCopy" onclick="copyFromModal()">📋 Kopiuj do schowka</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===== STATE =====
+const TRIAGE = {
+  T1: { label: 'T1 – Czerwony', text: 'Natychmiastowy', icon: '🔴', color: '#DC2626' },
+  T2: { label: 'T2 – Żółty', text: 'Pilny', icon: '🟡', color: '#D97706' },
+  T3: { label: 'T3 – Zielony', text: 'Odroczony', icon: '🟢', color: '#16A34A' },
+  T4: { label: 'T4 – Czarny', text: 'Zgon / Expectant', icon: '⚫', color: '#1F2937' },
+};
+
+let eventName = '';
+let eventTime = '';
+let nextId = 1;
+let patients = [];
+let transports = [];
+
+let teams = [
+  { id: 1, name: 'S-01 (specjalistyczny)' },
+  { id: 2, name: 'S-02 (specjalistyczny)' },
+  { id: 3, name: 'P-01 (podstawowy)' },
+  { id: 4, name: 'P-02 (podstawowy)' },
+  { id: 5, name: 'P-03 (podstawowy)' },
+  { id: 6, name: 'LPR (śmigłowiec)' },
+];
+
+let hospitals = [
+  { id: 1, name: 'SOR Szpital Wojewódzki' },
+  { id: 2, name: 'SOR Szpital Miejski' },
+  { id: 3, name: 'SOR Szpital Kliniczny' },
+  { id: 4, name: 'CU Szpital Powiatowy' },
+];
+
+function now() {
+  return new Date().toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+}
+
+// ===== EVENT START =====
+function startEvent() {
+  const input = document.getElementById('eventNameInput');
+  if (!input.value.trim()) { input.focus(); return; }
+  eventName = input.value.trim();
+  eventTime = now();
+  document.getElementById('setup').classList.add('hidden');
+  document.getElementById('app').classList.remove('hidden');
+  updateHeaderTime();
+  setInterval(updateHeaderTime, 1000);
+  resetWizard();
+  renderAll();
+}
+
+function updateHeaderTime() {
+  document.getElementById('headerTime').textContent = now();
+}
+
+document.getElementById('eventNameInput').addEventListener('keydown', e => { if (e.key === 'Enter') startEvent(); });
+
+// ===== VIEW SWITCHING =====
+let currentView = 'triage';
+
+function switchView(v) {
+  currentView = v;
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b.dataset.view === v));
+  ['triage', 'dispatch', 'report'].forEach(id => {
+    document.getElementById('view-' + id).classList.toggle('hidden', id !== v);
+  });
+  if (v === 'triage' && !wizResult) resetWizard();
+  renderAll();
+}
+
+// ===== START TRIAGE WIZARD =====
+const STEPS = [
+  {
+    id: 'walk',
+    question: 'Czy pacjent chodzi?',
+    hint: 'Pacjent jest w stanie wstać i przemieszczać się samodzielnie',
+    yes: { result: 'T3', reason: 'Chodzi → T3 Zielony' },
+    no: { next: 'breathing' }
+  },
+  {
+    id: 'breathing',
+    question: 'Czy oddycha spontanicznie?',
+    hint: 'Oceń czy klatka piersiowa unosi się, posłuchaj, poczuj wydech',
+    yes: { next: 'rr' },
+    no: { next: 'airway' }
+  },
+  {
+    id: 'airway',
+    question: 'Udrożnij drogi oddechowe.\nCzy oddycha po udrożnieniu?',
+    hint: 'Odchyl głowę, unieś żuchwę — oceń ponownie oddech',
+    yes: { result: 'T1', reason: 'Brak oddechu → po udrożnieniu oddycha → T1 Czerwony' },
+    no: { result: 'T4', reason: 'Brak oddechu po udrożnieniu dróg oddechowych → T4 Czarny' }
+  },
+  {
+    id: 'rr',
+    question: 'Częstość oddechów > 30/min?',
+    hint: 'Policz oddechy przez 15 sekund × 4 lub oceń orientacyjnie',
+    yes: { result: 'T1', reason: 'Oddycha > 30/min → T1 Czerwony' },
+    no: { next: 'cap' }
+  },
+  {
+    id: 'cap',
+    question: 'Nawrót kapilarny > 2 sek.\nlub brak tętna na tt. promieniowej?',
+    hint: 'Uciśnij paznokieć na 5 sek. — oceń powrót zabarwienia. Sprawdź tętno.',
+    yes: { result: 'T1', reason: 'Nawrót kapilarny > 2s / brak tętna → T1 Czerwony' },
+    no: { next: 'mental' }
+  },
+  {
+    id: 'mental',
+    question: 'Czy spełnia proste polecenia?',
+    hint: '„Pokaż 2 palce", „Zamknij oczy", „Ściśnij moją rękę"',
+    yes: { result: 'T2', reason: 'Oddycha prawidłowo, krąży, przytomny → T2 Żółty' },
+    no: { result: 'T1', reason: 'Nie spełnia poleceń → T1 Czerwony' }
+  }
+];
+
+let wizStep = 0;
+let wizPath = [];
+let wizResult = null;
+
+function getStepIndex(id) { return STEPS.findIndex(s => s.id === id); }
+
+function resetWizard() {
+  wizStep = 0;
+  wizPath = [];
+  wizResult = null;
+  document.getElementById('triageResult').style.display = 'none';
+  document.getElementById('triageWizard').style.display = '';
+  document.getElementById('overrideRow').style.display = 'none';
+  document.getElementById('resultNotes').value = '';
+  renderWizard();
+}
+
+function renderWizard() {
+  const step = STEPS[wizStep];
+  const totalVisible = STEPS.length;
+
+  let dots = '';
+  for (let i = 0; i < totalVisible; i++) {
+    const cls = i < wizStep ? 'done' : i === wizStep ? 'active' : '';
+    dots += `<div class="prog-dot ${cls}"></div>`;
+  }
+
+  const qLines = step.question.split('\n').map(l => `<div>${escHtml(l)}</div>`).join('');
+
+  document.getElementById('wizardBox').innerHTML = `
+    <div class="wizard-progress">${dots}</div>
+    <div class="wizard-step-num">Krok ${wizStep + 1} z ${totalVisible}</div>
+    <div class="wizard-question">${qLines}</div>
+    <div class="wizard-hint">${escHtml(step.hint)}</div>
+    <div class="wizard-btns">
+      <button class="wiz-btn wiz-btn-yes" onclick="wizAnswer(true)">TAK</button>
+      <button class="wiz-btn wiz-btn-no" onclick="wizAnswer(false)">NIE</button>
+    </div>
+  `;
+}
+
+function wizAnswer(yes) {
+  const step = STEPS[wizStep];
+  const branch = yes ? step.yes : step.no;
+
+  wizPath.push({ step: step.id, question: step.question.replace(/\n/g, ' '), answer: yes ? 'TAK' : 'NIE' });
+
+  if (branch.result) {
+    wizResult = branch.result;
+    showResult(branch.result, branch.reason);
+  } else if (branch.next) {
+    wizStep = getStepIndex(branch.next);
+    renderWizard();
+  }
+}
+
+function showResult(triage, reason) {
+  const t = TRIAGE[triage];
+  document.getElementById('triageWizard').style.display = 'none';
+  document.getElementById('triageResult').style.display = '';
+
+  const colorEl = document.getElementById('resultColor');
+  colorEl.className = 'result-color rc-' + triage;
+  colorEl.textContent = t.icon;
+
+  document.getElementById('resultLabel').textContent = t.label + ' — ' + t.text;
+
+  // Show path summary
+  const pathText = wizPath.map(p => p.question.split('.')[0].trim() + ': ' + p.answer).join(' → ');
+  document.getElementById('resultPath').textContent = pathText;
+}
+
+function showOverride() {
+  document.getElementById('overrideRow').style.display = document.getElementById('overrideRow').style.display === 'none' ? 'flex' : 'none';
+}
+
+function overrideColor(triage) {
+  wizResult = triage;
+  const t = TRIAGE[triage];
+  const colorEl = document.getElementById('resultColor');
+  colorEl.className = 'result-color rc-' + triage;
+  colorEl.textContent = t.icon;
+  document.getElementById('resultLabel').textContent = t.label + ' — ' + t.text;
+  document.getElementById('overrideRow').style.display = 'none';
+}
+
+function confirmPatient() {
+  if (!wizResult) return;
+  const notes = document.getElementById('resultNotes').value.trim();
+  const pathStr = wizPath.map(p => p.question.split('.')[0].trim() + ': ' + p.answer).join(', ');
+  addPatient(wizResult, notes, pathStr);
+  resetWizard();
+}
+
+// ===== PATIENTS =====
+function addPatient(triage, notes, pathInfo) {
+  const id = nextId++;
+  const fullNotes = [pathInfo || '', notes || ''].filter(Boolean).join(' | ');
+  patients.unshift({
+    id, tag: 'P-' + String(id).padStart(3, '0'), triage, time: now(),
+    notes: fullNotes, status: 'na_miejscu', teamId: null, hospitalId: null, dispatchTime: null
+  });
+  renderAll();
+}
+
+function changeTriage(id, newT) {
+  const p = patients.find(x => x.id === id);
+  if (p) { p.triage = newT; p.time = now(); }
+  renderAll();
+}
+
+function updateNotes(id, val) {
+  const p = patients.find(x => x.id === id);
+  if (p) p.notes = val;
+}
+
+function removePatient(id) {
+  patients = patients.filter(x => x.id !== id);
+  renderAll();
+}
+
+function markDelivered(id) {
+  const p = patients.find(x => x.id === id);
+  if (p) p.status = 'dostarczony';
+  renderAll();
+}
+
+// ===== DISPATCH =====
+function dispatchTransport() {
+  const pId = parseInt(document.getElementById('selPatient').value);
+  const tId = parseInt(document.getElementById('selTeam').value);
+  const hId = parseInt(document.getElementById('selHospital').value);
+  if (!pId || !tId || !hId) return;
+
+  const p = patients.find(x => x.id === pId);
+  const team = teams.find(x => x.id === tId);
+  const hosp = hospitals.find(x => x.id === hId);
+  if (!p || !team || !hosp) return;
+
+  p.status = 'transportowany';
+  p.teamId = tId;
+  p.hospitalId = hId;
+  p.dispatchTime = now();
+
+  transports.unshift({
+    id: Date.now(), patientTag: p.tag, patientTriage: p.triage,
+    teamName: team.name, hospitalName: hosp.name, time: now()
+  });
+
+  document.getElementById('selPatient').value = '';
+  document.getElementById('selTeam').value = '';
+  document.getElementById('selHospital').value = '';
+  renderAll();
+}
+
+function checkDispatchReady() {
+  const ok = document.getElementById('selPatient').value &&
+             document.getElementById('selTeam').value &&
+             document.getElementById('selHospital').value;
+  document.getElementById('btnDispatch').disabled = !ok;
+}
+
+// ===== TEAMS & HOSPITALS =====
+function addTeam() {
+  const input = document.getElementById('newTeamInput');
+  if (!input.value.trim()) return;
+  teams.push({ id: Date.now(), name: input.value.trim() });
+  input.value = '';
+  renderAll();
+}
+
+function removeTeam(id) {
+  teams = teams.filter(x => x.id !== id);
+  renderAll();
+}
+
+function addHospital() {
+  const input = document.getElementById('newHospitalInput');
+  if (!input.value.trim()) return;
+  hospitals.push({ id: Date.now(), name: input.value.trim() });
+  input.value = '';
+  renderAll();
+}
+
+function removeHospital(id) {
+  hospitals = hospitals.filter(x => x.id !== id);
+  renderAll();
+}
+
+document.getElementById('newTeamInput').addEventListener('keydown', e => { if (e.key === 'Enter') addTeam(); });
+document.getElementById('newHospitalInput').addEventListener('keydown', e => { if (e.key === 'Enter') addHospital(); });
+
+// ===== RENDER =====
+function renderAll() {
+  renderStats();
+  renderPatients();
+  renderTransporting();
+  renderDispatchSelects();
+  renderManage();
+  renderHistory();
+  renderReport();
+}
+
+function renderStats() {
+  const counts = { T1: 0, T2: 0, T3: 0, T4: 0 };
+  patients.forEach(p => counts[p.triage]++);
+  const total = patients.length;
+
+  const keys = Object.keys(TRIAGE);
+  let html = '';
+  keys.forEach((k, i) => {
+    html += `<div class="stat-badge stat-${k}">${TRIAGE[k].icon} ${counts[k]}</div>`;
+    if (i < keys.length - 1) html += `<span class="stat-op">+</span>`;
+  });
+  html += `<span class="stat-op">=</span>`;
+  html += `<div class="stat-total">${total}</div>`;
+  document.getElementById('statsBar').innerHTML = html;
+}
+
+function renderPatients() {
+  const onSite = patients.filter(p => p.status === 'na_miejscu');
+  document.getElementById('onSiteTitle').textContent = `Pacjenci na miejscu (${onSite.length})`;
+
+  if (onSite.length === 0) {
+    document.getElementById('patientList').innerHTML = '<div class="empty">Brak zarejestrowanych pacjentów</div>';
+    return;
+  }
+
+  let html = '';
+  onSite.forEach(p => {
+    const t = TRIAGE[p.triage];
+    let dots = '';
+    for (const tk of Object.keys(TRIAGE)) {
+      const active = p.triage === tk ? ` active-${tk}` : '';
+      dots += `<button class="t-dot t-dot-${tk}${active}" title="Zmień na ${TRIAGE[tk].label}" onclick="changeTriage(${p.id},'${tk}')"></button>`;
+    }
+
+    html += `<div class="patient-card pc-${p.triage}">
+      <div class="p-tag p-tag-${p.triage}">${p.tag}</div>
+      <div class="p-info">
+        <div class="p-time">${t.text} • ${p.time}</div>
+        <input class="p-notes" placeholder="Notatki (obrażenia, mechanizm...)" value="${escHtml(p.notes)}" oninput="updateNotes(${p.id},this.value)">
+      </div>
+      <div class="triage-dots">${dots}</div>
+      <button class="btn-remove" onclick="removePatient(${p.id})" title="Usuń">✕</button>
+    </div>`;
+  });
+
+  document.getElementById('patientList').innerHTML = html;
+}
+
+function renderTransporting() {
+  const inTransport = patients.filter(p => p.status === 'transportowany');
+  const section = document.getElementById('transportSection');
+
+  if (inTransport.length === 0) {
+    section.style.display = 'none';
+    return;
+  }
+
+  section.style.display = '';
+  document.getElementById('transportTitle').textContent = `W transporcie (${inTransport.length})`;
+
+  let html = '';
+  inTransport.forEach(p => {
+    const team = teams.find(t => t.id === p.teamId);
+    const hosp = hospitals.find(h => h.id === p.hospitalId);
+    html += `<div class="transport-card">
+      <div class="p-tag p-tag-${p.triage}">${p.tag}</div>
+      <span class="team">${team ? team.name : '—'}</span>
+      <span class="arrow">→</span>
+      <span class="hospital">${hosp ? hosp.name : '—'}</span>
+      <span class="time">${p.dispatchTime}</span>
+      <button class="btn-delivered" onclick="markDelivered(${p.id})">✓ Dostarczony</button>
+    </div>`;
+  });
+
+  document.getElementById('transportingList').innerHTML = html;
+}
+
+function renderDispatchSelects() {
+  const onSite = patients.filter(p => p.status === 'na_miejscu');
+
+  let pHtml = '<option value="">— wybierz pacjenta —</option>';
+  onSite.forEach(p => {
+    const t = TRIAGE[p.triage];
+    pHtml += `<option value="${p.id}">${t.icon} ${p.tag} – ${t.text}${p.notes ? ' (' + escHtml(p.notes) + ')' : ''}</option>`;
+  });
+  document.getElementById('selPatient').innerHTML = pHtml;
+
+  let tHtml = '<option value="">— wybierz zespół —</option>';
+  teams.forEach(t => { tHtml += `<option value="${t.id}">${escHtml(t.name)}</option>`; });
+  document.getElementById('selTeam').innerHTML = tHtml;
+
+  let hHtml = '<option value="">— wybierz szpital —</option>';
+  hospitals.forEach(h => { hHtml += `<option value="${h.id}">${escHtml(h.name)}</option>`; });
+  document.getElementById('selHospital').innerHTML = hHtml;
+
+  checkDispatchReady();
+}
+
+function renderManage() {
+  let tHtml = '';
+  teams.forEach(t => {
+    tHtml += `<div class="manage-item"><span>${escHtml(t.name)}</span><button class="btn-rm" onclick="removeTeam(${t.id})">✕</button></div>`;
+  });
+  document.getElementById('teamsList').innerHTML = tHtml;
+
+  let hHtml = '';
+  hospitals.forEach(h => {
+    hHtml += `<div class="manage-item"><span>${escHtml(h.name)}</span><button class="btn-rm" onclick="removeHospital(${h.id})">✕</button></div>`;
+  });
+  document.getElementById('hospitalsList').innerHTML = hHtml;
+}
+
+function renderHistory() {
+  if (transports.length === 0) {
+    document.getElementById('historySection').style.display = 'none';
+    return;
+  }
+  document.getElementById('historySection').style.display = '';
+
+  let html = '';
+  transports.forEach(t => {
+    html += `<div class="transport-card">
+      <div class="p-tag p-tag-${t.patientTriage}">${t.patientTag}</div>
+      <span class="team">${escHtml(t.teamName)}</span>
+      <span class="arrow">→</span>
+      <span class="hospital">${escHtml(t.hospitalName)}</span>
+      <span class="time">${t.time}</span>
+    </div>`;
+  });
+  document.getElementById('historyList').innerHTML = html;
+}
+
+function renderReport() {
+  const counts = { T1: 0, T2: 0, T3: 0, T4: 0 };
+  patients.forEach(p => counts[p.triage]++);
+  const total = patients.length;
+
+  // Summary block
+  let html = `<div class="report-block">
+    <div style="font-size:13px;color:var(--text2);margin-bottom:10px">
+      <strong style="color:var(--white)">${escHtml(eventName)}</strong> • Start: ${eventTime} • Raport: ${now()}
+    </div>
+    <div class="report-summary">`;
+
+  for (const [k, v] of Object.entries(TRIAGE)) {
+    const c = k === 'T4' ? '#9CA3AF' : v.color;
+    html += `<div>${v.icon} <strong style="color:${c}">${counts[k]}</strong> <span style="color:var(--text3);font-size:11px">${v.text}</span></div>`;
+  }
+  html += `<div class="total">Razem: ${total}</div></div></div>`;
+
+  // Group by hospital
+  const byHospital = {};
+  patients.filter(p => p.hospitalId).forEach(p => {
+    const h = hospitals.find(x => x.id === p.hospitalId);
+    const key = h ? h.name : 'Nieznany';
+    if (!byHospital[key]) byHospital[key] = [];
+    byHospital[key].push(p);
+  });
+
+  if (Object.keys(byHospital).length > 0) {
+    for (const [hospName, pts] of Object.entries(byHospital)) {
+      html += `<div class="report-block">
+        <div class="report-hospital">📍 ${escHtml(hospName)} <small>(${pts.length} pac.)</small></div>`;
+
+      pts.forEach(p => {
+        const team = teams.find(t => t.id === p.teamId);
+        const statusCls = p.status === 'dostarczony' ? 'status-delivered' : 'status-transport';
+        const statusTxt = p.status === 'dostarczony' ? 'DOSTARCZONY' : 'W TRANSPORCIE';
+        html += `<div class="report-row">
+          <div class="p-tag p-tag-${p.triage}">${p.tag}</div>
+          <span style="color:var(--text2)">ZRM: ${team ? escHtml(team.name) : '—'}</span>
+          <span style="color:var(--text4)">•</span>
+          <span style="color:var(--text3);font-size:10px">Wyjazd: ${p.dispatchTime || '—'}</span>
+          <span class="status-badge ${statusCls}">${statusTxt}</span>
+        </div>`;
+      });
+      html += `</div>`;
+    }
+  } else {
+    html += '<div class="empty">Brak zadysponowanych transportów</div>';
+  }
+
+  // On-site patients
+  const onSite = patients.filter(p => p.status === 'na_miejscu');
+  if (onSite.length > 0) {
+    html += `<div class="report-block">
+      <div class="report-hospital">🏥 Pozostali na miejscu zdarzenia <small>(${onSite.length})</small></div>`;
+    onSite.forEach(p => {
+      html += `<div class="report-row">
+        <div class="p-tag p-tag-${p.triage}">${p.tag}</div>
+        <span style="color:var(--text2)">${TRIAGE[p.triage].text}</span>
+        ${p.notes ? `<span style="color:var(--text3);font-size:11px">– ${escHtml(p.notes)}</span>` : ''}
+      </div>`;
+    });
+    html += `</div>`;
+  }
+
+  document.getElementById('reportContent').innerHTML = html;
+}
+
+// ===== REPORT MODAL =====
+function buildReportText() {
+  const counts = { T1: 0, T2: 0, T3: 0, T4: 0 };
+  patients.forEach(p => counts[p.triage]++);
+
+  let text = `=== RAPORT TRIAGE ===\n`;
+  text += `Zdarzenie: ${eventName}\n`;
+  text += `Rozpoczęcie: ${eventTime}\n`;
+  text += `Raport: ${now()}\n\n`;
+  text += `--- PODSUMOWANIE ---\n`;
+  text += `Łącznie pacjentów: ${patients.length}\n`;
+  for (const [k, v] of Object.entries(TRIAGE)) {
+    text += `${v.icon} ${v.label}: ${counts[k]}\n`;
+  }
+
+  const byHospital = {};
+  patients.filter(p => p.hospitalId).forEach(p => {
+    const h = hospitals.find(x => x.id === p.hospitalId);
+    const key = h ? h.name : 'Nieznany';
+    if (!byHospital[key]) byHospital[key] = [];
+    byHospital[key].push(p);
+  });
+
+  text += `\n--- TRANSPORT DO SZPITALI ---\n`;
+  if (Object.keys(byHospital).length === 0) {
+    text += `Brak zadysponowanych transportów\n`;
+  }
+  for (const [hospName, pts] of Object.entries(byHospital)) {
+    text += `\n📍 ${hospName} (${pts.length} pac.):\n`;
+    pts.forEach(p => {
+      const team = teams.find(t => t.id === p.teamId);
+      text += `  ${p.tag} [${p.triage}] → ZRM: ${team ? team.name : '—'} | ${p.dispatchTime} | ${p.status.toUpperCase()}\n`;
+    });
+  }
+
+  const onSite = patients.filter(p => p.status === 'na_miejscu');
+  if (onSite.length > 0) {
+    text += `\n--- POZOSTALI NA MIEJSCU (${onSite.length}) ---\n`;
+    onSite.forEach(p => {
+      text += `  ${p.tag} [${p.triage}] ${p.notes ? '– ' + p.notes : ''}\n`;
+    });
+  }
+
+  return text;
+}
+
+function copyReport() {
+  const text = buildReportText();
+  document.getElementById('modalReportText').textContent = text;
+  document.getElementById('reportModal').classList.add('open');
+  // Reset button state
+  const btn = document.getElementById('btnModalCopy');
+  btn.textContent = '📋 Kopiuj do schowka';
+  btn.classList.remove('copied');
+}
+
+function closeModal() {
+  document.getElementById('reportModal').classList.remove('open');
+}
+
+function copyFromModal() {
+  const text = document.getElementById('modalReportText').textContent;
+  const btn = document.getElementById('btnModalCopy');
+
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = '✓ Skopiowano do schowka!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = '📋 Kopiuj do schowka';
+      btn.classList.remove('copied');
+    }, 2500);
+  }).catch(() => {
+    // Fallback for older browsers / no clipboard API
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    try {
+      document.execCommand('copy');
+      btn.textContent = '✓ Skopiowano do schowka!';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = '📋 Kopiuj do schowka';
+        btn.classList.remove('copied');
+      }, 2500);
+    } catch(e) {}
+    document.body.removeChild(ta);
+  });
+}
+
+// Close modal on overlay click
+document.getElementById('reportModal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+
+// Close modal on Escape
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+// ===== HELPERS =====
+function escHtml(s) {
+  const d = document.createElement('div');
+  d.textContent = s || '';
+  return d.innerHTML;
+}
+
+// Change listeners for dispatch selects
+document.getElementById('selPatient').addEventListener('change', checkDispatchReady);
+document.getElementById('selTeam').addEventListener('change', checkDispatchReady);
+document.getElementById('selHospital').addEventListener('change', checkDispatchReady);
+</script>
+
+</body>
+</html>
