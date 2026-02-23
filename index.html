@@ -514,6 +514,30 @@ body {
 
 .btn-start:active { transform: scale(0.97); }
 
+/* DOWNLOAD BUTTON */
+.btn-download {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  padding: 12px 22px;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border2);
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: var(--font);
+  cursor: pointer;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  transition: background 0.15s, border-color 0.15s;
+}
+.btn-download:hover { background: var(--border); border-color: var(--text3); }
+.btn-download:active { transform: scale(0.97); }
+
 .empty { color: var(--text4); font-size: 12px; font-style: italic; }
 
 /* WIZARD */
@@ -874,6 +898,9 @@ body {
   <button class="btn-start" onclick="startEvent()">ROZPOCZNIJ TRIAGE</button>
 </div>
 
+<!-- DOWNLOAD BUTTON -->
+<button id="btnDownload" class="btn-download" onclick="downloadApp()">⬇ Pobierz</button>
+
 <!-- MAIN APP -->
 <div id="app" class="hidden">
 
@@ -1049,6 +1076,31 @@ function now() {
   return new Date().toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
 }
 
+// ===== DOWNLOAD =====
+function downloadApp() {
+  const html = document.documentElement.outerHTML;
+  const parser = new DOMParser();
+  const doc = parser.parseFromString('<!DOCTYPE html><html>' + html + '</html>', 'text/html');
+  const btn = doc.getElementById('btnDownload');
+  if (btn) btn.remove();
+  const dlFunc = doc.querySelector('script');
+  if (dlFunc) {
+    dlFunc.textContent = dlFunc.textContent
+      .replace(/\/\/ ===== DOWNLOAD =====[\s\S]*?(?=\/\/ ===== EVENT START =====)/, '');
+  }
+  const styles = doc.querySelector('style');
+  if (styles) {
+    styles.textContent = styles.textContent
+      .replace(/\/\* DOWNLOAD BUTTON \*\/[\s\S]*?\.btn-download:active\s*\{[^}]*\}/, '');
+  }
+  const blob = new Blob(['<!DOCTYPE html>\n' + doc.documentElement.outerHTML], { type: 'text/html' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'triage-mci.html';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
 // ===== EVENT START =====
 function startEvent() {
   const input = document.getElementById('eventNameInput');
@@ -1056,6 +1108,7 @@ function startEvent() {
   eventName = input.value.trim();
   eventTime = now();
   document.getElementById('setup').classList.add('hidden');
+  document.getElementById('btnDownload').classList.add('hidden');
   document.getElementById('app').classList.remove('hidden');
   updateHeaderTime();
   setInterval(updateHeaderTime, 1000);
