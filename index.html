@@ -1518,9 +1518,9 @@ function renderTransporting() {
     const hosp = hospitals.find(h => h.id === p.hospitalId);
     html += `<div class="transport-card">
       <div class="p-tag p-tag-${p.triage}">${p.tag}</div>
-      <span class="team">${team ? team.name : '—'}</span>
+      <span class="team">${team ? escHtml(team.name) : '—'}</span>
       <span class="arrow">→</span>
-      <span class="hospital">${hosp ? hosp.name : '—'}</span>
+      <span class="hospital">${hosp ? escHtml(hosp.name) : '—'}</span>
       <span class="time">${p.dispatchTime}</span>
       <button class="btn-delivered" onclick="markDelivered(${p.id})">✓ Dostarczony</button>
     </div>`;
@@ -1773,7 +1773,6 @@ function resumeEvent() {
   updateHeaderTime();
   setInterval(updateHeaderTime, 1000);
   switchView(currentView);
-  renderAll();
 }
 
 function freshEvent() {
