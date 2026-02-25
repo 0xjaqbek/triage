@@ -6,12 +6,29 @@ Ta instrukcja pozwala zainstalowac aplikacje TRIAGE MCI
 na komputerze BEZ dostepu do internetu.
 
 ---------------------------------------------
+  SKAD POBRAC APLIKACJE
+---------------------------------------------
+
+Gotowa paczka ze wszystkimi plikami:
+
+  https://github.com/0xjaqbek/triage/releases/latest
+
+  Kliknij "TRIAGE-MCI-v1.0.0.zip" aby pobrac.
+  Rozpakuj plik ZIP na pendrive lub dysk.
+
+Alternatywnie — cale repozytorium (ZIP):
+
+  https://github.com/0xjaqbek/triage
+  Kliknij zielony przycisk "Code" > "Download ZIP"
+
+---------------------------------------------
   CO POTRZEBUJESZ
 ---------------------------------------------
 
-1. Pendrive lub inny nosnik z zawartoscia tego folderu
-2. Komputer z systemem Windows
-3. Przegladarka Chrome lub Edge (zainstalowana domyslnie)
+1. Pobrany i rozpakowany folder z aplikacja (patrz wyzej)
+2. Pendrive lub inny nosnik do przeniesienia na docelowy komputer
+3. Komputer z systemem Windows
+4. Przegladarka Chrome lub Edge (zainstalowana domyslnie)
 
 ---------------------------------------------
   KROK PO KROKU

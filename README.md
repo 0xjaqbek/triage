@@ -86,11 +86,13 @@ Wszystkie dane są przechowywane lokalnie w przeglądarce i przetrwają zamknię
 
 Dla komputerów bez dostępu do internetu:
 
-1. Skopiuj cały folder projektu na pendrive
-2. Na docelowym komputerze uruchom `triage-server.exe`
-3. Przeglądarka otworzy się automatycznie
-4. Zainstaluj PWA z paska adresu
-5. Zamknij serwer — aplikacja działa samodzielnie
+1. **Pobierz gotową paczkę:** [TRIAGE-MCI-v1.0.0.zip](https://github.com/0xjaqbek/triage/releases/latest)
+   - Alternatywnie: kliknij zielony przycisk **Code** → **Download ZIP** na [stronie repozytorium](https://github.com/0xjaqbek/triage)
+2. Rozpakuj i skopiuj folder na pendrive
+3. Na docelowym komputerze uruchom `triage-server.exe`
+4. Przeglądarka otworzy się automatycznie
+5. Zainstaluj PWA z paska adresu
+6. Zamknij serwer — aplikacja działa samodzielnie
 
 Szczegółowa instrukcja: [INSTALACJA-OFFLINE.txt](INSTALACJA-OFFLINE.txt)
 
@@ -203,7 +205,9 @@ A Progressive Web App (PWA) for managing mass casualty incidents using the START
 
 ### Offline installation (no internet)
 
-For devices without internet access, a portable Go server (`triage-server.exe`, 5.7 MB) is included. Copy the project folder to the target device, run the exe, install the PWA from localhost, and close the server. The app runs independently after that. See [INSTALACJA-OFFLINE.txt](INSTALACJA-OFFLINE.txt) for details.
+Download the ready-to-use package: **[TRIAGE-MCI-v1.0.0.zip](https://github.com/0xjaqbek/triage/releases/latest)** (or use Code → Download ZIP from the [repository page](https://github.com/0xjaqbek/triage)).
+
+Copy the folder to the target device, run `triage-server.exe`, install the PWA from localhost, and close the server. The app runs independently after that. See [INSTALACJA-OFFLINE.txt](INSTALACJA-OFFLINE.txt) for details.
 
 ### Tech stack
 Vanilla HTML/CSS/JS (no frameworks), Service Worker, Web App Manifest, localStorage, Go (portable HTTP server).
