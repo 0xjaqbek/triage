@@ -5,8 +5,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <title>TRIAGE MCI – System Zarządzania Zdarzeniem Masowym</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0C0F14">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="TRIAGE">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -27,7 +31,7 @@
   --green: #16A34A;
   --green-light: #4ADE80;
   --black-t: #1F2937;
-  --font: 'JetBrains Mono', 'Fira Code', 'SF Mono', monospace;
+  --font: ui-monospace, 'SF Mono', 'Cascadia Code', 'Segoe UI Mono', Consolas, 'Liberation Mono', monospace;
 }
 
 html { font-size: 14px; }
@@ -1715,6 +1719,11 @@ function escHtml(s) {
 document.getElementById('selPatient').addEventListener('change', checkDispatchReady);
 document.getElementById('selTeam').addEventListener('change', checkDispatchReady);
 document.getElementById('selHospital').addEventListener('change', checkDispatchReady);
+
+// ===== SERVICE WORKER =====
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./sw.js');
+}
 </script>
 
 </body>
