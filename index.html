@@ -1356,6 +1356,7 @@ function updateNotes(id, val) {
 }
 
 function removePatient(id) {
+  if (!confirm('Czy na pewno chcesz usunąć tego pacjenta?')) return;
   patients = patients.filter(x => x.id !== id);
   renderAll();
   saveState();
@@ -1415,6 +1416,7 @@ function addTeam() {
 }
 
 function removeTeam(id) {
+  if (!confirm('Czy na pewno chcesz usunąć ten zespół?')) return;
   teams = teams.filter(x => x.id !== id);
   renderAll();
   saveState();
@@ -1430,6 +1432,7 @@ function addHospital() {
 }
 
 function removeHospital(id) {
+  if (!confirm('Czy na pewno chcesz usunąć ten szpital?')) return;
   hospitals = hospitals.filter(x => x.id !== id);
   renderAll();
   saveState();
