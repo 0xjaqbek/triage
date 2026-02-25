@@ -1,0 +1,80 @@
+=============================================
+  TRIAGE MCI - Instalacja offline na Windows
+=============================================
+
+Ta instrukcja pozwala zainstalowac aplikacje TRIAGE MCI
+na komputerze BEZ dostepu do internetu.
+
+---------------------------------------------
+  CO POTRZEBUJESZ
+---------------------------------------------
+
+1. Pendrive lub inny nosnik z zawartoscia tego folderu
+2. Komputer z systemem Windows
+3. Przegladarka Chrome lub Edge (zainstalowana domyslnie)
+
+---------------------------------------------
+  KROK PO KROKU
+---------------------------------------------
+
+1. Skopiuj CALY folder na dysk komputera docelowego
+   (np. na Pulpit lub do folderu Dokumenty)
+
+   Folder musi zawierac co najmniej:
+   - index.html
+   - manifest.json
+   - sw.js
+   - triage-server.exe
+   - folder icons/ (z plikami ikon)
+
+2. Uruchom plik triage-server.exe
+   - Moze pojawic sie ostrzezenie Windows Defender / zapory
+   - Kliknij "Wiecej informacji" > "Uruchom mimo to"
+   - Serwer lokalny dziala TYLKO na tym komputerze (localhost)
+
+3. Przegladarka otworzy sie automatycznie z aplikacja
+
+4. Zainstaluj jako aplikacje PWA:
+   - Chrome: kliknij ikone instalacji (monitor ze strzalka)
+     w prawej czesci paska adresu
+   - Edge: kliknij "..." > "Aplikacje" > "Zainstaluj te witryne
+     jako aplikacje"
+
+5. Po instalacji zamknij serwer (zamknij okno konsoli)
+   - Aplikacja dziala teraz samodzielnie bez serwera
+   - Znajdziesz ja w menu Start lub na Pulpicie
+
+---------------------------------------------
+  WAZNE INFORMACJE
+---------------------------------------------
+
+- Serwer jest potrzebny TYLKO RAZ - do pierwszej instalacji
+- Po instalacji aplikacja dziala w pelni offline
+- Dane pacjentow sa zapisywane automatycznie
+  i przetrwaja zamkniecie/restart aplikacji
+- Serwer dziala TYLKO lokalnie (localhost)
+  i nie jest dostepny z sieci
+
+---------------------------------------------
+  ROZWIAZYWANIE PROBLEMOW
+---------------------------------------------
+
+Problem: "Nie znaleziono index.html obok pliku .exe"
+Rozwiazanie: Upewnij sie, ze triage-server.exe jest
+  w tym samym folderze co index.html
+
+Problem: Przegladarka nie otwiera sie automatycznie
+Rozwiazanie: Otworz recznie Chrome/Edge i wpisz adres
+  wyswietlony w oknie serwera (np. http://localhost:8080)
+
+Problem: Windows blokuje uruchomienie .exe
+Rozwiazanie: Kliknij prawym > Wlasciwosci > na dole
+  zaznacz "Odblokuj" > OK, potem uruchom ponownie
+
+Problem: Port 8080 jest zajety
+Rozwiazanie: Serwer automatycznie znajdzie wolny port
+  i wyswietli go w oknie konsoli
+
+=============================================
+  Kontakt: jaqbek.eth@gmail.com
+=============================================
