@@ -1396,6 +1396,7 @@ function startEvent() {
   eventTime = now();
   document.getElementById('setup').classList.add('hidden');
   document.getElementById('btnDownload').classList.add('hidden');
+  document.getElementById('btnInfo').classList.add('hidden');
   document.getElementById('app').classList.remove('hidden');
   updateHeaderTime();
   setInterval(updateHeaderTime, 1000);
@@ -2012,6 +2013,7 @@ document.getElementById('selHospital').addEventListener('change', checkDispatchR
 function resumeEvent() {
   document.getElementById('setup').classList.add('hidden');
   document.getElementById('btnDownload').classList.add('hidden');
+  document.getElementById('btnInfo').classList.add('hidden');
   document.getElementById('app').classList.remove('hidden');
   updateHeaderTime();
   setInterval(updateHeaderTime, 1000);
