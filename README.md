@@ -162,6 +162,30 @@ triage/
 
 ---
 
+## Licencja
+
+Projekt udostępniony na licencji **GNU General Public License v3.0** z dodatkowym zastrzeżeniem:
+
+> **Komercyjna redystrybucja (sprzedaż) tej aplikacji jest zabroniona.**
+> TRIAGE MCI jest narzędziem ratowniczym i powinien pozostać darmowy.
+
+Możesz swobodnie: używać, kopiować, modyfikować i udostępniać tę aplikację, pod warunkiem że:
+- Zachowasz informację o autorze
+- Udostępnisz kod źródłowy zmian na tej samej licencji (GPLv3)
+- Nie będziesz sprzedawać aplikacji ani jej modyfikacji
+
+Pełna treść licencji: [LICENSE](LICENSE)
+
+---
+
+## Wesprzyj projekt
+
+Jeśli TRIAGE MCI jest pomocny w Twojej pracy, możesz postawić mi kawę:
+
+[☕ Buy me a coffee](https://buymeacoffee.com/jaqbek)
+
+---
+
 ## English
 
 ### What is TRIAGE MCI?
@@ -183,6 +207,12 @@ For devices without internet access, a portable Go server (`triage-server.exe`, 
 
 ### Tech stack
 Vanilla HTML/CSS/JS (no frameworks), Service Worker, Web App Manifest, localStorage, Go (portable HTTP server).
+
+### License
+GPLv3 with an additional non-commercial clause: **commercial redistribution (selling) of this application is prohibited.** TRIAGE MCI is a rescue tool and should remain free. See [LICENSE](LICENSE) for full terms.
+
+### Support
+If TRIAGE MCI is useful in your work: [☕ Buy me a coffee](https://buymeacoffee.com/jaqbek)
 
 ---
 

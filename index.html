@@ -537,12 +537,11 @@ body {
 
 .btn-start:active { transform: scale(0.97); }
 
-/* DOWNLOAD BUTTON */
-.btn-download {
+/* TOP CORNER BUTTONS */
+.btn-corner {
   position: fixed;
-  bottom: 24px;
-  right: 24px;
-  padding: 12px 22px;
+  top: 12px;
+  padding: 8px 16px;
   background: var(--surface);
   color: var(--text);
   border: 1px solid var(--border2);
@@ -558,8 +557,125 @@ body {
   box-shadow: 0 4px 20px rgba(0,0,0,0.5);
   transition: background 0.15s, border-color 0.15s;
 }
-.btn-download:hover { background: var(--border); border-color: var(--text3); }
-.btn-download:active { transform: scale(0.97); }
+.btn-corner:hover { background: var(--border); border-color: var(--text3); }
+.btn-corner:active { transform: scale(0.97); }
+
+.btn-download { right: 12px; }
+.btn-info { left: 12px; }
+
+/* INFO MODAL */
+.info-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  animation: modalIn 0.2s ease;
+}
+
+.info-overlay.hidden { display: none; }
+
+.info-box {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 14px;
+  max-width: 440px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 24px;
+}
+
+.info-box h2 {
+  font-size: 16px;
+  color: var(--white);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.info-section {
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.info-section:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.info-section h3 {
+  font-size: 11px;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
+}
+
+.info-section p, .info-section a {
+  font-size: 12px;
+  color: var(--text2);
+  line-height: 1.6;
+}
+
+.info-section a {
+  color: var(--yellow-light);
+  text-decoration: none;
+}
+
+.info-section a:hover {
+  text-decoration: underline;
+}
+
+.info-version {
+  font-size: 11px;
+  color: var(--text4);
+  margin-bottom: 16px;
+}
+
+.btn-coffee {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: #FFDD00;
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: var(--font);
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 0.15s;
+  margin-top: 6px;
+}
+
+.btn-coffee:hover { opacity: 0.85; }
+
+.btn-info-close {
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+  background: var(--border);
+  color: var(--text2);
+  border: 1px solid var(--border2);
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: var(--font);
+  cursor: pointer;
+}
+
+.btn-info-close:hover { background: var(--border2); }
 
 .empty { color: var(--text4); font-size: 12px; font-style: italic; }
 
@@ -990,8 +1106,52 @@ body {
   <div class="setup-footer">Zgłoszenia i propozycje ulepszeń: <a href="mailto:jaqbek.eth@gmail.com">jaqbek.eth@gmail.com</a></div>
 </div>
 
-<!-- DOWNLOAD BUTTON -->
-<button id="btnDownload" class="btn-download" onclick="downloadApp()">⬇ Pobierz</button>
+<!-- TOP CORNER BUTTONS -->
+<button id="btnInfo" class="btn-corner btn-info" onclick="openInfo()">ℹ Info</button>
+<button id="btnDownload" class="btn-corner btn-download" onclick="downloadApp()">⬇ Pobierz</button>
+
+<!-- INFO MODAL -->
+<div id="infoModal" class="info-overlay hidden" onclick="if(event.target===this)closeInfo()">
+  <div class="info-box">
+    <h2>TRIAGE MCI</h2>
+    <div class="info-version">v1.0.0</div>
+
+    <div class="info-section">
+      <h3>O aplikacji</h3>
+      <p>System segregacji i zarządzania zdarzeniem masowym (MCI) oparty na algorytmie START. Umożliwia klasyfikację pacjentów, zarządzanie transportem oraz generowanie raportów ze zdarzenia.</p>
+    </div>
+
+    <div class="info-section">
+      <h3>Prywatność danych</h3>
+      <p>Wszystkie dane są przechowywane wyłącznie na Twoim urządzeniu. Żadne informacje nie są wysyłane na zewnętrzne serwery. Aplikacja działa w pełni offline.</p>
+    </div>
+
+    <div class="info-section">
+      <h3>Zastrzeżenie medyczne</h3>
+      <p>Aplikacja jest narzędziem wspomagającym segregację poszkodowanych. Nie zastępuje wiedzy medycznej ani oceny klinicznej. Ostateczną decyzję podejmuje personel medyczny.</p>
+    </div>
+
+    <div class="info-section">
+      <h3>Licencja</h3>
+      <p>Aplikacja jest darmowa i udostępniona na licencji <strong>GPLv3</strong> z dodatkowym zastrzeżeniem: komercyjna redystrybucja (sprzedaż) jest zabroniona. TRIAGE MCI jest i zawsze powinien być darmowy.</p>
+    </div>
+
+    <div class="info-section">
+      <h3>Instalacja offline</h3>
+      <p>Aplikację można zainstalować na urządzeniu bez internetu za pomocą dołączonego serwera lokalnego. Szczegółowa instrukcja w pliku:</p>
+      <p><a href="INSTALACJA-OFFLINE.txt" target="_blank">INSTALACJA-OFFLINE.txt</a></p>
+    </div>
+
+    <div class="info-section">
+      <h3>Autor</h3>
+      <p>Kontakt: <a href="mailto:jaqbek.eth@gmail.com">jaqbek.eth@gmail.com</a></p>
+      <p style="margin-top:8px;">Jeśli aplikacja jest pomocna, możesz postawić mi kawę:</p>
+      <a href="https://buymeacoffee.com/jaqbek" target="_blank" rel="noopener" class="btn-coffee">☕ Buy me a coffee</a>
+    </div>
+
+    <button class="btn-info-close" onclick="closeInfo()">ZAMKNIJ</button>
+  </div>
+</div>
 
 <!-- MAIN APP -->
 <div id="app" class="hidden">
@@ -1205,15 +1365,20 @@ function downloadApp() {
   const doc = parser.parseFromString('<!DOCTYPE html><html>' + html + '</html>', 'text/html');
   const btn = doc.getElementById('btnDownload');
   if (btn) btn.remove();
+  const infoBtn = doc.getElementById('btnInfo');
+  if (infoBtn) infoBtn.remove();
+  const infoMod = doc.getElementById('infoModal');
+  if (infoMod) infoMod.remove();
   const dlFunc = doc.querySelector('script');
   if (dlFunc) {
     dlFunc.textContent = dlFunc.textContent
-      .replace(/\/\/ ===== DOWNLOAD =====[\s\S]*?(?=\/\/ ===== EVENT START =====)/, '');
+      .replace(/\/\/ ===== DOWNLOAD =====[\s\S]*?(?=\/\/ ===== EVENT START =====)/, '')
+      .replace(/\/\/ ===== INFO MODAL =====[\s\S]*?(?=\/\/ ===== HELPERS =====)/, '');
   }
   const styles = doc.querySelector('style');
   if (styles) {
     styles.textContent = styles.textContent
-      .replace(/\/\* DOWNLOAD BUTTON \*\/[\s\S]*?\.btn-download:active\s*\{[^}]*\}/, '');
+      .replace(/\/\* TOP CORNER BUTTONS \*\/[\s\S]*?\.btn-info-close:hover\s*\{[^}]*\}/, '');
   }
   const blob = new Blob(['<!DOCTYPE html>\n' + doc.documentElement.outerHTML], { type: 'text/html' });
   const a = document.createElement('a');
@@ -1820,7 +1985,16 @@ document.getElementById('reportModal').addEventListener('click', function(e) {
 });
 
 // Close modal on Escape
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeInfo(); } });
+
+// ===== INFO MODAL =====
+function openInfo() {
+  document.getElementById('infoModal').classList.remove('hidden');
+}
+
+function closeInfo() {
+  document.getElementById('infoModal').classList.add('hidden');
+}
 
 // ===== HELPERS =====
 function escHtml(s) {
