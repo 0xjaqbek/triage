@@ -1095,6 +1095,36 @@ let hospitals = [
   { id: 4, name: 'CU Szpital Powiatowy' },
 ];
 
+// ===== PERSISTENCE =====
+function saveState() {
+  try {
+    localStorage.setItem('triageAppState', JSON.stringify({
+      eventName, eventTime, nextId, patients, transports, teams, hospitals, currentView
+    }));
+  } catch(e) {}
+}
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem('triageAppState');
+    if (!raw) return false;
+    const s = JSON.parse(raw);
+    eventName = s.eventName || '';
+    eventTime = s.eventTime || '';
+    nextId = s.nextId || 1;
+    patients = s.patients || [];
+    transports = s.transports || [];
+    teams = s.teams || [];
+    hospitals = s.hospitals || [];
+    currentView = s.currentView || 'triage';
+    return true;
+  } catch(e) { return false; }
+}
+
+function clearState() {
+  localStorage.removeItem('triageAppState');
+}
+
 function now() {
   return new Date().toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
 }
@@ -1137,6 +1167,7 @@ function startEvent() {
   setInterval(updateHeaderTime, 1000);
   resetWizard();
   renderAll();
+  saveState();
 }
 
 function updateHeaderTime() {
@@ -1156,6 +1187,7 @@ function switchView(v) {
   });
   if (v === 'triage' && !wizResult) resetWizard();
   renderAll();
+  saveState();
 }
 
 // ===== START TRIAGE WIZARD =====
@@ -1307,28 +1339,33 @@ function addPatient(triage, notes, pathInfo) {
     notes: fullNotes, status: 'na_miejscu', teamId: null, hospitalId: null, dispatchTime: null
   });
   renderAll();
+  saveState();
 }
 
 function changeTriage(id, newT) {
   const p = patients.find(x => x.id === id);
   if (p) { p.triage = newT; p.time = now(); }
   renderAll();
+  saveState();
 }
 
 function updateNotes(id, val) {
   const p = patients.find(x => x.id === id);
   if (p) p.notes = val;
+  saveState();
 }
 
 function removePatient(id) {
   patients = patients.filter(x => x.id !== id);
   renderAll();
+  saveState();
 }
 
 function markDelivered(id) {
   const p = patients.find(x => x.id === id);
   if (p) p.status = 'dostarczony';
   renderAll();
+  saveState();
 }
 
 // ===== DISPATCH =====
@@ -1357,6 +1394,7 @@ function dispatchTransport() {
   document.getElementById('selTeam').value = '';
   document.getElementById('selHospital').value = '';
   renderAll();
+  saveState();
 }
 
 function checkDispatchReady() {
@@ -1373,11 +1411,13 @@ function addTeam() {
   teams.push({ id: Date.now(), name: input.value.trim() });
   input.value = '';
   renderAll();
+  saveState();
 }
 
 function removeTeam(id) {
   teams = teams.filter(x => x.id !== id);
   renderAll();
+  saveState();
 }
 
 function addHospital() {
@@ -1386,11 +1426,13 @@ function addHospital() {
   hospitals.push({ id: Date.now(), name: input.value.trim() });
   input.value = '';
   renderAll();
+  saveState();
 }
 
 function removeHospital(id) {
   hospitals = hospitals.filter(x => x.id !== id);
   renderAll();
+  saveState();
 }
 
 document.getElementById('newTeamInput').addEventListener('keydown', e => { if (e.key === 'Enter') addTeam(); });
@@ -1719,6 +1761,42 @@ function escHtml(s) {
 document.getElementById('selPatient').addEventListener('change', checkDispatchReady);
 document.getElementById('selTeam').addEventListener('change', checkDispatchReady);
 document.getElementById('selHospital').addEventListener('change', checkDispatchReady);
+
+// ===== RESUME / NEW EVENT =====
+function resumeEvent() {
+  document.getElementById('setup').classList.add('hidden');
+  document.getElementById('btnDownload').classList.add('hidden');
+  document.getElementById('app').classList.remove('hidden');
+  updateHeaderTime();
+  setInterval(updateHeaderTime, 1000);
+  switchView(currentView);
+  renderAll();
+}
+
+function freshEvent() {
+  if (!confirm('Czy na pewno chcesz rozpocząć nowe zdarzenie? Wszystkie zapisane dane zostaną usunięte.')) return;
+  clearState();
+  location.reload();
+}
+
+// ===== INIT =====
+(function init() {
+  if (loadState() && eventName) {
+    const setup = document.getElementById('setup');
+    const resumeDiv = document.createElement('div');
+    resumeDiv.innerHTML = `
+      <div style="margin-top:16px;padding:16px;background:var(--surface);border:1px solid var(--border2);border-radius:10px;">
+        <div style="color:var(--yellow-light);font-weight:700;margin-bottom:8px;">Wykryto zapisane zdarzenie</div>
+        <div style="color:var(--text2);font-size:12px;margin-bottom:12px;">${escHtml(eventName)} — rozpoczęte ${escHtml(eventTime)}</div>
+        <div style="display:flex;gap:8px;">
+          <button class="btn-start" onclick="resumeEvent()" style="flex:1;font-size:12px;padding:10px;">KONTYNUUJ</button>
+          <button class="btn-start" onclick="freshEvent()" style="flex:1;font-size:12px;padding:10px;background:var(--border);color:var(--text2);">NOWE ZDARZENIE</button>
+        </div>
+      </div>
+    `;
+    setup.appendChild(resumeDiv);
+  }
+})();
 
 // ===== SERVICE WORKER =====
 if ('serviceWorker' in navigator) {
