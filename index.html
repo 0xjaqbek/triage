@@ -906,9 +906,77 @@ body {
   font-weight: 600;
   font-family: var(--font);
 }
+
+/* iOS INSTALL BANNER */
+.ios-install-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--surface);
+  border-top: 1px solid var(--border2);
+  padding: 14px 16px;
+  z-index: 200;
+  animation: iosBannerIn 0.3s ease;
+}
+
+@keyframes iosBannerIn {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+.ios-install-banner.hidden { display: none; }
+
+.ios-banner-text {
+  color: var(--text);
+  font-size: 12px;
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+.ios-banner-steps {
+  color: var(--text2);
+  font-size: 11px;
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
+
+.ios-banner-dismiss {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.ios-banner-dismiss input[type="checkbox"] {
+  accent-color: var(--green);
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.ios-banner-dismiss label {
+  color: var(--text3);
+  font-size: 11px;
+  cursor: pointer;
+  user-select: none;
+}
 </style>
 </head>
 <body>
+
+<!-- iOS INSTALL BANNER -->
+<div id="iosInstallBanner" class="ios-install-banner hidden">
+  <div class="ios-banner-text">Zainstaluj aplikację na ekranie głównym:</div>
+  <div class="ios-banner-steps">
+    1. Tapnij <strong style="color:var(--text);font-size:15px;">⎙</strong> (Udostępnij)<br>
+    2. Przewiń w dół i wybierz <strong style="color:var(--text);">Dodaj do ekranu początkowego</strong>
+  </div>
+  <div class="ios-banner-dismiss">
+    <input type="checkbox" id="iosNeverShow" onchange="dismissIosBanner()">
+    <label for="iosNeverShow">Nie pokazuj ponownie</label>
+  </div>
+</div>
 
 <!-- EVENT SETUP -->
 <div id="setup" class="event-setup">
@@ -1798,6 +1866,23 @@ function freshEvent() {
       </div>
     `;
     setup.appendChild(resumeDiv);
+  }
+})();
+
+// ===== iOS INSTALL BANNER =====
+function dismissIosBanner() {
+  if (document.getElementById('iosNeverShow').checked) {
+    localStorage.setItem('iosInstallDismissed', '1');
+  }
+  document.getElementById('iosInstallBanner').classList.add('hidden');
+}
+
+(function showIosBanner() {
+  const isIos = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+  const isStandalone = window.navigator.standalone === true;
+  const dismissed = localStorage.getItem('iosInstallDismissed') === '1';
+  if (isIos && !isStandalone && !dismissed) {
+    document.getElementById('iosInstallBanner').classList.remove('hidden');
   }
 })();
 
