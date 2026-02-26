@@ -1023,8 +1023,8 @@ body {
   font-family: var(--font);
 }
 
-/* iOS INSTALL BANNER */
-.ios-install-banner {
+/* INSTALL BANNER (iOS + Android) */
+.install-banner {
   position: fixed;
   bottom: 0;
   left: 0;
@@ -1033,45 +1033,45 @@ body {
   border-top: 1px solid var(--border2);
   padding: 14px 16px;
   z-index: 200;
-  animation: iosBannerIn 0.3s ease;
+  animation: bannerIn 0.3s ease;
 }
 
-@keyframes iosBannerIn {
+@keyframes bannerIn {
   from { transform: translateY(100%); }
   to { transform: translateY(0); }
 }
 
-.ios-install-banner.hidden { display: none; }
+.install-banner.hidden { display: none; }
 
-.ios-banner-text {
+.install-banner-text {
   color: var(--text);
   font-size: 12px;
   line-height: 1.5;
   margin-bottom: 10px;
 }
 
-.ios-banner-steps {
+.install-banner-steps {
   color: var(--text2);
   font-size: 11px;
   margin-bottom: 10px;
   line-height: 1.6;
 }
 
-.ios-banner-dismiss {
+.install-banner-dismiss {
   display: flex;
   align-items: center;
   gap: 8px;
   cursor: pointer;
 }
 
-.ios-banner-dismiss input[type="checkbox"] {
+.install-banner-dismiss input[type="checkbox"] {
   accent-color: var(--green);
   width: 16px;
   height: 16px;
   cursor: pointer;
 }
 
-.ios-banner-dismiss label {
+.install-banner-dismiss label {
   color: var(--text3);
   font-size: 11px;
   cursor: pointer;
@@ -1082,15 +1082,28 @@ body {
 <body>
 
 <!-- iOS INSTALL BANNER -->
-<div id="iosInstallBanner" class="ios-install-banner hidden">
-  <div class="ios-banner-text">Zainstaluj aplikację na ekranie głównym:</div>
-  <div class="ios-banner-steps">
+<div id="iosInstallBanner" class="install-banner hidden">
+  <div class="install-banner-text">Zainstaluj aplikację na ekranie głównym:</div>
+  <div class="install-banner-steps">
     1. Tapnij <strong style="color:var(--text);font-size:15px;">⎙</strong> (Udostępnij)<br>
     2. Przewiń w dół i wybierz <strong style="color:var(--text);">Dodaj do ekranu początkowego</strong>
   </div>
-  <div class="ios-banner-dismiss">
-    <input type="checkbox" id="iosNeverShow" onchange="dismissIosBanner()">
+  <div class="install-banner-dismiss">
+    <input type="checkbox" id="iosNeverShow" onchange="dismissInstallBanner('ios')">
     <label for="iosNeverShow">Nie pokazuj ponownie</label>
+  </div>
+</div>
+
+<!-- Android INSTALL BANNER -->
+<div id="androidInstallBanner" class="install-banner hidden">
+  <div class="install-banner-text">Zainstaluj aplikację na ekranie głównym:</div>
+  <div class="install-banner-steps">
+    1. Tapnij <strong style="color:var(--text);">⋮</strong> (menu) w prawym górnym rogu Chrome<br>
+    2. Wybierz <strong style="color:var(--text);">Zainstaluj aplikację</strong> lub <strong style="color:var(--text);">Dodaj do ekranu głównego</strong>
+  </div>
+  <div class="install-banner-dismiss">
+    <input type="checkbox" id="androidNeverShow" onchange="dismissInstallBanner('android')">
+    <label for="androidNeverShow">Nie pokazuj ponownie</label>
   </div>
 </div>
 
@@ -2047,20 +2060,35 @@ function freshEvent() {
   }
 })();
 
-// ===== iOS INSTALL BANNER =====
-function dismissIosBanner() {
-  if (document.getElementById('iosNeverShow').checked) {
-    localStorage.setItem('iosInstallDismissed', '1');
+// ===== INSTALL BANNERS (iOS + Android) =====
+function dismissInstallBanner(platform) {
+  var checkboxId = platform === 'ios' ? 'iosNeverShow' : 'androidNeverShow';
+  var bannerId = platform === 'ios' ? 'iosInstallBanner' : 'androidInstallBanner';
+  if (document.getElementById(checkboxId).checked) {
+    localStorage.setItem(platform + 'InstallDismissed', '1');
   }
-  document.getElementById('iosInstallBanner').classList.add('hidden');
+  document.getElementById(bannerId).classList.add('hidden');
 }
 
-(function showIosBanner() {
-  const isIos = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-  const isStandalone = window.navigator.standalone === true;
-  const dismissed = localStorage.getItem('iosInstallDismissed') === '1';
-  if (isIos && !isStandalone && !dismissed) {
+(function showInstallBanners() {
+  var ua = navigator.userAgent;
+  var isIos = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
+  var isAndroid = /Android/.test(ua);
+  var isStandalone = window.navigator.standalone === true || window.matchMedia('(display-mode: standalone)').matches;
+
+  // Hide download button on mobile devices
+  if (isIos || isAndroid) {
+    var dl = document.getElementById('btnDownload');
+    if (dl) dl.classList.add('hidden');
+  }
+
+  if (isStandalone) return;
+
+  if (isIos && localStorage.getItem('iosInstallDismissed') !== '1') {
     document.getElementById('iosInstallBanner').classList.remove('hidden');
+  }
+  if (isAndroid && localStorage.getItem('androidInstallDismissed') !== '1') {
+    document.getElementById('androidInstallBanner').classList.remove('hidden');
   }
 })();
 
