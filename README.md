@@ -78,8 +78,9 @@ Wszystkie dane są przechowywane lokalnie w przeglądarce i przetrwają zamknię
 
 1. Otwórz aplikację w przeglądarce (Chrome / Edge / Safari)
 2. Zainstaluj jako PWA:
-   - **Chrome / Edge**: kliknij ikonę instalacji na pasku adresu
-   - **iOS Safari**: tapnij Udostępnij (⎙) → Dodaj do ekranu początkowego
+   - **Windows (Chrome / Edge)**: kliknij ikonę instalacji na pasku adresu
+   - **Android (Chrome)**: tapnij ⋮ (menu) → Dodaj do ekranu głównego → Zainstaluj
+   - **iOS (Safari)**: tapnij Udostępnij (⎙) → Dodaj do ekranu początkowego
 3. Aplikacja działa offline od razu po pierwszym uruchomieniu
 
 ### Offline — Windows
