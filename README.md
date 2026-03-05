@@ -185,7 +185,7 @@ Pełna treść licencji: [LICENSE](LICENSE)
 
 Jeśli TRIAGE MCI jest pomocny w Twojej pracy, możesz postawić mi kawę:
 
-[☕ Buy me a coffee](https://buymeacoffee.com/jaqbek)
+[☕ Buy me a coffee](https://buycoffee.to/jaqbek)
 
 ---
 
@@ -217,7 +217,7 @@ Vanilla HTML/CSS/JS (no frameworks), Service Worker, Web App Manifest, localStor
 GPLv3 with an additional non-commercial clause: **commercial redistribution (selling) of this application is prohibited.** TRIAGE MCI is a rescue tool and should remain free. See [LICENSE](LICENSE) for full terms.
 
 ### Support
-If TRIAGE MCI is useful in your work: [☕ Buy me a coffee](https://buymeacoffee.com/jaqbek)
+If TRIAGE MCI is useful in your work: [☕ Buy me a coffee](https://buycoffee.to/jaqbek)
 
 ---
 
