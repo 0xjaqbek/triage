@@ -1083,46 +1083,55 @@ body {
 
 <!-- iOS INSTALL BANNER -->
 <div id="iosInstallBanner" class="install-banner hidden">
-  <div class="install-banner-text">Zainstaluj aplikację na ekranie głównym:</div>
-  <div class="install-banner-steps">
+  <div class="install-banner-text" data-i18n="install_title">Zainstaluj aplikację na ekranie głównym:</div>
+  <div class="install-banner-steps" data-i18n-html="ios_steps">
     1. Tapnij <strong style="color:var(--text);font-size:15px;">⎙</strong> (Udostępnij)<br>
     2. Przewiń w dół i wybierz <strong style="color:var(--text);">Dodaj do ekranu początkowego</strong>
   </div>
   <div class="install-banner-dismiss">
     <input type="checkbox" id="iosNeverShow" onchange="dismissInstallBanner('ios')">
-    <label for="iosNeverShow">Nie pokazuj ponownie</label>
+    <label for="iosNeverShow" data-i18n="install_dismiss">Nie pokazuj ponownie</label>
   </div>
 </div>
 
 <!-- Android INSTALL BANNER -->
 <div id="androidInstallBanner" class="install-banner hidden">
-  <div class="install-banner-text">Zainstaluj aplikację na ekranie głównym:</div>
-  <div class="install-banner-steps">
+  <div class="install-banner-text" data-i18n="install_title">Zainstaluj aplikację na ekranie głównym:</div>
+  <div class="install-banner-steps" data-i18n-html="android_steps">
     1. Tapnij <strong style="color:var(--text);">⋮</strong> (menu) w prawym górnym rogu Chrome<br>
     2. Wybierz <strong style="color:var(--text);">Dodaj do ekranu głównego</strong><br>
     3. Tapnij <strong style="color:var(--text);">Zainstaluj</strong>
   </div>
   <div class="install-banner-dismiss">
     <input type="checkbox" id="androidNeverShow" onchange="dismissInstallBanner('android')">
-    <label for="androidNeverShow">Nie pokazuj ponownie</label>
+    <label for="androidNeverShow" data-i18n="install_dismiss">Nie pokazuj ponownie</label>
   </div>
 </div>
 
 <!-- EVENT SETUP -->
-<div id="setup" class="event-setup">
+<div id="setup" class="event-setup" style="position:relative;">
+  <select id="langSelect" onchange="setLanguage(this.value)" style="position:fixed;top:12px;left:50%;transform:translateX(-50%);padding:8px 12px;background:var(--surface);color:var(--text);border:1px solid var(--border2);border-radius:10px;font-size:13px;font-weight:700;font-family:var(--font);cursor:pointer;z-index:200;box-shadow:0 4px 20px rgba(0,0,0,0.5);">
+    <option value="pl">🇵🇱 PL</option>
+    <option value="en">🇬🇧 EN</option>
+    <option value="it">🇮🇹 IT</option>
+    <option value="fr">🇫🇷 FR</option>
+    <option value="de">🇩🇪 DE</option>
+    <option value="cs">🇨🇿 CS</option>
+    <option value="pt">🇵🇹 PT</option>
+  </select>
   <div class="logo-icon" style="width:44px;height:44px;font-size:22px;">✚</div>
   <div>
     <div class="event-title">TRIAGE MCI</div>
-    <div class="event-sub">System zarządzania zdarzeniem masowym</div>
+    <div class="event-sub" data-i18n="setup_subtitle">System zarządzania zdarzeniem masowym</div>
   </div>
-  <input id="eventNameInput" class="event-input" placeholder="Nazwa zdarzenia (np. Wypadek A4 km 312)">
-  <button class="btn-start" onclick="startEvent()">ROZPOCZNIJ TRIAGE</button>
-  <div class="setup-footer">Zgłoszenia i propozycje ulepszeń: <a href="mailto:jaqbek.eth@gmail.com">jaqbek.eth@gmail.com</a></div>
+  <input id="eventNameInput" class="event-input" placeholder="Nazwa zdarzenia (np. Wypadek A4 km 312)" data-i18n-placeholder="setup_placeholder">
+  <button class="btn-start" onclick="startEvent()" data-i18n="setup_start">ROZPOCZNIJ TRIAGE</button>
+  <div class="setup-footer"><span data-i18n="setup_footer">Zgłoszenia i propozycje ulepszeń:</span> <a href="mailto:jaqbek.eth@gmail.com">jaqbek.eth@gmail.com</a></div>
 </div>
 
 <!-- TOP CORNER BUTTONS -->
-<button id="btnInfo" class="btn-corner btn-info" onclick="openInfo()">ℹ Info</button>
-<button id="btnDownload" class="btn-corner btn-download" onclick="downloadApp()">⬇ Pobierz</button>
+<button id="btnInfo" class="btn-corner btn-info" onclick="openInfo()">ℹ <span data-i18n="btn_info">Info</span></button>
+<button id="btnDownload" class="btn-corner btn-download" onclick="downloadApp()">⬇ <span data-i18n="btn_download">Pobierz</span></button>
 
 <!-- INFO MODAL -->
 <div id="infoModal" class="info-overlay hidden" onclick="if(event.target===this)closeInfo()">
@@ -1131,41 +1140,41 @@ body {
     <div class="info-version">v1.0.0</div>
 
     <div class="info-section">
-      <h3>O aplikacji</h3>
-      <p>System segregacji i zarządzania zdarzeniem masowym (MCI) oparty na algorytmie START. Umożliwia klasyfikację pacjentów, zarządzanie transportem oraz generowanie raportów ze zdarzenia.</p>
+      <h3 data-i18n="info_about_title">O aplikacji</h3>
+      <p data-i18n="info_about_text">System segregacji i zarządzania zdarzeniem masowym (MCI) oparty na algorytmie START. Umożliwia klasyfikację pacjentów, zarządzanie transportem oraz generowanie raportów ze zdarzenia.</p>
     </div>
 
     <div class="info-section">
-      <h3>Prywatność danych</h3>
-      <p>Wszystkie dane są przechowywane wyłącznie na Twoim urządzeniu. Żadne informacje nie są wysyłane na zewnętrzne serwery. Aplikacja działa w pełni offline.</p>
+      <h3 data-i18n="info_privacy_title">Prywatność danych</h3>
+      <p data-i18n="info_privacy_text">Wszystkie dane są przechowywane wyłącznie na Twoim urządzeniu. Żadne informacje nie są wysyłane na zewnętrzne serwery. Aplikacja działa w pełni offline.</p>
     </div>
 
     <div class="info-section">
-      <h3>Zastrzeżenie medyczne</h3>
-      <p>Aplikacja jest narzędziem wspomagającym segregację poszkodowanych. Nie zastępuje wiedzy medycznej ani oceny klinicznej. Ostateczną decyzję podejmuje personel medyczny.</p>
+      <h3 data-i18n="info_medical_title">Zastrzeżenie medyczne</h3>
+      <p data-i18n="info_medical_text">Aplikacja jest narzędziem wspomagającym segregację poszkodowanych. Nie zastępuje wiedzy medycznej ani oceny klinicznej. Ostateczną decyzję podejmuje personel medyczny.</p>
     </div>
 
     <div class="info-section">
-      <h3>Licencja</h3>
-      <p>Aplikacja jest darmowa i udostępniona na licencji <strong>GPLv3</strong> z dodatkowym zastrzeżeniem: komercyjna redystrybucja (sprzedaż) jest zabroniona. TRIAGE MCI jest i zawsze powinien być darmowy.</p>
+      <h3 data-i18n="info_license_title">Licencja</h3>
+      <p data-i18n-html="info_license_text">Aplikacja jest darmowa i udostępniona na licencji <strong>GPLv3</strong> z dodatkowym zastrzeżeniem: komercyjna redystrybucja (sprzedaż) jest zabroniona. TRIAGE MCI jest i zawsze powinien być darmowy.</p>
     </div>
 
     <div class="info-section">
-      <h3>Instalacja offline</h3>
-      <p>Pobierz gotową paczkę ze wszystkimi plikami:</p>
-      <p><a href="https://github.com/0xjaqbek/triage/releases/latest" target="_blank" rel="noopener">Pobierz TRIAGE-MCI.zip</a></p>
-      <p style="margin-top:6px;">Rozpakuj, skopiuj na pendrive, uruchom triage-server.exe na docelowym komputerze. Szczegółowa instrukcja:</p>
+      <h3 data-i18n="info_offline_title">Instalacja offline</h3>
+      <p data-i18n="info_offline_text1">Pobierz gotową paczkę ze wszystkimi plikami:</p>
+      <p><a href="https://github.com/0xjaqbek/triage/releases/latest" target="_blank" rel="noopener" data-i18n="info_offline_link">Pobierz TRIAGE-MCI.zip</a></p>
+      <p style="margin-top:6px;" data-i18n="info_offline_text2">Rozpakuj, skopiuj na pendrive, uruchom triage-server.exe na docelowym komputerze.</p>
       <p><a href="INSTALACJA-OFFLINE.txt" target="_blank">INSTALACJA-OFFLINE.txt</a></p>
     </div>
 
     <div class="info-section">
-      <h3>Autor</h3>
+      <h3 data-i18n="info_author_title">Autor</h3>
       <p>Kontakt: <a href="mailto:jaqbek.eth@gmail.com">jaqbek.eth@gmail.com</a></p>
-      <p style="margin-top:8px;">Jeśli aplikacja jest pomocna, możesz postawić mi kawę:</p>
+      <p style="margin-top:8px;" data-i18n="info_author_coffee">Jeśli aplikacja jest pomocna, możesz postawić mi kawę:</p>
       <a href="https://buycoffee.to/jaqbek" target="_blank" rel="noopener" class="btn-coffee">☕ Buy me a coffee</a>
     </div>
 
-    <button class="btn-info-close" onclick="closeInfo()">ZAMKNIJ</button>
+    <button class="btn-info-close" onclick="closeInfo()" data-i18n="btn_close">ZAMKNIJ</button>
   </div>
 </div>
 
@@ -1178,9 +1187,9 @@ body {
       <div class="header-time" id="headerTime"></div>
       <div class="stats-bar" id="statsBar"></div>
       <div class="nav">
-        <button class="nav-btn active" data-view="triage" onclick="switchView('triage')">SEGREGACJA</button>
-        <button class="nav-btn" data-view="dispatch" onclick="switchView('dispatch')">DYSPONOWANIE</button>
-        <button class="nav-btn" data-view="report" onclick="switchView('report')">RAPORT</button>
+        <button class="nav-btn active" data-view="triage" onclick="switchView('triage')" data-i18n="nav_triage">SEGREGACJA</button>
+        <button class="nav-btn" data-view="dispatch" onclick="switchView('dispatch')" data-i18n="nav_dispatch">DYSPONOWANIE</button>
+        <button class="nav-btn" data-view="report" onclick="switchView('report')" data-i18n="nav_report">RAPORT</button>
       </div>
     </div>
   </div>
@@ -1189,7 +1198,7 @@ body {
     <!-- TRIAGE VIEW -->
     <div id="view-triage">
       <div class="section" id="triageWizard">
-        <div class="section-title">Segregacja START – nowy pacjent</div>
+        <div class="section-title" data-i18n="triage_section">Segregacja START – nowy pacjent</div>
         <div class="wizard-box" id="wizardBox">
           <!-- Steps rendered by JS -->
         </div>
@@ -1204,12 +1213,12 @@ body {
           </div>
         </div>
         <div style="margin-top:10px">
-          <input class="p-notes" id="resultNotes" placeholder="Dodatkowe notatki (obrażenia, mechanizm...)">
+          <input class="p-notes" id="resultNotes" placeholder="Dodatkowe notatki (obrażenia, mechanizm...)" data-i18n-placeholder="notes_placeholder">
         </div>
         <div class="result-actions">
-          <button class="btn-confirm" onclick="confirmPatient()">✓ ZATWIERDŹ PACJENTA</button>
-          <button class="btn-restart" onclick="resetWizard()">↺ OD NOWA</button>
-          <button class="btn-override" onclick="showOverride()">ZMIEŃ KOLOR RĘCZNIE</button>
+          <button class="btn-confirm" onclick="confirmPatient()" data-i18n="confirm_patient">✓ ZATWIERDŹ PACJENTA</button>
+          <button class="btn-restart" onclick="resetWizard()" data-i18n="restart_wizard">↺ OD NOWA</button>
+          <button class="btn-override" onclick="showOverride()" data-i18n="override_color">ZMIEŃ KOLOR RĘCZNIE</button>
         </div>
         <div class="override-row" id="overrideRow" style="display:none">
           <button class="triage-mini btn-T1" onclick="overrideColor('T1')">🔴 T1</button>
@@ -1232,51 +1241,51 @@ body {
     <!-- DISPATCH VIEW -->
     <div id="view-dispatch" class="hidden">
       <div class="section">
-        <div class="section-title">Zadysponuj transport</div>
+        <div class="section-title" data-i18n="dispatch_title">Zadysponuj transport</div>
         <div class="dispatch-form">
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label">Pacjent</label>
+              <label class="form-label" data-i18n="dispatch_patient">Pacjent</label>
               <select class="form-select" id="selPatient"><option value="">— wybierz pacjenta —</option></select>
             </div>
             <div class="form-group">
-              <label class="form-label">Zespół ZRM</label>
+              <label class="form-label" data-i18n="dispatch_team">Zespół ZRM</label>
               <select class="form-select" id="selTeam"><option value="">— wybierz zespół —</option></select>
             </div>
             <div class="form-group">
-              <label class="form-label">Szpital docelowy</label>
+              <label class="form-label" data-i18n="dispatch_hospital">Szpital docelowy</label>
               <select class="form-select" id="selHospital"><option value="">— wybierz szpital —</option></select>
             </div>
           </div>
-          <button class="btn-dispatch" id="btnDispatch" disabled onclick="dispatchTransport()">DYSPONUJ TRANSPORT</button>
+          <button class="btn-dispatch" id="btnDispatch" disabled onclick="dispatchTransport()" data-i18n="btn_dispatch">DYSPONUJ TRANSPORT</button>
         </div>
       </div>
 
       <div class="manage-row">
         <div class="manage-panel">
-          <div class="section-title">Zespoły ZRM</div>
+          <div class="section-title" data-i18n="teams_title">Zespoły ZRM</div>
           <div class="manage-box">
             <div id="teamsList"></div>
             <div class="add-row">
-              <input class="add-input" id="newTeamInput" placeholder="Nowy zespół...">
-              <button class="add-btn" onclick="addTeam()">+ Dodaj</button>
+              <input class="add-input" id="newTeamInput" placeholder="Nowy zespół..." data-i18n-placeholder="new_team_placeholder">
+              <button class="add-btn" onclick="addTeam()" data-i18n="btn_add">+ Dodaj</button>
             </div>
           </div>
         </div>
         <div class="manage-panel">
-          <div class="section-title">Szpitale</div>
+          <div class="section-title" data-i18n="hospitals_title">Szpitale</div>
           <div class="manage-box">
             <div id="hospitalsList"></div>
             <div class="add-row">
-              <input class="add-input" id="newHospitalInput" placeholder="Nowy szpital...">
-              <button class="add-btn" onclick="addHospital()">+ Dodaj</button>
+              <input class="add-input" id="newHospitalInput" placeholder="Nowy szpital..." data-i18n-placeholder="new_hospital_placeholder">
+              <button class="add-btn" onclick="addHospital()" data-i18n="btn_add">+ Dodaj</button>
             </div>
           </div>
         </div>
       </div>
 
       <div class="section" id="historySection" style="display:none;margin-top:20px">
-        <div class="section-title">Historia transportów</div>
+        <div class="section-title" data-i18n="history_title">Historia transportów</div>
         <div id="historyList"></div>
       </div>
     </div>
@@ -1284,8 +1293,8 @@ body {
     <!-- REPORT VIEW -->
     <div id="view-report" class="hidden">
       <div class="report-header-row">
-        <div class="section-title" style="margin-bottom:0">Raport dla dyspozytora</div>
-        <button class="btn-copy" onclick="copyReport()">📋 Raport tekstowy</button>
+        <div class="section-title" style="margin-bottom:0" data-i18n="report_title">Raport dla dyspozytora</div>
+        <button class="btn-copy" onclick="copyReport()" data-i18n="btn_report_text">📋 Raport tekstowy</button>
       </div>
       <div id="reportContent"></div>
     </div>
@@ -1296,26 +1305,892 @@ body {
 <div class="modal-overlay" id="reportModal">
   <div class="modal">
     <div class="modal-header">
-      <div class="modal-title">📋 Raport tekstowy</div>
+      <div class="modal-title" data-i18n="modal_report_title">📋 Raport tekstowy</div>
       <button class="modal-close" onclick="closeModal()">&times;</button>
     </div>
     <div class="modal-body">
       <div class="modal-report-text" id="modalReportText"></div>
     </div>
     <div class="modal-footer">
-      <button class="btn-modal-close" onclick="closeModal()">Zamknij</button>
+      <button class="btn-modal-close" onclick="closeModal()" data-i18n="modal_close">Zamknij</button>
       <button class="btn-modal-copy" id="btnModalCopy" onclick="copyFromModal()">📋 Kopiuj do schowka</button>
+
     </div>
   </div>
 </div>
 
 <script>
+// ===== I18N =====
+let currentLang = localStorage.getItem('triageLang') || 'pl';
+const LOCALE_MAP = {pl:'pl-PL',en:'en-US',it:'it-IT',fr:'fr-FR',de:'de-DE',cs:'cs-CZ',pt:'pt-PT'};
+
+const TRANSLATIONS = {
+  pl: {
+    setup_subtitle: 'System zarządzania zdarzeniem masowym',
+    setup_placeholder: 'Nazwa zdarzenia (np. Wypadek A4 km 312)',
+    setup_start: 'ROZPOCZNIJ TRIAGE',
+    setup_footer: 'Zgłoszenia i propozycje ulepszeń:',
+    nav_triage: 'SEGREGACJA',
+    nav_dispatch: 'DYSPONOWANIE',
+    nav_report: 'RAPORT',
+    btn_info: 'Info',
+    btn_download: 'Pobierz',
+    btn_close: 'ZAMKNIJ',
+    btn_add: '+ Dodaj',
+    btn_yes: 'TAK',
+    btn_no: 'NIE',
+    install_title: 'Zainstaluj aplikację na ekranie głównym:',
+    ios_steps: '1. Tapnij <strong style="color:var(--text);font-size:15px;">⎙</strong> (Udostępnij)<br>2. Przewiń w dół i wybierz <strong style="color:var(--text);">Dodaj do ekranu początkowego</strong>',
+    android_steps: '1. Tapnij <strong style="color:var(--text);">⋮</strong> (menu) w prawym górnym rogu Chrome<br>2. Wybierz <strong style="color:var(--text);">Dodaj do ekranu głównego</strong><br>3. Tapnij <strong style="color:var(--text);">Zainstaluj</strong>',
+    install_dismiss: 'Nie pokazuj ponownie',
+    info_about_title: 'O aplikacji',
+    info_about_text: 'System segregacji i zarządzania zdarzeniem masowym (MCI) oparty na algorytmie START. Umożliwia klasyfikację pacjentów, zarządzanie transportem oraz generowanie raportów ze zdarzenia.',
+    info_privacy_title: 'Prywatność danych',
+    info_privacy_text: 'Wszystkie dane są przechowywane wyłącznie na Twoim urządzeniu. Żadne informacje nie są wysyłane na zewnętrzne serwery. Aplikacja działa w pełni offline.',
+    info_medical_title: 'Zastrzeżenie medyczne',
+    info_medical_text: 'Aplikacja jest narzędziem wspomagającym segregację poszkodowanych. Nie zastępuje wiedzy medycznej ani oceny klinicznej. Ostateczną decyzję podejmuje personel medyczny.',
+    info_license_title: 'Licencja',
+    info_license_text: 'Aplikacja jest darmowa i udostępniona na licencji <strong>GPLv3</strong> z dodatkowym zastrzeżeniem: komercyjna redystrybucja (sprzedaż) jest zabroniona. TRIAGE MCI jest i zawsze powinien być darmowy.',
+    info_offline_title: 'Instalacja offline',
+    info_offline_text1: 'Pobierz gotową paczkę ze wszystkimi plikami:',
+    info_offline_link: 'Pobierz TRIAGE-MCI.zip',
+    info_offline_text2: 'Rozpakuj, skopiuj na pendrive, uruchom triage-server.exe na docelowym komputerze.',
+    info_author_title: 'Autor',
+    info_author_coffee: 'Jeśli aplikacja jest pomocna, możesz postawić mi kawę:',
+    t1_label: 'T1 – Czerwony',
+    t1_text: 'Natychmiastowy',
+    t2_label: 'T2 – Żółty',
+    t2_text: 'Pilny',
+    t3_label: 'T3 – Zielony',
+    t3_text: 'Odroczony',
+    t4_label: 'T4 – Czarny',
+    t4_text: 'Zgon / Expectant',
+    triage_section: 'Segregacja START – nowy pacjent',
+    wizard_step: 'Krok {n} z {total}',
+    walk_q: 'Czy pacjent chodzi?',
+    walk_h: 'Pacjent jest w stanie wstać i przemieszczać się samodzielnie',
+    walk_yes_r: 'Chodzi → T3 Zielony',
+    breathing_q: 'Czy oddycha spontanicznie?',
+    breathing_h: 'Oceń czy klatka piersiowa unosi się, posłuchaj, poczuj wydech',
+    airway_q: 'Udrożnij drogi oddechowe.\nCzy oddycha po udrożnieniu?',
+    airway_h: 'Odchyl głowę, unieś żuchwę — oceń ponownie oddech',
+    airway_yes_r: 'Brak oddechu → po udrożnieniu oddycha → T1 Czerwony',
+    airway_no_r: 'Brak oddechu po udrożnieniu dróg oddechowych → T4 Czarny',
+    rr_q: 'Częstość oddechów > 30/min?',
+    rr_h: 'Policz oddechy przez 15 sekund × 4 lub oceń orientacyjnie',
+    rr_yes_r: 'Oddycha > 30/min → T1 Czerwony',
+    cap_q: 'Nawrót kapilarny > 2 sek.\nlub brak tętna na tt. promieniowej?',
+    cap_h: 'Uciśnij paznokieć na 5 sek. — oceń powrót zabarwienia. Sprawdź tętno.',
+    cap_yes_r: 'Nawrót kapilarny > 2s / brak tętna → T1 Czerwony',
+    mental_q: 'Czy spełnia proste polecenia?',
+    mental_h: '„Pokaż 2 palce", „Zamknij oczy", „Ściśnij moją rękę"',
+    mental_yes_r: 'Oddycha prawidłowo, krąży, przytomny → T2 Żółty',
+    mental_no_r: 'Nie spełnia poleceń → T1 Czerwony',
+    confirm_patient: '✓ ZATWIERDŹ PACJENTA',
+    restart_wizard: '↺ OD NOWA',
+    override_color: 'ZMIEŃ KOLOR RĘCZNIE',
+    notes_placeholder: 'Dodatkowe notatki (obrażenia, mechanizm...)',
+    notes_placeholder2: 'Notatki (obrażenia, mechanizm...)',
+    patients_onsite: 'Pacjenci na miejscu',
+    patients_empty: 'Brak zarejestrowanych pacjentów',
+    change_to: 'Zmień na',
+    btn_remove: 'Usuń',
+    in_transport: 'W transporcie',
+    btn_delivered: 'Dostarczony',
+    dispatch_title: 'Zadysponuj transport',
+    dispatch_patient: 'Pacjent',
+    dispatch_team: 'Zespół ZRM',
+    dispatch_hospital: 'Szpital docelowy',
+    select_patient: '— wybierz pacjenta —',
+    select_team: '— wybierz zespół —',
+    select_hospital: '— wybierz szpital —',
+    btn_dispatch: 'DYSPONUJ TRANSPORT',
+    teams_title: 'Zespoły ZRM',
+    hospitals_title: 'Szpitale',
+    new_team_placeholder: 'Nowy zespół...',
+    new_hospital_placeholder: 'Nowy szpital...',
+    history_title: 'Historia transportów',
+    report_title: 'Raport dla dyspozytora',
+    btn_report_text: '📋 Raport tekstowy',
+    report_total: 'Razem:',
+    report_unknown: 'Nieznany',
+    report_patients: 'pac.',
+    report_team_label: 'ZRM:',
+    report_departure: 'Wyjazd:',
+    status_delivered: 'DOSTARCZONY',
+    status_in_transport: 'W TRANSPORCIE',
+    report_no_transports: 'Brak zadysponowanych transportów',
+    report_onsite_title: 'Pozostali na miejscu zdarzenia',
+    rpt_header: '=== RAPORT TRIAGE ===',
+    rpt_event: 'Zdarzenie:',
+    rpt_start: 'Rozpoczęcie:',
+    rpt_report: 'Raport:',
+    rpt_summary: '--- PODSUMOWANIE ---',
+    rpt_total_patients: 'Łącznie pacjentów:',
+    rpt_transport_header: '--- TRANSPORT DO SZPITALI ---',
+    rpt_no_dispatched: 'Brak zadysponowanych transportów',
+    rpt_onsite_header: '--- POZOSTALI NA MIEJSCU',
+    modal_report_title: '📋 Raport tekstowy',
+    modal_close: 'Zamknij',
+    modal_copy: 'Kopiuj do schowka',
+    modal_copied: 'Skopiowano do schowka!',
+    confirm_remove_patient: 'Czy na pewno chcesz usunąć tego pacjenta?',
+    confirm_remove_team: 'Czy na pewno chcesz usunąć ten zespół?',
+    confirm_remove_hospital: 'Czy na pewno chcesz usunąć ten szpital?',
+    confirm_new_event: 'Czy na pewno chcesz rozpocząć nowe zdarzenie? Wszystkie zapisane dane zostaną usunięte.',
+    resume_detected: 'Wykryto zapisane zdarzenie',
+    resume_started: 'rozpoczęte',
+    resume_continue: 'KONTYNUUJ',
+    resume_new: 'NOWE ZDARZENIE',
+    default_teams: ['S-01 (specjalistyczny)','S-02 (specjalistyczny)','P-01 (podstawowy)','P-02 (podstawowy)','P-03 (podstawowy)','LPR (śmigłowiec)'],
+    default_hospitals: ['SOR Szpital Wojewódzki','SOR Szpital Miejski','SOR Szpital Kliniczny','CU Szpital Powiatowy'],
+  },
+  en: {
+    setup_subtitle: 'Mass Casualty Incident Management System',
+    setup_placeholder: 'Event name (e.g. Highway A4 crash km 312)',
+    setup_start: 'START TRIAGE',
+    setup_footer: 'Reports and suggestions:',
+    nav_triage: 'TRIAGE',
+    nav_dispatch: 'DISPATCH',
+    nav_report: 'REPORT',
+    btn_info: 'Info',
+    btn_download: 'Download',
+    btn_close: 'CLOSE',
+    btn_add: '+ Add',
+    btn_yes: 'YES',
+    btn_no: 'NO',
+    install_title: 'Install app on home screen:',
+    ios_steps: '1. Tap <strong style="color:var(--text);font-size:15px;">⎙</strong> (Share)<br>2. Scroll down and select <strong style="color:var(--text);">Add to Home Screen</strong>',
+    android_steps: '1. Tap <strong style="color:var(--text);">⋮</strong> (menu) in the top right corner of Chrome<br>2. Select <strong style="color:var(--text);">Add to Home screen</strong><br>3. Tap <strong style="color:var(--text);">Install</strong>',
+    install_dismiss: 'Do not show again',
+    info_about_title: 'About',
+    info_about_text: 'Mass Casualty Incident (MCI) triage and management system based on the START algorithm. Allows patient classification, transport management, and incident report generation.',
+    info_privacy_title: 'Data Privacy',
+    info_privacy_text: 'All data is stored exclusively on your device. No information is sent to external servers. The app works fully offline.',
+    info_medical_title: 'Medical Disclaimer',
+    info_medical_text: 'This app is a support tool for casualty triage. It does not replace medical knowledge or clinical assessment. Final decisions are made by medical personnel.',
+    info_license_title: 'License',
+    info_license_text: 'The app is free and released under the <strong>GPLv3</strong> license with an additional restriction: commercial redistribution (resale) is prohibited. TRIAGE MCI is and should always be free.',
+    info_offline_title: 'Offline Installation',
+    info_offline_text1: 'Download the ready-made package with all files:',
+    info_offline_link: 'Download TRIAGE-MCI.zip',
+    info_offline_text2: 'Unzip, copy to a USB drive, run triage-server.exe on the target computer.',
+    info_author_title: 'Author',
+    info_author_coffee: 'If you find this app helpful, you can buy me a coffee:',
+    t1_label: 'T1 – Red',
+    t1_text: 'Immediate',
+    t2_label: 'T2 – Yellow',
+    t2_text: 'Delayed',
+    t3_label: 'T3 – Green',
+    t3_text: 'Minor',
+    t4_label: 'T4 – Black',
+    t4_text: 'Deceased',
+    triage_section: 'START Triage – new patient',
+    wizard_step: 'Step {n} of {total}',
+    walk_q: 'Can the patient walk?',
+    walk_h: 'The patient is able to stand up and move independently',
+    walk_yes_r: 'Walks → T3 Green',
+    breathing_q: 'Is the patient breathing spontaneously?',
+    breathing_h: 'Check if the chest rises, listen, feel for exhaled air',
+    airway_q: 'Open the airway.\nIs the patient breathing after opening?',
+    airway_h: 'Tilt the head, lift the jaw — reassess breathing',
+    airway_yes_r: 'Not breathing → breathes after airway opened → T1 Red',
+    airway_no_r: 'No breathing after airway opening → T4 Black',
+    rr_q: 'Respiratory rate > 30/min?',
+    rr_h: 'Count breaths for 15 seconds × 4 or estimate',
+    rr_yes_r: 'Breathing > 30/min → T1 Red',
+    cap_q: 'Capillary refill > 2 sec\nor absent radial pulse?',
+    cap_h: 'Press the nail bed for 5 sec — assess colour return. Check pulse.',
+    cap_yes_r: 'Capillary refill > 2s / no pulse → T1 Red',
+    mental_q: 'Does the patient follow simple commands?',
+    mental_h: '"Show 2 fingers", "Close your eyes", "Squeeze my hand"',
+    mental_yes_r: 'Breathing normal, circulation OK, conscious → T2 Yellow',
+    mental_no_r: 'Does not follow commands → T1 Red',
+    confirm_patient: '✓ CONFIRM PATIENT',
+    restart_wizard: '↺ RESTART',
+    override_color: 'OVERRIDE COLOUR',
+    notes_placeholder: 'Additional notes (injuries, mechanism...)',
+    notes_placeholder2: 'Notes (injuries, mechanism...)',
+    patients_onsite: 'Patients on scene',
+    patients_empty: 'No registered patients',
+    change_to: 'Change to',
+    btn_remove: 'Remove',
+    in_transport: 'In transport',
+    btn_delivered: 'Delivered',
+    dispatch_title: 'Dispatch transport',
+    dispatch_patient: 'Patient',
+    dispatch_team: 'EMS Team',
+    dispatch_hospital: 'Destination hospital',
+    select_patient: '— select patient —',
+    select_team: '— select team —',
+    select_hospital: '— select hospital —',
+    btn_dispatch: 'DISPATCH TRANSPORT',
+    teams_title: 'EMS Teams',
+    hospitals_title: 'Hospitals',
+    new_team_placeholder: 'New team...',
+    new_hospital_placeholder: 'New hospital...',
+    history_title: 'Transport history',
+    report_title: 'Report for dispatcher',
+    btn_report_text: '📋 Text report',
+    report_total: 'Total:',
+    report_unknown: 'Unknown',
+    report_patients: 'pts.',
+    report_team_label: 'EMS:',
+    report_departure: 'Departure:',
+    status_delivered: 'DELIVERED',
+    status_in_transport: 'IN TRANSPORT',
+    report_no_transports: 'No dispatched transports',
+    report_onsite_title: 'Remaining on scene',
+    rpt_header: '=== TRIAGE REPORT ===',
+    rpt_event: 'Event:',
+    rpt_start: 'Start:',
+    rpt_report: 'Report:',
+    rpt_summary: '--- SUMMARY ---',
+    rpt_total_patients: 'Total patients:',
+    rpt_transport_header: '--- HOSPITAL TRANSPORTS ---',
+    rpt_no_dispatched: 'No dispatched transports',
+    rpt_onsite_header: '--- REMAINING ON SCENE',
+    modal_report_title: '📋 Text report',
+    modal_close: 'Close',
+    modal_copy: 'Copy to clipboard',
+    modal_copied: 'Copied to clipboard!',
+    confirm_remove_patient: 'Are you sure you want to remove this patient?',
+    confirm_remove_team: 'Are you sure you want to remove this team?',
+    confirm_remove_hospital: 'Are you sure you want to remove this hospital?',
+    confirm_new_event: 'Are you sure you want to start a new event? All saved data will be deleted.',
+    resume_detected: 'Saved event detected',
+    resume_started: 'started',
+    resume_continue: 'CONTINUE',
+    resume_new: 'NEW EVENT',
+    default_teams: ['ALS-01 (Advanced)','ALS-02 (Advanced)','BLS-01 (Basic)','BLS-02 (Basic)','BLS-03 (Basic)','HEMS (Helicopter)'],
+    default_hospitals: ['ER Regional Hospital','ER City Hospital','ER University Hospital','UC County Hospital'],
+  },
+  it: {
+    setup_subtitle: 'Sistema di gestione degli incidenti con vittime multiple',
+    setup_placeholder: 'Nome evento (es. Incidente A4 km 312)',
+    setup_start: 'AVVIA TRIAGE',
+    setup_footer: 'Segnalazioni e suggerimenti:',
+    nav_triage: 'TRIAGE',
+    nav_dispatch: 'INVIO',
+    nav_report: 'RAPPORTO',
+    btn_info: 'Info',
+    btn_download: 'Scarica',
+    btn_close: 'CHIUDI',
+    btn_add: '+ Aggiungi',
+    btn_yes: 'SÌ',
+    btn_no: 'NO',
+    install_title: 'Installa l\'app sulla schermata principale:',
+    ios_steps: '1. Tocca <strong style="color:var(--text);font-size:15px;">⎙</strong> (Condividi)<br>2. Scorri verso il basso e seleziona <strong style="color:var(--text);">Aggiungi alla schermata Home</strong>',
+    android_steps: '1. Tocca <strong style="color:var(--text);">⋮</strong> (menu) nell\'angolo in alto a destra di Chrome<br>2. Seleziona <strong style="color:var(--text);">Aggiungi alla schermata Home</strong><br>3. Tocca <strong style="color:var(--text);">Installa</strong>',
+    install_dismiss: 'Non mostrare più',
+    info_about_title: 'Informazioni',
+    info_about_text: 'Sistema di triage e gestione degli incidenti con vittime multiple (MCI) basato sull\'algoritmo START. Permette la classificazione dei pazienti, la gestione dei trasporti e la generazione dei rapporti.',
+    info_privacy_title: 'Privacy dei dati',
+    info_privacy_text: 'Tutti i dati sono conservati esclusivamente sul tuo dispositivo. Nessuna informazione viene inviata a server esterni. L\'app funziona completamente offline.',
+    info_medical_title: 'Avvertenza medica',
+    info_medical_text: 'L\'app è uno strumento di supporto per il triage delle vittime. Non sostituisce la conoscenza medica né la valutazione clinica. La decisione finale spetta al personale medico.',
+    info_license_title: 'Licenza',
+    info_license_text: 'L\'app è gratuita e rilasciata con licenza <strong>GPLv3</strong> con una restrizione aggiuntiva: la ridistribuzione commerciale (vendita) è vietata. TRIAGE MCI è e dovrà sempre essere gratuito.',
+    info_offline_title: 'Installazione offline',
+    info_offline_text1: 'Scarica il pacchetto completo con tutti i file:',
+    info_offline_link: 'Scarica TRIAGE-MCI.zip',
+    info_offline_text2: 'Decomprimi, copia su chiavetta USB, esegui triage-server.exe sul computer di destinazione.',
+    info_author_title: 'Autore',
+    info_author_coffee: 'Se l\'app ti è utile, puoi offrirmi un caffè:',
+    t1_label: 'T1 – Rosso',
+    t1_text: 'Immediato',
+    t2_label: 'T2 – Giallo',
+    t2_text: 'Differibile',
+    t3_label: 'T3 – Verde',
+    t3_text: 'Minore',
+    t4_label: 'T4 – Nero',
+    t4_text: 'Deceduto',
+    triage_section: 'Triage START – nuovo paziente',
+    wizard_step: 'Passo {n} di {total}',
+    walk_q: 'Il paziente cammina?',
+    walk_h: 'Il paziente è in grado di alzarsi e muoversi autonomamente',
+    walk_yes_r: 'Cammina → T3 Verde',
+    breathing_q: 'Il paziente respira spontaneamente?',
+    breathing_h: 'Verifica se il torace si alza, ascolta, senti l\'espirazione',
+    airway_q: 'Apri le vie aeree.\nRespira dopo l\'apertura?',
+    airway_h: 'Inclina la testa, solleva la mandibola — rivaluta il respiro',
+    airway_yes_r: 'Non respira → respira dopo apertura vie aeree → T1 Rosso',
+    airway_no_r: 'Non respira dopo apertura vie aeree → T4 Nero',
+    rr_q: 'Frequenza respiratoria > 30/min?',
+    rr_h: 'Conta i respiri per 15 secondi × 4 o stima approssimativamente',
+    rr_yes_r: 'Respira > 30/min → T1 Rosso',
+    cap_q: 'Refill capillare > 2 sec\no assenza di polso radiale?',
+    cap_h: 'Premi l\'unghia per 5 sec — valuta il ritorno del colore. Controlla il polso.',
+    cap_yes_r: 'Refill capillare > 2s / assenza polso → T1 Rosso',
+    mental_q: 'Esegue comandi semplici?',
+    mental_h: '"Mostra 2 dita", "Chiudi gli occhi", "Stringi la mia mano"',
+    mental_yes_r: 'Respira normalmente, circolo OK, cosciente → T2 Giallo',
+    mental_no_r: 'Non esegue comandi → T1 Rosso',
+    confirm_patient: '✓ CONFERMA PAZIENTE',
+    restart_wizard: '↺ RICOMINCIA',
+    override_color: 'CAMBIA COLORE MANUALMENTE',
+    notes_placeholder: 'Note aggiuntive (lesioni, meccanismo...)',
+    notes_placeholder2: 'Note (lesioni, meccanismo...)',
+    patients_onsite: 'Pazienti sul posto',
+    patients_empty: 'Nessun paziente registrato',
+    change_to: 'Cambia in',
+    btn_remove: 'Rimuovi',
+    in_transport: 'In trasporto',
+    btn_delivered: 'Consegnato',
+    dispatch_title: 'Invia trasporto',
+    dispatch_patient: 'Paziente',
+    dispatch_team: 'Squadra EMS',
+    dispatch_hospital: 'Ospedale di destinazione',
+    select_patient: '— seleziona paziente —',
+    select_team: '— seleziona squadra —',
+    select_hospital: '— seleziona ospedale —',
+    btn_dispatch: 'INVIA TRASPORTO',
+    teams_title: 'Squadre EMS',
+    hospitals_title: 'Ospedali',
+    new_team_placeholder: 'Nuova squadra...',
+    new_hospital_placeholder: 'Nuovo ospedale...',
+    history_title: 'Storico trasporti',
+    report_title: 'Rapporto per il dispatcher',
+    btn_report_text: '📋 Rapporto testuale',
+    report_total: 'Totale:',
+    report_unknown: 'Sconosciuto',
+    report_patients: 'paz.',
+    report_team_label: 'EMS:',
+    report_departure: 'Partenza:',
+    status_delivered: 'CONSEGNATO',
+    status_in_transport: 'IN TRASPORTO',
+    report_no_transports: 'Nessun trasporto inviato',
+    report_onsite_title: 'Rimanenti sul posto',
+    rpt_header: '=== RAPPORTO TRIAGE ===',
+    rpt_event: 'Evento:',
+    rpt_start: 'Inizio:',
+    rpt_report: 'Rapporto:',
+    rpt_summary: '--- RIEPILOGO ---',
+    rpt_total_patients: 'Pazienti totali:',
+    rpt_transport_header: '--- TRASPORTI VERSO OSPEDALI ---',
+    rpt_no_dispatched: 'Nessun trasporto inviato',
+    rpt_onsite_header: '--- RIMANENTI SUL POSTO',
+    modal_report_title: '📋 Rapporto testuale',
+    modal_close: 'Chiudi',
+    modal_copy: 'Copia negli appunti',
+    modal_copied: 'Copiato negli appunti!',
+    confirm_remove_patient: 'Sei sicuro di voler rimuovere questo paziente?',
+    confirm_remove_team: 'Sei sicuro di voler rimuovere questa squadra?',
+    confirm_remove_hospital: 'Sei sicuro di voler rimuovere questo ospedale?',
+    confirm_new_event: 'Sei sicuro di voler iniziare un nuovo evento? Tutti i dati salvati verranno eliminati.',
+    resume_detected: 'Evento salvato rilevato',
+    resume_started: 'iniziato',
+    resume_continue: 'CONTINUA',
+    resume_new: 'NUOVO EVENTO',
+    default_teams: ['MSA-01 (avanzato)','MSA-02 (avanzato)','MSB-01 (base)','MSB-02 (base)','MSB-03 (base)','HEMS (elicottero)'],
+    default_hospitals: ['PS Ospedale Regionale','PS Ospedale Civile','PS Ospedale Universitario','PS Ospedale di Zona'],
+  },
+  fr: {
+    setup_subtitle: 'Système de gestion d\'incident à victimes multiples',
+    setup_placeholder: 'Nom de l\'événement (ex. Accident A4 km 312)',
+    setup_start: 'DÉMARRER LE TRIAGE',
+    setup_footer: 'Signalements et suggestions :',
+    nav_triage: 'TRIAGE',
+    nav_dispatch: 'ENVOI',
+    nav_report: 'RAPPORT',
+    btn_info: 'Info',
+    btn_download: 'Télécharger',
+    btn_close: 'FERMER',
+    btn_add: '+ Ajouter',
+    btn_yes: 'OUI',
+    btn_no: 'NON',
+    install_title: 'Installer l\'app sur l\'écran d\'accueil :',
+    ios_steps: '1. Appuyez sur <strong style="color:var(--text);font-size:15px;">⎙</strong> (Partager)<br>2. Faites défiler et sélectionnez <strong style="color:var(--text);">Sur l\'écran d\'accueil</strong>',
+    android_steps: '1. Appuyez sur <strong style="color:var(--text);">⋮</strong> (menu) en haut à droite de Chrome<br>2. Sélectionnez <strong style="color:var(--text);">Ajouter à l\'écran d\'accueil</strong><br>3. Appuyez sur <strong style="color:var(--text);">Installer</strong>',
+    install_dismiss: 'Ne plus afficher',
+    info_about_title: 'À propos',
+    info_about_text: 'Système de triage et de gestion des incidents à victimes multiples (IMV) basé sur l\'algorithme START. Permet la classification des patients, la gestion des transports et la génération de rapports.',
+    info_privacy_title: 'Confidentialité des données',
+    info_privacy_text: 'Toutes les données sont stockées exclusivement sur votre appareil. Aucune information n\'est envoyée à des serveurs externes. L\'application fonctionne entièrement hors ligne.',
+    info_medical_title: 'Avertissement médical',
+    info_medical_text: 'L\'application est un outil d\'aide au triage des victimes. Elle ne remplace pas les connaissances médicales ni l\'évaluation clinique. La décision finale appartient au personnel médical.',
+    info_license_title: 'Licence',
+    info_license_text: 'L\'application est gratuite et publiée sous licence <strong>GPLv3</strong> avec une restriction supplémentaire : la redistribution commerciale (revente) est interdite. TRIAGE MCI est et doit toujours rester gratuit.',
+    info_offline_title: 'Installation hors ligne',
+    info_offline_text1: 'Téléchargez le package complet avec tous les fichiers :',
+    info_offline_link: 'Télécharger TRIAGE-MCI.zip',
+    info_offline_text2: 'Décompressez, copiez sur une clé USB, lancez triage-server.exe sur l\'ordinateur cible.',
+    info_author_title: 'Auteur',
+    info_author_coffee: 'Si l\'application vous est utile, vous pouvez m\'offrir un café :',
+    t1_label: 'T1 – Rouge',
+    t1_text: 'Immédiat',
+    t2_label: 'T2 – Jaune',
+    t2_text: 'Différé',
+    t3_label: 'T3 – Vert',
+    t3_text: 'Mineur',
+    t4_label: 'T4 – Noir',
+    t4_text: 'Décédé',
+    triage_section: 'Triage START – nouveau patient',
+    wizard_step: 'Étape {n} sur {total}',
+    walk_q: 'Le patient marche-t-il ?',
+    walk_h: 'Le patient est capable de se lever et de se déplacer seul',
+    walk_yes_r: 'Marche → T3 Vert',
+    breathing_q: 'Le patient respire-t-il spontanément ?',
+    breathing_h: 'Vérifiez si le thorax se soulève, écoutez, sentez l\'expiration',
+    airway_q: 'Libérez les voies aériennes.\nRespire-t-il après la libération ?',
+    airway_h: 'Inclinez la tête, soulevez le menton — réévaluez la respiration',
+    airway_yes_r: 'Ne respire pas → respire après libération → T1 Rouge',
+    airway_no_r: 'Ne respire pas après libération des voies aériennes → T4 Noir',
+    rr_q: 'Fréquence respiratoire > 30/min ?',
+    rr_h: 'Comptez les respirations pendant 15 secondes × 4 ou estimez',
+    rr_yes_r: 'Respire > 30/min → T1 Rouge',
+    cap_q: 'Recoloration capillaire > 2 sec\nou absence de pouls radial ?',
+    cap_h: 'Appuyez sur l\'ongle pendant 5 sec — évaluez le retour de couleur. Vérifiez le pouls.',
+    cap_yes_r: 'Recoloration capillaire > 2s / pas de pouls → T1 Rouge',
+    mental_q: 'Le patient exécute-t-il des ordres simples ?',
+    mental_h: '« Montrez 2 doigts », « Fermez les yeux », « Serrez ma main »',
+    mental_yes_r: 'Respire normalement, circulation OK, conscient → T2 Jaune',
+    mental_no_r: 'N\'exécute pas les ordres → T1 Rouge',
+    confirm_patient: '✓ CONFIRMER PATIENT',
+    restart_wizard: '↺ RECOMMENCER',
+    override_color: 'CHANGER COULEUR MANUELLEMENT',
+    notes_placeholder: 'Notes supplémentaires (blessures, mécanisme...)',
+    notes_placeholder2: 'Notes (blessures, mécanisme...)',
+    patients_onsite: 'Patients sur place',
+    patients_empty: 'Aucun patient enregistré',
+    change_to: 'Changer en',
+    btn_remove: 'Supprimer',
+    in_transport: 'En transport',
+    btn_delivered: 'Livré',
+    dispatch_title: 'Envoyer transport',
+    dispatch_patient: 'Patient',
+    dispatch_team: 'Équipe SMUR',
+    dispatch_hospital: 'Hôpital de destination',
+    select_patient: '— sélectionner patient —',
+    select_team: '— sélectionner équipe —',
+    select_hospital: '— sélectionner hôpital —',
+    btn_dispatch: 'ENVOYER TRANSPORT',
+    teams_title: 'Équipes SMUR',
+    hospitals_title: 'Hôpitaux',
+    new_team_placeholder: 'Nouvelle équipe...',
+    new_hospital_placeholder: 'Nouvel hôpital...',
+    history_title: 'Historique des transports',
+    report_title: 'Rapport pour le régulateur',
+    btn_report_text: '📋 Rapport textuel',
+    report_total: 'Total :',
+    report_unknown: 'Inconnu',
+    report_patients: 'pat.',
+    report_team_label: 'SMUR :',
+    report_departure: 'Départ :',
+    status_delivered: 'LIVRÉ',
+    status_in_transport: 'EN TRANSPORT',
+    report_no_transports: 'Aucun transport envoyé',
+    report_onsite_title: 'Restants sur place',
+    rpt_header: '=== RAPPORT TRIAGE ===',
+    rpt_event: 'Événement :',
+    rpt_start: 'Début :',
+    rpt_report: 'Rapport :',
+    rpt_summary: '--- RÉSUMÉ ---',
+    rpt_total_patients: 'Patients au total :',
+    rpt_transport_header: '--- TRANSPORTS VERS HÔPITAUX ---',
+    rpt_no_dispatched: 'Aucun transport envoyé',
+    rpt_onsite_header: '--- RESTANTS SUR PLACE',
+    modal_report_title: '📋 Rapport textuel',
+    modal_close: 'Fermer',
+    modal_copy: 'Copier dans le presse-papiers',
+    modal_copied: 'Copié dans le presse-papiers !',
+    confirm_remove_patient: 'Êtes-vous sûr de vouloir supprimer ce patient ?',
+    confirm_remove_team: 'Êtes-vous sûr de vouloir supprimer cette équipe ?',
+    confirm_remove_hospital: 'Êtes-vous sûr de vouloir supprimer cet hôpital ?',
+    confirm_new_event: 'Êtes-vous sûr de vouloir démarrer un nouvel événement ? Toutes les données sauvegardées seront supprimées.',
+    resume_detected: 'Événement sauvegardé détecté',
+    resume_started: 'commencé',
+    resume_continue: 'CONTINUER',
+    resume_new: 'NOUVEL ÉVÉNEMENT',
+    default_teams: ['SMUR-01 (médicalisé)','SMUR-02 (médicalisé)','VSAV-01 (secours)','VSAV-02 (secours)','VSAV-03 (secours)','HéliSMUR (hélicoptère)'],
+    default_hospitals: ['SAU Hôpital Régional','SAU Hôpital Municipal','SAU CHU','SAU Hôpital de Zone'],
+  },
+  de: {
+    setup_subtitle: 'Managementsystem für Massenanfälle von Verletzten',
+    setup_placeholder: 'Ereignisname (z.B. Unfall A4 km 312)',
+    setup_start: 'TRIAGE STARTEN',
+    setup_footer: 'Meldungen und Verbesserungsvorschläge:',
+    nav_triage: 'SICHTUNG',
+    nav_dispatch: 'DISPOSITION',
+    nav_report: 'BERICHT',
+    btn_info: 'Info',
+    btn_download: 'Download',
+    btn_close: 'SCHLIESSEN',
+    btn_add: '+ Hinzufügen',
+    btn_yes: 'JA',
+    btn_no: 'NEIN',
+    install_title: 'App auf dem Startbildschirm installieren:',
+    ios_steps: '1. Tippen Sie auf <strong style="color:var(--text);font-size:15px;">⎙</strong> (Teilen)<br>2. Scrollen Sie nach unten und wählen Sie <strong style="color:var(--text);">Zum Home-Bildschirm</strong>',
+    android_steps: '1. Tippen Sie auf <strong style="color:var(--text);">⋮</strong> (Menü) oben rechts in Chrome<br>2. Wählen Sie <strong style="color:var(--text);">Zum Startbildschirm hinzufügen</strong><br>3. Tippen Sie auf <strong style="color:var(--text);">Installieren</strong>',
+    install_dismiss: 'Nicht mehr anzeigen',
+    info_about_title: 'Über die App',
+    info_about_text: 'System zur Sichtung und Verwaltung von Massenanfällen (MANV) basierend auf dem START-Algorithmus. Ermöglicht die Patientenklassifizierung, Transportverwaltung und Berichterstellung.',
+    info_privacy_title: 'Datenschutz',
+    info_privacy_text: 'Alle Daten werden ausschließlich auf Ihrem Gerät gespeichert. Es werden keine Informationen an externe Server gesendet. Die App funktioniert vollständig offline.',
+    info_medical_title: 'Medizinischer Haftungsausschluss',
+    info_medical_text: 'Die App ist ein Hilfsmittel zur Sichtung von Verletzten. Sie ersetzt weder medizinisches Fachwissen noch die klinische Beurteilung. Die endgültige Entscheidung trifft das medizinische Personal.',
+    info_license_title: 'Lizenz',
+    info_license_text: 'Die App ist kostenlos und unter der <strong>GPLv3</strong>-Lizenz veröffentlicht mit einer zusätzlichen Einschränkung: kommerzielle Weiterverbreitung (Verkauf) ist untersagt. TRIAGE MCI ist und soll immer kostenlos bleiben.',
+    info_offline_title: 'Offline-Installation',
+    info_offline_text1: 'Laden Sie das fertige Paket mit allen Dateien herunter:',
+    info_offline_link: 'TRIAGE-MCI.zip herunterladen',
+    info_offline_text2: 'Entpacken, auf USB-Stick kopieren, triage-server.exe auf dem Zielcomputer starten.',
+    info_author_title: 'Autor',
+    info_author_coffee: 'Wenn die App hilfreich ist, können Sie mir einen Kaffee spendieren:',
+    t1_label: 'T1 – Rot',
+    t1_text: 'Sofort',
+    t2_label: 'T2 – Gelb',
+    t2_text: 'Dringend',
+    t3_label: 'T3 – Grün',
+    t3_text: 'Verzögert',
+    t4_label: 'T4 – Schwarz',
+    t4_text: 'Verstorben',
+    triage_section: 'START-Sichtung – neuer Patient',
+    wizard_step: 'Schritt {n} von {total}',
+    walk_q: 'Kann der Patient gehen?',
+    walk_h: 'Der Patient kann aufstehen und sich selbstständig fortbewegen',
+    walk_yes_r: 'Geht → T3 Grün',
+    breathing_q: 'Atmet der Patient spontan?',
+    breathing_h: 'Prüfen Sie, ob sich der Brustkorb hebt, hören und fühlen Sie die Ausatmung',
+    airway_q: 'Atemwege freimachen.\nAtmet der Patient nach dem Freimachen?',
+    airway_h: 'Kopf überstrecken, Kinn anheben — Atmung erneut beurteilen',
+    airway_yes_r: 'Keine Atmung → atmet nach Freimachen → T1 Rot',
+    airway_no_r: 'Keine Atmung nach Freimachen der Atemwege → T4 Schwarz',
+    rr_q: 'Atemfrequenz > 30/min?',
+    rr_h: 'Atemzüge 15 Sekunden zählen × 4 oder schätzen',
+    rr_yes_r: 'Atmet > 30/min → T1 Rot',
+    cap_q: 'Rekapillarisierung > 2 Sek.\noder fehlender Radialpuls?',
+    cap_h: 'Nagelbett 5 Sek. drücken — Farbwiederkehr beurteilen. Puls prüfen.',
+    cap_yes_r: 'Rekapillarisierung > 2s / kein Puls → T1 Rot',
+    mental_q: 'Befolgt der Patient einfache Befehle?',
+    mental_h: '„Zeigen Sie 2 Finger", „Schließen Sie die Augen", „Drücken Sie meine Hand"',
+    mental_yes_r: 'Atmet normal, Kreislauf OK, bei Bewusstsein → T2 Gelb',
+    mental_no_r: 'Befolgt keine Befehle → T1 Rot',
+    confirm_patient: '✓ PATIENT BESTÄTIGEN',
+    restart_wizard: '↺ NEU STARTEN',
+    override_color: 'FARBE MANUELL ÄNDERN',
+    notes_placeholder: 'Zusätzliche Notizen (Verletzungen, Mechanismus...)',
+    notes_placeholder2: 'Notizen (Verletzungen, Mechanismus...)',
+    patients_onsite: 'Patienten vor Ort',
+    patients_empty: 'Keine registrierten Patienten',
+    change_to: 'Ändern zu',
+    btn_remove: 'Entfernen',
+    in_transport: 'Im Transport',
+    btn_delivered: 'Zugestellt',
+    dispatch_title: 'Transport disponieren',
+    dispatch_patient: 'Patient',
+    dispatch_team: 'Rettungsteam',
+    dispatch_hospital: 'Zielkrankenhaus',
+    select_patient: '— Patient wählen —',
+    select_team: '— Team wählen —',
+    select_hospital: '— Krankenhaus wählen —',
+    btn_dispatch: 'TRANSPORT DISPONIEREN',
+    teams_title: 'Rettungsteams',
+    hospitals_title: 'Krankenhäuser',
+    new_team_placeholder: 'Neues Team...',
+    new_hospital_placeholder: 'Neues Krankenhaus...',
+    history_title: 'Transporthistorie',
+    report_title: 'Bericht für die Leitstelle',
+    btn_report_text: '📋 Textbericht',
+    report_total: 'Gesamt:',
+    report_unknown: 'Unbekannt',
+    report_patients: 'Pat.',
+    report_team_label: 'RD:',
+    report_departure: 'Abfahrt:',
+    status_delivered: 'ZUGESTELLT',
+    status_in_transport: 'IM TRANSPORT',
+    report_no_transports: 'Keine disponierten Transporte',
+    report_onsite_title: 'Verbleibende vor Ort',
+    rpt_header: '=== TRIAGE-BERICHT ===',
+    rpt_event: 'Ereignis:',
+    rpt_start: 'Beginn:',
+    rpt_report: 'Bericht:',
+    rpt_summary: '--- ZUSAMMENFASSUNG ---',
+    rpt_total_patients: 'Patienten gesamt:',
+    rpt_transport_header: '--- TRANSPORTE ZU KRANKENHÄUSERN ---',
+    rpt_no_dispatched: 'Keine disponierten Transporte',
+    rpt_onsite_header: '--- VERBLEIBENDE VOR ORT',
+    modal_report_title: '📋 Textbericht',
+    modal_close: 'Schließen',
+    modal_copy: 'In Zwischenablage kopieren',
+    modal_copied: 'In Zwischenablage kopiert!',
+    confirm_remove_patient: 'Sind Sie sicher, dass Sie diesen Patienten entfernen möchten?',
+    confirm_remove_team: 'Sind Sie sicher, dass Sie dieses Team entfernen möchten?',
+    confirm_remove_hospital: 'Sind Sie sicher, dass Sie dieses Krankenhaus entfernen möchten?',
+    confirm_new_event: 'Sind Sie sicher, dass Sie ein neues Ereignis starten möchten? Alle gespeicherten Daten werden gelöscht.',
+    resume_detected: 'Gespeichertes Ereignis erkannt',
+    resume_started: 'begonnen',
+    resume_continue: 'FORTSETZEN',
+    resume_new: 'NEUES EREIGNIS',
+    default_teams: ['RTW-01 (Rettungswagen)','RTW-02 (Rettungswagen)','NEF-01 (Notarzt)','NEF-02 (Notarzt)','KTW-01 (Krankentransport)','RTH (Hubschrauber)'],
+    default_hospitals: ['ZNA Kreiskrankenhaus','ZNA Städtisches Klinikum','ZNA Universitätsklinikum','ZNA Bezirkskrankenhaus'],
+  },
+  cs: {
+    setup_subtitle: 'Systém řízení hromadného neštěstí',
+    setup_placeholder: 'Název události (např. Nehoda D1 km 312)',
+    setup_start: 'ZAHÁJIT TŘÍDĚNÍ',
+    setup_footer: 'Hlášení a návrhy na zlepšení:',
+    nav_triage: 'TŘÍDĚNÍ',
+    nav_dispatch: 'VÝJEZDY',
+    nav_report: 'HLÁŠENÍ',
+    btn_info: 'Info',
+    btn_download: 'Stáhnout',
+    btn_close: 'ZAVŘÍT',
+    btn_add: '+ Přidat',
+    btn_yes: 'ANO',
+    btn_no: 'NE',
+    install_title: 'Nainstalovat aplikaci na domovskou obrazovku:',
+    ios_steps: '1. Klepněte na <strong style="color:var(--text);font-size:15px;">⎙</strong> (Sdílet)<br>2. Přejděte dolů a vyberte <strong style="color:var(--text);">Přidat na plochu</strong>',
+    android_steps: '1. Klepněte na <strong style="color:var(--text);">⋮</strong> (menu) v pravém horním rohu Chrome<br>2. Vyberte <strong style="color:var(--text);">Přidat na plochu</strong><br>3. Klepněte na <strong style="color:var(--text);">Nainstalovat</strong>',
+    install_dismiss: 'Již nezobrazovat',
+    info_about_title: 'O aplikaci',
+    info_about_text: 'Systém třídění a řízení hromadných neštěstí (MCI) založený na algoritmu START. Umožňuje klasifikaci pacientů, řízení transportů a generování hlášení.',
+    info_privacy_title: 'Ochrana osobních údajů',
+    info_privacy_text: 'Všechna data jsou uložena výhradně na vašem zařízení. Žádné informace nejsou odesílány na externí servery. Aplikace funguje plně offline.',
+    info_medical_title: 'Lékařské upozornění',
+    info_medical_text: 'Aplikace je podpůrným nástrojem pro třídění raněných. Nenahrazuje lékařské znalosti ani klinické hodnocení. Konečné rozhodnutí činí zdravotnický personál.',
+    info_license_title: 'Licence',
+    info_license_text: 'Aplikace je bezplatná a vydána pod licencí <strong>GPLv3</strong> s dodatečným omezením: komerční redistribuce (prodej) je zakázána. TRIAGE MCI je a vždy by měl být zdarma.',
+    info_offline_title: 'Offline instalace',
+    info_offline_text1: 'Stáhněte si připravený balíček se všemi soubory:',
+    info_offline_link: 'Stáhnout TRIAGE-MCI.zip',
+    info_offline_text2: 'Rozbalte, zkopírujte na USB disk, spusťte triage-server.exe na cílovém počítači.',
+    info_author_title: 'Autor',
+    info_author_coffee: 'Pokud je aplikace užitečná, můžete mi koupit kávu:',
+    t1_label: 'T1 – Červený',
+    t1_text: 'Okamžitý',
+    t2_label: 'T2 – Žlutý',
+    t2_text: 'Naléhavý',
+    t3_label: 'T3 – Zelený',
+    t3_text: 'Odložený',
+    t4_label: 'T4 – Černý',
+    t4_text: 'Zemřelý',
+    triage_section: 'Třídění START – nový pacient',
+    wizard_step: 'Krok {n} z {total}',
+    walk_q: 'Chodí pacient?',
+    walk_h: 'Pacient je schopen vstát a samostatně se pohybovat',
+    walk_yes_r: 'Chodí → T3 Zelený',
+    breathing_q: 'Dýchá pacient spontánně?',
+    breathing_h: 'Zkontrolujte, zda se hrudník zvedá, poslouchejte, vnímejte výdech',
+    airway_q: 'Zprůchodněte dýchací cesty.\nDýchá po zprůchodnění?',
+    airway_h: 'Zakloňte hlavu, zvedněte bradu — znovu zhodnoťte dýchání',
+    airway_yes_r: 'Nedýchá → dýchá po zprůchodnění → T1 Červený',
+    airway_no_r: 'Nedýchá po zprůchodnění dýchacích cest → T4 Černý',
+    rr_q: 'Dechová frekvence > 30/min?',
+    rr_h: 'Počítejte dechy po 15 sekund × 4 nebo odhadněte',
+    rr_yes_r: 'Dýchá > 30/min → T1 Červený',
+    cap_q: 'Kapilární návrat > 2 sek.\nnebo chybí pulz na radiální tepně?',
+    cap_h: 'Stiskněte nehet na 5 sek. — zhodnoťte návrat barvy. Zkontrolujte pulz.',
+    cap_yes_r: 'Kapilární návrat > 2s / chybí pulz → T1 Červený',
+    mental_q: 'Splní pacient jednoduché příkazy?',
+    mental_h: '„Ukažte 2 prsty", „Zavřete oči", „Stiskněte mi ruku"',
+    mental_yes_r: 'Dýchá normálně, oběh OK, při vědomí → T2 Žlutý',
+    mental_no_r: 'Nesplní příkazy → T1 Červený',
+    confirm_patient: '✓ POTVRDIT PACIENTA',
+    restart_wizard: '↺ ZNOVU',
+    override_color: 'ZMĚNIT BARVU RUČNĚ',
+    notes_placeholder: 'Další poznámky (zranění, mechanismus...)',
+    notes_placeholder2: 'Poznámky (zranění, mechanismus...)',
+    patients_onsite: 'Pacienti na místě',
+    patients_empty: 'Žádní registrovaní pacienti',
+    change_to: 'Změnit na',
+    btn_remove: 'Odstranit',
+    in_transport: 'V transportu',
+    btn_delivered: 'Doručen',
+    dispatch_title: 'Vyslat transport',
+    dispatch_patient: 'Pacient',
+    dispatch_team: 'Posádka ZZS',
+    dispatch_hospital: 'Cílová nemocnice',
+    select_patient: '— vyberte pacienta —',
+    select_team: '— vyberte posádku —',
+    select_hospital: '— vyberte nemocnici —',
+    btn_dispatch: 'VYSLAT TRANSPORT',
+    teams_title: 'Posádky ZZS',
+    hospitals_title: 'Nemocnice',
+    new_team_placeholder: 'Nová posádka...',
+    new_hospital_placeholder: 'Nová nemocnice...',
+    history_title: 'Historie transportů',
+    report_title: 'Hlášení pro dispečera',
+    btn_report_text: '📋 Textové hlášení',
+    report_total: 'Celkem:',
+    report_unknown: 'Neznámý',
+    report_patients: 'pac.',
+    report_team_label: 'ZZS:',
+    report_departure: 'Odjezd:',
+    status_delivered: 'DORUČEN',
+    status_in_transport: 'V TRANSPORTU',
+    report_no_transports: 'Žádné vyslané transporty',
+    report_onsite_title: 'Zbývající na místě',
+    rpt_header: '=== HLÁŠENÍ TŘÍDĚNÍ ===',
+    rpt_event: 'Událost:',
+    rpt_start: 'Zahájení:',
+    rpt_report: 'Hlášení:',
+    rpt_summary: '--- SOUHRN ---',
+    rpt_total_patients: 'Celkem pacientů:',
+    rpt_transport_header: '--- TRANSPORTY DO NEMOCNIC ---',
+    rpt_no_dispatched: 'Žádné vyslané transporty',
+    rpt_onsite_header: '--- ZBÝVAJÍCÍ NA MÍSTĚ',
+    modal_report_title: '📋 Textové hlášení',
+    modal_close: 'Zavřít',
+    modal_copy: 'Kopírovat do schránky',
+    modal_copied: 'Zkopírováno do schránky!',
+    confirm_remove_patient: 'Opravdu chcete odstranit tohoto pacienta?',
+    confirm_remove_team: 'Opravdu chcete odstranit tuto posádku?',
+    confirm_remove_hospital: 'Opravdu chcete odstranit tuto nemocnici?',
+    confirm_new_event: 'Opravdu chcete zahájit novou událost? Všechna uložená data budou smazána.',
+    resume_detected: 'Nalezena uložená událost',
+    resume_started: 'zahájena',
+    resume_continue: 'POKRAČOVAT',
+    resume_new: 'NOVÁ UDÁLOST',
+    default_teams: ['RZP-01 (rychlá)','RZP-02 (rychlá)','RLP-01 (lékařská)','RLP-02 (lékařská)','RZP-03 (rychlá)','LZS (vrtulník)'],
+    default_hospitals: ['ÚPS Krajská nemocnice','ÚPS Městská nemocnice','ÚPS Fakultní nemocnice','ÚPS Okresní nemocnice'],
+  },
+  pt: {
+    setup_subtitle: 'Sistema de gestão de incidentes com múltiplas vítimas',
+    setup_placeholder: 'Nome do evento (ex. Acidente A4 km 312)',
+    setup_start: 'INICIAR TRIAGEM',
+    setup_footer: 'Reportar problemas e sugestões:',
+    nav_triage: 'TRIAGEM',
+    nav_dispatch: 'DESPACHO',
+    nav_report: 'RELATÓRIO',
+    btn_info: 'Info',
+    btn_download: 'Transferir',
+    btn_close: 'FECHAR',
+    btn_add: '+ Adicionar',
+    btn_yes: 'SIM',
+    btn_no: 'NÃO',
+    install_title: 'Instalar app no ecrã principal:',
+    ios_steps: '1. Toque em <strong style="color:var(--text);font-size:15px;">⎙</strong> (Partilhar)<br>2. Deslize para baixo e selecione <strong style="color:var(--text);">Adicionar ao ecrã principal</strong>',
+    android_steps: '1. Toque em <strong style="color:var(--text);">⋮</strong> (menu) no canto superior direito do Chrome<br>2. Selecione <strong style="color:var(--text);">Adicionar ao ecrã principal</strong><br>3. Toque em <strong style="color:var(--text);">Instalar</strong>',
+    install_dismiss: 'Não mostrar novamente',
+    info_about_title: 'Sobre',
+    info_about_text: 'Sistema de triagem e gestão de incidentes com múltiplas vítimas (IMV) baseado no algoritmo START. Permite a classificação de pacientes, gestão de transportes e geração de relatórios.',
+    info_privacy_title: 'Privacidade dos dados',
+    info_privacy_text: 'Todos os dados são armazenados exclusivamente no seu dispositivo. Nenhuma informação é enviada para servidores externos. A aplicação funciona totalmente offline.',
+    info_medical_title: 'Aviso médico',
+    info_medical_text: 'A aplicação é uma ferramenta de apoio à triagem de vítimas. Não substitui o conhecimento médico nem a avaliação clínica. A decisão final cabe ao pessoal médico.',
+    info_license_title: 'Licença',
+    info_license_text: 'A aplicação é gratuita e publicada sob a licença <strong>GPLv3</strong> com uma restrição adicional: a redistribuição comercial (venda) é proibida. TRIAGE MCI é e deve ser sempre gratuito.',
+    info_offline_title: 'Instalação offline',
+    info_offline_text1: 'Transfira o pacote completo com todos os ficheiros:',
+    info_offline_link: 'Transferir TRIAGE-MCI.zip',
+    info_offline_text2: 'Descomprima, copie para uma pen USB, execute triage-server.exe no computador de destino.',
+    info_author_title: 'Autor',
+    info_author_coffee: 'Se a aplicação for útil, pode oferecer-me um café:',
+    t1_label: 'T1 – Vermelho',
+    t1_text: 'Imediato',
+    t2_label: 'T2 – Amarelo',
+    t2_text: 'Urgente',
+    t3_label: 'T3 – Verde',
+    t3_text: 'Menor',
+    t4_label: 'T4 – Preto',
+    t4_text: 'Falecido',
+    triage_section: 'Triagem START – novo paciente',
+    wizard_step: 'Passo {n} de {total}',
+    walk_q: 'O paciente anda?',
+    walk_h: 'O paciente consegue levantar-se e deslocar-se sozinho',
+    walk_yes_r: 'Anda → T3 Verde',
+    breathing_q: 'O paciente respira espontaneamente?',
+    breathing_h: 'Verifique se o tórax se eleva, ouça, sinta a expiração',
+    airway_q: 'Permeabilize a via aérea.\nRespira após permeabilização?',
+    airway_h: 'Incline a cabeça, eleve o queixo — reavalie a respiração',
+    airway_yes_r: 'Não respira → respira após permeabilização → T1 Vermelho',
+    airway_no_r: 'Não respira após permeabilização da via aérea → T4 Preto',
+    rr_q: 'Frequência respiratória > 30/min?',
+    rr_h: 'Conte as respirações durante 15 segundos × 4 ou estime',
+    rr_yes_r: 'Respira > 30/min → T1 Vermelho',
+    cap_q: 'Preenchimento capilar > 2 seg\nou ausência de pulso radial?',
+    cap_h: 'Pressione a unha durante 5 seg — avalie o retorno da cor. Verifique o pulso.',
+    cap_yes_r: 'Preenchimento capilar > 2s / sem pulso → T1 Vermelho',
+    mental_q: 'O paciente cumpre ordens simples?',
+    mental_h: '"Mostre 2 dedos", "Feche os olhos", "Aperte a minha mão"',
+    mental_yes_r: 'Respira normalmente, circulação OK, consciente → T2 Amarelo',
+    mental_no_r: 'Não cumpre ordens → T1 Vermelho',
+    confirm_patient: '✓ CONFIRMAR PACIENTE',
+    restart_wizard: '↺ RECOMEÇAR',
+    override_color: 'ALTERAR COR MANUALMENTE',
+    notes_placeholder: 'Notas adicionais (lesões, mecanismo...)',
+    notes_placeholder2: 'Notas (lesões, mecanismo...)',
+    patients_onsite: 'Pacientes no local',
+    patients_empty: 'Nenhum paciente registado',
+    change_to: 'Alterar para',
+    btn_remove: 'Remover',
+    in_transport: 'Em transporte',
+    btn_delivered: 'Entregue',
+    dispatch_title: 'Despachar transporte',
+    dispatch_patient: 'Paciente',
+    dispatch_team: 'Equipa INEM',
+    dispatch_hospital: 'Hospital de destino',
+    select_patient: '— selecionar paciente —',
+    select_team: '— selecionar equipa —',
+    select_hospital: '— selecionar hospital —',
+    btn_dispatch: 'DESPACHAR TRANSPORTE',
+    teams_title: 'Equipas INEM',
+    hospitals_title: 'Hospitais',
+    new_team_placeholder: 'Nova equipa...',
+    new_hospital_placeholder: 'Novo hospital...',
+    history_title: 'Histórico de transportes',
+    report_title: 'Relatório para o despachante',
+    btn_report_text: '📋 Relatório de texto',
+    report_total: 'Total:',
+    report_unknown: 'Desconhecido',
+    report_patients: 'pac.',
+    report_team_label: 'INEM:',
+    report_departure: 'Partida:',
+    status_delivered: 'ENTREGUE',
+    status_in_transport: 'EM TRANSPORTE',
+    report_no_transports: 'Nenhum transporte despachado',
+    report_onsite_title: 'Restantes no local',
+    rpt_header: '=== RELATÓRIO DE TRIAGEM ===',
+    rpt_event: 'Evento:',
+    rpt_start: 'Início:',
+    rpt_report: 'Relatório:',
+    rpt_summary: '--- RESUMO ---',
+    rpt_total_patients: 'Total de pacientes:',
+    rpt_transport_header: '--- TRANSPORTES PARA HOSPITAIS ---',
+    rpt_no_dispatched: 'Nenhum transporte despachado',
+    rpt_onsite_header: '--- RESTANTES NO LOCAL',
+    modal_report_title: '📋 Relatório de texto',
+    modal_close: 'Fechar',
+    modal_copy: 'Copiar para a área de transferência',
+    modal_copied: 'Copiado para a área de transferência!',
+    confirm_remove_patient: 'Tem a certeza de que deseja remover este paciente?',
+    confirm_remove_team: 'Tem a certeza de que deseja remover esta equipa?',
+    confirm_remove_hospital: 'Tem a certeza de que deseja remover este hospital?',
+    confirm_new_event: 'Tem a certeza de que deseja iniciar um novo evento? Todos os dados guardados serão eliminados.',
+    resume_detected: 'Evento guardado detetado',
+    resume_started: 'iniciado',
+    resume_continue: 'CONTINUAR',
+    resume_new: 'NOVO EVENTO',
+    default_teams: ['VMER-01 (médica)','VMER-02 (médica)','SIV-01 (imediata)','SIV-02 (imediata)','SIV-03 (imediata)','Heli-INEM (helicóptero)'],
+    default_hospitals: ['SU Hospital Regional','SU Hospital Municipal','SU Hospital Universitário','SU Hospital Distrital'],
+  },
+};
+
+function t(key) {
+  return (TRANSLATIONS[currentLang] && TRANSLATIONS[currentLang][key]) || TRANSLATIONS.pl[key] || key;
+}
+
+function setLanguage(lang) {
+  currentLang = lang;
+  localStorage.setItem('triageLang', lang);
+  document.documentElement.lang = lang;
+  applyStaticTranslations();
+  if (typeof renderAll === 'function') renderAll();
+}
+
+function applyStaticTranslations() {
+  document.querySelectorAll('[data-i18n]').forEach(el => el.textContent = t(el.dataset.i18n));
+  document.querySelectorAll('[data-i18n-html]').forEach(el => el.innerHTML = t(el.dataset.i18nHtml));
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => el.placeholder = t(el.dataset.i18nPlaceholder));
+}
+
 // ===== STATE =====
 const TRIAGE = {
-  T1: { label: 'T1 – Czerwony', text: 'Natychmiastowy', icon: '🔴', color: '#DC2626' },
-  T2: { label: 'T2 – Żółty', text: 'Pilny', icon: '🟡', color: '#D97706' },
-  T3: { label: 'T3 – Zielony', text: 'Odroczony', icon: '🟢', color: '#16A34A' },
-  T4: { label: 'T4 – Czarny', text: 'Zgon / Expectant', icon: '⚫', color: '#1F2937' },
+  T1: { icon: '🔴', color: '#DC2626' },
+  T2: { icon: '🟡', color: '#D97706' },
+  T3: { icon: '🟢', color: '#16A34A' },
+  T4: { icon: '⚫', color: '#1F2937' },
 };
 
 let eventName = '';
@@ -1324,21 +2199,8 @@ let nextId = 1;
 let patients = [];
 let transports = [];
 
-let teams = [
-  { id: 1, name: 'S-01 (specjalistyczny)' },
-  { id: 2, name: 'S-02 (specjalistyczny)' },
-  { id: 3, name: 'P-01 (podstawowy)' },
-  { id: 4, name: 'P-02 (podstawowy)' },
-  { id: 5, name: 'P-03 (podstawowy)' },
-  { id: 6, name: 'LPR (śmigłowiec)' },
-];
-
-let hospitals = [
-  { id: 1, name: 'SOR Szpital Wojewódzki' },
-  { id: 2, name: 'SOR Szpital Miejski' },
-  { id: 3, name: 'SOR Szpital Kliniczny' },
-  { id: 4, name: 'CU Szpital Powiatowy' },
-];
+let teams = (TRANSLATIONS[currentLang].default_teams || TRANSLATIONS.pl.default_teams).map((name, i) => ({ id: i + 1, name }));
+let hospitals = (TRANSLATIONS[currentLang].default_hospitals || TRANSLATIONS.pl.default_hospitals).map((name, i) => ({ id: i + 1, name }));
 
 // ===== PERSISTENCE =====
 function saveState() {
@@ -1371,7 +2233,7 @@ function clearState() {
 }
 
 function now() {
-  return new Date().toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  return new Date().toLocaleTimeString(LOCALE_MAP[currentLang] || 'pl-PL', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
 }
 
 // ===== DOWNLOAD =====
@@ -1442,56 +2304,22 @@ function switchView(v) {
 }
 
 // ===== START TRIAGE WIZARD =====
-const STEPS = [
-  {
-    id: 'walk',
-    question: 'Czy pacjent chodzi?',
-    hint: 'Pacjent jest w stanie wstać i przemieszczać się samodzielnie',
-    yes: { result: 'T3', reason: 'Chodzi → T3 Zielony' },
-    no: { next: 'breathing' }
-  },
-  {
-    id: 'breathing',
-    question: 'Czy oddycha spontanicznie?',
-    hint: 'Oceń czy klatka piersiowa unosi się, posłuchaj, poczuj wydech',
-    yes: { next: 'rr' },
-    no: { next: 'airway' }
-  },
-  {
-    id: 'airway',
-    question: 'Udrożnij drogi oddechowe.\nCzy oddycha po udrożnieniu?',
-    hint: 'Odchyl głowę, unieś żuchwę — oceń ponownie oddech',
-    yes: { result: 'T1', reason: 'Brak oddechu → po udrożnieniu oddycha → T1 Czerwony' },
-    no: { result: 'T4', reason: 'Brak oddechu po udrożnieniu dróg oddechowych → T4 Czarny' }
-  },
-  {
-    id: 'rr',
-    question: 'Częstość oddechów > 30/min?',
-    hint: 'Policz oddechy przez 15 sekund × 4 lub oceń orientacyjnie',
-    yes: { result: 'T1', reason: 'Oddycha > 30/min → T1 Czerwony' },
-    no: { next: 'cap' }
-  },
-  {
-    id: 'cap',
-    question: 'Nawrót kapilarny > 2 sek.\nlub brak tętna na tt. promieniowej?',
-    hint: 'Uciśnij paznokieć na 5 sek. — oceń powrót zabarwienia. Sprawdź tętno.',
-    yes: { result: 'T1', reason: 'Nawrót kapilarny > 2s / brak tętna → T1 Czerwony' },
-    no: { next: 'mental' }
-  },
-  {
-    id: 'mental',
-    question: 'Czy spełnia proste polecenia?',
-    hint: '„Pokaż 2 palce", „Zamknij oczy", „Ściśnij moją rękę"',
-    yes: { result: 'T2', reason: 'Oddycha prawidłowo, krąży, przytomny → T2 Żółty' },
-    no: { result: 'T1', reason: 'Nie spełnia poleceń → T1 Czerwony' }
-  }
-];
+function getSteps() {
+  return [
+    { id:'walk', question:t('walk_q'), hint:t('walk_h'), yes:{result:'T3',reason:t('walk_yes_r')}, no:{next:'breathing'} },
+    { id:'breathing', question:t('breathing_q'), hint:t('breathing_h'), yes:{next:'rr'}, no:{next:'airway'} },
+    { id:'airway', question:t('airway_q'), hint:t('airway_h'), yes:{result:'T1',reason:t('airway_yes_r')}, no:{result:'T4',reason:t('airway_no_r')} },
+    { id:'rr', question:t('rr_q'), hint:t('rr_h'), yes:{result:'T1',reason:t('rr_yes_r')}, no:{next:'cap'} },
+    { id:'cap', question:t('cap_q'), hint:t('cap_h'), yes:{result:'T1',reason:t('cap_yes_r')}, no:{next:'mental'} },
+    { id:'mental', question:t('mental_q'), hint:t('mental_h'), yes:{result:'T2',reason:t('mental_yes_r')}, no:{result:'T1',reason:t('mental_no_r')} },
+  ];
+}
 
 let wizStep = 0;
 let wizPath = [];
 let wizResult = null;
 
-function getStepIndex(id) { return STEPS.findIndex(s => s.id === id); }
+function getStepIndex(id) { return getSteps().findIndex(s => s.id === id); }
 
 function resetWizard() {
   wizStep = 0;
@@ -1505,8 +2333,8 @@ function resetWizard() {
 }
 
 function renderWizard() {
-  const step = STEPS[wizStep];
-  const totalVisible = STEPS.length;
+  const step = getSteps()[wizStep];
+  const totalVisible = getSteps().length;
 
   let dots = '';
   for (let i = 0; i < totalVisible; i++) {
@@ -1518,21 +2346,21 @@ function renderWizard() {
 
   document.getElementById('wizardBox').innerHTML = `
     <div class="wizard-progress">${dots}</div>
-    <div class="wizard-step-num">Krok ${wizStep + 1} z ${totalVisible}</div>
+    <div class="wizard-step-num">${t('wizard_step').replace('{n}',wizStep+1).replace('{total}',totalVisible)}</div>
     <div class="wizard-question">${qLines}</div>
     <div class="wizard-hint">${escHtml(step.hint)}</div>
     <div class="wizard-btns">
-      <button class="wiz-btn wiz-btn-yes" onclick="wizAnswer(true)">TAK</button>
-      <button class="wiz-btn wiz-btn-no" onclick="wizAnswer(false)">NIE</button>
+      <button class="wiz-btn wiz-btn-yes" onclick="wizAnswer(true)">${t('btn_yes')}</button>
+      <button class="wiz-btn wiz-btn-no" onclick="wizAnswer(false)">${t('btn_no')}</button>
     </div>
   `;
 }
 
 function wizAnswer(yes) {
-  const step = STEPS[wizStep];
+  const step = getSteps()[wizStep];
   const branch = yes ? step.yes : step.no;
 
-  wizPath.push({ step: step.id, question: step.question.replace(/\n/g, ' '), answer: yes ? 'TAK' : 'NIE' });
+  wizPath.push({ step: step.id, question: step.question.replace(/\n/g, ' '), answer: yes ? t('btn_yes') : t('btn_no') });
 
   if (branch.result) {
     wizResult = branch.result;
@@ -1544,15 +2372,15 @@ function wizAnswer(yes) {
 }
 
 function showResult(triage, reason) {
-  const t = TRIAGE[triage];
+  const tr = TRIAGE[triage];
   document.getElementById('triageWizard').style.display = 'none';
   document.getElementById('triageResult').style.display = '';
 
   const colorEl = document.getElementById('resultColor');
   colorEl.className = 'result-color rc-' + triage;
-  colorEl.textContent = t.icon;
+  colorEl.textContent = tr.icon;
 
-  document.getElementById('resultLabel').textContent = t.label + ' — ' + t.text;
+  document.getElementById('resultLabel').textContent = t(triage.toLowerCase()+'_label') + ' — ' + t(triage.toLowerCase()+'_text');
 
   // Show path summary
   const pathText = wizPath.map(p => p.question.split('.')[0].trim() + ': ' + p.answer).join(' → ');
@@ -1565,11 +2393,11 @@ function showOverride() {
 
 function overrideColor(triage) {
   wizResult = triage;
-  const t = TRIAGE[triage];
+  const tr = TRIAGE[triage];
   const colorEl = document.getElementById('resultColor');
   colorEl.className = 'result-color rc-' + triage;
-  colorEl.textContent = t.icon;
-  document.getElementById('resultLabel').textContent = t.label + ' — ' + t.text;
+  colorEl.textContent = tr.icon;
+  document.getElementById('resultLabel').textContent = t(triage.toLowerCase()+'_label') + ' — ' + t(triage.toLowerCase()+'_text');
   document.getElementById('overrideRow').style.display = 'none';
 }
 
@@ -1607,7 +2435,7 @@ function updateNotes(id, val) {
 }
 
 function removePatient(id) {
-  if (!confirm('Czy na pewno chcesz usunąć tego pacjenta?')) return;
+  if (!confirm(t('confirm_remove_patient'))) return;
   patients = patients.filter(x => x.id !== id);
   renderAll();
   saveState();
@@ -1667,7 +2495,7 @@ function addTeam() {
 }
 
 function removeTeam(id) {
-  if (!confirm('Czy na pewno chcesz usunąć ten zespół?')) return;
+  if (!confirm(t('confirm_remove_team'))) return;
   teams = teams.filter(x => x.id !== id);
   renderAll();
   saveState();
@@ -1683,7 +2511,7 @@ function addHospital() {
 }
 
 function removeHospital(id) {
-  if (!confirm('Czy na pewno chcesz usunąć ten szpital?')) return;
+  if (!confirm(t('confirm_remove_hospital'))) return;
   hospitals = hospitals.filter(x => x.id !== id);
   renderAll();
   saveState();
@@ -1721,30 +2549,30 @@ function renderStats() {
 
 function renderPatients() {
   const onSite = patients.filter(p => p.status === 'na_miejscu');
-  document.getElementById('onSiteTitle').textContent = `Pacjenci na miejscu (${onSite.length})`;
+  document.getElementById('onSiteTitle').textContent = t('patients_onsite') + ' (' + onSite.length + ')';
 
   if (onSite.length === 0) {
-    document.getElementById('patientList').innerHTML = '<div class="empty">Brak zarejestrowanych pacjentów</div>';
+    document.getElementById('patientList').innerHTML = '<div class="empty">' + t('patients_empty') + '</div>';
     return;
   }
 
   let html = '';
   onSite.forEach(p => {
-    const t = TRIAGE[p.triage];
+    const tr = TRIAGE[p.triage];
     let dots = '';
     for (const tk of Object.keys(TRIAGE)) {
       const active = p.triage === tk ? ` active-${tk}` : '';
-      dots += `<button class="t-dot t-dot-${tk}${active}" title="Zmień na ${TRIAGE[tk].label}" onclick="changeTriage(${p.id},'${tk}')"></button>`;
+      dots += `<button class="t-dot t-dot-${tk}${active}" title="${t('change_to')} ${t(tk.toLowerCase()+'_label')}" onclick="changeTriage(${p.id},'${tk}')"></button>`;
     }
 
     html += `<div class="patient-card pc-${p.triage}">
       <div class="p-tag p-tag-${p.triage}">${p.tag}</div>
       <div class="p-info">
-        <div class="p-time">${t.text} • ${p.time}</div>
-        <input class="p-notes" placeholder="Notatki (obrażenia, mechanizm...)" value="${escHtml(p.notes)}" oninput="updateNotes(${p.id},this.value)">
+        <div class="p-time">${t(p.triage.toLowerCase()+'_text')} • ${p.time}</div>
+        <input class="p-notes" placeholder="${t('notes_placeholder2')}" value="${escHtml(p.notes)}" oninput="updateNotes(${p.id},this.value)">
       </div>
       <div class="triage-dots">${dots}</div>
-      <button class="btn-remove" onclick="removePatient(${p.id})" title="Usuń">✕</button>
+      <button class="btn-remove" onclick="removePatient(${p.id})" title="${t('btn_remove')}">✕</button>
     </div>`;
   });
 
@@ -1761,11 +2589,11 @@ function renderTransporting() {
   }
 
   section.style.display = '';
-  document.getElementById('transportTitle').textContent = `W transporcie (${inTransport.length})`;
+  document.getElementById('transportTitle').textContent = t('in_transport') + ' (' + inTransport.length + ')';
 
   let html = '';
   inTransport.forEach(p => {
-    const team = teams.find(t => t.id === p.teamId);
+    const team = teams.find(tm => tm.id === p.teamId);
     const hosp = hospitals.find(h => h.id === p.hospitalId);
     html += `<div class="transport-card">
       <div class="p-tag p-tag-${p.triage}">${p.tag}</div>
@@ -1773,7 +2601,7 @@ function renderTransporting() {
       <span class="arrow">→</span>
       <span class="hospital">${hosp ? escHtml(hosp.name) : '—'}</span>
       <span class="time">${p.dispatchTime}</span>
-      <button class="btn-delivered" onclick="markDelivered(${p.id})">✓ Dostarczony</button>
+      <button class="btn-delivered" onclick="markDelivered(${p.id})">✓ ${t('btn_delivered')}</button>
     </div>`;
   });
 
@@ -1783,18 +2611,18 @@ function renderTransporting() {
 function renderDispatchSelects() {
   const onSite = patients.filter(p => p.status === 'na_miejscu');
 
-  let pHtml = '<option value="">— wybierz pacjenta —</option>';
+  let pHtml = '<option value="">' + t('select_patient') + '</option>';
   onSite.forEach(p => {
-    const t = TRIAGE[p.triage];
-    pHtml += `<option value="${p.id}">${t.icon} ${p.tag} – ${t.text}${p.notes ? ' (' + escHtml(p.notes) + ')' : ''}</option>`;
+    const tr = TRIAGE[p.triage];
+    pHtml += `<option value="${p.id}">${tr.icon} ${p.tag} – ${t(p.triage.toLowerCase()+'_text')}${p.notes ? ' (' + escHtml(p.notes) + ')' : ''}</option>`;
   });
   document.getElementById('selPatient').innerHTML = pHtml;
 
-  let tHtml = '<option value="">— wybierz zespół —</option>';
-  teams.forEach(t => { tHtml += `<option value="${t.id}">${escHtml(t.name)}</option>`; });
+  let tHtml = '<option value="">' + t('select_team') + '</option>';
+  teams.forEach(tm => { tHtml += `<option value="${tm.id}">${escHtml(tm.name)}</option>`; });
   document.getElementById('selTeam').innerHTML = tHtml;
 
-  let hHtml = '<option value="">— wybierz szpital —</option>';
+  let hHtml = '<option value="">' + t('select_hospital') + '</option>';
   hospitals.forEach(h => { hHtml += `<option value="${h.id}">${escHtml(h.name)}</option>`; });
   document.getElementById('selHospital').innerHTML = hHtml;
 
@@ -1803,8 +2631,8 @@ function renderDispatchSelects() {
 
 function renderManage() {
   let tHtml = '';
-  teams.forEach(t => {
-    tHtml += `<div class="manage-item"><span>${escHtml(t.name)}</span><button class="btn-rm" onclick="removeTeam(${t.id})">✕</button></div>`;
+  teams.forEach(tm => {
+    tHtml += `<div class="manage-item"><span>${escHtml(tm.name)}</span><button class="btn-rm" onclick="removeTeam(${tm.id})">✕</button></div>`;
   });
   document.getElementById('teamsList').innerHTML = tHtml;
 
@@ -1823,13 +2651,13 @@ function renderHistory() {
   document.getElementById('historySection').style.display = '';
 
   let html = '';
-  transports.forEach(t => {
+  transports.forEach(tr => {
     html += `<div class="transport-card">
-      <div class="p-tag p-tag-${t.patientTriage}">${t.patientTag}</div>
-      <span class="team">${escHtml(t.teamName)}</span>
+      <div class="p-tag p-tag-${tr.patientTriage}">${tr.patientTag}</div>
+      <span class="team">${escHtml(tr.teamName)}</span>
       <span class="arrow">→</span>
-      <span class="hospital">${escHtml(t.hospitalName)}</span>
-      <span class="time">${t.time}</span>
+      <span class="hospital">${escHtml(tr.hospitalName)}</span>
+      <span class="time">${tr.time}</span>
     </div>`;
   });
   document.getElementById('historyList').innerHTML = html;
@@ -1843,21 +2671,21 @@ function renderReport() {
   // Summary block
   let html = `<div class="report-block">
     <div style="font-size:13px;color:var(--text2);margin-bottom:10px">
-      <strong style="color:var(--white)">${escHtml(eventName)}</strong> • Start: ${eventTime} • Raport: ${now()}
+      <strong style="color:var(--white)">${escHtml(eventName)}</strong> • Start: ${eventTime} • ${t('rpt_report')} ${now()}
     </div>
     <div class="report-summary">`;
 
   for (const [k, v] of Object.entries(TRIAGE)) {
     const c = k === 'T4' ? '#9CA3AF' : v.color;
-    html += `<div>${v.icon} <strong style="color:${c}">${counts[k]}</strong> <span style="color:var(--text3);font-size:11px">${v.text}</span></div>`;
+    html += `<div>${v.icon} <strong style="color:${c}">${counts[k]}</strong> <span style="color:var(--text3);font-size:11px">${t(k.toLowerCase()+'_text')}</span></div>`;
   }
-  html += `<div class="total">Razem: ${total}</div></div></div>`;
+  html += `<div class="total">${t('report_total')} ${total}</div></div></div>`;
 
   // Group by hospital
   const byHospital = {};
   patients.filter(p => p.hospitalId).forEach(p => {
     const h = hospitals.find(x => x.id === p.hospitalId);
-    const key = h ? h.name : 'Nieznany';
+    const key = h ? h.name : t('report_unknown');
     if (!byHospital[key]) byHospital[key] = [];
     byHospital[key].push(p);
   });
@@ -1865,35 +2693,35 @@ function renderReport() {
   if (Object.keys(byHospital).length > 0) {
     for (const [hospName, pts] of Object.entries(byHospital)) {
       html += `<div class="report-block">
-        <div class="report-hospital">📍 ${escHtml(hospName)} <small>(${pts.length} pac.)</small></div>`;
+        <div class="report-hospital">📍 ${escHtml(hospName)} <small>(${pts.length} ${t('report_patients')})</small></div>`;
 
       pts.forEach(p => {
-        const team = teams.find(t => t.id === p.teamId);
+        const team = teams.find(tm => tm.id === p.teamId);
         const statusCls = p.status === 'dostarczony' ? 'status-delivered' : 'status-transport';
-        const statusTxt = p.status === 'dostarczony' ? 'DOSTARCZONY' : 'W TRANSPORCIE';
+        const statusTxt = p.status === 'dostarczony' ? t('status_delivered') : t('status_in_transport');
         html += `<div class="report-row">
           <div class="p-tag p-tag-${p.triage}">${p.tag}</div>
-          <span style="color:var(--text2)">ZRM: ${team ? escHtml(team.name) : '—'}</span>
+          <span style="color:var(--text2)">${t('report_team_label')} ${team ? escHtml(team.name) : '—'}</span>
           <span style="color:var(--text4)">•</span>
-          <span style="color:var(--text3);font-size:10px">Wyjazd: ${p.dispatchTime || '—'}</span>
+          <span style="color:var(--text3);font-size:10px">${t('report_departure')} ${p.dispatchTime || '—'}</span>
           <span class="status-badge ${statusCls}">${statusTxt}</span>
         </div>`;
       });
       html += `</div>`;
     }
   } else {
-    html += '<div class="empty">Brak zadysponowanych transportów</div>';
+    html += '<div class="empty">' + t('report_no_transports') + '</div>';
   }
 
   // On-site patients
   const onSite = patients.filter(p => p.status === 'na_miejscu');
   if (onSite.length > 0) {
     html += `<div class="report-block">
-      <div class="report-hospital">🏥 Pozostali na miejscu zdarzenia <small>(${onSite.length})</small></div>`;
+      <div class="report-hospital">🏥 ${t('report_onsite_title')} <small>(${onSite.length})</small></div>`;
     onSite.forEach(p => {
       html += `<div class="report-row">
         <div class="p-tag p-tag-${p.triage}">${p.tag}</div>
-        <span style="color:var(--text2)">${TRIAGE[p.triage].text}</span>
+        <span style="color:var(--text2)">${t(p.triage.toLowerCase()+'_text')}</span>
         ${p.notes ? `<span style="color:var(--text3);font-size:11px">– ${escHtml(p.notes)}</span>` : ''}
       </div>`;
     });
@@ -1908,39 +2736,40 @@ function buildReportText() {
   const counts = { T1: 0, T2: 0, T3: 0, T4: 0 };
   patients.forEach(p => counts[p.triage]++);
 
-  let text = `=== RAPORT TRIAGE ===\n`;
-  text += `Zdarzenie: ${eventName}\n`;
-  text += `Rozpoczęcie: ${eventTime}\n`;
-  text += `Raport: ${now()}\n\n`;
-  text += `--- PODSUMOWANIE ---\n`;
-  text += `Łącznie pacjentów: ${patients.length}\n`;
+  let text = `${t('rpt_header')}\n`;
+  text += `${t('rpt_event')} ${eventName}\n`;
+  text += `${t('rpt_start')} ${eventTime}\n`;
+  text += `${t('rpt_report')} ${now()}\n\n`;
+  text += `${t('rpt_summary')}\n`;
+  text += `${t('rpt_total_patients')} ${patients.length}\n`;
   for (const [k, v] of Object.entries(TRIAGE)) {
-    text += `${v.icon} ${v.label}: ${counts[k]}\n`;
+    text += `${v.icon} ${t(k.toLowerCase()+'_label')}: ${counts[k]}\n`;
   }
 
   const byHospital = {};
   patients.filter(p => p.hospitalId).forEach(p => {
     const h = hospitals.find(x => x.id === p.hospitalId);
-    const key = h ? h.name : 'Nieznany';
+    const key = h ? h.name : t('report_unknown');
     if (!byHospital[key]) byHospital[key] = [];
     byHospital[key].push(p);
   });
 
-  text += `\n--- TRANSPORT DO SZPITALI ---\n`;
+  text += `\n${t('rpt_transport_header')}\n`;
   if (Object.keys(byHospital).length === 0) {
-    text += `Brak zadysponowanych transportów\n`;
+    text += `${t('rpt_no_dispatched')}\n`;
   }
   for (const [hospName, pts] of Object.entries(byHospital)) {
-    text += `\n📍 ${hospName} (${pts.length} pac.):\n`;
+    text += `\n📍 ${hospName} (${pts.length} ${t('report_patients')}):\n`;
     pts.forEach(p => {
-      const team = teams.find(t => t.id === p.teamId);
-      text += `  ${p.tag} [${p.triage}] → ZRM: ${team ? team.name : '—'} | ${p.dispatchTime} | ${p.status.toUpperCase()}\n`;
+      const team = teams.find(tm => tm.id === p.teamId);
+      const st = p.status === 'dostarczony' ? t('status_delivered') : t('status_in_transport');
+      text += `  ${p.tag} [${p.triage}] → ${t('report_team_label')} ${team ? team.name : '—'} | ${p.dispatchTime} | ${st}\n`;
     });
   }
 
   const onSite = patients.filter(p => p.status === 'na_miejscu');
   if (onSite.length > 0) {
-    text += `\n--- POZOSTALI NA MIEJSCU (${onSite.length}) ---\n`;
+    text += `\n${t('rpt_onsite_header')} (${onSite.length}) ---\n`;
     onSite.forEach(p => {
       text += `  ${p.tag} [${p.triage}] ${p.notes ? '– ' + p.notes : ''}\n`;
     });
@@ -1955,7 +2784,7 @@ function copyReport() {
   document.getElementById('reportModal').classList.add('open');
   // Reset button state
   const btn = document.getElementById('btnModalCopy');
-  btn.textContent = '📋 Kopiuj do schowka';
+  btn.textContent = '📋 ' + t('modal_copy');
   btn.classList.remove('copied');
 }
 
@@ -1968,10 +2797,10 @@ function copyFromModal() {
   const btn = document.getElementById('btnModalCopy');
 
   navigator.clipboard.writeText(text).then(() => {
-    btn.textContent = '✓ Skopiowano do schowka!';
+    btn.textContent = '✓ ' + t('modal_copied');
     btn.classList.add('copied');
     setTimeout(() => {
-      btn.textContent = '📋 Kopiuj do schowka';
+      btn.textContent = '📋 ' + t('modal_copy');
       btn.classList.remove('copied');
     }, 2500);
   }).catch(() => {
@@ -1985,10 +2814,10 @@ function copyFromModal() {
     ta.select();
     try {
       document.execCommand('copy');
-      btn.textContent = '✓ Skopiowano do schowka!';
+      btn.textContent = '✓ ' + t('modal_copied');
       btn.classList.add('copied');
       setTimeout(() => {
-        btn.textContent = '📋 Kopiuj do schowka';
+        btn.textContent = '📋 ' + t('modal_copy');
         btn.classList.remove('copied');
       }, 2500);
     } catch(e) {}
@@ -2037,7 +2866,7 @@ function resumeEvent() {
 }
 
 function freshEvent() {
-  if (!confirm('Czy na pewno chcesz rozpocząć nowe zdarzenie? Wszystkie zapisane dane zostaną usunięte.')) return;
+  if (!confirm(t('confirm_new_event'))) return;
   clearState();
   location.reload();
 }
@@ -2049,16 +2878,21 @@ function freshEvent() {
     const resumeDiv = document.createElement('div');
     resumeDiv.innerHTML = `
       <div style="margin-top:16px;padding:16px;background:var(--surface);border:1px solid var(--border2);border-radius:10px;">
-        <div style="color:var(--yellow-light);font-weight:700;margin-bottom:8px;">Wykryto zapisane zdarzenie</div>
-        <div style="color:var(--text2);font-size:12px;margin-bottom:12px;">${escHtml(eventName)} — rozpoczęte ${escHtml(eventTime)}</div>
+        <div style="color:var(--yellow-light);font-weight:700;margin-bottom:8px;">${t('resume_detected')}</div>
+        <div style="color:var(--text2);font-size:12px;margin-bottom:12px;">${escHtml(eventName)} — ${t('resume_started')} ${escHtml(eventTime)}</div>
         <div style="display:flex;gap:8px;">
-          <button class="btn-start" onclick="resumeEvent()" style="flex:1;font-size:12px;padding:10px;">KONTYNUUJ</button>
-          <button class="btn-start" onclick="freshEvent()" style="flex:1;font-size:12px;padding:10px;background:var(--border);color:var(--text2);">NOWE ZDARZENIE</button>
+          <button class="btn-start" onclick="resumeEvent()" style="flex:1;font-size:12px;padding:10px;">${t('resume_continue')}</button>
+          <button class="btn-start" onclick="freshEvent()" style="flex:1;font-size:12px;padding:10px;background:var(--border);color:var(--text2);">${t('resume_new')}</button>
         </div>
       </div>
     `;
     setup.appendChild(resumeDiv);
   }
+  // Set initial language
+  document.documentElement.lang = currentLang;
+  const langSelect = document.getElementById('langSelect');
+  if (langSelect) langSelect.value = currentLang;
+  applyStaticTranslations();
 })();
 
 // ===== INSTALL BANNERS (iOS + Android) =====
