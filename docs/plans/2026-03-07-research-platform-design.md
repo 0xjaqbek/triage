@@ -124,8 +124,10 @@ CREATE TABLE experiment_sessions (
   scenario VARCHAR(2) NOT NULL CHECK (scenario IN ('S1', 'S2')),
   created_at TIMESTAMPTZ DEFAULT NOW(),
 
-  -- Czas
-  time_seconds INT NOT NULL,               -- czas segregacji w sekundach
+  -- Czas (timer wbudowany w panel)
+  timer_started_at TIMESTAMPTZ,            -- moment kliknięcia START
+  timer_stopped_at TIMESTAMPTZ,            -- moment kliknięcia STOP
+  time_seconds INT NOT NULL,               -- obliczony automatycznie (stop - start)
 
   -- Kompletność raportu (10 elementów, każdy 0 lub 1)
   report_event_name BOOLEAN DEFAULT FALSE,
@@ -255,7 +257,9 @@ Body: {
   session_number: 1,
   method: "tradycyjna",
   scenario: "S1",
-  time_seconds: 423,
+  timer_started_at: "2026-04-15T14:32:10.000Z",
+  timer_stopped_at: "2026-04-15T14:39:13.000Z",
+  time_seconds: 423,    // auto-obliczony lub wpisany ręcznie
   classifications: [
     { patient_code: "S1-01", assigned_category: "T3" },
     { patient_code: "S1-02", assigned_category: "T3" },
@@ -403,7 +407,12 @@ Przycisk "losuj" automatycznie przydziela AB lub BA (balansując grupy 50/50).
 │  Sesja: (•) 1  ( ) 2                                   │
 │  → Metoda: TRADYCYJNA  Scenariusz: S1  (auto z AB+nr) │
 │                                                         │
-│  Czas segregacji: [___] min [___] sek  = ___ sek       │
+│  Timer:  ┌──────────────────────────────────────┐      │
+│          │       ⏱  07:03                        │      │
+│          │                                       │      │
+│          │   [▶ START]          [⏹ STOP]        │      │
+│          └──────────────────────────────────────┘      │
+│  Czas: 423 sek (auto z timera, edytowalny ręcznie)    │
 │                                                         │
 │  Klasyfikacje:                                          │
 │  ┌──────────┬──────┬─────────────────┐                 │
@@ -435,6 +444,12 @@ Logika automatyczna:
   - AB, sesja 2 → aplikacja, S2
   - BA, sesja 1 → aplikacja, S1
   - BA, sesja 2 → tradycyjna, S2
+- **Timer wbudowany:**
+  - Przycisk **START** → zapisuje `timer_started_at` (Date.now()), uruchamia wyświetlacz MM:SS odliczający w górę
+  - Przycisk **STOP** → zapisuje `timer_stopped_at`, oblicza `time_seconds = Math.round((stop - start) / 1000)`
+  - Wynik wyświetlony i wpisany automatycznie w pole czasu
+  - Pole czasu pozostaje **edytowalne ręcznie** (awaryjnie, np. jeśli zapomnisz kliknąć START)
+  - Timer działa na frontendzie (JS `setInterval`), timestampy wysyłane do bazy
 - Kolumna "Ref." (kategoria referencyjna) widoczna ale nie edytowalna — do kontroli po wpisaniu
 - Po zapisie: natychmiastowy feedback z wynikiem trafności i listą błędów
 
@@ -537,7 +552,42 @@ function calculateReportCompleteness(scores) {
 }
 ```
 
-### 6.4. Automatyczne przypisanie metody/scenariusza
+### 6.4. Timer sesji (frontend)
+
+```js
+let timerInterval = null;
+let startedAt = null;
+
+function startTimer() {
+  startedAt = Date.now();
+  document.getElementById('timerDisplay').textContent = '00:00';
+  document.getElementById('btnStart').disabled = true;
+  document.getElementById('btnStop').disabled = false;
+
+  timerInterval = setInterval(() => {
+    const elapsed = Math.floor((Date.now() - startedAt) / 1000);
+    const min = String(Math.floor(elapsed / 60)).padStart(2, '0');
+    const sec = String(elapsed % 60).padStart(2, '0');
+    document.getElementById('timerDisplay').textContent = `${min}:${sec}`;
+  }, 1000);
+}
+
+function stopTimer() {
+  clearInterval(timerInterval);
+  const stoppedAt = Date.now();
+  const seconds = Math.round((stoppedAt - startedAt) / 1000);
+
+  document.getElementById('btnStart').disabled = false;
+  document.getElementById('btnStop').disabled = true;
+  document.getElementById('timeSeconds').value = seconds;
+
+  // Zapisz timestampy do wysłania z formularzem
+  document.getElementById('timerStartedAt').value = new Date(startedAt).toISOString();
+  document.getElementById('timerStoppedAt').value = new Date(stoppedAt).toISOString();
+}
+```
+
+### 6.5. Automatyczne przypisanie metody/scenariusza
 
 ```js
 function getSessionDetails(sequence, sessionNumber) {
@@ -556,9 +606,9 @@ function getSessionDetails(sequence, sessionNumber) {
 ### 7.1. experiment.csv
 
 ```csv
-participant_code,sequence,status,age_range,gender,work_experience,has_real_mci,session,method,scenario,time_seconds,accuracy_pct,correct_count,overtriage_count,undertriage_count,report_score,S_01,S_02,S_03,S_04,S_05,S_06,S_07,S_08,S_09,S_10,S_11,S_12
-U01,AB,student,20-25,mezczyzna,brak,false,1,tradycyjna,S1,423,83.33,10,1,1,4,T3,T3,T3,T3,T2,T2,T2,T1,T2,T1,T4,T4
-U01,AB,student,20-25,mezczyzna,brak,false,2,aplikacja,S2,312,91.67,11,1,0,9,T3,T3,T3,T3,T2,T2,T2,T1,T1,T2,T4,T4
+participant_code,sequence,status,age_range,gender,work_experience,has_real_mci,session,method,scenario,timer_started_at,timer_stopped_at,time_seconds,accuracy_pct,correct_count,overtriage_count,undertriage_count,report_score,S_01,S_02,S_03,S_04,S_05,S_06,S_07,S_08,S_09,S_10,S_11,S_12
+U01,AB,student,20-25,mezczyzna,brak,false,1,tradycyjna,S1,2026-04-15T14:32:10Z,2026-04-15T14:39:13Z,423,83.33,10,1,1,4,T3,T3,T3,T3,T2,T2,T2,T1,T2,T1,T4,T4
+U01,AB,student,20-25,mezczyzna,brak,false,2,aplikacja,S2,2026-04-15T14:55:01Z,2026-04-15T15:00:13Z,312,91.67,11,1,0,9,T3,T3,T3,T3,T2,T2,T2,T1,T1,T2,T4,T4
 ```
 
 Każdy wiersz = jeden uczestnik × jedna sesja. Kolumny S_01-S_12 to przypisane kategorie (do analizy macierzy pomyłek).
