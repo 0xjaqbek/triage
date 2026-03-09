@@ -1190,7 +1190,7 @@ body {
 <div id="infoModal" class="info-overlay hidden" onclick="if(event.target===this)closeInfo()">
   <div class="info-box">
     <h2>TRIAGE MCI</h2>
-    <div class="info-version">v1.0.1</div>
+    <div class="info-version">v1.0.2</div>
 
     <div class="info-section">
       <h3 data-i18n="info_about_title">O aplikacji</h3>
@@ -2687,7 +2687,9 @@ function renderTransporting() {
 }
 
 function renderDispatchSelects() {
-  const onSite = patients.filter(p => p.status === 'na_miejscu');
+  const triageOrder = ['T1', 'T2', 'T3', 'T4'];
+  const onSite = patients.filter(p => p.status === 'na_miejscu')
+    .sort((a, b) => triageOrder.indexOf(a.triage) - triageOrder.indexOf(b.triage));
 
   let pHtml = '<option value="">' + t('select_patient') + '</option>';
   onSite.forEach(p => {
@@ -2696,8 +2698,9 @@ function renderDispatchSelects() {
   });
   document.getElementById('selPatient').innerHTML = pHtml;
 
+  const busyTeamIds = new Set(patients.filter(p => p.status === 'transportowany').map(p => p.teamId));
   let tHtml = '<option value="">' + t('select_team') + '</option>';
-  teams.forEach(tm => { tHtml += `<option value="${tm.id}">${escHtml(tm.name)}</option>`; });
+  teams.filter(tm => !busyTeamIds.has(tm.id)).forEach(tm => { tHtml += `<option value="${tm.id}">${escHtml(tm.name)}</option>`; });
   document.getElementById('selTeam').innerHTML = tHtml;
 
   let hHtml = '<option value="">' + t('select_hospital') + '</option>';
