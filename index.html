@@ -199,6 +199,21 @@ body {
 
 .p-notes::placeholder { color: var(--text4); }
 
+.p-desc {
+  width: 100px;
+  padding: 4px 7px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text);
+  font-size: 11px;
+  font-family: var(--font);
+  outline: none;
+  flex-shrink: 0;
+}
+
+.p-desc::placeholder { color: var(--text4); }
+
 .triage-dots {
   display: flex;
   gap: 4px;
@@ -1023,6 +1038,44 @@ body {
   font-family: var(--font);
 }
 
+.btn-modal-send {
+  padding: 10px 20px;
+  background: #1D4ED8;
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: var(--font);
+  letter-spacing: 0.04em;
+  transition: all 0.15s;
+}
+
+.btn-modal-send:active { transform: scale(0.97); }
+
+.send-options {
+  display: none;
+  gap: 8px;
+}
+
+.send-options.open { display: flex; }
+
+.btn-send-sms, .btn-send-email {
+  padding: 8px 16px;
+  border: 1px solid #1D4ED8;
+  background: transparent;
+  color: #93C5FD;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 700;
+  font-family: var(--font);
+  transition: all 0.15s;
+}
+
+.btn-send-sms:active, .btn-send-email:active { transform: scale(0.97); }
+
 /* INSTALL BANNER (iOS + Android) */
 .install-banner {
   position: fixed;
@@ -1137,7 +1190,7 @@ body {
 <div id="infoModal" class="info-overlay hidden" onclick="if(event.target===this)closeInfo()">
   <div class="info-box">
     <h2>TRIAGE MCI</h2>
-    <div class="info-version">v1.0.0</div>
+    <div class="info-version">v1.0.1</div>
 
     <div class="info-section">
       <h3 data-i18n="info_about_title">O aplikacji</h3>
@@ -1314,7 +1367,11 @@ body {
     <div class="modal-footer">
       <button class="btn-modal-close" onclick="closeModal()" data-i18n="modal_close">Zamknij</button>
       <button class="btn-modal-copy" id="btnModalCopy" onclick="copyFromModal()">📋 Kopiuj do schowka</button>
-
+      <button class="btn-modal-send" onclick="toggleSendOptions()" data-i18n="btn_send">📤 Wyślij</button>
+      <div class="send-options" id="sendOptions">
+        <button class="btn-send-sms" onclick="sendViaSms()">💬 SMS</button>
+        <button class="btn-send-email" onclick="sendViaEmail()">📧 Email</button>
+      </div>
     </div>
   </div>
 </div>
@@ -1391,6 +1448,7 @@ const TRANSLATIONS = {
     override_color: 'ZMIEŃ KOLOR RĘCZNIE',
     notes_placeholder: 'Dodatkowe notatki (obrażenia, mechanizm...)',
     notes_placeholder2: 'Notatki (obrażenia, mechanizm...)',
+    desc_placeholder: 'Opis...',
     patients_onsite: 'Pacjenci na miejscu',
     patients_empty: 'Brak zarejestrowanych pacjentów',
     change_to: 'Zmień na',
@@ -1433,6 +1491,7 @@ const TRANSLATIONS = {
     modal_report_title: '📋 Raport tekstowy',
     modal_close: 'Zamknij',
     modal_copy: 'Kopiuj do schowka',
+    btn_send: 'Wyślij',
     modal_copied: 'Skopiowano do schowka!',
     confirm_remove_patient: 'Czy na pewno chcesz usunąć tego pacjenta?',
     confirm_remove_team: 'Czy na pewno chcesz usunąć ten zespół?',
@@ -1511,6 +1570,7 @@ const TRANSLATIONS = {
     override_color: 'OVERRIDE COLOUR',
     notes_placeholder: 'Additional notes (injuries, mechanism...)',
     notes_placeholder2: 'Notes (injuries, mechanism...)',
+    desc_placeholder: 'Desc...',
     patients_onsite: 'Patients on scene',
     patients_empty: 'No registered patients',
     change_to: 'Change to',
@@ -1553,6 +1613,7 @@ const TRANSLATIONS = {
     modal_report_title: '📋 Text report',
     modal_close: 'Close',
     modal_copy: 'Copy to clipboard',
+    btn_send: 'Send',
     modal_copied: 'Copied to clipboard!',
     confirm_remove_patient: 'Are you sure you want to remove this patient?',
     confirm_remove_team: 'Are you sure you want to remove this team?',
@@ -1631,6 +1692,7 @@ const TRANSLATIONS = {
     override_color: 'CAMBIA COLORE MANUALMENTE',
     notes_placeholder: 'Note aggiuntive (lesioni, meccanismo...)',
     notes_placeholder2: 'Note (lesioni, meccanismo...)',
+    desc_placeholder: 'Desc...',
     patients_onsite: 'Pazienti sul posto',
     patients_empty: 'Nessun paziente registrato',
     change_to: 'Cambia in',
@@ -1673,6 +1735,7 @@ const TRANSLATIONS = {
     modal_report_title: '📋 Rapporto testuale',
     modal_close: 'Chiudi',
     modal_copy: 'Copia negli appunti',
+    btn_send: 'Invia',
     modal_copied: 'Copiato negli appunti!',
     confirm_remove_patient: 'Sei sicuro di voler rimuovere questo paziente?',
     confirm_remove_team: 'Sei sicuro di voler rimuovere questa squadra?',
@@ -1751,6 +1814,7 @@ const TRANSLATIONS = {
     override_color: 'CHANGER COULEUR MANUELLEMENT',
     notes_placeholder: 'Notes supplémentaires (blessures, mécanisme...)',
     notes_placeholder2: 'Notes (blessures, mécanisme...)',
+    desc_placeholder: 'Desc...',
     patients_onsite: 'Patients sur place',
     patients_empty: 'Aucun patient enregistré',
     change_to: 'Changer en',
@@ -1793,6 +1857,7 @@ const TRANSLATIONS = {
     modal_report_title: '📋 Rapport textuel',
     modal_close: 'Fermer',
     modal_copy: 'Copier dans le presse-papiers',
+    btn_send: 'Envoyer',
     modal_copied: 'Copié dans le presse-papiers !',
     confirm_remove_patient: 'Êtes-vous sûr de vouloir supprimer ce patient ?',
     confirm_remove_team: 'Êtes-vous sûr de vouloir supprimer cette équipe ?',
@@ -1871,6 +1936,7 @@ const TRANSLATIONS = {
     override_color: 'FARBE MANUELL ÄNDERN',
     notes_placeholder: 'Zusätzliche Notizen (Verletzungen, Mechanismus...)',
     notes_placeholder2: 'Notizen (Verletzungen, Mechanismus...)',
+    desc_placeholder: 'Beschr...',
     patients_onsite: 'Patienten vor Ort',
     patients_empty: 'Keine registrierten Patienten',
     change_to: 'Ändern zu',
@@ -1913,6 +1979,7 @@ const TRANSLATIONS = {
     modal_report_title: '📋 Textbericht',
     modal_close: 'Schließen',
     modal_copy: 'In Zwischenablage kopieren',
+    btn_send: 'Senden',
     modal_copied: 'In Zwischenablage kopiert!',
     confirm_remove_patient: 'Sind Sie sicher, dass Sie diesen Patienten entfernen möchten?',
     confirm_remove_team: 'Sind Sie sicher, dass Sie dieses Team entfernen möchten?',
@@ -1991,6 +2058,7 @@ const TRANSLATIONS = {
     override_color: 'ZMĚNIT BARVU RUČNĚ',
     notes_placeholder: 'Další poznámky (zranění, mechanismus...)',
     notes_placeholder2: 'Poznámky (zranění, mechanismus...)',
+    desc_placeholder: 'Popis...',
     patients_onsite: 'Pacienti na místě',
     patients_empty: 'Žádní registrovaní pacienti',
     change_to: 'Změnit na',
@@ -2033,6 +2101,7 @@ const TRANSLATIONS = {
     modal_report_title: '📋 Textové hlášení',
     modal_close: 'Zavřít',
     modal_copy: 'Kopírovat do schránky',
+    btn_send: 'Odeslat',
     modal_copied: 'Zkopírováno do schránky!',
     confirm_remove_patient: 'Opravdu chcete odstranit tohoto pacienta?',
     confirm_remove_team: 'Opravdu chcete odstranit tuto posádku?',
@@ -2111,6 +2180,7 @@ const TRANSLATIONS = {
     override_color: 'ALTERAR COR MANUALMENTE',
     notes_placeholder: 'Notas adicionais (lesões, mecanismo...)',
     notes_placeholder2: 'Notas (lesões, mecanismo...)',
+    desc_placeholder: 'Desc...',
     patients_onsite: 'Pacientes no local',
     patients_empty: 'Nenhum paciente registado',
     change_to: 'Alterar para',
@@ -2153,6 +2223,7 @@ const TRANSLATIONS = {
     modal_report_title: '📋 Relatório de texto',
     modal_close: 'Fechar',
     modal_copy: 'Copiar para a área de transferência',
+    btn_send: 'Enviar',
     modal_copied: 'Copiado para a área de transferência!',
     confirm_remove_patient: 'Tem a certeza de que deseja remover este paciente?',
     confirm_remove_team: 'Tem a certeza de que deseja remover esta equipa?',
@@ -2415,7 +2486,7 @@ function addPatient(triage, notes, pathInfo) {
   const fullNotes = [pathInfo || '', notes || ''].filter(Boolean).join(' | ');
   patients.unshift({
     id, tag: 'P-' + String(id).padStart(3, '0'), triage, time: now(),
-    notes: fullNotes, status: 'na_miejscu', teamId: null, hospitalId: null, dispatchTime: null
+    notes: fullNotes, description: '', status: 'na_miejscu', teamId: null, hospitalId: null, dispatchTime: null
   });
   renderAll();
   saveState();
@@ -2431,6 +2502,12 @@ function changeTriage(id, newT) {
 function updateNotes(id, val) {
   const p = patients.find(x => x.id === id);
   if (p) p.notes = val;
+  saveState();
+}
+
+function updateDescription(id, val) {
+  const p = patients.find(x => x.id === id);
+  if (p) p.description = val;
   saveState();
 }
 
@@ -2571,6 +2648,7 @@ function renderPatients() {
         <div class="p-time">${t(p.triage.toLowerCase()+'_text')} • ${p.time}</div>
         <input class="p-notes" placeholder="${t('notes_placeholder2')}" value="${escHtml(p.notes)}" oninput="updateNotes(${p.id},this.value)">
       </div>
+      <input class="p-desc" placeholder="${t('desc_placeholder')}" value="${escHtml(p.description || '')}" oninput="updateDescription(${p.id},this.value)">
       <div class="triage-dots">${dots}</div>
       <button class="btn-remove" onclick="removePatient(${p.id})" title="${t('btn_remove')}">✕</button>
     </div>`;
@@ -2614,7 +2692,7 @@ function renderDispatchSelects() {
   let pHtml = '<option value="">' + t('select_patient') + '</option>';
   onSite.forEach(p => {
     const tr = TRIAGE[p.triage];
-    pHtml += `<option value="${p.id}">${tr.icon} ${p.tag} – ${t(p.triage.toLowerCase()+'_text')}${p.notes ? ' (' + escHtml(p.notes) + ')' : ''}</option>`;
+    pHtml += `<option value="${p.id}">${tr.icon} ${p.tag}${p.description ? ' ' + escHtml(p.description) : ''} – ${t(p.triage.toLowerCase()+'_text')}${p.notes ? ' (' + escHtml(p.notes) + ')' : ''}</option>`;
   });
   document.getElementById('selPatient').innerHTML = pHtml;
 
@@ -2701,6 +2779,7 @@ function renderReport() {
         const statusTxt = p.status === 'dostarczony' ? t('status_delivered') : t('status_in_transport');
         html += `<div class="report-row">
           <div class="p-tag p-tag-${p.triage}">${p.tag}</div>
+          ${p.description ? `<span style="color:var(--text)">${escHtml(p.description)}</span>` : ''}
           <span style="color:var(--text2)">${t('report_team_label')} ${team ? escHtml(team.name) : '—'}</span>
           <span style="color:var(--text4)">•</span>
           <span style="color:var(--text3);font-size:10px">${t('report_departure')} ${p.dispatchTime || '—'}</span>
@@ -2721,6 +2800,7 @@ function renderReport() {
     onSite.forEach(p => {
       html += `<div class="report-row">
         <div class="p-tag p-tag-${p.triage}">${p.tag}</div>
+        ${p.description ? `<span style="color:var(--text)">${escHtml(p.description)}</span>` : ''}
         <span style="color:var(--text2)">${t(p.triage.toLowerCase()+'_text')}</span>
         ${p.notes ? `<span style="color:var(--text3);font-size:11px">– ${escHtml(p.notes)}</span>` : ''}
       </div>`;
@@ -2763,7 +2843,7 @@ function buildReportText() {
     pts.forEach(p => {
       const team = teams.find(tm => tm.id === p.teamId);
       const st = p.status === 'dostarczony' ? t('status_delivered') : t('status_in_transport');
-      text += `  ${p.tag} [${p.triage}] → ${t('report_team_label')} ${team ? team.name : '—'} | ${p.dispatchTime} | ${st}\n`;
+      text += `  ${p.tag}${p.description ? ' ' + p.description : ''} [${p.triage}] → ${t('report_team_label')} ${team ? team.name : '—'} | ${p.dispatchTime} | ${st}\n`;
     });
   }
 
@@ -2771,7 +2851,7 @@ function buildReportText() {
   if (onSite.length > 0) {
     text += `\n${t('rpt_onsite_header')} (${onSite.length}) ---\n`;
     onSite.forEach(p => {
-      text += `  ${p.tag} [${p.triage}] ${p.notes ? '– ' + p.notes : ''}\n`;
+      text += `  ${p.tag}${p.description ? ' ' + p.description : ''} [${p.triage}] ${p.notes ? '– ' + p.notes : ''}\n`;
     });
   }
 
@@ -2786,6 +2866,7 @@ function copyReport() {
   const btn = document.getElementById('btnModalCopy');
   btn.textContent = '📋 ' + t('modal_copy');
   btn.classList.remove('copied');
+  document.getElementById('sendOptions').classList.remove('open');
 }
 
 function closeModal() {
@@ -2823,6 +2904,25 @@ function copyFromModal() {
     } catch(e) {}
     document.body.removeChild(ta);
   });
+}
+
+function toggleSendOptions() {
+  document.getElementById('sendOptions').classList.toggle('open');
+}
+
+function sendViaEmail() {
+  const text = document.getElementById('modalReportText').textContent;
+  const subject = encodeURIComponent('TRIAGE MCI – ' + eventName);
+  const body = encodeURIComponent(text);
+  window.open('mailto:?subject=' + subject + '&body=' + body, '_self');
+}
+
+function sendViaSms() {
+  const text = document.getElementById('modalReportText').textContent;
+  const body = encodeURIComponent(text);
+  const ua = navigator.userAgent;
+  const sep = /iPad|iPhone|iPod/.test(ua) ? '&' : '?';
+  window.open('sms:' + sep + 'body=' + body, '_self');
 }
 
 // Close modal on overlay click
