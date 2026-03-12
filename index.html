@@ -861,6 +861,38 @@ body.help-on .help-bubble:not(.dismissed) {
 
 .btn-info-close:hover { background: var(--border2); }
 
+.btn-changelog {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  padding: 4px 10px;
+  background: transparent;
+  color: var(--text3);
+  border: 1px solid var(--border2);
+  border-radius: 6px;
+  font-size: 11px;
+  font-family: var(--font);
+  cursor: pointer;
+}
+
+.btn-changelog:hover { color: var(--text); border-color: var(--text3); }
+
+.changelog-list {
+  list-style: none;
+  padding: 0;
+}
+
+.changelog-list li {
+  padding: 3px 0;
+  font-size: 12px;
+  color: var(--text2);
+}
+
+.changelog-list li::before {
+  content: '• ';
+  color: var(--text3);
+}
+
 .empty { color: var(--text4); font-size: 12px; font-style: italic; }
 
 /* WIZARD */
@@ -1385,9 +1417,10 @@ body.help-on .help-bubble:not(.dismissed) {
 
 <!-- INFO MODAL -->
 <div id="infoModal" class="info-overlay hidden" onclick="if(event.target===this)closeInfo()">
-  <div class="info-box">
+  <div class="info-box" style="position:relative;">
+    <button class="btn-changelog" onclick="openChangelog()" data-i18n="btn_changelog">Changelog</button>
     <h2>TRIAGE MCI</h2>
-    <div class="info-version">v1.0.2</div>
+    <div class="info-version">v1.0.3</div>
 
     <div class="info-section">
       <h3 data-i18n="info_about_title">O aplikacji</h3>
@@ -1425,6 +1458,48 @@ body.help-on .help-bubble:not(.dismissed) {
     </div>
 
     <button class="btn-info-close" onclick="closeInfo()" data-i18n="btn_close">ZAMKNIJ</button>
+  </div>
+</div>
+
+<!-- CHANGELOG MODAL -->
+<div id="changelogModal" class="info-overlay hidden" onclick="if(event.target===this)closeChangelog()">
+  <div class="info-box">
+    <h2 data-i18n="changelog_title">Changelog</h2>
+    <div class="info-section">
+      <h3>v1.0.3</h3>
+      <ul class="changelog-list">
+        <li data-i18n="cl_103_1">Dodano dymki pomocy z przełącznikiem na ekranie startowym</li>
+        <li data-i18n="cl_103_2">Ulepszono układ przycisków wysyłania w modalu raportu</li>
+        <li data-i18n="cl_103_3">Usunięto zegar z nagłówka</li>
+        <li data-i18n="cl_103_4">Zaktualizowano cache service workera do v9</li>
+      </ul>
+    </div>
+    <div class="info-section">
+      <h3>v1.0.2</h3>
+      <ul class="changelog-list">
+        <li data-i18n="cl_102_1">Sortowanie pacjentów do dysponowania wg priorytetu triage</li>
+        <li data-i18n="cl_102_2">Ukrywanie zajętych zespołów na liście dysponowania</li>
+      </ul>
+    </div>
+    <div class="info-section">
+      <h3>v1.0.1</h3>
+      <ul class="changelog-list">
+        <li data-i18n="cl_101_1">Dodano favicon dla karty przeglądarki</li>
+        <li data-i18n="cl_101_2">Dodano ikony PWA i manifest</li>
+      </ul>
+    </div>
+    <div class="info-section">
+      <h3>v1.0.0</h3>
+      <ul class="changelog-list">
+        <li data-i18n="cl_100_1">Pierwsza wersja aplikacji</li>
+        <li data-i18n="cl_100_2">Segregacja START z 6-krokowym kreatorem</li>
+        <li data-i18n="cl_100_3">Dysponowanie transportu z zarządzaniem zespołami i szpitalami</li>
+        <li data-i18n="cl_100_4">Generowanie i eksport raportów (kopiuj, SMS, e-mail)</li>
+        <li data-i18n="cl_100_5">Obsługa 7 języków</li>
+        <li data-i18n="cl_100_6">Pełna funkcjonalność offline (PWA)</li>
+      </ul>
+    </div>
+    <button class="btn-info-close" onclick="closeChangelog()" data-i18n="btn_close">ZAMKNIJ</button>
   </div>
 </div>
 
@@ -1760,6 +1835,22 @@ const TRANSLATIONS = {
     help_manage_teams: 'Dodawaj i usuwaj zespoły ZRM dostępne na miejscu zdarzenia.',
     help_manage_hospitals: 'Dodawaj i usuwaj szpitale docelowe.',
     help_report: 'Automatycznie generowany raport ze zdarzenia. Możesz skopiować tekst lub wysłać przez SMS/e-mail.',
+    btn_changelog: 'Changelog',
+    changelog_title: 'Historia zmian',
+    cl_103_1: 'Dodano dymki pomocy z przełącznikiem na ekranie startowym',
+    cl_103_2: 'Ulepszono układ przycisków wysyłania w modalu raportu',
+    cl_103_3: 'Usunięto zegar z nagłówka',
+    cl_103_4: 'Zaktualizowano cache service workera do v9',
+    cl_102_1: 'Sortowanie pacjentów do dysponowania wg priorytetu triage',
+    cl_102_2: 'Ukrywanie zajętych zespołów na liście dysponowania',
+    cl_101_1: 'Dodano favicon dla karty przeglądarki',
+    cl_101_2: 'Dodano ikony PWA i manifest',
+    cl_100_1: 'Pierwsza wersja aplikacji',
+    cl_100_2: 'Segregacja START z 6-krokowym kreatorem',
+    cl_100_3: 'Dysponowanie transportu z zarządzaniem zespołami i szpitalami',
+    cl_100_4: 'Generowanie i eksport raportów (kopiuj, SMS, e-mail)',
+    cl_100_5: 'Obsługa 7 języków',
+    cl_100_6: 'Pełna funkcjonalność offline (PWA)',
   },
   en: {
     setup_subtitle: 'Mass Casualty Incident Management System',
@@ -1898,6 +1989,22 @@ const TRANSLATIONS = {
     help_manage_teams: 'Add or remove EMS teams available on scene.',
     help_manage_hospitals: 'Add or remove destination hospitals.',
     help_report: 'Auto-generated event report. Copy the text or send via SMS/email.',
+    btn_changelog: 'Changelog',
+    changelog_title: 'Changelog',
+    cl_103_1: 'Added help bubbles with toggle on the setup screen',
+    cl_103_2: 'Improved send button layout in report modal',
+    cl_103_3: 'Removed clock from header',
+    cl_103_4: 'Updated service worker cache to v9',
+    cl_102_1: 'Sort dispatch patients by triage priority',
+    cl_102_2: 'Hide busy teams from dispatch list',
+    cl_101_1: 'Added favicon for browser tab',
+    cl_101_2: 'Added PWA icons and manifest',
+    cl_100_1: 'Initial release',
+    cl_100_2: 'START triage with 6-step wizard',
+    cl_100_3: 'Transport dispatch with team and hospital management',
+    cl_100_4: 'Report generation and export (copy, SMS, email)',
+    cl_100_5: 'Support for 7 languages',
+    cl_100_6: 'Full offline functionality (PWA)',
   },
   it: {
     setup_subtitle: 'Sistema di gestione degli incidenti con vittime multiple',
@@ -2036,6 +2143,22 @@ const TRANSLATIONS = {
     help_manage_teams: 'Aggiungi o rimuovi team EMS disponibili sulla scena.',
     help_manage_hospitals: 'Aggiungi o rimuovi ospedali di destinazione.',
     help_report: 'Rapporto evento generato automaticamente. Copia il testo o invia via SMS/email.',
+    btn_changelog: 'Changelog',
+    changelog_title: 'Cronologia modifiche',
+    cl_103_1: 'Aggiunti suggerimenti con interruttore nella schermata iniziale',
+    cl_103_2: 'Migliorato layout pulsanti invio nel modale rapporto',
+    cl_103_3: 'Rimosso orologio dall\'intestazione',
+    cl_103_4: 'Aggiornata cache service worker a v9',
+    cl_102_1: 'Ordinamento pazienti per priorità triage nel dispatch',
+    cl_102_2: 'Nascondere team occupati dalla lista dispatch',
+    cl_101_1: 'Aggiunta favicon per la scheda del browser',
+    cl_101_2: 'Aggiunte icone PWA e manifest',
+    cl_100_1: 'Prima versione dell\'applicazione',
+    cl_100_2: 'Triage START con procedura guidata a 6 passaggi',
+    cl_100_3: 'Dispatch trasporti con gestione team e ospedali',
+    cl_100_4: 'Generazione ed esportazione rapporti (copia, SMS, email)',
+    cl_100_5: 'Supporto per 7 lingue',
+    cl_100_6: 'Funzionalità offline completa (PWA)',
   },
   fr: {
     setup_subtitle: 'Système de gestion d\'incident à victimes multiples',
@@ -2174,6 +2297,22 @@ const TRANSLATIONS = {
     help_manage_teams: 'Ajoutez ou supprimez les équipes EMS disponibles sur place.',
     help_manage_hospitals: 'Ajoutez ou supprimez les hôpitaux de destination.',
     help_report: 'Rapport d\'événement généré automatiquement. Copiez le texte ou envoyez par SMS/e-mail.',
+    btn_changelog: 'Changelog',
+    changelog_title: 'Historique des modifications',
+    cl_103_1: 'Ajout des bulles d\'aide avec interrupteur sur l\'écran d\'accueil',
+    cl_103_2: 'Amélioration de la disposition des boutons d\'envoi dans le modal rapport',
+    cl_103_3: 'Suppression de l\'horloge de l\'en-tête',
+    cl_103_4: 'Mise à jour du cache service worker vers v9',
+    cl_102_1: 'Tri des patients par priorité de triage dans le dispatch',
+    cl_102_2: 'Masquer les équipes occupées de la liste de dispatch',
+    cl_101_1: 'Ajout du favicon pour l\'onglet du navigateur',
+    cl_101_2: 'Ajout des icônes PWA et du manifeste',
+    cl_100_1: 'Première version de l\'application',
+    cl_100_2: 'Triage START avec assistant en 6 étapes',
+    cl_100_3: 'Dispatch transport avec gestion des équipes et hôpitaux',
+    cl_100_4: 'Génération et export de rapports (copie, SMS, email)',
+    cl_100_5: 'Prise en charge de 7 langues',
+    cl_100_6: 'Fonctionnalité hors ligne complète (PWA)',
   },
   de: {
     setup_subtitle: 'Managementsystem für Massenanfälle von Verletzten',
@@ -2312,6 +2451,22 @@ const TRANSLATIONS = {
     help_manage_teams: 'Rettungsteams hinzufügen oder entfernen.',
     help_manage_hospitals: 'Zielkrankenhäuser hinzufügen oder entfernen.',
     help_report: 'Automatisch generierter Ereignisbericht. Text kopieren oder per SMS/E-Mail senden.',
+    btn_changelog: 'Changelog',
+    changelog_title: 'Änderungsprotokoll',
+    cl_103_1: 'Hilfe-Blasen mit Schalter auf dem Startbildschirm hinzugefügt',
+    cl_103_2: 'Layout der Senden-Schaltflächen im Berichtsmodal verbessert',
+    cl_103_3: 'Uhr aus der Kopfzeile entfernt',
+    cl_103_4: 'Service-Worker-Cache auf v9 aktualisiert',
+    cl_102_1: 'Patienten nach Triage-Priorität im Dispatch sortieren',
+    cl_102_2: 'Beschäftigte Teams aus der Dispatch-Liste ausblenden',
+    cl_101_1: 'Favicon für Browser-Tab hinzugefügt',
+    cl_101_2: 'PWA-Icons und Manifest hinzugefügt',
+    cl_100_1: 'Erstveröffentlichung',
+    cl_100_2: 'START-Triage mit 6-Schritte-Assistent',
+    cl_100_3: 'Transportdisposition mit Team- und Krankenhausverwaltung',
+    cl_100_4: 'Berichterstellung und -export (Kopieren, SMS, E-Mail)',
+    cl_100_5: 'Unterstützung für 7 Sprachen',
+    cl_100_6: 'Volle Offline-Funktionalität (PWA)',
   },
   cs: {
     setup_subtitle: 'Systém řízení hromadného neštěstí',
@@ -2450,6 +2605,22 @@ const TRANSLATIONS = {
     help_manage_teams: 'Přidávejte nebo odebírejte týmy ZZS dostupné na místě.',
     help_manage_hospitals: 'Přidávejte nebo odebírejte cílové nemocnice.',
     help_report: 'Automaticky vygenerované hlášení z události. Zkopírujte text nebo odešlete přes SMS/e-mail.',
+    btn_changelog: 'Changelog',
+    changelog_title: 'Historie změn',
+    cl_103_1: 'Přidány nápovědné bubliny s přepínačem na úvodní obrazovce',
+    cl_103_2: 'Vylepšeno rozvržení tlačítek odesílání v modalu hlášení',
+    cl_103_3: 'Odstraněny hodiny z hlavičky',
+    cl_103_4: 'Aktualizována cache service workeru na v9',
+    cl_102_1: 'Řazení pacientů podle priority třídění v dispečinku',
+    cl_102_2: 'Skrytí zaneprázdněných týmů ze seznamu dispečinku',
+    cl_101_1: 'Přidán favicon pro záložku prohlížeče',
+    cl_101_2: 'Přidány ikony PWA a manifest',
+    cl_100_1: 'První verze aplikace',
+    cl_100_2: 'Třídění START s 6krokovým průvodcem',
+    cl_100_3: 'Dispečink transportu se správou týmů a nemocnic',
+    cl_100_4: 'Generování a export hlášení (kopírování, SMS, email)',
+    cl_100_5: 'Podpora 7 jazyků',
+    cl_100_6: 'Plná offline funkčnost (PWA)',
   },
   pt: {
     setup_subtitle: 'Sistema de gestão de incidentes com múltiplas vítimas',
@@ -2588,6 +2759,22 @@ const TRANSLATIONS = {
     help_manage_teams: 'Adicione ou remova equipas EMS disponíveis no local.',
     help_manage_hospitals: 'Adicione ou remova hospitais de destino.',
     help_report: 'Relatório do evento gerado automaticamente. Copie o texto ou envie por SMS/e-mail.',
+    btn_changelog: 'Changelog',
+    changelog_title: 'Histórico de alterações',
+    cl_103_1: 'Adicionadas dicas de ajuda com interruptor no ecrã inicial',
+    cl_103_2: 'Melhorado layout dos botões de envio no modal de relatório',
+    cl_103_3: 'Removido relógio do cabeçalho',
+    cl_103_4: 'Atualizada cache do service worker para v9',
+    cl_102_1: 'Ordenar pacientes por prioridade de triagem no despacho',
+    cl_102_2: 'Ocultar equipas ocupadas da lista de despacho',
+    cl_101_1: 'Adicionado favicon para o separador do navegador',
+    cl_101_2: 'Adicionados ícones PWA e manifesto',
+    cl_100_1: 'Primeira versão da aplicação',
+    cl_100_2: 'Triagem START com assistente de 6 passos',
+    cl_100_3: 'Despacho de transporte com gestão de equipas e hospitais',
+    cl_100_4: 'Geração e exportação de relatórios (copiar, SMS, email)',
+    cl_100_5: 'Suporte para 7 idiomas',
+    cl_100_6: 'Funcionalidade offline completa (PWA)',
   },
 };
 
@@ -3327,6 +3514,14 @@ function openInfo() {
 
 function closeInfo() {
   document.getElementById('infoModal').classList.add('hidden');
+}
+
+function openChangelog() {
+  document.getElementById('changelogModal').classList.remove('hidden');
+}
+
+function closeChangelog() {
+  document.getElementById('changelogModal').classList.add('hidden');
 }
 
 // ===== HELPERS =====
