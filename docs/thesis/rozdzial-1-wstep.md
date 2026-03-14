@@ -10,23 +10,23 @@ Jednocześnie badania walidacyjne wskazują na istotne ograniczenia tego algoryt
 
 Równolegle do wyzwań stojących przed ratownictwem medycznym dynamicznie rozwija się cyfryzacja ochrony zdrowia. Smartfony stały się powszechnym narzędziem pracy personelu medycznego, a aplikacje mobilne wspierające podejmowanie decyzji klinicznych zyskują coraz szersze zastosowanie w medycynie ratunkowej [Boulos i in., 2011; Wallis i in., 2017]. Postęp technologiczny — w szczególności rozwój progresywnych aplikacji internetowych (PWA), zdolnych do pełnego funkcjonowania bez dostępu do sieci — otwiera nowe możliwości w zakresie cyfrowego wspomagania procedur ratowniczych, w tym segregacji medycznej.
 
-Pomimo rosnącego zainteresowania tematem, w polskiej literaturze naukowej brakuje badań empirycznych oceniających efektywność cyfrowych narzędzi segregacji medycznej w porównaniu z metodą tradycyjną. Niniejsza praca stanowi próbę wypełnienia tej luki badawczej.
+W polskim systemie ratownictwa medycznego obowiązuje *Procedura postępowania na wypadek wystąpienia zdarzenia z dużą liczbą poszkodowanych* (Ministerstwo Zdrowia, wersja 2.3, 2024), która definiuje obowiązkowe narzędzia dokumentacyjne — Tabelę Dyslokacji Poszkodowanych, Tabelę Szpitali oraz Raport GDM — funkcjonujące wyłącznie w formie papierowej. Cyfryzacja tych narzędzi mogłaby usprawnić pracę personelu ratowniczego w warunkach zdarzenia masowego, jednak w polskiej literaturze naukowej brakuje badań empirycznych oceniających efektywność takiego podejścia. Niniejsza praca stanowi próbę wypełnienia tej luki badawczej.
 
 ## 1.2. Cel pracy
 
-Głównym celem niniejszej pracy jest porównanie efektywności cyfrowego systemu wspomagania segregacji medycznej — aplikacji TRIAGE MCI — z metodą tradycyjną (bez wsparcia cyfrowego) w warunkach symulowanego zdarzenia masowego.
+Głównym celem niniejszej pracy jest porównanie efektywności cyfrowego systemu wspomagania segregacji medycznej i dokumentacji zdarzenia z dużą liczbą poszkodowanych — aplikacji TRIAGE MCI — z obowiązującą metodą papierową (Tabela Dyslokacji Poszkodowanych, Tabela Szpitali, Raport GDM) zdefiniowaną w *Procedurze postępowania na wypadek wystąpienia zdarzenia z dużą liczbą poszkodowanych* [Ministerstwo Zdrowia, 2024, v2.3] w warunkach symulowanego zdarzenia masowego.
 
 Cele szczegółowe obejmują:
 
-1. Porównanie czasu potrzebnego do przeprowadzenia segregacji medycznej grupy poszkodowanych przy zastosowaniu aplikacji TRIAGE MCI i metody tradycyjnej.
+1. Porównanie czasu potrzebnego do przeprowadzenia segregacji, dyslokacji i sporządzenia raportu ze zdarzenia przy zastosowaniu aplikacji TRIAGE MCI i metody papierowej.
 
 2. Porównanie trafności klasyfikacji segregacyjnej (zgodności z kluczem referencyjnym) między obiema metodami.
 
-3. Porównanie kompletności raportu ze zdarzenia generowanego przy pomocy aplikacji i sporządzanego metodą tradycyjną.
+3. Porównanie kompletności raportu ze zdarzenia z wymaganiami Raportu GDM [zał. nr 14 Procedury MZ v2.3] przy zastosowaniu aplikacji i metody papierowej.
 
 4. Ocenę użyteczności aplikacji TRIAGE MCI z perspektywy użytkowników (ratowników medycznych i studentów ratownictwa) z wykorzystaniem standaryzowanego kwestionariusza SUS.
 
-5. Zbadanie postaw, doświadczeń i barier polskich ratowników medycznych wobec cyfrowych narzędzi wspomagających segregację medyczną w zdarzeniach masowych.
+5. Zbadanie postaw, doświadczeń i barier polskich ratowników medycznych wobec cyfryzacji narzędzi dokumentacyjnych zdefiniowanych w Procedurze MZ v2.3, w tym znajomości obowiązującej procedury i doświadczeń z papierowymi narzędziami dokumentacyjnymi.
 
 ## 1.3. Hipotezy badawcze
 
@@ -62,10 +62,10 @@ Autor niniejszej pracy jest czynnym ratownikiem medycznym z doświadczeniem w sy
 
 - szkolenia z zakresu segregacji medycznej, choć obowiązkowe, są sporadyczne i nie zawsze skutkują trwałym utrwaleniem algorytmu;
 - w warunkach realnego zdarzenia masowego ratownicy nierzadko mają trudności z prawidłową realizacją pełnej sekwencji algorytmu START;
-- dokumentacja zdarzenia masowego prowadzona ręcznie jest czasochłonna, niepełna i podatna na błędy;
-- istniejące rozwiązania cyfrowe nie spełniają potrzeb polskiego ratownictwa medycznego (brak języka polskiego, brak pracy offline, niekompletna funkcjonalność).
+- dokumentacja zdarzenia masowego prowadzona ręcznie — w tym papierowa Tabela Dyslokacji Poszkodowanych i Raport GDM wymagane przez Procedurę MZ v2.3 — jest czasochłonna, niepełna i podatna na błędy, szczególnie w warunkach stresu i presji czasu;
+- istniejące rozwiązania cyfrowe nie spełniają potrzeb polskiego ratownictwa medycznego (brak języka polskiego, brak pracy offline, niekompletna funkcjonalność) ani nie realizują zakresu dokumentacji wymaganego przez obowiązującą procedurę.
 
-Aplikacja TRIAGE MCI powstała jako odpowiedź na te obserwacje — nie jako produkt komercyjny, lecz jako narzędzie o otwartym kodzie źródłowym, bezpłatne i dostępne dla każdego ratownika medycznego. Niniejsze badanie stanowi próbę naukowej weryfikacji, czy to narzędzie rzeczywiście poprawia efektywność segregacji w porównaniu z metodą tradycyjną.
+Aplikacja TRIAGE MCI powstała jako odpowiedź na te obserwacje — nie jako produkt komercyjny, lecz jako narzędzie o otwartym kodzie źródłowym, bezpłatne i dostępne dla każdego ratownika medycznego. Jej funkcjonalność została zaprojektowana tak, aby realizować cyfrowo zakres narzędzi dokumentacyjnych zdefiniowanych w Procedurze MZ v2.3 (Tabela Dyslokacji Poszkodowanych, Tabela Szpitali, Raport GDM). Niniejsze badanie stanowi próbę naukowej weryfikacji, czy cyfrowa realizacja tych narzędzi poprawia efektywność segregacji, dyslokacji i raportowania w porównaniu z obowiązującą metodą papierową.
 
 ### Przesłanki społeczne
 

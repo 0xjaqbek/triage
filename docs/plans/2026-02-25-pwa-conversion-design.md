@@ -10,7 +10,7 @@ Convert TRIAGE MCI web app into an installable Progressive Web App with full off
 ## Decisions
 
 - **Font strategy:** Remove Google Fonts, use system monospace stack
-- **Icon source:** `triage.jpg` provided by user, generate PNG sizes from it
+- **Icon source:** `triage.png` provided by user, generate PNG sizes from it
 - **App name:** "TRIAGE" (short name on home screen)
 - **Data persistence:** localStorage — auto-save/restore all state
 - **Confirmation dialogs:** Required before any destructive action (reset, clear, new event)

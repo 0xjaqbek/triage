@@ -2,13 +2,14 @@
 
 ## 3.1. Cel i uzasadnienie badania
 
-Celem niniejszej pracy było porównanie efektywności cyfrowego systemu wspomagania segregacji medycznej (aplikacja TRIAGE MCI) z metodą tradycyjną (bez wsparcia cyfrowego) w warunkach symulowanego zdarzenia masowego. Badanie miało charakter dwuczęściowy: obejmowało eksperyment symulacyjny z zastosowaniem schematu crossover oraz ogólnopolską ankietę skierowaną do ratowników medycznych.
+Celem niniejszej pracy było porównanie efektywności cyfrowego systemu wspomagania segregacji medycznej i dokumentacji zdarzenia z dużą liczbą poszkodowanych (aplikacja TRIAGE MCI) z obowiązującą metodą papierową w warunkach symulowanego zdarzenia masowego. Badanie miało charakter dwuczęściowy: obejmowało eksperyment symulacyjny z zastosowaniem schematu crossover oraz ogólnopolską ankietę skierowaną do ratowników medycznych.
 
 Uzasadnienie podjęcia badania wynika z przesłanek zidentyfikowanych w przeglądzie literatury (rozdział 2):
 
 1. Algorytm START, choć ugruntowany w praktyce, charakteryzuje się znaczącymi wskaźnikami overtriage (30-50%) i undertriage (5-15%), których jednym ze źródeł jest błąd ludzki wynikający ze stresu, zmęczenia i niedostatecznego doświadczenia [Jenkins i in., 2008].
-2. Cyfryzacja procesu segregacji ma potencjał do standaryzacji, automatyzacji dokumentacji i usprawnienia raportowania, lecz brakuje badań porównawczych oceniających ten potencjał w kontekście polskiego systemu ratownictwa medycznego.
-3. Istniejące rozwiązania cyfrowe nie spełniają łącznie wszystkich wymagań praktyki polowej (kompletność funkcjonalna, praca offline, dostępność w języku polskim, bezpłatność).
+2. Obowiązująca *Procedura postępowania na wypadek wystąpienia zdarzenia z dużą liczbą poszkodowanych* (MZ v2.3, 2024) definiuje obowiązkowe narzędzia dokumentacyjne — Tabelę Dyslokacji Poszkodowanych, Tabelę Szpitali i Raport GDM — które funkcjonują wyłącznie w formie papierowej, co stanowi potencjalne ograniczenie operacyjne.
+3. Cyfryzacja procesu segregacji i dokumentacji ma potencjał do standaryzacji, automatyzacji i usprawnienia raportowania, lecz brakuje badań porównawczych oceniających ten potencjał w kontekście polskiego systemu ratownictwa medycznego i obowiązujących regulacji.
+4. Istniejące rozwiązania cyfrowe nie spełniają łącznie wszystkich wymagań praktyki polowej (kompletność funkcjonalna, praca offline, dostępność w języku polskim, bezpłatność) ani nie realizują funkcjonalności odpowiadającej narzędziom z Procedury MZ v2.3.
 
 ## 3.2. Pytania badawcze i hipotezy
 
@@ -154,13 +155,23 @@ Eksperyment przeprowadzono według następującego protokołu:
 **Faza 1: Wprowadzenie (15 minut)**
 - Wyjaśnienie celu badania i uzyskanie pisemnej zgody uczestników;
 - Krótka instrukcja dotycząca aplikacji TRIAGE MCI (5 minut) — prezentacja interfejsu i podstawowych funkcji. Instrukcja była standaryzowana i jednakowa dla wszystkich uczestników;
+- Prowadzący informował uczestników, że w trakcie sesji będzie pełnił rolę Dyspozytora Medycznego (DM) / Głównego Dyspozytora Medycznego (GDM) i krótko opisywał protokół komunikacji KAM–DM (kiedy uczestnik powinien się spodziewać kontaktu ze strony DM i kiedy sam powinien inicjować komunikację);
 - Wyjaśnienie zasad oceny i dokumentacji wyników.
 
 **Faza 2: Sesja 1 (bez limitu czasu)**
-Każdy uczestnik indywidualnie przeprowadzał segregację 12 poszkodowanych (na kartach) zgodnie z przypisaną metodą (tradycyjną lub z aplikacją). Mierzone zmienne:
-- **Czas** — od momentu rozpoczęcia (otrzymanie kompletu kart pacjentów) do momentu zakończenia (deklaracja ukończenia segregacji i raportu). Mierzony stoperem przez obserwatora.
-- **Trafność** — porównanie przypisanych kategorii z kluczem referencyjnym.
-- **Raport** — uczestnik proszony o sporządzenie raportu ze zdarzenia (metodą tradycyjną: na kartce; z aplikacją: za pomocą wbudowanej funkcji raportowania).
+Każdy uczestnik indywidualnie realizował uproszczony zakres zadań Kierującego Akcją Medyczną (KAM) zgodnie z Procedurą MZ v2.3, w interakcji z prowadzącym pełniącym rolę Dyspozytora Medycznego (DM). Sesja składała się z czterech podfaz:
+
+**Podfaza A: Segregacja pierwotna.** Uczestnik samodzielnie przeprowadzał segregację 12 poszkodowanych (na kartach) algorytmem START. Prowadzący (DM) nie inicjował kontaktu w tej podfazie. Czas mierzony od momentu otwarcia koperty z kartami.
+
+**Podfaza B: Raport z rozpoznania wstępnego.** Po zakończeniu segregacji uczestnik przekazywał prowadzącemu (DM) ustny raport z rozpoznania wstępnego: liczba poszkodowanych w poszczególnych grupach segregacyjnych. Prowadzący potwierdzał odbiór raportu, przekazywał informacje o zadysponowanych ZRM oraz szczegółowe dane o możliwościach szpitali (wg standaryzowanej karty informacyjnej, identycznej dla wszystkich uczestników i obu metod).
+
+**Podfaza C: Dyslokacja.** Uczestnik przypisywał poszkodowanych z grupy czerwonej i żółtej do zespołów ZRM oraz wskazywał szpitale docelowe, z uwzględnieniem informacji o pojemności szpitali otrzymanych od DM. Metodą tradycyjną: wypełnianie Tabeli Dyslokacji. Z aplikacją: moduł DYSPONOWANIE. Prowadzący (DM) był dostępny do udzielania odpowiedzi na pytania logistyczne (wg standaryzowanej biblioteki odpowiedzi).
+
+**Podfaza D: Raport końcowy.** Na polecenie prowadzącego (DM) uczestnik sporządzał raport ze zdarzenia. Metodą tradycyjną: na kartce. Z aplikacją: za pomocą modułu RAPORT.
+
+Metoda realizacji zależała od przypisanej sekwencji: tradycyjnie (papierowa Tabela Dyslokacji + ręczny raport na kartce) lub z aplikacją TRIAGE MCI.
+
+Czas sesji mierzono w podziale na podfazy (A, B, C, D) za pomocą timera z funkcją międzyczasów, co umożliwiało analizę, w której fazie metoda cyfrowa lub papierowa wykazuje przewagę.
 
 **Faza 3: Przerwa (15 minut)**
 Czas na odpoczynek i neutralizację efektu zmęczenia.
@@ -188,6 +199,10 @@ Metoda segregacji (dwa poziomy: tradycyjna vs. aplikacja TRIAGE MCI).
 | Kompletność raportu | Ilościowa dyskretna | Punkty (0-10) | Standaryzowana lista kontrolna |
 | Ocena użyteczności (SUS) | Ilościowa ciągła | Punkty (0-100) | Kwestionariusz SUS |
 | Preferencja metody | Jakościowa nominalna | Tradycyjna / Cyfrowa | Pytanie zamknięte |
+| Czas segregacji (podfaza A) | Ilościowa ciągła | Sekundy | Timer — od otwarcia koperty do deklaracji zakończenia segregacji |
+| Czas dyslokacji (podfaza C) | Ilościowa ciągła | Sekundy | Timer — od otrzymania danych o szpitalach do deklaracji zakończenia |
+| Czas raportu (podfaza D) | Ilościowa ciągła | Sekundy | Timer — od polecenia DM do deklaracji ukończenia raportu |
+| Jakość dyslokacji | Ilościowa dyskretna | Punkty (0-12) | Kompletność (0-6 pkt) + zgodność z pojemnością szpitali (0-6 pkt) |
 
 **Zmienne kontrolowane:**
 - Kolejność metod (randomizacja sekwencji AB/BA);
@@ -204,20 +219,20 @@ Zmienne zakłócające kontrolowano poprzez: (a) schemat crossover (każdy uczes
 
 ### 3.4.6. Lista kontrolna kompletności raportu
 
-Kompletność raportu ze zdarzenia oceniano za pomocą standaryzowanej listy kontrolnej obejmującej 10 elementów, z których każdy oceniano binarnie (0 — brak, 1 — obecny):
+Kompletność raportu ze zdarzenia oceniano za pomocą standaryzowanej listy kontrolnej opartej na wymaganiach **Raportu GDM z przebiegu zdarzenia** zdefiniowanego w *Procedurze postępowania na wypadek wystąpienia zdarzenia z dużą liczbą poszkodowanych* [Ministerstwo Zdrowia, 2024, zał. nr 14]. Lista obejmuje 10 elementów odpowiadających obowiązkowym składnikom raportu, z których każdy oceniano binarnie (0 — brak, 1 — obecny):
 
-1. Nazwa/opis zdarzenia
-2. Czas rozpoczęcia działań
-3. Całkowita liczba poszkodowanych
-4. Podział na kategorie segregacyjne (T1-T4) z liczbami
-5. Lista pacjentów z przypisanymi kategoriami
-6. Informacja o pacjentach zadysponowanych do transportu
-7. Wskazanie szpitali docelowych
-8. Przypisanie zespołów ZRM do pacjentów
-9. Status transportów (w trakcie / dostarczony)
-10. Czas sporządzenia raportu
+1. Oznaczenie dyspozytorni medycznej / identyfikacja zdarzenia
+2. Data i godzina rozpoczęcia akcji ratowniczej
+3. Data i godzina zakończenia akcji ratowniczej
+4. Dane kierującego akcją medyczną (KAM)
+5. Liczba, rodzaj i oznaczenie ZRM biorących udział w akcji
+6. Zestawienie liczby poszkodowanych z podziałem na grupy segregacyjne (czerwona, żółta, zielona, czarna)
+7. Zestawienie danych poszkodowanych (numer, kategoria, obrażenia)
+8. Przypisanie ZRM do poszkodowanych (dyslokacja)
+9. Zestawienie szpitali docelowych z przypisanymi poszkodowanymi
+10. Dane osoby sporządzającej raport / czas sporządzenia
 
-Maksymalny wynik: 10 punktów. Lista została opracowana na podstawie wytycznych dotyczących raportowania ze zdarzeń masowych obowiązujących w polskim systemie ratownictwa medycznego.
+Maksymalny wynik: 10 punktów. Lista została opracowana bezpośrednio na podstawie wymagań Raportu GDM [zał. nr 14] z Procedury MZ v2.3, co zapewnia zgodność mierzonej kompletności z obowiązującym standardem regulacyjnym. Zastosowanie oficjalnego wzorca zamiast autorskiej listy kontrolnej wzmacnia trafność treściową pomiaru i umożliwia interpretację wyników w kategoriach zgodności z obowiązującą procedurą.
 
 ### 3.4.7. Kwestionariusz SUS (System Usability Scale)
 
@@ -232,6 +247,41 @@ Wynik SUS mieści się w zakresie 0-100 punktów i interpretowany jest następuj
 - powyżej 80: wysoka użyteczność (doskonała).
 
 Na potrzeby badania kwestionariusz SUS przetłumaczono na język polski, zachowując oryginalną strukturę 10 stwierdzeń.
+
+### 3.4.8. Adaptacja Kart ocen z Procedury MZ v2.3
+
+Jako dodatkowe narzędzie ewaluacyjne zastosowano adaptację **Kart ocen** zdefiniowanych w Procedurze postępowania na wypadek wystąpienia zdarzenia z dużą liczbą poszkodowanych [Ministerstwo Zdrowia, 2024, zał. nr 15-26]. W oryginale Karty ocen stanowią ustrukturyzowany formularz wypełniany przez uczestników akcji ratowniczej po jej zakończeniu, służący identyfikacji obszarów wymagających poprawy.
+
+Na potrzeby niniejszego badania zaadaptowano format Kart ocen, stosując oryginalną trzystopniową skalę:
+
+| Ocena | Znaczenie |
+|-------|-----------|
+| **Prawidłowa** | Zadanie zrealizowane poprawnie, bez istotnych uchybień |
+| **Nieoptymalna** | Zadanie zrealizowane, ale z uchybieniami wpływającymi na efektywność |
+| **Wymaga poprawy** | Zadanie zrealizowane z istotnymi brakami lub niezrealizowane |
+
+Ocenie podlegały trzy obszary, odpowiadające wymiarom ocenianym w oryginalnych Kartach ocen:
+
+1. **Przepływ informacji** — czy dane o poszkodowanych (kategoria, numer, obrażenia) były rejestrowane w sposób umożliwiający szybki dostęp i odczyt?
+2. **Podejmowanie decyzji** — czy klasyfikacja segregacyjna i dyslokacja poszkodowanych były realizowane w sposób systematyczny i zgodny z algorytmem START?
+3. **Dokumentacja i raportowanie** — czy raport końcowy zawierał elementy wymagane przez Raport GDM [zał. nr 14] i był sporządzony w sposób czytelny?
+
+Oceny dokonywał niezależny obserwator (autor badania lub wyznaczony asystent) na podstawie obserwacji przebiegu sesji eksperymentalnej oraz analizy wytworzonej dokumentacji (tradycyjnej lub cyfrowej). Każdy uczestnik otrzymywał odrębną ocenę dla sesji tradycyjnej i sesji z aplikacją, co umożliwiało porównanie jakości realizacji zadań KAM między obiema metodami w ramach schematu crossover.
+
+Zastosowanie adaptacji oficjalnego narzędzia ewaluacyjnego z Procedury MZ v2.3 wzmacnia ekologiczną trafność badania — uczestnik jest oceniany według kryteriów, które obowiązują w realnej praktyce ratowniczej.
+
+### 3.4.9. Rola Dyspozytora Medycznego (DM) w eksperymencie
+
+W celu zwiększenia ekologicznej trafności badania i odwzorowania realistycznego przepływu informacji zdefiniowanego w Procedurze MZ v2.3, prowadzący eksperyment pełnił jednocześnie rolę Dyspozytora Medycznego (DM) — uproszczoną, łączącą funkcje DM-W i GDM.
+
+**Uzasadnienie wprowadzenia roli DM:**
+W warunkach realnego zdarzenia masowego KAM nie działa w izolacji — prowadzi ciągłą wymianę informacji z DM-W, przekazując raporty z rozpoznania i segregacji, odbierając informacje o zadysponowanych ZRM i możliwościach szpitali, wspólnie planując dyslokację poszkodowanych [Ministerstwo Zdrowia, 2024, rozdziały 8 i 13]. Eksperyment bez tego elementu testowałby jedynie umiejętność wypełniania formularzy, a nie realizację zadań KAM w kontekście procedury.
+
+**Poziom wierności symulacji:**
+Przyjęto umiarkowany poziom wierności (*moderate fidelity*): DM uczestniczył w ustrukturyzowanej wymianie informacji na granicach faz (po segregacji, przed dyslokacją, przed raportem), ale nie symulował ciągłej korespondencji radiowej ani wielostronnnej koordynacji. Takie podejście zapewnia realizm w kluczowych momentach decyzyjnych bez wprowadzania niekontrolowanej zmienności.
+
+**Standaryzacja roli DM:**
+Wszystkie wypowiedzi DM były skryptowane — prowadzący odczytywał standaryzowane komunikaty z protokołu eksperymentu. Dla pytań uczestników spoza skryptu opracowano bibliotekę standaryzowanych odpowiedzi. DM nigdy nie udzielał wskazówek dotyczących klasyfikacji segregacyjnej ani dyslokacji — jedynie przekazywał informacje i potwierdzał odbiór raportów. Identyczność komunikatów DM we wszystkich sesjach (niezależnie od metody i scenariusza) zapewniała, że rola DM stanowiła kontrolowaną stałą, a nie zmienną.
 
 ## 3.5. Część II — Ankieta ogólnopolska
 
@@ -305,7 +355,20 @@ Ankieta została opracowana przez autora na potrzeby niniejszego badania. Kwesti
     - Inne (jakie?)
 22. Czy uważa Pan/Pani, że cyfrowe narzędzia wspomagające segregację staną się standardem w ciągu najbliższych 5-10 lat? (Zdecydowanie tak / Raczej tak / Trudno powiedzieć / Raczej nie / Zdecydowanie nie)
 
-Łączna liczba pytań: 22. Szacowany czas wypełniania: 8-12 minut.
+**Sekcja E: Znajomość Procedury MZ v2.3 i narzędzi dokumentacyjnych (5 pytań)**
+23. Czy zna Pan/Pani aktualną *Procedurę postępowania na wypadek wystąpienia zdarzenia z dużą liczbą poszkodowanych* (MZ v2.3, 2024)? (Tak, znam dobrze / Tak, słyszałem/am o niej / Nie znam)
+24. Czy ćwiczył/a Pan/Pani wypełnianie Tabeli Dyslokacji Poszkodowanych [zał. nr 12] z Procedury MZ? (Tak — na szkoleniu / Tak — na realnym zdarzeniu / Nie)
+25. Jak ocenia Pan/Pani praktyczność papierowej Tabeli Dyslokacji Poszkodowanych w warunkach zdarzenia masowego? (skala Likerta 1-5: 1 — zdecydowanie niepraktyczna, 5 — w pełni praktyczna)
+26. Czy uważa Pan/Pani, że cyfrowa wersja Tabeli Dyslokacji Poszkodowanych i Raportu GDM byłaby praktyczna w warunkach zdarzenia? (Zdecydowanie tak / Raczej tak / Trudno powiedzieć / Raczej nie / Zdecydowanie nie)
+27. Jakie elementy Procedury MZ v2.3 najtrudniej realizować w warunkach zdarzenia masowego? (wielokrotny wybór):
+    - Wypełnianie Tabeli Dyslokacji Poszkodowanych
+    - Prowadzenie Tabeli Szpitali
+    - Sporządzenie Raportu GDM
+    - Komunikacja KAM–DM-W
+    - Koordynacja dyslokacji z wieloma szpitalami
+    - Inne (jakie?)
+
+Łączna liczba pytań: 27. Szacowany czas wypełniania: 10-15 minut.
 
 ### 3.5.4. Pilotaż ankiety
 
@@ -340,15 +403,26 @@ Aplikacja TRIAGE MCI jest progresywną aplikacją internetową (PWA — *Progres
 - **Wielojęzyczność:** Interfejs dostępny w 7 językach (polski, angielski, włoski, francuski, niemiecki, czeski, portugalski);
 - **Licencja:** Otwarte oprogramowanie (GPLv3), bezpłatne.
 
-### 3.6.2. Funkcjonalność
+### 3.6.2. Funkcjonalność i odpowiedniość z Procedurą MZ v2.3
 
-Aplikacja realizuje trzy główne funkcje:
+Aplikacja realizuje trzy główne funkcje, z których każda odpowiada konkretnemu narzędziu dokumentacyjnemu zdefiniowanemu w obowiązującej *Procedurze postępowania na wypadek wystąpienia zdarzenia z dużą liczbą poszkodowanych* [Ministerstwo Zdrowia, 2024]:
 
-**Moduł segregacji (SEGREGACJA):** Interaktywny kreator prowadzący użytkownika krok po kroku przez algorytm START. Na każdym etapie wyświetlane jest pytanie kliniczne z podpowiedzią. Użytkownik odpowiada TAK/NIE, a aplikacja automatycznie klasyfikuje pacjenta do odpowiedniej kategorii (T1-T4). Po zakończeniu segregacji możliwe jest dodanie notatek oraz ręczna korekta kategorii (override). Ścieżka decyzyjna jest automatycznie rejestrowana.
+**Moduł segregacji (SEGREGACJA)** — odpowiednik: **Tabela Dyslokacji Poszkodowanych** [zał. nr 12]
+Interaktywny kreator prowadzący użytkownika krok po kroku przez algorytm START. Na każdym etapie wyświetlane jest pytanie kliniczne z podpowiedzią. Użytkownik odpowiada TAK/NIE, a aplikacja automatycznie klasyfikuje pacjenta do odpowiedniej kategorii (T1-T4). Każdy pacjent otrzymuje automatyczny numer indywidualny (P-001, P-002...), analogicznie do numeracji w Tabeli Dyslokacji. Po zakończeniu segregacji możliwe jest dodanie notatek o obrażeniach oraz ręczna korekta kategorii (override). Ścieżka decyzyjna jest automatycznie rejestrowana. Podział pacjentów na grupy kolorystyczne (czerwona, żółta, zielona, czarna) odpowiada grupom zdefiniowanym w procedurze.
 
-**Moduł dysponowania (DYSPONOWANIE):** Umożliwia przypisanie pacjenta do zespołu ratownictwa medycznego (ZRM) i wskazanie szpitala docelowego. Zawiera edytowalną listę zespołów i szpitali, predefiniowaną dla danego kraju/języka. Wyświetla statusy transportów (w trakcie / dostarczony) i historię dysponowania.
+**Moduł dysponowania (DYSPONOWANIE)** — odpowiednik: **Tabela Szpitali** [zał. nr 13] + część dyslokacyjna **Tabeli Dyslokacji** [zał. nr 12]
+Umożliwia przypisanie pacjenta do zespołu ratownictwa medycznego (ZRM) i wskazanie szpitala docelowego — realizując funkcję dyslokacji poszkodowanych, którą Procedura MZ v2.3 definiuje jako wspólne zadanie KAM i DM-W. Zawiera edytowalną listę zespołów i szpitali, predefiniowaną dla danego kraju/języka. Wyświetla statusy transportów (w trakcie / dostarczony) i historię dysponowania.
 
-**Moduł raportowania (RAPORT):** Automatyczne generowanie kompletnego raportu ze zdarzenia, obejmującego: podsumowanie liczbowe (T1-T4), rozkład pacjentów wg szpitali docelowych, statusy transportów, listę pacjentów pozostających na miejscu. Raport dostępny w formie wizualnej (w aplikacji) i tekstowej (do skopiowania do schowka lub wysłania).
+**Moduł raportowania (RAPORT)** — odpowiednik: **Raport GDM z przebiegu zdarzenia** [zał. nr 14]
+Automatyczne generowanie raportu ze zdarzenia zawierającego elementy wymagane przez Procedurę MZ v2.3: zestawienie liczbowe poszkodowanych z podziałem na grupy segregacyjne, rozkład pacjentów wg szpitali docelowych, przypisanie ZRM do pacjentów, statusy transportów, listę pacjentów pozostających na miejscu. Raport dostępny w formie wizualnej (w aplikacji) i tekstowej (do skopiowania do schowka lub wysłania).
+
+Poniższa tabela zestawia odpowiedniość funkcjonalną:
+
+| Narzędzie z Procedury MZ v2.3 | Załącznik | Moduł TRIAGE MCI | Forma w procedurze | Forma w aplikacji |
+|---|---|---|---|---|
+| Tabela Dyslokacji Poszkodowanych | zał. 12 | Segregacja | Papierowa | Cyfrowa (automatyczna) |
+| Tabela Szpitali | zał. 13 | Dysponowanie | Papierowa | Cyfrowa (edytowalna) |
+| Raport GDM z przebiegu zdarzenia | zał. 14 | Raport | Papierowa | Cyfrowa (auto-generowana) |
 
 ### 3.6.3. Uzasadnienie wyboru technologii PWA
 
@@ -406,6 +480,39 @@ W schemacie crossover istnieje ryzyko efektu przenoszenia (*carry-over effect*) 
 - Porównanie wyników sesji 1 między grupami AB i BA (test t dla prób niezależnych lub test U Manna-Whitneya) — brak istotnej różnicy potwierdza skuteczność randomizacji;
 - Analizę interakcji metoda × kolejność w dwuczynnikowej analizie wariancji (ANOVA) dla pomiarów powtarzanych — istotna interakcja wskazywałaby na efekt carry-over.
 
+### 3.7.8. Analiza mocy testu dla eksperymentu crossover
+
+Wielkość próby dla eksperymentu crossover ustalono na podstawie a priori analizy mocy testu (*power analysis*) dla testu t-Studenta dla prób zależnych (paired t-test), który stanowi podstawowy test statystyczny w schemacie crossover.
+
+**Założenia:**
+- Poziom istotności: α = 0,05 (test dwustronny)
+- Moc testu: 1 − β = 0,80
+- Zakładany rozmiar efektu: d = 0,50 (efekt średni wg klasyfikacji Cohena [1992])
+- Korelacja między pomiarami: r = 0,50 (konserwatywne założenie)
+
+**Obliczenie minimalnej wielkości próby:**
+
+Dla testu t dla prób zależnych minimalna wielkość próby obliczana jest ze wzoru:
+
+n = (Z_α/2 + Z_β)² / d² × (1 − r) × 2
+
+Przy powyższych założeniach:
+- Z_α/2 = 1,96 (dla α = 0,05, test dwustronny)
+- Z_β = 0,84 (dla mocy 0,80)
+
+n = (1,96 + 0,84)² / 0,50² × (1 − 0,50) × 2 ≈ **34 osoby**
+
+Alternatywnie, stosując standardowy wzór G*Power dla paired t-test z d = 0,50 i mocą 0,80, minimalna wymagana próba wynosi n = 34 [Faul i in., 2007].
+
+**Uzasadnienie planowanej wielkości próby:**
+
+Planowana próba n = 40-50 uczestników przekracza minimalną wymaganą wielkość o 18-47%, co zapewnia:
+- zapas na ewentualne wykluczenia (np. nieprawidłowo wypełnione formularze, wycofanie zgody);
+- wystarczającą moc statystyczną do wykrycia efektu średniego (d ≥ 0,50) we wszystkich hipotezach H1-H3;
+- możliwość przeprowadzenia eksploracyjnej analizy podgrup (studenci vs. czynni ratownicy), choć taka analiza będzie miała ograniczoną moc statystyczną przy podziale na dwie podgrupy.
+
+W przypadku uzyskania efektu mniejszego niż zakładany (d < 0,50), próba n = 40-50 zapewnia moc testu odpowiednio: 0,63 dla d = 0,40, 0,44 dla d = 0,30. Ograniczenie to zostanie uwzględnione w dyskusji wyników.
+
 ## 3.8. Aspekty etyczne
 
 ### 3.8.1. Zgoda uczestników
@@ -424,6 +531,28 @@ Ankieta internetowa nie zbierała adresów e-mail ani adresów IP. Dane przechow
 
 Badanie przeprowadzono w warunkach symulacyjnych, bez udziału realnych pacjentów. Uczestnicy nie byli narażeni na żadne ryzyko fizyczne ani psychologiczne wykraczające poza standardowe warunki szkolenia. Badanie nie wymagało opinii komisji bioetycznej, gdyż nie stanowiło eksperymentu medycznego w rozumieniu ustawy z dnia 5 grudnia 1996 r. o zawodach lekarza i lekarza dentysty.
 
+### 3.8.4. Konflikt interesów i potencjalne źródła stronniczości
+
+Autor niniejszej pracy jest jednocześnie twórcą i deweloperem aplikacji TRIAGE MCI, która stanowi przedmiot interwencji eksperymentalnej. Ta podwójna rola — badacza i twórcy narzędzia — stanowi potencjalne źródło stronniczości (*bias*), które należy jawnie zidentyfikować i kontrolować. Poniżej przedstawiono analizę potencjalnych zagrożeń oraz zastosowane mechanizmy mitygacji:
+
+**1. Stronniczość w projektowaniu badania (*design bias*)**
+- *Zagrożenie:* Badanie mogło zostać zaprojektowane w sposób faworyzujący aplikację (np. zbyt łatwe scenariusze, zbyt krótki czas na metodę tradycyjną).
+- *Mitygacja:* Scenariusze symulacyjne zostały zwalidowane przez dwóch niezależnych, doświadczonych ratowników medycznych niebędących współtwórcami aplikacji. Rozkład kategorii segregacyjnych (T1:3, T2:3, T3:4, T4:2) jest identyczny w obu scenariuszach. Schemat crossover eliminuje zmienność międzyosobniczą — każdy uczestnik jest swoją własną kontrolą, co utrudnia systemowe faworyzowanie jednej metody.
+
+**2. Stronniczość w ocenie wyników (*assessment bias*)**
+- *Zagrożenie:* Autor mógłby nieświadomie oceniać wyniki korzystniej dla sesji z aplikacją.
+- *Mitygacja:* Trafność segregacji oceniana jest na podstawie obiektywnego klucza referencyjnego (zgodność/niezgodność z kluczem — pomiar binarny, niemożliwy do subiektywnej interpretacji). Kompletność raportu oceniana jest za pomocą standaryzowanej listy kontrolnej opartej na Raporcie GDM [zał. nr 14 Procedury MZ v2.3] — pomiar binarny (element obecny/brak). Czas mierzony stoperem przez obserwatora. Wynik SUS obliczany jest algorytmicznie ze standaryzowanego kwestionariusza. W miarę możliwości ocenę raportów przeprowadzi drugi, niezależny oceniacz (*inter-rater reliability*).
+
+**3. Stronniczość w prezentacji wyników (*reporting bias*)**
+- *Zagrożenie:* Autor mógłby selektywnie przedstawiać wyniki korzystne dla aplikacji.
+- *Mitygacja:* Wszystkie hipotezy (H1-H4) zostały sformułowane a priori, przed przeprowadzeniem badania. Wyniki zostaną przedstawione w pełni, niezależnie od tego, czy potwierdzają, czy obalają postawione hipotezy. Dane surowe zostaną udostępnione w aneksie pracy.
+
+**4. Efekt entuzjazmu (*enthusiasm effect*)**
+- *Zagrożenie:* Autor, prezentując aplikację uczestnikom, mógłby nieświadomie wzbudzać pozytywne nastawienie do narzędzia.
+- *Mitygacja:* Instrukcja dotycząca aplikacji jest standaryzowana (5 minut, identyczna treść dla wszystkich uczestników) i ogranicza się do opisu funkcji, bez wartościowania ani porównywania z metodą tradycyjną.
+
+Powyższe mechanizmy nie eliminują ryzyka stronniczości w sposób absolutny — całkowite wyeliminowanie tego ryzyka wymagałoby przeprowadzenia badania przez niezależny zespół badawczy, co wykracza poza możliwości pracy magisterskiej. Transparentne ujawnienie potencjalnego konfliktu interesów oraz zastosowanie opisanych mechanizmów mitygacji stanowią standardową praktykę w badaniach, w których twórca narzędzia jest jednocześnie badaczem [Ioannidis, 2005].
+
 ## 3.9. Ograniczenia metodologiczne
 
 Zaprojektowane badanie obarczone jest następującymi ograniczeniami, które należy uwzględnić przy interpretacji wyników:
@@ -439,5 +568,7 @@ Zaprojektowane badanie obarczone jest następującymi ograniczeniami, które nal
 5. **Jednorazowy pomiar.** Badanie nie uwzględnia krzywej uczenia się — wyniki mogłyby być inne po dłuższym okresie korzystania z aplikacji. Badanie podłużne (longitudinalne) stanowiłoby wartościowe uzupełnienie w przyszłości.
 
 6. **Specyficzność narzędzia.** Wyniki dotyczą konkretnej aplikacji (TRIAGE MCI) i nie mogą być automatycznie uogólniane na inne rozwiązania cyfrowe do segregacji medycznej.
+
+7. **Konflikt interesów.** Autor jest twórcą badanego narzędzia, co stanowi potencjalne źródło stronniczości. Zastosowane mechanizmy mitygacji (klucz referencyjny, standaryzowane narzędzia pomiarowe, schemat crossover, transparentne raportowanie) ograniczają, ale nie eliminują tego ryzyka (patrz 3.8.4).
 
 Powyższe ograniczenia zostały szczegółowo omówione w rozdziale 6 (Dyskusja).

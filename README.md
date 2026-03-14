@@ -4,7 +4,7 @@ System segregacji i zarządzania zdarzeniem masowym (Mass Casualty Incident).
 
 Progresywna aplikacja webowa (PWA) działająca w pełni offline na urządzeniach z systemem iOS, Android i Windows.
 
-![Triage Icon](triage.jpg)
+![Triage Icon](triage.png)
 
 ---
 
@@ -140,7 +140,7 @@ triage/
 ├── index.html              # Aplikacja (HTML + CSS + JS w jednym pliku)
 ├── manifest.json           # Manifest PWA
 ├── sw.js                   # Service Worker (cache-first, tryb offline)
-├── triage.jpg              # Logo źródłowe
+├── triage.png              # Logo źródłowe
 ├── triage-server.exe       # Serwer lokalny do instalacji offline
 ├── INSTALACJA-OFFLINE.txt  # Instrukcja instalacji offline
 ├── icons/

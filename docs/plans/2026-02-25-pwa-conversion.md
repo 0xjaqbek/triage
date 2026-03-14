@@ -13,7 +13,7 @@
 ### Task 1: Generate PWA Icon Files
 
 **Files:**
-- Source: `triage.jpg`
+- Source: `triage.png`
 - Create: `icons/icon-192.png`
 - Create: `icons/icon-512.png`
 - Create: `icons/apple-touch-icon.png`
@@ -24,17 +24,17 @@
 mkdir -p icons
 ```
 
-**Step 2: Generate PNG icons from triage.jpg**
+**Step 2: Generate PNG icons from triage.png**
 
-Use ImageMagick (or `sharp` via Node) to resize `triage.jpg` to three sizes:
+Use ImageMagick (or `sharp` via Node) to resize `triage.png` to three sizes:
 - `icons/icon-192.png` — 192x192
 - `icons/icon-512.png` — 512x512
 - `icons/apple-touch-icon.png` — 180x180
 
 ```bash
-magick triage.jpg -resize 192x192 icons/icon-192.png
-magick triage.jpg -resize 512x512 icons/icon-512.png
-magick triage.jpg -resize 180x180 icons/apple-touch-icon.png
+magick triage.png -resize 192x192 icons/icon-192.png
+magick triage.png -resize 512x512 icons/icon-512.png
+magick triage.png -resize 180x180 icons/apple-touch-icon.png
 ```
 
 If ImageMagick is not available, create a small Node script:
@@ -44,7 +44,7 @@ npm init -y && npm install sharp
 node -e "
 const sharp = require('sharp');
 const sizes = [[192,'icon-192'],[512,'icon-512'],[180,'apple-touch-icon']];
-sizes.forEach(([s,n]) => sharp('triage.jpg').resize(s,s).png().toFile('icons/'+n+'.png'));
+sizes.forEach(([s,n]) => sharp('triage.png').resize(s,s).png().toFile('icons/'+n+'.png'));
 "
 ```
 

@@ -13,29 +13,37 @@
 
 ### Co przygotować
 
-**Dla każdego uczestnika:**
+**Dla każdego uczestnika — sesja tradycyjna:**
 - Komplet 12 kart pacjentów (wydrukowane, wycięte, w kopercie)
 - Stoper (lub osoba mierząca czas)
-- Formularz tradycyjny: pusta kartka A4 + długopis (sesja tradycyjna)
-- Smartfon z zainstalowaną aplikacją TRIAGE MCI (sesja cyfrowa)
+- Papierowa Tabela Dyslokacji (wydrukowany szablon — patrz niżej)
+- Lista ZRM i szpitali (wydrukowana — patrz niżej)
+- Pusta kartka A4 + długopis (do sporządzenia raportu odręcznego)
+
+**Dla każdego uczestnika — sesja z aplikacją:**
+- Komplet 12 kart pacjentów (wydrukowane, wycięte, w kopercie)
+- Stoper (lub osoba mierząca czas)
+- Smartfon z zainstalowaną aplikacją TRIAGE MCI (zespoły ZRM i szpitale wstępnie skonfigurowane)
 
 **Dla prowadzącego:**
 - Klucz referencyjny (na końcu tego dokumentu)
-- Lista kontrolna kompletności raportu (10 pkt)
+- Lista kontrolna kompletności Raportu GDM (10 pkt)
+- Karta ocen (formularz obserwatora, 3-poziomowa skala — patrz niżej)
 - Arkusz zbiorczy wyników
 - Kwestionariusz SUS (po obu sesjach)
 
 ### Instrukcja dla uczestnika (odczytać przed każdą sesją)
 
-> Otrzymujesz kopertę zawierającą 12 kart pacjentów. Każda karta opisuje jednego poszkodowanego ze zdarzenia masowego. Twoim zadaniem jest:
+> Otrzymujesz kopertę zawierającą 12 kart pacjentów. Każda karta opisuje jednego poszkodowanego ze zdarzenia masowego. Otrzymujesz też listę dostępnych zespołów ZRM i szpitali. Twoim zadaniem jest:
 >
 > 1. Przeprowadzić segregację medyczną algorytmem START — przypisać każdemu poszkodowanemu kategorię: T1 (czerwony), T2 (żółty), T3 (zielony) lub T4 (czarny).
-> 2. Po zakończeniu segregacji — sporządzić raport ze zdarzenia.
+> 2. Przeprowadzić dyslokację — przypisać poszkodowanych z grupy czerwonej i żółtej do zespołów ZRM (z listy) oraz wskazać szpitale docelowe (z listy).
+> 3. Sporządzić raport ze zdarzenia.
 >
-> **Metoda tradycyjna:** Zapisujesz wyniki na kartce. Raport sporządzasz odręcznie.
-> **Metoda z aplikacją:** Korzystasz z aplikacji TRIAGE MCI na smartfonie. Raport generujesz w aplikacji.
+> **Metoda tradycyjna:** Wyniki segregacji i dyslokacji zapisujesz na papierowej Tabeli Dyslokacji. Raport sporządzasz odręcznie na kartce.
+> **Metoda z aplikacją:** Korzystasz z aplikacji TRIAGE MCI na smartfonie — wszystkie trzy moduły (segregacja, dysponowanie, raport).
 >
-> Możesz przeglądać karty w dowolnej kolejności. Nie ma limitu czasu, ale pracuj tak szybko jak potrafisz — czas jest mierzony od momentu otwarcia koperty do momentu, gdy zgłosisz ukończenie segregacji i raportu.
+> Możesz przeglądać karty w dowolnej kolejności. Nie ma limitu czasu, ale pracuj tak szybko jak potrafisz — czas jest mierzony od momentu otwarcia koperty do momentu, gdy zgłosisz ukończenie wszystkich trzech zadań (segregacja, dyslokacja, raport).
 >
 > Czy masz pytania?
 
@@ -433,24 +441,147 @@ Każdy krok decyzyjny algorytmu START jest testowany co najmniej dwukrotnie (obi
 
 ---
 
-## Lista kontrolna kompletności raportu (10 pkt)
+# KLUCZ REFERENCYJNY — DYSLOKACJA (tylko dla prowadzącego!)
 
-Po zakończeniu segregacji oceń raport uczestnika (tradycyjny: kartka; cyfrowy: raport z aplikacji). Za każdy element obecny w raporcie przyznaj 1 punkt:
+## Zasady oceny dyslokacji
+
+### Kompletność dyslokacji (0-6 pkt, po 1 pkt za każdego prawidłowo zadysponowanego pacjenta)
+
+| Kryterium | Punktacja |
+|---|---|
+| Każdy pacjent T1 (czerwony) przypisany do ZRM | +1 pkt za każdego (maks. 3 pkt) |
+| Każdy pacjent T2 (żółty) przypisany do ZRM | +1 pkt za każdego (maks. 3 pkt) |
+| Pacjenci T4 (czarni) NIE przypisani do ZRM | Warunek konieczny — jeśli T4 przypisano do ZRM, odejmij 1 pkt |
+| Pacjenci T3 (zieloni) NIE przypisani do ZRM priorytetowo | Brak wpływu na punktację (T3 mogą być transportowani innym środkiem) |
+
+### Jakość dyslokacji (0-6 pkt)
+
+| Kryterium | 0 pkt | 1 pkt | 2 pkt |
+|---|---|---|---|
+| **Dopasowanie szpitala do potrzeb** | T1 z ciężkim urazem skierowany do Szpitala Powiatowego (IP, brak OR) | T1 skierowany do szpitala z SOR ale bez CU | T1 skierowany do Szpitala Uniwersyteckiego (CU + OR) lub Miejskiego (SOR + OR) |
+| **Rozłożenie obciążenia szpitali** | Wszyscy T1 do jednego szpitala mimo pojemności innych | Nierówny rozkład, ale nie przekraczający pojemności | T1 rozłożeni między szpitale zgodnie z pojemnością |
+| **Dopasowanie typu ZRM** | ZRM P przypisany do najcięższego T1, LZRM do T2 | Brak wyraźnej logiki przypisania | LZRM lub ZRM S przypisany do najcięższego T1 |
+
+**Łączny wynik dyslokacji: kompletność (0-6) + jakość (0-6) = 0-12 pkt**
+
+## Scenariusz 1 — referencyjna dyslokacja
+
+| Pacjent | Kat. | Rekomendowany ZRM | Rekomendowany szpital | Uzasadnienie |
+|---|---|---|---|---|
+| S1-08 (uraz miednicy, wstrząs) | T1 | ZRM S-01 (specjalistyczny) | Szpital Uniwersytecki (CU) | Najcięższy uraz, wymaga CU i bloku chirurgicznego |
+| S1-09 (krwawienie tętnicze) | T1 | LZRM (najszybszy transport) | Szpital Uniwersytecki (CU) | Masywne krwawienie, wymaga najszybszej drogi do bloku |
+| S1-10 (uraz czaszkowo-mózgowy) | T1 | ZRM P-01 | Szpital Miejski nr 2 (SOR + OR) | Wymaga diagnostyki i ewentualnie bloku — rozkładamy obciążenie |
+| S1-05 (uraz kręgosłupa) | T2 | ZRM P-02 | Szpital Miejski nr 2 | Stabilny, wymaga diagnostyki obrazowej |
+| S1-06 (otwarte złamanie) | T2 | (oczekuje na powrót ZRM) | Szpital Miejski nr 2 lub Powiatowy | Stabilna, wymaga zaopatrzenia ortopedycznego |
+| S1-07 (złamanie żeber) | T2 | (oczekuje na powrót ZRM) | Szpital Powiatowy | Stabilny, wymaga monitorowania |
+
+**Uwaga:** Powyższa dyslokacja jest referencyjna (optymalna). Inne racjonalne przypisania są akceptowalne — kluczowe jest: (1) T1 do szpitali z OR, (2) brak przekroczenia pojemności, (3) logiczne użycie ZRM S/LZRM.
+
+## Scenariusz 2 — referencyjna dyslokacja
+
+| Pacjent | Kat. | Rekomendowany ZRM | Rekomendowany szpital | Uzasadnienie |
+|---|---|---|---|---|
+| S2-08 (rana penetrująca brzucha) | T1 | ZRM S-01 (specjalistyczny) | Szpital Uniwersytecki (CU) | Rana penetrująca, wymaga bloku chirurgicznego |
+| S2-09 (oparzenie dróg oddechowych) | T1 | LZRM | Szpital Uniwersytecki (CU) | Oparzenie inhalacyjne, może wymagać intubacji i OIT |
+| S2-10 (uraz zmiażdżeniowy) | T1 | ZRM P-01 | Szpital Miejski nr 2 (SOR + OR) | Uraz wielonarządowy, wymaga bloku — rozkładamy obciążenie |
+| S2-05 (oparzenie 15% TBSA) | T2 | ZRM P-02 | Szpital Miejski nr 2 | Stabilny, wymaga zaopatrzenia oparzeń |
+| S2-06 (złamanie kości udowej) | T2 | (oczekuje na powrót ZRM) | Szpital Miejski nr 2 lub Powiatowy | Stabilna, wymaga zaopatrzenia ortopedycznego |
+| S2-07 (uraz kręgosłupa) | T2 | (oczekuje na powrót ZRM) | Szpital Powiatowy | Stabilny, wymaga diagnostyki i monitorowania |
+
+---
+
+## Lista kontrolna kompletności raportu — Raport GDM [zał. nr 14] (10 pkt)
+
+Po zakończeniu wszystkich trzech zadań oceń raport uczestnika (tradycyjny: kartka; cyfrowy: raport z aplikacji). Za każdy element obecny w raporcie przyznaj 1 punkt:
 
 | Nr | Element raportu | 0/1 |
 |----|----------------|-----|
-| 1 | Nazwa / opis zdarzenia (co się wydarzyło) | |
-| 2 | Czas rozpoczęcia działań segregacyjnych | |
-| 3 | Całkowita liczba poszkodowanych (12) | |
-| 4 | Podział na kategorie T1-T4 z liczbami (np. T1:3, T2:3, T3:4, T4:2) | |
-| 5 | Lista pacjentów z przypisanymi kategoriami | |
-| 6 | Informacja o dysponowaniu do transportu | |
-| 7 | Wskazanie szpitali docelowych | |
-| 8 | Przypisanie zespołów ZRM do pacjentów | |
-| 9 | Status transportów (w trakcie / dostarczony) | |
-| 10 | Czas sporządzenia raportu | |
+| 1 | Oznaczenie dyspozytorni medycznej / identyfikacja zdarzenia | |
+| 2 | Data i godzina rozpoczęcia akcji ratowniczej | |
+| 3 | Data i godzina zakończenia akcji ratowniczej | |
+| 4 | Dane kierującego akcją medyczną (KAM) | |
+| 5 | Liczba, rodzaj i oznaczenie ZRM biorących udział w akcji | |
+| 6 | Zestawienie liczby poszkodowanych z podziałem na grupy segregacyjne (czerwona, żółta, zielona, czarna) | |
+| 7 | Zestawienie danych poszkodowanych (numer, kategoria, obrażenia) | |
+| 8 | Przypisanie ZRM do poszkodowanych (dyslokacja) | |
+| 9 | Zestawienie szpitali docelowych z przypisanymi poszkodowanymi | |
+| 10 | Dane osoby sporządzającej raport / czas sporządzenia | |
 
 **Wynik: _____ / 10**
+
+---
+
+## Lista ZRM i szpitali do eksperymentu
+
+> Uwaga: poniższe dane są fikcyjne i służą wyłącznie na potrzeby eksperymentu. Uczestnicy sesji tradycyjnej otrzymują je jako wydrukowaną listę. Uczestnicy sesji z aplikacją mają je wstępnie załadowane w TRIAGE MCI.
+
+**Zespoły ZRM (do wydrukowania dla uczestników):**
+- ZRM P-01 Kraków (zespół podstawowy)
+- ZRM P-02 Kraków (zespół podstawowy)
+- ZRM S-01 Kraków (zespół specjalistyczny)
+- LZRM Kraków (lotniczy zespół ratownictwa medycznego)
+
+**Szpitale — Karta informacyjna (do wydrukowania dla uczestników):**
+
+| Szpital | Oddziały | Bloki operacyjne | Stanowiska ITM (z resp.) | Przyjęcie CZERWONYCH | Przyjęcie ŻÓŁTYCH | Czas dojazdu |
+|---|---|---|---|---|---|---|
+| Szpital Uniwersytecki | SOR, CU, chirurgia, ortopedia | 2 (chir. + ortop.) | 3 | do 3 | do 3 | 12 min |
+| Szpital Miejski nr 2 | SOR, chirurgia ogólna | 1 (chir. ogólna) | 2 | do 2 | do 2 | 18 min |
+| Szpital Powiatowy | IP | 0 | 1 | 0 | do 3 | 25 min |
+
+**Uwaga:** Dane o szpitalach są identyczne dla obu scenariuszy i obu metod. Uczestnik otrzymuje kartę informacyjną po przekazaniu raportu z segregacji prowadzącemu (DM). Format karty odpowiada uproszczonej TABELI SZPITALI [zał. nr 13 Procedury MZ v2.3].
+
+---
+
+## Papierowa Tabela Dyslokacji — szablon do wydrukowania
+
+Uproszczona wersja oficjalnej TABELI DYSLOKACJI POSZKODOWANYCH [zał. 12], do wypełnienia przez uczestników sesji tradycyjnej:
+
+| Nr | Kategoria | Płeć/Wiek | Obrażenia (skrót) | ZRM | Szpital | Status |
+|----|-----------|-----------|-------------------|-----|---------|--------|
+| 1  |           |           |                   |     |         |        |
+| 2  |           |           |                   |     |         |        |
+| 3  |           |           |                   |     |         |        |
+| 4  |           |           |                   |     |         |        |
+| 5  |           |           |                   |     |         |        |
+| 6  |           |           |                   |     |         |        |
+| 7  |           |           |                   |     |         |        |
+| 8  |           |           |                   |     |         |        |
+| 9  |           |           |                   |     |         |        |
+| 10 |           |           |                   |     |         |        |
+| 11 |           |           |                   |     |         |        |
+| 12 |           |           |                   |     |         |        |
+
+---
+
+## Karta ocen — formularz obserwatora
+
+Formularz obserwatora zaadaptowany z Procedury MZ v2.3 Karty ocen.
+
+**Uczestnik:** _____ **Sesja:** Tradycyjna / Aplikacja **Scenariusz:** 1 / 2
+
+| Obszar | Prawidłowa | Nieoptymalna | Wymaga poprawy | Uwagi |
+|--------|-----------|-------------|----------------|-------|
+| Przepływ informacji |  |  |  |  |
+| Podejmowanie decyzji |  |  |  |  |
+| Dokumentacja i raportowanie |  |  |  |  |
+
+---
+
+## Arkusz czasów — szablon dla prowadzącego
+
+| Uczestnik | Sesja | Metoda | Scenariusz | T_start | T_segregacja | T_raport_DM | T_dyslokacja | T_raport_końcowy | Czas_łączny | Uwagi |
+|---|---|---|---|---|---|---|---|---|---|---|
+| U01 | 1 | Tradycyjna | S1 | | | | | | | |
+| U01 | 2 | Aplikacja | S2 | | | | | | | |
+
+**Definicje:**
+- **T_start** — moment otwarcia koperty z kartami pacjentów
+- **T_segregacja** — moment deklaracji zakończenia segregacji (początek raportu do DM)
+- **T_raport_DM** — moment zakończenia wymiany informacji z DM (po otrzymaniu danych o szpitalach)
+- **T_dyslokacja** — moment deklaracji zakończenia dyslokacji
+- **T_raport_końcowy** — moment deklaracji ukończenia raportu ("Raport gotowy")
+- **Czas_łączny** = T_raport_końcowy − T_start
 
 ---
 
@@ -460,12 +591,16 @@ Po zakończeniu segregacji oceń raport uczestnika (tradycyjny: kartka; cyfrowy:
 
 2. **Potasuj karty** przed włożeniem do koperty — nie układaj ich wg kategorii.
 
-3. **Nie podpowiadaj** — jeśli uczestnik pyta „czy ten pacjent chodzi?", odpowiedz: „Wszystkie potrzebne informacje są na karcie."
+3. **Wręcz uczestnikom listę ZRM i szpitali** na początku sesji, razem z kopertą z kartami pacjentów. W sesji tradycyjnej jest to wydrukowana lista; w sesji z aplikacją dane są wstępnie załadowane w TRIAGE MCI.
 
-4. **Mierz czas stoperem** — start: moment otwarcia koperty; stop: moment deklaracji „skończyłem/am".
+4. **Nie podpowiadaj** — jeśli uczestnik pyta „czy ten pacjent chodzi?", odpowiedz: „Wszystkie potrzebne informacje są na karcie."
 
-5. **Sesja tradycyjna:** Uczestnik zapisuje wyniki na kartce — numer pacjenta i przypisaną kategorię. Raport pisze na oddzielnej kartce.
+5. **Mierz czas stoperem** — start: moment otwarcia koperty; stop: moment deklaracji „skończyłem/am" (po ukończeniu wszystkich trzech zadań: segregacja, dyslokacja, raport).
 
-6. **Sesja z aplikacją:** Uczestnik wpisuje każdego pacjenta do aplikacji TRIAGE MCI, odpowiadając na pytania algorytmu START. Raport generuje w aplikacji.
+6. **Sesja tradycyjna:** Uczestnik zapisuje wyniki segregacji i dyslokacji na papierowej Tabeli Dyslokacji. Raport pisze odręcznie na oddzielnej kartce.
 
-7. **Pacjent S2-09 — ważna uwaga:** Jeśli uczestnik w sesji tradycyjnej pyta „co się stanie po udrożnieniu dróg oddechowych?" — odpowiedz: „Na karcie jest napisane." Karta zawiera informację o pojawieniu się oddechu po udrożnieniu.
+7. **Sesja z aplikacją:** Uczestnik wpisuje każdego pacjenta do aplikacji TRIAGE MCI, odpowiadając na pytania algorytmu START. Następnie korzysta z modułu DYSPONOWANIE, aby przypisać poszkodowanych do ZRM i szpitali. Na końcu generuje raport w aplikacji.
+
+8. **Karta ocen:** W trakcie lub bezpośrednio po każdej sesji prowadzący wypełnia Kartę ocen (formularz obserwatora) dla danego uczestnika, oceniając przepływ informacji, podejmowanie decyzji oraz dokumentację i raportowanie.
+
+9. **Pacjent S2-09 — ważna uwaga:** Jeśli uczestnik w sesji tradycyjnej pyta „co się stanie po udrożnieniu dróg oddechowych?" — odpowiedz: „Na karcie jest napisane." Karta zawiera informację o pojawieniu się oddechu po udrożnieniu.

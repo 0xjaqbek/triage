@@ -129,6 +129,48 @@ Polskie wytyczne wprowadzają pewne modyfikacje w stosunku do oryginalnego algor
 
 Szkolenia z zakresu segregacji medycznej w zdarzeniach masowych stanowią obligatoryjny element kształcenia ratowników medycznych w Polsce, zarówno na poziomie studiów, jak i w ramach kursów doskonalących. Niemniej jednak, jak wskazują wyniki badań ankietowych przeprowadzonych wśród polskich ratowników medycznych, praktyczne doświadczenie z realnymi zdarzeniami masowymi jest ograniczone — większość ratowników uczestniczyła wyłącznie w ćwiczeniach symulacyjnych [Goniewicz i in., 2012].
 
+### 2.3.6. Procedura postępowania na wypadek zdarzenia z dużą liczbą poszkodowanych (Procedura MZ v2.3)
+
+W czerwcu 2024 roku Ministerstwo Zdrowia zatwierdziło aktualną wersję (2.3) *Procedury postępowania na wypadek wystąpienia zdarzenia z dużą liczbą poszkodowanych* [Ministerstwo Zdrowia, 2024]. Procedura ta stanowi obowiązujący dokument regulacyjny określający sposób postępowania wszystkich podmiotów systemu Państwowego Ratownictwa Medycznego w sytuacji zdarzenia z dużą liczbą poszkodowanych.
+
+#### Definicje i próg uruchomienia
+
+Procedura wprowadza precyzyjne definicje terminologiczne istotne z punktu widzenia niniejszej pracy:
+
+- **Zdarzenie z dużą liczbą poszkodowanych** — zdarzenie mnogie lub masowe, w wyniku którego potencjalna liczba osób poszkodowanych wynosi 10 lub więcej osób;
+- **Zdarzenie mnogie** — zdarzenie z ≥10 poszkodowanymi, w którym zapotrzebowanie na medyczne czynności ratunkowe nie przekracza możliwości sił i środków obecnych na miejscu;
+- **Zdarzenie masowe** — zdarzenie z ≥10 poszkodowanymi, w którym zapotrzebowanie przekracza możliwości sił i środków obecnych na miejscu w danej fazie działań.
+
+Procedura jest uruchamiana obligatoryjnie przy zdarzeniach z ≥10 poszkodowanymi. W pozostałych przypadkach decyzję podejmuje Główny Dyspozytor Medyczny (GDM).
+
+#### Role i łańcuch dowodzenia
+
+Procedura definiuje szczegółowy podział ról i zadań, z których kluczowe dla niniejszej pracy to:
+
+- **Kierujący Akcją Medyczną (KAM)** — osoba odpowiedzialna za koordynację działań medycznych na miejscu zdarzenia, w tym za wyznaczenie osób prowadzących segregację medyczną, prowadzenie dyslokacji poszkodowanych, współpracę z dyspozytorem medycznym oraz sporządzenie raportu;
+- **Zespół Ratownictwa Medycznego (ZRM)** — jednostka wykonawcza podlegająca poleceniom KAM, realizująca segregację i medyczne czynności ratunkowe;
+- **Dyspozytor Medyczny Wysyłający (DM-W)** — osoba prowadząca dyslokację poszkodowanych wspólnie z KAM, zarządzająca tabelą szpitali.
+
+#### Obowiązkowe narzędzia dokumentacyjne
+
+Z perspektywy niniejszej pracy najistotniejszym elementem procedury jest zdefiniowanie trzech obowiązkowych narzędzi dokumentacyjnych, funkcjonujących w formie papierowej:
+
+**Tabela Dyslokacji Poszkodowanych** [zał. nr 12] — graficzne przedstawienie poszkodowanych z podziałem na grupy: czerwona, żółta, zielona, czarna. Każdy poszkodowany ma przydzielony numer indywidualny. Tabela umożliwia nanoszenie obrażeń (graficznie, na schemacie ciała), przyporządkowanie ZRM transportującego oraz szpitala docelowego. Identyczną tabelę posiadają równocześnie WKRM, KAM, GDM i DM-W.
+
+**Tabela Szpitali** [zał. nr 13] — umożliwia wprowadzenie informacji o możliwościach przyjęcia poszkodowanych z grupy czerwonej i żółtej przez poszczególne szpitale, dostępności bloków operacyjnych, stanowisk intensywnej terapii medycznej (ITM), respiratorów oraz sal zabiegowych. Z tabeli korzystają: GDM, DM-W, DM-WS, GDM-O, KAM, WKRM, WKRM-O.
+
+**Raport GDM z przebiegu zdarzenia** [zał. nr 14] — podsumowanie działań zawierające: oznaczenie dyspozytorni medycznej, datę i godzinę rozpoczęcia/zakończenia akcji, dane GDM i KAM, liczbę i oznaczenie ZRM, zestawienie liczby poszkodowanych i ich dane, zestawienie szpitali docelowych oraz dane osoby sporządzającej raport.
+
+#### Karty ocen
+
+Procedura definiuje również system ewaluacji w formie **Kart ocen** [zał. nr 15-26] — trzystopniowa skala (prawidłowa / nieoptymalna / wymaga poprawy) oceniająca łączność, przepływ informacji i podejmowanie decyzji przez poszczególnych uczestników akcji. Karty wypełniane są przez wszystkie podmioty uczestniczące w zdarzeniu i przesyłane do WKRM niezwłocznie po zakończeniu akcji.
+
+#### Znaczenie dla niniejszej pracy
+
+Analiza Procedury MZ v2.3 ujawnia, że obowiązkowa dokumentacja zdarzenia z dużą liczbą poszkodowanych — Tabela Dyslokacji, Tabela Szpitali i Raport GDM — funkcjonuje wyłącznie w formie papierowej. Stanowi to istotne ograniczenie operacyjne: papierowe tabele wymagają ręcznego wypełniania w warunkach stresu i presji czasu, są podatne na błędy, trudne do odczytania i niekompatybilne z potrzebami szybkiej wymiany informacji między wieloma podmiotami (KAM, DM-W, WKRM).
+
+Aplikacja TRIAGE MCI, będąca przedmiotem niniejszej pracy, realizuje funkcjonalność odpowiadającą wszystkim trzem narzędziom dokumentacyjnym zdefiniowanym w procedurze: moduł segregacji odpowiada Tabeli Dyslokacji Poszkodowanych, moduł dysponowania — Tabeli Szpitali, a moduł raportowania — Raportowi GDM. Ta zbieżność funkcjonalna pozwala na sformułowanie pytania badawczego nie w kategoriach ogólnych („cyfrowe vs. tradycyjne"), lecz w odniesieniu do konkretnego wymogu regulacyjnego: *Czy cyfrowa realizacja narzędzi dokumentacyjnych zdefiniowanych w Procedurze MZ v2.3 poprawia efektywność ich wypełniania w porównaniu z obowiązującą formą papierową?*
+
 ## 2.4. Inne systemy segregacji medycznej
 
 ### 2.4.1. SALT (Sort, Assess, Lifesaving Interventions, Treatment/Transport)
@@ -257,13 +299,15 @@ Przegląd literatury pozwala sformułować następujące wnioski stanowiące uza
 
 2. **Algorytm START jest ugruntowanym standardem** segregacji medycznej, ale jego skuteczność zależy w dużej mierze od szkolenia i doświadczenia personelu, a wskaźniki overtriage i undertriage pozostają znaczące.
 
-3. **Cyfryzacja procesu segregacji ma potencjał** do poprawy standaryzacji, szybkości dokumentacji i jakości raportowania, ale napotyka bariery technologiczne, ergonomiczne i organizacyjne.
+3. **Obowiązująca Procedura MZ v2.3 definiuje obowiązkowe narzędzia dokumentacyjne** — Tabelę Dyslokacji Poszkodowanych, Tabelę Szpitali i Raport GDM — które funkcjonują wyłącznie w formie papierowej. Stanowi to potencjalne ograniczenie operacyjne w warunkach zdarzenia masowego, gdzie presja czasu, stres i potrzeba wymiany informacji między wieloma podmiotami (KAM, DM-W, WKRM) wymagają narzędzi szybkich, czytelnych i odpornych na błędy.
 
-4. **Istniejące rozwiązania cyfrowe** są albo zbyt złożone i kosztowne do wdrożenia w warunkach polowych (systemy wymagające infrastruktury), albo zbyt uproszczone i niekompletne (proste aplikacje mobilne bez zarządzania pacjentami i raportowania).
+4. **Cyfryzacja procesu segregacji i dokumentacji ma potencjał** do poprawy standaryzacji, szybkości dokumentacji i jakości raportowania, ale napotyka bariery technologiczne, ergonomiczne i organizacyjne.
 
-5. **Brak polskich badań porównawczych** oceniających efektywność cyfrowych narzędzi segregacji w odniesieniu do metody tradycyjnej stanowi istotną lukę badawczą, którą niniejsza praca ma na celu częściowo wypełnić.
+5. **Istniejące rozwiązania cyfrowe** są albo zbyt złożone i kosztowne do wdrożenia w warunkach polowych (systemy wymagające infrastruktury), albo zbyt uproszczone i niekompletne (proste aplikacje mobilne bez zarządzania pacjentami i raportowania). Żadne ze zidentyfikowanych rozwiązań nie realizuje łącznie funkcjonalności odpowiadającej narzędziom dokumentacyjnym zdefiniowanym w Procedurze MZ v2.3.
 
-Powyższe przesłanki uzasadniają postawienie pytania badawczego: *Czy zastosowanie aplikacji mobilnej implementującej algorytm START wpływa na czas, trafność i kompletność segregacji medycznej w porównaniu z metodą tradycyjną (bez wsparcia cyfrowego)?*
+6. **Brak polskich badań porównawczych** oceniających efektywność cyfrowych narzędzi segregacji i dokumentacji zdarzenia masowego w odniesieniu do metody papierowej stanowi istotną lukę badawczą, którą niniejsza praca ma na celu częściowo wypełnić.
+
+Powyższe przesłanki uzasadniają postawienie pytania badawczego: *Czy cyfrowa realizacja narzędzi dokumentacyjnych zdefiniowanych w Procedurze postępowania na wypadek zdarzenia z dużą liczbą poszkodowanych (MZ v2.3) — w formie aplikacji TRIAGE MCI — poprawia efektywność segregacji, dyslokacji i raportowania w porównaniu z obowiązującą metodą papierową?*
 
 ---
 
@@ -298,5 +342,6 @@ Powyższe przesłanki uzasadniają postawienie pytania badawczego: *Czy zastosow
 25. Super, G. (1984). *START: Simple Triage and Rapid Treatment Plan*. Hoag Hospital/Newport Beach Fire Department.
 26. Vassallo, J. i in. (2017). A systematic review and meta-analysis of the diagnostic accuracy of mass casualty triage systems. *Annals of Emergency Medicine*, 69(2), 263-274.
 27. Wallis, L.A. i in. (2017). Mobile health technology in mass casualty incidents: a systematic review. *Prehospital and Disaster Medicine*, 32(5), 487-498.
-28. WHO (2007). *Mass Casualty Management Systems: Strategies and Guidelines for Building Health Sector Capacity*. World Health Organization.
-29. WHO (2016). *Global diffusion of eHealth: making universal health coverage achievable*. World Health Organization.
+28. Ministerstwo Zdrowia (2024). *Procedura postępowania na wypadek wystąpienia zdarzenia z dużą liczbą poszkodowanych*, wersja 2.3. Warszawa, 15 czerwca 2024 r. Zatwierdzona przez Marka Kosa, Podsekretarza Stanu.
+29. WHO (2007). *Mass Casualty Management Systems: Strategies and Guidelines for Building Health Sector Capacity*. World Health Organization.
+30. WHO (2016). *Global diffusion of eHealth: making universal health coverage achievable*. World Health Organization.
