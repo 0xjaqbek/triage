@@ -1331,6 +1331,135 @@ body.help-on .help-bubble:not(.dismissed) {
   cursor: pointer;
   user-select: none;
 }
+
+/* SEX/AGE BUTTONS */
+.sex-btn {
+  padding: 4px 10px;
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  color: var(--text2);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: var(--font);
+  transition: all 0.15s;
+}
+.sex-btn.active { background: var(--red); color: #fff; border-color: var(--red); }
+
+.age-input {
+  width: 48px;
+  padding: 4px 2px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text);
+  font-size: 12px;
+  font-family: var(--font);
+  text-align: center;
+  outline: none;
+  -moz-appearance: textfield;
+}
+.age-input::-webkit-inner-spin-button,
+.age-input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+
+.age-step-btn {
+  padding: 4px 6px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text2);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 700;
+  font-family: var(--font);
+}
+
+/* EVENT END BUTTON */
+.btn-end-event {
+  padding: 5px 12px;
+  background: transparent;
+  border: 1px solid var(--red);
+  color: var(--red);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 10px;
+  font-weight: 700;
+  font-family: var(--font);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+.btn-end-event.ended {
+  background: var(--red);
+  color: #fff;
+}
+
+/* HOSPITAL CAPACITY */
+.cap-inputs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.cap-label {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 12px;
+}
+.cap-input {
+  width: 36px;
+  padding: 3px 2px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text);
+  font-size: 11px;
+  font-family: var(--font);
+  text-align: center;
+  outline: none;
+  -moz-appearance: textfield;
+}
+.cap-input::-webkit-inner-spin-button,
+.cap-input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+
+.manage-hospital-item {
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* HOSPITAL CHANGE BUTTON */
+.btn-change-hospital {
+  padding: 2px 8px;
+  background: transparent;
+  border: 1px solid var(--border2);
+  color: var(--text3);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 9px;
+  font-weight: 600;
+  font-family: var(--font);
+  letter-spacing: 0.03em;
+}
+
+/* RETRIAGE BADGE */
+.retriage-badge {
+  display: inline-block;
+  background: var(--yellow);
+  color: #000;
+  font-size: 9px;
+  font-weight: 800;
+  padding: 1px 4px;
+  border-radius: 3px;
+  margin-left: 4px;
+  vertical-align: middle;
+}
+
+/* DEMO TAG */
+.p-demo {
+  font-size: 10px;
+  color: var(--text3);
+  font-weight: 600;
+}
 </style>
 </head>
 <body>
@@ -1382,6 +1511,7 @@ body.help-on .help-bubble:not(.dismissed) {
     <div class="event-sub" data-i18n="setup_subtitle">System zarządzania zdarzeniem masowym</div>
   </div>
   <input id="eventNameInput" class="event-input" placeholder="Nazwa zdarzenia (np. Wypadek A4 km 312)" data-i18n-placeholder="setup_placeholder">
+  <input id="kamNameInput" class="event-input" placeholder="KAM — Kierujący Akcją Medyczną (opcjonalnie)" data-i18n-placeholder="setup_kam_placeholder" style="margin-top:8px;font-size:12px;">
   <div style="position:relative;width:340px;max-width:90vw;">
     <div class="help-bubble" data-help-id="help-event-name" data-arrow="up" style="top:-14px;left:50%;transform:translateX(-50%);">
       <button class="help-close" onclick="dismissBubble('help-event-name')">✕</button>
@@ -1418,7 +1548,7 @@ body.help-on .help-bubble:not(.dismissed) {
   <div class="info-box" style="position:relative;">
     <button class="btn-changelog" onclick="openChangelog()" data-i18n="btn_changelog">Changelog</button>
     <h2>TRIAGE MCI</h2>
-    <div class="info-version">v1.0.3</div>
+    <div class="info-version">v2.0.0</div>
 
     <div class="info-section">
       <h3 data-i18n="info_about_title">O aplikacji</h3>
@@ -1463,6 +1593,18 @@ body.help-on .help-bubble:not(.dismissed) {
 <div id="changelogModal" class="info-overlay hidden" onclick="if(event.target===this)closeChangelog()">
   <div class="info-box">
     <h2 data-i18n="changelog_title">Changelog</h2>
+    <div class="info-section">
+      <h3>v2.0.0</h3>
+      <ul class="changelog-list">
+        <li data-i18n="cl_200_1">Pole KAM (Kierujący Akcją Medyczną) na ekranie startowym</li>
+        <li data-i18n="cl_200_2">Płeć i wiek pacjenta przy segregacji</li>
+        <li data-i18n="cl_200_3">Śledzenie pojemności szpitali (RED/YELLOW) z ostrzeżeniami</li>
+        <li data-i18n="cl_200_4">Modal GDM przy pierwszym wejściu w dysponowanie</li>
+        <li data-i18n="cl_200_5">Przycisk zakończenia zdarzenia (odwracalny)</li>
+        <li data-i18n="cl_200_6">Potwierdzenie retriażu z historią zmian</li>
+        <li data-i18n="cl_200_7">Zmiana szpitala w trakcie transportu</li>
+      </ul>
+    </div>
     <div class="info-section">
       <h3>v1.0.3</h3>
       <ul class="changelog-list">
@@ -1544,6 +1686,23 @@ body.help-on .help-bubble:not(.dismissed) {
           <div class="result-info">
             <div class="result-label" id="resultLabel"></div>
             <div class="result-path" id="resultPath"></div>
+          </div>
+        </div>
+        <div class="sex-age-row" style="margin-top:10px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+          <div style="display:flex;align-items:center;gap:4px;">
+            <span class="form-label" style="margin:0;font-size:11px;color:var(--text3)" data-i18n="sex_label">Płeć:</span>
+            <input type="hidden" id="patientSex" value="">
+            <button type="button" class="sex-btn" onclick="selectSex('M')" data-sex="M">M</button>
+            <button type="button" class="sex-btn" onclick="selectSex('K')" data-sex="K">K</button>
+            <button type="button" class="sex-btn" onclick="selectSex('?')" data-sex="?">?</button>
+          </div>
+          <div style="display:flex;align-items:center;gap:4px;">
+            <span class="form-label" style="margin:0;font-size:11px;color:var(--text3)" data-i18n="age_label">Wiek:</span>
+            <button type="button" class="age-step-btn" onclick="stepAge(-5)">−5</button>
+            <button type="button" class="age-step-btn" onclick="stepAge(-1)">−1</button>
+            <input type="number" id="patientAge" class="age-input" value="" min="0" max="150" placeholder="—">
+            <button type="button" class="age-step-btn" onclick="stepAge(1)">+1</button>
+            <button type="button" class="age-step-btn" onclick="stepAge(5)">+5</button>
           </div>
         </div>
         <div style="margin-top:10px">
@@ -1634,8 +1793,12 @@ body.help-on .help-bubble:not(.dismissed) {
           <div class="section-title" data-i18n="hospitals_title">Szpitale</div>
           <div class="manage-box">
             <div id="hospitalsList"></div>
-            <div class="add-row">
-              <input class="add-input" id="newHospitalInput" placeholder="Nowy szpital..." data-i18n-placeholder="new_hospital_placeholder">
+            <div class="add-row" style="flex-wrap:wrap">
+              <input class="add-input" id="newHospitalInput" placeholder="Nowy szpital..." data-i18n-placeholder="new_hospital_placeholder" style="flex:1;min-width:120px;">
+              <div class="cap-inputs" style="gap:4px;">
+                <label class="cap-label" title="RED capacity">🔴<input type="number" class="cap-input" id="newHospitalRed" min="0" placeholder="0"></label>
+                <label class="cap-label" title="YELLOW capacity">🟡<input type="number" class="cap-input" id="newHospitalYellow" min="0" placeholder="0"></label>
+              </div>
               <button class="add-btn" onclick="addHospital()" data-i18n="btn_add">+ Dodaj</button>
             </div>
           </div>
@@ -1656,13 +1819,69 @@ body.help-on .help-bubble:not(.dismissed) {
     <div id="view-report" class="hidden">
       <div class="report-header-row">
         <div class="section-title" style="margin-bottom:0" data-i18n="report_title">Raport dla dyspozytora</div>
-        <button class="btn-copy" onclick="copyReport()" data-i18n="btn_report_text">📋 Raport tekstowy</button>
+        <div style="display:flex;gap:6px;align-items:center;">
+          <button class="btn-end-event" id="btnEndEvent" onclick="toggleEventEnd()" data-i18n="btn_end_event">ZAKOŃCZ ZDARZENIE</button>
+          <button class="btn-copy" onclick="copyReport()" data-i18n="btn_report_text">📋 Raport tekstowy</button>
+        </div>
       </div>
       <div class="help-bubble" data-help-id="help-report" data-arrow="up" style="position:relative;margin-top:8px;left:0;right:0;">
         <button class="help-close" onclick="dismissBubble('help-report')">✕</button>
         <span data-i18n="help_report">Automatycznie generowany raport ze zdarzenia. Możesz skopiować tekst lub wysłać przez SMS/e-mail.</span>
       </div>
       <div id="reportContent"></div>
+    </div>
+  </div>
+</div>
+
+<!-- GDM MODAL -->
+<div class="modal-overlay" id="gdmModal">
+  <div class="modal" style="max-width:360px">
+    <div class="modal-header">
+      <div class="modal-title" data-i18n="gdm_modal_title">Kierownik Działań Medycznych</div>
+      <button class="modal-close" onclick="closeGdmModal()">&times;</button>
+    </div>
+    <div class="modal-body" style="padding:16px">
+      <p style="color:var(--text2);font-size:12px;margin-bottom:12px" data-i18n="gdm_modal_text">Wprowadź imię i nazwisko GDM (Głównego Dyspozytora Medycznego).</p>
+      <input id="gdmNameInput" class="event-input" style="width:100%;font-size:13px" placeholder="Imię i nazwisko GDM" data-i18n-placeholder="gdm_input_placeholder">
+    </div>
+    <div class="modal-footer" style="justify-content:flex-end;gap:8px;padding:12px 16px">
+      <button class="btn-modal-close" onclick="closeGdmModal()" data-i18n="gdm_skip">POMIŃ</button>
+      <button class="btn-dispatch" style="padding:8px 20px;font-size:12px" onclick="saveGdm()" data-i18n="gdm_save">ZAPISZ</button>
+    </div>
+  </div>
+</div>
+
+<!-- RETRIAGE MODAL -->
+<div class="modal-overlay" id="retriageModal">
+  <div class="modal" style="max-width:360px">
+    <div class="modal-header">
+      <div class="modal-title" data-i18n="retriage_title">Zmiana kategorii</div>
+      <button class="modal-close" onclick="closeRetriageModal()">&times;</button>
+    </div>
+    <div class="modal-body" style="padding:16px">
+      <p id="retriageText" style="color:var(--text2);font-size:12px;"></p>
+    </div>
+    <div class="modal-footer" style="justify-content:flex-end;gap:8px;padding:12px 16px">
+      <button class="btn-modal-close" onclick="closeRetriageModal()" data-i18n="btn_cancel">ANULUJ</button>
+      <button class="btn-dispatch" style="padding:8px 20px;font-size:12px" id="retriageConfirmBtn" data-i18n="btn_confirm">POTWIERDŹ</button>
+    </div>
+  </div>
+</div>
+
+<!-- HOSPITAL CHANGE MODAL -->
+<div class="modal-overlay" id="hospitalChangeModal">
+  <div class="modal" style="max-width:360px">
+    <div class="modal-header">
+      <div class="modal-title" data-i18n="change_hospital_title">Zmień szpital</div>
+      <button class="modal-close" onclick="closeHospitalChangeModal()">&times;</button>
+    </div>
+    <div class="modal-body" style="padding:16px">
+      <p id="hospitalChangeText" style="color:var(--text2);font-size:12px;margin-bottom:12px"></p>
+      <select class="form-select" id="selNewHospital" style="width:100%"></select>
+    </div>
+    <div class="modal-footer" style="justify-content:flex-end;gap:8px;padding:12px 16px">
+      <button class="btn-modal-close" onclick="closeHospitalChangeModal()" data-i18n="btn_cancel">ANULUJ</button>
+      <button class="btn-dispatch" style="padding:8px 20px;font-size:12px" id="hospitalChangeConfirmBtn" data-i18n="btn_confirm">POTWIERDŹ</button>
     </div>
   </div>
 </div>
@@ -1849,6 +2068,39 @@ const TRANSLATIONS = {
     cl_100_4: 'Generowanie i eksport raportów (kopiuj, SMS, e-mail)',
     cl_100_5: 'Obsługa 7 języków',
     cl_100_6: 'Pełna funkcjonalność offline (PWA)',
+    setup_kam_placeholder: 'KAM — Kierujący Akcją Medyczną (opcjonalnie)',
+    sex_label: 'Płeć:',
+    age_label: 'Wiek:',
+    rpt_kam: 'KAM:',
+    rpt_gdm: 'GDM:',
+    rpt_end: 'Zakończenie:',
+    gdm_modal_title: 'Kierownik Działań Medycznych',
+    gdm_modal_text: 'Wprowadź imię i nazwisko GDM (Głównego Dyspozytora Medycznego).',
+    gdm_input_placeholder: 'Imię i nazwisko GDM',
+    gdm_skip: 'POMIŃ',
+    gdm_save: 'ZAPISZ',
+    btn_end_event: 'ZAKOŃCZ ZDARZENIE',
+    btn_revert_end: 'COFNIJ ZAKOŃCZENIE',
+    confirm_end_event: 'Czy na pewno chcesz zakończyć zdarzenie?',
+    confirm_revert_end: 'Czy na pewno chcesz cofnąć zakończenie zdarzenia?',
+    confirm_retriage: 'Zmienić kategorię pacjenta {tag} z {from} na {to}?',
+    retriage_title: 'Zmiana kategorii',
+    btn_cancel: 'ANULUJ',
+    btn_confirm: 'POTWIERDŹ',
+    btn_change_hospital: 'zmień',
+    change_hospital_title: 'Zmień szpital',
+    change_hospital_text: 'Zmień szpital docelowy dla pacjenta {tag} (obecny: {hospital})',
+    capacity_red: 'Miejsca RED',
+    capacity_yellow: 'Miejsca YELLOW',
+    capacity_full_red: 'BRAK MIEJSC RED',
+    capacity_full_yellow: 'BRAK MIEJSC YELLOW',
+    cl_200_1: 'Pole KAM (Kierujący Akcją Medyczną) na ekranie startowym',
+    cl_200_2: 'Płeć i wiek pacjenta przy segregacji',
+    cl_200_3: 'Śledzenie pojemności szpitali (RED/YELLOW) z ostrzeżeniami',
+    cl_200_4: 'Modal GDM przy pierwszym wejściu w dysponowanie',
+    cl_200_5: 'Przycisk zakończenia zdarzenia (odwracalny)',
+    cl_200_6: 'Potwierdzenie retriażu z historią zmian',
+    cl_200_7: 'Zmiana szpitala w trakcie transportu',
   },
   en: {
     setup_subtitle: 'Mass Casualty Incident Management System',
@@ -2003,6 +2255,39 @@ const TRANSLATIONS = {
     cl_100_4: 'Report generation and export (copy, SMS, email)',
     cl_100_5: 'Support for 7 languages',
     cl_100_6: 'Full offline functionality (PWA)',
+    setup_kam_placeholder: 'MCI Commander (optional)',
+    sex_label: 'Sex:',
+    age_label: 'Age:',
+    rpt_kam: 'MCI Commander:',
+    rpt_gdm: 'Medical Director:',
+    rpt_end: 'End:',
+    gdm_modal_title: 'Medical Director',
+    gdm_modal_text: 'Enter the name of the Medical Director (GDM).',
+    gdm_input_placeholder: 'Medical Director name',
+    gdm_skip: 'SKIP',
+    gdm_save: 'SAVE',
+    btn_end_event: 'END EVENT',
+    btn_revert_end: 'REVERT END',
+    confirm_end_event: 'Are you sure you want to end the event?',
+    confirm_revert_end: 'Are you sure you want to revert the event end?',
+    confirm_retriage: 'Change category of patient {tag} from {from} to {to}?',
+    retriage_title: 'Category change',
+    btn_cancel: 'CANCEL',
+    btn_confirm: 'CONFIRM',
+    btn_change_hospital: 'change',
+    change_hospital_title: 'Change hospital',
+    change_hospital_text: 'Change destination hospital for patient {tag} (current: {hospital})',
+    capacity_red: 'RED beds',
+    capacity_yellow: 'YELLOW beds',
+    capacity_full_red: 'NO RED BEDS',
+    capacity_full_yellow: 'NO YELLOW BEDS',
+    cl_200_1: 'MCI Commander field on setup screen',
+    cl_200_2: 'Patient sex and age at triage',
+    cl_200_3: 'Hospital capacity tracking (RED/YELLOW) with warnings',
+    cl_200_4: 'Medical Director modal on first dispatch entry',
+    cl_200_5: 'Reversible event end button',
+    cl_200_6: 'Retriage confirmation with change history',
+    cl_200_7: 'Hospital change during transport',
   },
   it: {
     setup_subtitle: 'Sistema di gestione degli incidenti con vittime multiple',
@@ -2157,6 +2442,39 @@ const TRANSLATIONS = {
     cl_100_4: 'Generazione ed esportazione rapporti (copia, SMS, email)',
     cl_100_5: 'Supporto per 7 lingue',
     cl_100_6: 'Funzionalità offline completa (PWA)',
+    setup_kam_placeholder: 'Responsabile MCI (opzionale)',
+    sex_label: 'Sesso:',
+    age_label: 'Età:',
+    rpt_kam: 'Responsabile MCI:',
+    rpt_gdm: 'Direttore medico:',
+    rpt_end: 'Fine:',
+    gdm_modal_title: 'Direttore medico',
+    gdm_modal_text: 'Inserisci il nome del Direttore Medico (GDM).',
+    gdm_input_placeholder: 'Nome del Direttore Medico',
+    gdm_skip: 'SALTA',
+    gdm_save: 'SALVA',
+    btn_end_event: 'TERMINA EVENTO',
+    btn_revert_end: 'ANNULLA FINE',
+    confirm_end_event: 'Sei sicuro di voler terminare l\'evento?',
+    confirm_revert_end: 'Sei sicuro di voler annullare la fine dell\'evento?',
+    confirm_retriage: 'Cambiare la categoria del paziente {tag} da {from} a {to}?',
+    retriage_title: 'Cambio categoria',
+    btn_cancel: 'ANNULLA',
+    btn_confirm: 'CONFERMA',
+    btn_change_hospital: 'cambia',
+    change_hospital_title: 'Cambia ospedale',
+    change_hospital_text: 'Cambiare ospedale di destinazione per il paziente {tag} (attuale: {hospital})',
+    capacity_red: 'Posti RED',
+    capacity_yellow: 'Posti YELLOW',
+    capacity_full_red: 'NESSUN POSTO RED',
+    capacity_full_yellow: 'NESSUN POSTO YELLOW',
+    cl_200_1: 'Campo Responsabile MCI nella schermata iniziale',
+    cl_200_2: 'Sesso ed età del paziente al triage',
+    cl_200_3: 'Monitoraggio capacità ospedali (RED/YELLOW) con avvisi',
+    cl_200_4: 'Modale Direttore Medico al primo accesso al dispatch',
+    cl_200_5: 'Pulsante fine evento reversibile',
+    cl_200_6: 'Conferma retriage con cronologia modifiche',
+    cl_200_7: 'Cambio ospedale durante il trasporto',
   },
   fr: {
     setup_subtitle: 'Système de gestion d\'incident à victimes multiples',
@@ -2311,6 +2629,39 @@ const TRANSLATIONS = {
     cl_100_4: 'Génération et export de rapports (copie, SMS, email)',
     cl_100_5: 'Prise en charge de 7 langues',
     cl_100_6: 'Fonctionnalité hors ligne complète (PWA)',
+    setup_kam_placeholder: 'Responsable IMV (optionnel)',
+    sex_label: 'Sexe :',
+    age_label: 'Âge :',
+    rpt_kam: 'Responsable IMV :',
+    rpt_gdm: 'Directeur médical :',
+    rpt_end: 'Fin :',
+    gdm_modal_title: 'Directeur médical',
+    gdm_modal_text: 'Entrez le nom du Directeur Médical (GDM).',
+    gdm_input_placeholder: 'Nom du Directeur Médical',
+    gdm_skip: 'PASSER',
+    gdm_save: 'ENREGISTRER',
+    btn_end_event: 'TERMINER L\'ÉVÉNEMENT',
+    btn_revert_end: 'ANNULER LA FIN',
+    confirm_end_event: 'Êtes-vous sûr de vouloir terminer l\'événement ?',
+    confirm_revert_end: 'Êtes-vous sûr de vouloir annuler la fin de l\'événement ?',
+    confirm_retriage: 'Changer la catégorie du patient {tag} de {from} à {to} ?',
+    retriage_title: 'Changement de catégorie',
+    btn_cancel: 'ANNULER',
+    btn_confirm: 'CONFIRMER',
+    btn_change_hospital: 'changer',
+    change_hospital_title: 'Changer d\'hôpital',
+    change_hospital_text: 'Changer l\'hôpital de destination du patient {tag} (actuel : {hospital})',
+    capacity_red: 'Lits RED',
+    capacity_yellow: 'Lits YELLOW',
+    capacity_full_red: 'PAS DE LITS RED',
+    capacity_full_yellow: 'PAS DE LITS YELLOW',
+    cl_200_1: 'Champ Responsable IMV sur l\'écran de démarrage',
+    cl_200_2: 'Sexe et âge du patient au triage',
+    cl_200_3: 'Suivi capacité hôpitaux (RED/YELLOW) avec alertes',
+    cl_200_4: 'Modale Directeur Médical au premier accès dispatch',
+    cl_200_5: 'Bouton fin d\'événement réversible',
+    cl_200_6: 'Confirmation de retriage avec historique',
+    cl_200_7: 'Changement d\'hôpital pendant le transport',
   },
   de: {
     setup_subtitle: 'Managementsystem für Massenanfälle von Verletzten',
@@ -2465,6 +2816,39 @@ const TRANSLATIONS = {
     cl_100_4: 'Berichterstellung und -export (Kopieren, SMS, E-Mail)',
     cl_100_5: 'Unterstützung für 7 Sprachen',
     cl_100_6: 'Volle Offline-Funktionalität (PWA)',
+    setup_kam_placeholder: 'Einsatzleiter (optional)',
+    sex_label: 'Geschlecht:',
+    age_label: 'Alter:',
+    rpt_kam: 'Einsatzleiter:',
+    rpt_gdm: 'Leitender Notarzt:',
+    rpt_end: 'Ende:',
+    gdm_modal_title: 'Leitender Notarzt',
+    gdm_modal_text: 'Geben Sie den Namen des Leitenden Notarztes (LNA) ein.',
+    gdm_input_placeholder: 'Name des Leitenden Notarztes',
+    gdm_skip: 'ÜBERSPRINGEN',
+    gdm_save: 'SPEICHERN',
+    btn_end_event: 'EINSATZ BEENDEN',
+    btn_revert_end: 'ENDE RÜCKGÄNGIG',
+    confirm_end_event: 'Sind Sie sicher, dass Sie den Einsatz beenden möchten?',
+    confirm_revert_end: 'Sind Sie sicher, dass Sie das Ende rückgängig machen möchten?',
+    confirm_retriage: 'Kategorie von Patient {tag} von {from} auf {to} ändern?',
+    retriage_title: 'Kategorieänderung',
+    btn_cancel: 'ABBRECHEN',
+    btn_confirm: 'BESTÄTIGEN',
+    btn_change_hospital: 'ändern',
+    change_hospital_title: 'Krankenhaus ändern',
+    change_hospital_text: 'Zielkrankenhaus für Patient {tag} ändern (aktuell: {hospital})',
+    capacity_red: 'RED-Betten',
+    capacity_yellow: 'YELLOW-Betten',
+    capacity_full_red: 'KEINE RED-BETTEN',
+    capacity_full_yellow: 'KEINE YELLOW-BETTEN',
+    cl_200_1: 'Einsatzleiter-Feld auf Startbildschirm',
+    cl_200_2: 'Geschlecht und Alter bei der Triage',
+    cl_200_3: 'Krankenhauskapazität (RED/YELLOW) mit Warnungen',
+    cl_200_4: 'LNA-Dialog beim ersten Dispatch-Zugriff',
+    cl_200_5: 'Umkehrbarer Einsatzende-Button',
+    cl_200_6: 'Retriage-Bestätigung mit Änderungshistorie',
+    cl_200_7: 'Krankenhauswechsel während Transport',
   },
   cs: {
     setup_subtitle: 'Systém řízení hromadného neštěstí',
@@ -2619,6 +3003,39 @@ const TRANSLATIONS = {
     cl_100_4: 'Generování a export hlášení (kopírování, SMS, email)',
     cl_100_5: 'Podpora 7 jazyků',
     cl_100_6: 'Plná offline funkčnost (PWA)',
+    setup_kam_placeholder: 'Velitel zásahu (volitelné)',
+    sex_label: 'Pohlaví:',
+    age_label: 'Věk:',
+    rpt_kam: 'Velitel zásahu:',
+    rpt_gdm: 'Vedoucí lékař:',
+    rpt_end: 'Konec:',
+    gdm_modal_title: 'Vedoucí lékař',
+    gdm_modal_text: 'Zadejte jméno vedoucího lékaře (GDM).',
+    gdm_input_placeholder: 'Jméno vedoucího lékaře',
+    gdm_skip: 'PŘESKOČIT',
+    gdm_save: 'ULOŽIT',
+    btn_end_event: 'UKONČIT UDÁLOST',
+    btn_revert_end: 'VRÁTIT UKONČENÍ',
+    confirm_end_event: 'Opravdu chcete ukončit událost?',
+    confirm_revert_end: 'Opravdu chcete vrátit ukončení události?',
+    confirm_retriage: 'Změnit kategorii pacienta {tag} z {from} na {to}?',
+    retriage_title: 'Změna kategorie',
+    btn_cancel: 'ZRUŠIT',
+    btn_confirm: 'POTVRDIT',
+    btn_change_hospital: 'změnit',
+    change_hospital_title: 'Změnit nemocnici',
+    change_hospital_text: 'Změnit cílovou nemocnici pro pacienta {tag} (aktuální: {hospital})',
+    capacity_red: 'Lůžka RED',
+    capacity_yellow: 'Lůžka YELLOW',
+    capacity_full_red: 'ŽÁDNÁ LŮŽKA RED',
+    capacity_full_yellow: 'ŽÁDNÁ LŮŽKA YELLOW',
+    cl_200_1: 'Pole velitele zásahu na úvodní obrazovce',
+    cl_200_2: 'Pohlaví a věk pacienta při třídění',
+    cl_200_3: 'Sledování kapacity nemocnic (RED/YELLOW) s varováním',
+    cl_200_4: 'Dialog vedoucího lékaře při prvním přístupu k dispečinku',
+    cl_200_5: 'Vratitelné tlačítko ukončení události',
+    cl_200_6: 'Potvrzení retriáže s historií změn',
+    cl_200_7: 'Změna nemocnice během transportu',
   },
   pt: {
     setup_subtitle: 'Sistema de gestão de incidentes com múltiplas vítimas',
@@ -2773,6 +3190,39 @@ const TRANSLATIONS = {
     cl_100_4: 'Geração e exportação de relatórios (copiar, SMS, email)',
     cl_100_5: 'Suporte para 7 idiomas',
     cl_100_6: 'Funcionalidade offline completa (PWA)',
+    setup_kam_placeholder: 'Comandante MCI (opcional)',
+    sex_label: 'Sexo:',
+    age_label: 'Idade:',
+    rpt_kam: 'Comandante MCI:',
+    rpt_gdm: 'Diretor médico:',
+    rpt_end: 'Fim:',
+    gdm_modal_title: 'Diretor médico',
+    gdm_modal_text: 'Insira o nome do Diretor Médico (GDM).',
+    gdm_input_placeholder: 'Nome do Diretor Médico',
+    gdm_skip: 'PULAR',
+    gdm_save: 'SALVAR',
+    btn_end_event: 'ENCERRAR EVENTO',
+    btn_revert_end: 'REVERTER ENCERRAMENTO',
+    confirm_end_event: 'Tem certeza de que deseja encerrar o evento?',
+    confirm_revert_end: 'Tem certeza de que deseja reverter o encerramento do evento?',
+    confirm_retriage: 'Alterar categoria do paciente {tag} de {from} para {to}?',
+    retriage_title: 'Alteração de categoria',
+    btn_cancel: 'CANCELAR',
+    btn_confirm: 'CONFIRMAR',
+    btn_change_hospital: 'alterar',
+    change_hospital_title: 'Alterar hospital',
+    change_hospital_text: 'Alterar hospital de destino do paciente {tag} (atual: {hospital})',
+    capacity_red: 'Leitos RED',
+    capacity_yellow: 'Leitos YELLOW',
+    capacity_full_red: 'SEM LEITOS RED',
+    capacity_full_yellow: 'SEM LEITOS YELLOW',
+    cl_200_1: 'Campo Comandante MCI na tela inicial',
+    cl_200_2: 'Sexo e idade do paciente na triagem',
+    cl_200_3: 'Monitoramento de capacidade hospitalar (RED/YELLOW) com alertas',
+    cl_200_4: 'Modal Diretor Médico no primeiro acesso ao despacho',
+    cl_200_5: 'Botão reversível de encerramento do evento',
+    cl_200_6: 'Confirmação de retriagem com histórico de alterações',
+    cl_200_7: 'Alteração de hospital durante transporte',
   },
 };
 
@@ -2834,13 +3284,19 @@ let patients = [];
 let transports = [];
 
 let teams = (TRANSLATIONS[currentLang].default_teams || TRANSLATIONS.pl.default_teams).map((name, i) => ({ id: i + 1, name }));
-let hospitals = (TRANSLATIONS[currentLang].default_hospitals || TRANSLATIONS.pl.default_hospitals).map((name, i) => ({ id: i + 1, name }));
+let hospitals = (TRANSLATIONS[currentLang].default_hospitals || TRANSLATIONS.pl.default_hospitals).map((name, i) => ({ id: i + 1, name, redCapacity: 0, yellowCapacity: 0 }));
+
+let kamName = '';
+let gdmName = '';
+let gdmModalShown = false;
+let eventEndTime = '';
 
 // ===== PERSISTENCE =====
 function saveState() {
   try {
     localStorage.setItem('triageAppState', JSON.stringify({
-      eventName, eventTime, nextId, patients, transports, teams, hospitals, currentView
+      eventName, eventTime, nextId, patients, transports, teams, hospitals, currentView,
+      kamName, gdmName, gdmModalShown, eventEndTime
     }));
   } catch(e) {}
 }
@@ -2853,11 +3309,15 @@ function loadState() {
     eventName = s.eventName || '';
     eventTime = s.eventTime || '';
     nextId = s.nextId || 1;
-    patients = s.patients || [];
+    patients = (s.patients || []).map(p => ({ triageHistory: [], hospitalChangeHistory: [], sex: '', age: '', ...p }));
     transports = s.transports || [];
     teams = s.teams || [];
-    hospitals = s.hospitals || [];
+    hospitals = (s.hospitals || []).map(h => ({ redCapacity: 0, yellowCapacity: 0, ...h }));
     currentView = s.currentView || 'triage';
+    kamName = s.kamName || '';
+    gdmName = s.gdmName || '';
+    gdmModalShown = s.gdmModalShown || false;
+    eventEndTime = s.eventEndTime || '';
     return true;
   } catch(e) { return false; }
 }
@@ -2905,6 +3365,7 @@ function startEvent() {
   const input = document.getElementById('eventNameInput');
   if (!input.value.trim()) { input.focus(); return; }
   eventName = input.value.trim();
+  kamName = (document.getElementById('kamNameInput')?.value || '').trim();
   eventTime = now();
   document.getElementById('setup').classList.add('hidden');
   document.getElementById('btnDownload').classList.add('hidden');
@@ -2923,6 +3384,8 @@ function updateHeaderTime() {
 }
 
 document.getElementById('eventNameInput').addEventListener('keydown', e => { if (e.key === 'Enter') startEvent(); });
+document.getElementById('kamNameInput').addEventListener('keydown', e => { if (e.key === 'Enter') startEvent(); });
+document.getElementById('gdmNameInput').addEventListener('keydown', e => { if (e.key === 'Enter') saveGdm(); });
 
 // ===== VIEW SWITCHING =====
 let currentView = 'triage';
@@ -2934,6 +3397,8 @@ function switchView(v) {
     document.getElementById('view-' + id).classList.toggle('hidden', id !== v);
   });
   if (v === 'triage' && !wizResult) resetWizard();
+  if (v === 'dispatch' && !gdmModalShown && !gdmName) openGdmModal();
+  if (v === 'report') updateEndEventBtn();
   renderAll();
   saveState();
 }
@@ -2964,6 +3429,8 @@ function resetWizard() {
   document.getElementById('triageWizard').style.display = '';
   document.getElementById('overrideRow').style.display = 'none';
   document.getElementById('resultNotes').value = '';
+  if (document.getElementById('patientSex')) { document.getElementById('patientSex').value = ''; document.querySelectorAll('.sex-btn').forEach(b => b.classList.remove('active')); }
+  if (document.getElementById('patientAge')) document.getElementById('patientAge').value = '';
   renderWizard();
 }
 
@@ -3036,6 +3503,19 @@ function overrideColor(triage) {
   document.getElementById('overrideRow').style.display = 'none';
 }
 
+function selectSex(val) {
+  const input = document.getElementById('patientSex');
+  input.value = input.value === val ? '' : val;
+  document.querySelectorAll('.sex-btn').forEach(b => b.classList.toggle('active', b.dataset.sex === input.value));
+}
+
+function stepAge(delta) {
+  const input = document.getElementById('patientAge');
+  let v = parseInt(input.value) || 0;
+  v = Math.max(0, Math.min(150, v + delta));
+  input.value = v;
+}
+
 function confirmPatient() {
   if (!wizResult) return;
   const notes = document.getElementById('resultNotes').value.trim();
@@ -3048,19 +3528,19 @@ function confirmPatient() {
 function addPatient(triage, notes, pathInfo) {
   const id = nextId++;
   const fullNotes = [pathInfo || '', notes || ''].filter(Boolean).join(' | ');
+  const sex = document.getElementById('patientSex') ? document.getElementById('patientSex').value : '';
+  const age = document.getElementById('patientAge') ? document.getElementById('patientAge').value : '';
   patients.unshift({
     id, tag: 'P-' + String(id).padStart(3, '0'), triage, time: now(),
-    notes: fullNotes, description: '', status: 'na_miejscu', teamId: null, hospitalId: null, dispatchTime: null
+    notes: fullNotes, description: '', status: 'na_miejscu', teamId: null, hospitalId: null, dispatchTime: null,
+    sex: sex || '', age: age || '', triageHistory: [], hospitalChangeHistory: []
   });
   renderAll();
   saveState();
 }
 
 function changeTriage(id, newT) {
-  const p = patients.find(x => x.id === id);
-  if (p) { p.triage = newT; p.time = now(); }
-  renderAll();
-  saveState();
+  requestRetriage(id, newT);
 }
 
 function updateNotes(id, val) {
@@ -3118,6 +3598,27 @@ function dispatchTransport() {
   saveState();
 }
 
+function refreshHospitalSelect() {
+  const prevVal = document.getElementById('selHospital').value;
+  const selPId = parseInt(document.getElementById('selPatient').value);
+  const selP = selPId ? patients.find(x => x.id === selPId) : null;
+  let hHtml = '<option value="">' + t('select_hospital') + '</option>';
+  hospitals.forEach(h => {
+    const usage = getHospitalUsage(h.id);
+    let capInfo = '';
+    if (h.redCapacity > 0 || h.yellowCapacity > 0) {
+      const parts = [];
+      if (h.redCapacity > 0) parts.push('R:' + usage.red + '/' + h.redCapacity);
+      if (h.yellowCapacity > 0) parts.push('Y:' + usage.yellow + '/' + h.yellowCapacity);
+      capInfo = ' [' + parts.join(' ') + ']';
+    }
+    const warn = selP ? getCapacityWarning(h, selP.triage) : '';
+    hHtml += `<option value="${h.id}">${escHtml(h.name)}${capInfo}${warn}</option>`;
+  });
+  document.getElementById('selHospital').innerHTML = hHtml;
+  document.getElementById('selHospital').value = prevVal;
+}
+
 function checkDispatchReady() {
   const ok = document.getElementById('selPatient').value &&
              document.getElementById('selTeam').value &&
@@ -3145,8 +3646,12 @@ function removeTeam(id) {
 function addHospital() {
   const input = document.getElementById('newHospitalInput');
   if (!input.value.trim()) return;
-  hospitals.push({ id: Date.now(), name: input.value.trim() });
+  const redCap = parseInt(document.getElementById('newHospitalRed')?.value) || 0;
+  const yellowCap = parseInt(document.getElementById('newHospitalYellow')?.value) || 0;
+  hospitals.push({ id: Date.now(), name: input.value.trim(), redCapacity: redCap, yellowCapacity: yellowCap });
   input.value = '';
+  if (document.getElementById('newHospitalRed')) document.getElementById('newHospitalRed').value = '';
+  if (document.getElementById('newHospitalYellow')) document.getElementById('newHospitalYellow').value = '';
   renderAll();
   saveState();
 }
@@ -3206,10 +3711,11 @@ function renderPatients() {
       dots += `<button class="t-dot t-dot-${tk}${active}" title="${t('change_to')} ${t(tk.toLowerCase()+'_label')}" onclick="changeTriage(${p.id},'${tk}')"></button>`;
     }
 
+    const demoStr = [p.sex, p.age ? p.age + 'y' : ''].filter(Boolean).join('/');
     html += `<div class="patient-card pc-${p.triage}">
       <div class="p-tag p-tag-${p.triage}">${p.tag}</div>
       <div class="p-info">
-        <div class="p-time">${t(p.triage.toLowerCase()+'_text')} • ${p.time}</div>
+        <div class="p-time">${t(p.triage.toLowerCase()+'_text')}${demoStr ? ' • ' + demoStr : ''} • ${p.time}${(p.triageHistory && p.triageHistory.length) ? ' <span class="retriage-badge" title="' + p.triageHistory.map(h=>h.from+'→'+h.to+' '+h.time).join(', ') + '">↺' + p.triageHistory.length + '</span>' : ''}</div>
         <input class="p-notes" placeholder="${t('notes_placeholder2')}" value="${escHtml(p.notes)}" oninput="updateNotes(${p.id},this.value)">
       </div>
       <input class="p-desc" placeholder="${t('desc_placeholder')}" value="${escHtml(p.description || '')}" oninput="updateDescription(${p.id},this.value)">
@@ -3239,9 +3745,11 @@ function renderTransporting() {
     const hosp = hospitals.find(h => h.id === p.hospitalId);
     html += `<div class="transport-card">
       <div class="p-tag p-tag-${p.triage}">${p.tag}</div>
+      ${p.sex || p.age ? `<span class="p-demo">${p.sex || ''}${p.sex && p.age ? '/' : ''}${p.age || ''}</span>` : ''}
       <span class="team">${team ? escHtml(team.name) : '—'}</span>
       <span class="arrow">→</span>
       <span class="hospital">${hosp ? escHtml(hosp.name) : '—'}</span>
+      <button class="btn-change-hospital" onclick="requestHospitalChange(${p.id})" title="${t('btn_change_hospital')}">${t('btn_change_hospital')}</button>
       <span class="time">${p.dispatchTime}</span>
       <button class="btn-delivered" onclick="markDelivered(${p.id})">✓ ${t('btn_delivered')}</button>
     </div>`;
@@ -3267,8 +3775,23 @@ function renderDispatchSelects() {
   teams.filter(tm => !busyTeamIds.has(tm.id)).forEach(tm => { tHtml += `<option value="${tm.id}">${escHtml(tm.name)}</option>`; });
   document.getElementById('selTeam').innerHTML = tHtml;
 
+  // Get selected patient triage for capacity warning
+  const selPId = parseInt(document.getElementById('selPatient').value);
+  const selP = selPId ? patients.find(x => x.id === selPId) : null;
+
   let hHtml = '<option value="">' + t('select_hospital') + '</option>';
-  hospitals.forEach(h => { hHtml += `<option value="${h.id}">${escHtml(h.name)}</option>`; });
+  hospitals.forEach(h => {
+    const usage = getHospitalUsage(h.id);
+    let capInfo = '';
+    if (h.redCapacity > 0 || h.yellowCapacity > 0) {
+      const parts = [];
+      if (h.redCapacity > 0) parts.push('R:' + usage.red + '/' + h.redCapacity);
+      if (h.yellowCapacity > 0) parts.push('Y:' + usage.yellow + '/' + h.yellowCapacity);
+      capInfo = ' [' + parts.join(' ') + ']';
+    }
+    const warn = selP ? getCapacityWarning(h, selP.triage) : '';
+    hHtml += `<option value="${h.id}">${escHtml(h.name)}${capInfo}${warn}</option>`;
+  });
   document.getElementById('selHospital').innerHTML = hHtml;
 
   checkDispatchReady();
@@ -3283,7 +3806,15 @@ function renderManage() {
 
   let hHtml = '';
   hospitals.forEach(h => {
-    hHtml += `<div class="manage-item"><span>${escHtml(h.name)}</span><button class="btn-rm" onclick="removeHospital(${h.id})">✕</button></div>`;
+    const usage = getHospitalUsage(h.id);
+    hHtml += `<div class="manage-item manage-hospital-item">
+      <span>${escHtml(h.name)}</span>
+      <div class="cap-inputs">
+        <label class="cap-label">🔴<input type="number" class="cap-input" min="0" value="${h.redCapacity || ''}" placeholder="0" onchange="updateHospitalCapacity(${h.id},'redCapacity',this.value)" title="${t('capacity_red')}"></label>
+        <label class="cap-label">🟡<input type="number" class="cap-input" min="0" value="${h.yellowCapacity || ''}" placeholder="0" onchange="updateHospitalCapacity(${h.id},'yellowCapacity',this.value)" title="${t('capacity_yellow')}"></label>
+      </div>
+      <button class="btn-rm" onclick="removeHospital(${h.id})">✕</button>
+    </div>`;
   });
   document.getElementById('hospitalsList').innerHTML = hHtml;
 }
@@ -3316,7 +3847,8 @@ function renderReport() {
   // Summary block
   let html = `<div class="report-block">
     <div style="font-size:13px;color:var(--text2);margin-bottom:10px">
-      <strong style="color:var(--white)">${escHtml(eventName)}</strong> • Start: ${eventTime} • ${t('rpt_report')} ${now()}
+      <strong style="color:var(--white)">${escHtml(eventName)}</strong> • Start: ${eventTime}${eventEndTime ? ' • ' + t('rpt_end') + ' ' + eventEndTime : ''} • ${t('rpt_report')} ${now()}
+      ${kamName ? '<br>' + t('rpt_kam') + ' ' + escHtml(kamName) : ''}${gdmName ? ' • ' + t('rpt_gdm') + ' ' + escHtml(gdmName) : ''}
     </div>
     <div class="report-summary">`;
 
@@ -3337,20 +3869,34 @@ function renderReport() {
 
   if (Object.keys(byHospital).length > 0) {
     for (const [hospName, pts] of Object.entries(byHospital)) {
+      const hospObj = hospitals.find(h => h.name === hospName);
+      let capStr = '';
+      if (hospObj && (hospObj.redCapacity > 0 || hospObj.yellowCapacity > 0)) {
+        const usage = getHospitalUsage(hospObj.id);
+        const parts = [];
+        if (hospObj.redCapacity > 0) parts.push('🔴 ' + usage.red + '/' + hospObj.redCapacity);
+        if (hospObj.yellowCapacity > 0) parts.push('🟡 ' + usage.yellow + '/' + hospObj.yellowCapacity);
+        capStr = ` <small style="color:var(--text3)">[${parts.join(' ')}]</small>`;
+      }
       html += `<div class="report-block">
-        <div class="report-hospital">📍 ${escHtml(hospName)} <small>(${pts.length} ${t('report_patients')})</small></div>`;
+        <div class="report-hospital">📍 ${escHtml(hospName)}${capStr} <small>(${pts.length} ${t('report_patients')})</small></div>`;
 
       pts.forEach(p => {
         const team = teams.find(tm => tm.id === p.teamId);
         const statusCls = p.status === 'dostarczony' ? 'status-delivered' : 'status-transport';
         const statusTxt = p.status === 'dostarczony' ? t('status_delivered') : t('status_in_transport');
+        const demoStr = [p.sex, p.age ? p.age + 'y' : ''].filter(Boolean).join('/');
+        const retriageHtml = (p.triageHistory && p.triageHistory.length) ? `<span style="color:var(--yellow);font-size:10px">↺${p.triageHistory.map(h=>h.from+'→'+h.to).join(',')}</span>` : '';
+        const hospChangeHtml = (p.hospitalChangeHistory && p.hospitalChangeHistory.length) ? `<span style="color:var(--yellow);font-size:10px">⇄${p.hospitalChangeHistory.map(h=>h.from+'→'+h.to).join(',')}</span>` : '';
         html += `<div class="report-row">
           <div class="p-tag p-tag-${p.triage}">${p.tag}</div>
+          ${demoStr ? `<span style="color:var(--text3);font-size:11px">${demoStr}</span>` : ''}
           ${p.description ? `<span style="color:var(--text)">${escHtml(p.description)}</span>` : ''}
           <span style="color:var(--text2)">${t('report_team_label')} ${team ? escHtml(team.name) : '—'}</span>
           <span style="color:var(--text4)">•</span>
           <span style="color:var(--text3);font-size:10px">${t('report_departure')} ${p.dispatchTime || '—'}</span>
           <span class="status-badge ${statusCls}">${statusTxt}</span>
+          ${retriageHtml}${hospChangeHtml}
         </div>`;
       });
       html += `</div>`;
@@ -3365,8 +3911,10 @@ function renderReport() {
     html += `<div class="report-block">
       <div class="report-hospital">🏥 ${t('report_onsite_title')} <small>(${onSite.length})</small></div>`;
     onSite.forEach(p => {
+      const demoStr = [p.sex, p.age ? p.age + 'y' : ''].filter(Boolean).join('/');
       html += `<div class="report-row">
         <div class="p-tag p-tag-${p.triage}">${p.tag}</div>
+        ${demoStr ? `<span style="color:var(--text3);font-size:11px">${demoStr}</span>` : ''}
         ${p.description ? `<span style="color:var(--text)">${escHtml(p.description)}</span>` : ''}
         <span style="color:var(--text2)">${t(p.triage.toLowerCase()+'_text')}</span>
         ${p.notes ? `<span style="color:var(--text3);font-size:11px">– ${escHtml(p.notes)}</span>` : ''}
@@ -3385,7 +3933,10 @@ function buildReportText() {
 
   let text = `${t('rpt_header')}\n`;
   text += `${t('rpt_event')} ${eventName}\n`;
+  if (kamName) text += `${t('rpt_kam')} ${kamName}\n`;
+  if (gdmName) text += `${t('rpt_gdm')} ${gdmName}\n`;
   text += `${t('rpt_start')} ${eventTime}\n`;
+  if (eventEndTime) text += `${t('rpt_end')} ${eventEndTime}\n`;
   text += `${t('rpt_report')} ${now()}\n\n`;
   text += `${t('rpt_summary')}\n`;
   text += `${t('rpt_total_patients')} ${patients.length}\n`;
@@ -3410,7 +3961,11 @@ function buildReportText() {
     pts.forEach(p => {
       const team = teams.find(tm => tm.id === p.teamId);
       const st = p.status === 'dostarczony' ? t('status_delivered') : t('status_in_transport');
-      text += `  ${p.tag}${p.description ? ' ' + p.description : ''} [${p.triage}] → ${t('report_team_label')} ${team ? team.name : '—'} | ${p.dispatchTime} | ${st}\n`;
+      const demo = [p.sex, p.age ? p.age + 'y' : ''].filter(Boolean).join('/');
+      let line = `  ${p.tag}${demo ? ' ' + demo : ''}${p.description ? ' ' + p.description : ''} [${p.triage}] → ${t('report_team_label')} ${team ? team.name : '—'} | ${p.dispatchTime} | ${st}`;
+      if (p.triageHistory && p.triageHistory.length) line += ' | retriage: ' + p.triageHistory.map(h => h.from + '→' + h.to + ' ' + h.time).join(', ');
+      if (p.hospitalChangeHistory && p.hospitalChangeHistory.length) line += ' | hosp.change: ' + p.hospitalChangeHistory.map(h => h.from + '→' + h.to + ' ' + h.time).join(', ');
+      text += line + '\n';
     });
   }
 
@@ -3418,7 +3973,8 @@ function buildReportText() {
   if (onSite.length > 0) {
     text += `\n${t('rpt_onsite_header')} (${onSite.length}) ---\n`;
     onSite.forEach(p => {
-      text += `  ${p.tag}${p.description ? ' ' + p.description : ''} [${p.triage}] ${p.notes ? '– ' + p.notes : ''}\n`;
+      const demo = [p.sex, p.age ? p.age + 'y' : ''].filter(Boolean).join('/');
+      text += `  ${p.tag}${demo ? ' ' + demo : ''}${p.description ? ' ' + p.description : ''} [${p.triage}] ${p.notes ? '– ' + p.notes : ''}\n`;
     });
   }
 
@@ -3501,9 +4057,155 @@ function sendViaSms() {
 document.getElementById('reportModal').addEventListener('click', function(e) {
   if (e.target === this) closeModal();
 });
+document.getElementById('gdmModal').addEventListener('click', function(e) {
+  if (e.target === this) closeGdmModal();
+});
+document.getElementById('retriageModal').addEventListener('click', function(e) {
+  if (e.target === this) closeRetriageModal();
+});
+document.getElementById('hospitalChangeModal').addEventListener('click', function(e) {
+  if (e.target === this) closeHospitalChangeModal();
+});
 
 // Close modal on Escape
-document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeInfo(); } });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeInfo(); closeGdmModal(); closeRetriageModal(); closeHospitalChangeModal(); } });
+
+// ===== GDM MODAL =====
+function openGdmModal() {
+  document.getElementById('gdmNameInput').value = gdmName;
+  document.getElementById('gdmModal').classList.add('open');
+}
+function closeGdmModal() {
+  document.getElementById('gdmModal').classList.remove('open');
+  gdmModalShown = true;
+  saveState();
+}
+function saveGdm() {
+  gdmName = (document.getElementById('gdmNameInput').value || '').trim();
+  closeGdmModal();
+}
+
+// ===== EVENT END =====
+function toggleEventEnd() {
+  if (eventEndTime) {
+    if (!confirm(t('confirm_revert_end'))) return;
+    eventEndTime = '';
+  } else {
+    if (!confirm(t('confirm_end_event'))) return;
+    eventEndTime = now();
+  }
+  updateEndEventBtn();
+  renderAll();
+  saveState();
+}
+function updateEndEventBtn() {
+  const btn = document.getElementById('btnEndEvent');
+  if (!btn) return;
+  if (eventEndTime) {
+    btn.textContent = t('btn_revert_end');
+    btn.classList.add('ended');
+  } else {
+    btn.textContent = t('btn_end_event');
+    btn.classList.remove('ended');
+  }
+}
+
+// ===== RETRIAGE =====
+let pendingRetriage = null;
+function requestRetriage(id, newT) {
+  const p = patients.find(x => x.id === id);
+  if (!p || p.triage === newT) return;
+  pendingRetriage = { id, newT };
+  const fromLabel = t(p.triage.toLowerCase() + '_label');
+  const toLabel = t(newT.toLowerCase() + '_label');
+  document.getElementById('retriageText').textContent = t('confirm_retriage').replace('{tag}', p.tag).replace('{from}', fromLabel).replace('{to}', toLabel);
+  document.getElementById('retriageConfirmBtn').onclick = confirmRetriage;
+  document.getElementById('retriageModal').classList.add('open');
+}
+function closeRetriageModal() {
+  document.getElementById('retriageModal').classList.remove('open');
+  pendingRetriage = null;
+}
+function confirmRetriage() {
+  if (!pendingRetriage) return;
+  const p = patients.find(x => x.id === pendingRetriage.id);
+  if (p) {
+    p.triageHistory = p.triageHistory || [];
+    p.triageHistory.push({ from: p.triage, to: pendingRetriage.newT, time: now() });
+    p.triage = pendingRetriage.newT;
+    p.time = now();
+  }
+  closeRetriageModal();
+  renderAll();
+  saveState();
+}
+
+// ===== HOSPITAL CHANGE =====
+let pendingHospitalChange = null;
+function requestHospitalChange(patientId) {
+  const p = patients.find(x => x.id === patientId);
+  if (!p) return;
+  pendingHospitalChange = patientId;
+  const currentHosp = hospitals.find(h => h.id === p.hospitalId);
+  document.getElementById('hospitalChangeText').textContent = t('change_hospital_text').replace('{tag}', p.tag).replace('{hospital}', currentHosp ? currentHosp.name : '—');
+  let opts = '<option value="">' + t('select_hospital') + '</option>';
+  hospitals.forEach(h => {
+    if (h.id !== p.hospitalId) {
+      const warn = getCapacityWarning(h, p.triage);
+      opts += '<option value="' + h.id + '">' + escHtml(h.name) + warn + '</option>';
+    }
+  });
+  document.getElementById('selNewHospital').innerHTML = opts;
+  document.getElementById('hospitalChangeConfirmBtn').onclick = confirmHospitalChange;
+  document.getElementById('hospitalChangeModal').classList.add('open');
+}
+function closeHospitalChangeModal() {
+  document.getElementById('hospitalChangeModal').classList.remove('open');
+  pendingHospitalChange = null;
+}
+function confirmHospitalChange() {
+  const newHId = parseInt(document.getElementById('selNewHospital').value);
+  if (!newHId || !pendingHospitalChange) return;
+  const p = patients.find(x => x.id === pendingHospitalChange);
+  if (p) {
+    const oldHosp = hospitals.find(h => h.id === p.hospitalId);
+    const newHosp = hospitals.find(h => h.id === newHId);
+    p.hospitalChangeHistory = p.hospitalChangeHistory || [];
+    p.hospitalChangeHistory.push({ from: oldHosp ? oldHosp.name : '—', to: newHosp ? newHosp.name : '—', time: now() });
+    p.hospitalId = newHId;
+    // Update transport record
+    const tr = transports.find(x => x.patientTag === p.tag);
+    if (tr) tr.hospitalName = newHosp ? newHosp.name : '—';
+  }
+  closeHospitalChangeModal();
+  renderAll();
+  saveState();
+}
+
+// ===== HOSPITAL CAPACITY =====
+function getHospitalUsage(hospitalId) {
+  let red = 0, yellow = 0;
+  patients.forEach(p => {
+    if (p.hospitalId === hospitalId && (p.status === 'transportowany' || p.status === 'dostarczony')) {
+      if (p.triage === 'T1') red++;
+      else if (p.triage === 'T2') yellow++;
+    }
+  });
+  return { red, yellow };
+}
+function getCapacityWarning(hospital, patientTriage) {
+  if (!hospital.redCapacity && !hospital.yellowCapacity) return '';
+  const usage = getHospitalUsage(hospital.id);
+  if (patientTriage === 'T1' && usage.red >= hospital.redCapacity) return ' ⚠ ' + t('capacity_full_red');
+  if (patientTriage === 'T2' && usage.yellow >= hospital.yellowCapacity) return ' ⚠ ' + t('capacity_full_yellow');
+  return '';
+}
+function updateHospitalCapacity(hospitalId, field, value) {
+  const h = hospitals.find(x => x.id === hospitalId);
+  if (h) h[field] = Math.max(0, parseInt(value) || 0);
+  renderAll();
+  saveState();
+}
 
 // ===== INFO MODAL =====
 function openInfo() {
@@ -3530,7 +4232,7 @@ function escHtml(s) {
 }
 
 // Change listeners for dispatch selects
-document.getElementById('selPatient').addEventListener('change', checkDispatchReady);
+document.getElementById('selPatient').addEventListener('change', function() { refreshHospitalSelect(); checkDispatchReady(); });
 document.getElementById('selTeam').addEventListener('change', checkDispatchReady);
 document.getElementById('selHospital').addEventListener('change', checkDispatchReady);
 

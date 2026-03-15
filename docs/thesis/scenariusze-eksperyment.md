@@ -23,7 +23,7 @@
 **Dla każdego uczestnika — sesja z aplikacją:**
 - Komplet 12 kart pacjentów (wydrukowane, wycięte, w kopercie)
 - Stoper (lub osoba mierząca czas)
-- Smartfon z zainstalowaną aplikacją TRIAGE MCI (zespoły ZRM i szpitale wstępnie skonfigurowane)
+- Smartfon z zainstalowaną aplikacją TRIAGE MCI v2.0 (ekran startowy — nowe zdarzenie, puste listy zespołów i szpitali; uczestnik sam doda ZRM, szpitale z pojemnością RED/YELLOW, KAM i GDM w trakcie sesji)
 
 **Dla prowadzącego:**
 - Klucz referencyjny (na końcu tego dokumentu)
@@ -41,7 +41,7 @@
 > 3. Sporządzić raport ze zdarzenia.
 >
 > **Metoda tradycyjna:** Wyniki segregacji i dyslokacji zapisujesz na papierowej Tabeli Dyslokacji. Raport sporządzasz odręcznie na kartce.
-> **Metoda z aplikacją:** Korzystasz z aplikacji TRIAGE MCI na smartfonie — wszystkie trzy moduły (segregacja, dysponowanie, raport).
+> **Metoda z aplikacją:** Korzystasz z aplikacji TRIAGE MCI v2.0 na smartfonie. Wpisujesz dane zdarzenia i KAM na ekranie startowym. Segregujesz pacjentów kreatorem START (opcjonalnie zaznaczając płeć i wiek). Po informacji od DM — dodajesz szpitale z pojemnością (RED/YELLOW) i zespoły ZRM w module DYSPONOWANIE, wpisujesz dane GDM. Dysponujesz transport i na końcu generujesz raport z zakończeniem zdarzenia.
 >
 > Możesz przeglądać karty w dowolnej kolejności. Nie ma limitu czasu, ale pracuj tak szybko jak potrafisz — czas jest mierzony od momentu otwarcia koperty do momentu, gdy zgłosisz ukończenie wszystkich trzech zadań (segregacja, dyslokacja, raport).
 >
@@ -466,18 +466,36 @@ Każdy krok decyzyjny algorytmu START jest testowany co najmniej dwukrotnie (obi
 
 ## Scenariusz 1 — referencyjna dyslokacja
 
+### Tura 1 (4 ZRM dostępne: ZRM S-01, LZRM, ZRM P-01, ZRM P-02)
+
 | Pacjent | Kat. | Rekomendowany ZRM | Rekomendowany szpital | Uzasadnienie |
 |---|---|---|---|---|
 | S1-08 (uraz miednicy, wstrząs) | T1 | ZRM S-01 (specjalistyczny) | Szpital Uniwersytecki (CU) | Najcięższy uraz, wymaga CU i bloku chirurgicznego |
 | S1-09 (krwawienie tętnicze) | T1 | LZRM (najszybszy transport) | Szpital Uniwersytecki (CU) | Masywne krwawienie, wymaga najszybszej drogi do bloku |
 | S1-10 (uraz czaszkowo-mózgowy) | T1 | ZRM P-01 | Szpital Miejski nr 2 (SOR + OR) | Wymaga diagnostyki i ewentualnie bloku — rozkładamy obciążenie |
 | S1-05 (uraz kręgosłupa) | T2 | ZRM P-02 | Szpital Miejski nr 2 | Stabilny, wymaga diagnostyki obrazowej |
-| S1-06 (otwarte złamanie) | T2 | (oczekuje na powrót ZRM) | Szpital Miejski nr 2 lub Powiatowy | Stabilna, wymaga zaopatrzenia ortopedycznego |
-| S1-07 (złamanie żeber) | T2 | (oczekuje na powrót ZRM) | Szpital Powiatowy | Stabilny, wymaga monitorowania |
 
-**Uwaga:** Powyższa dyslokacja jest referencyjna (optymalna). Inne racjonalne przypisania są akceptowalne — kluczowe jest: (1) T1 do szpitali z OR, (2) brak przekroczenia pojemności, (3) logiczne użycie ZRM S/LZRM.
+*→ DM komunikuje powrót wszystkich 4 ZRM*
+
+### Tura 2 (4 ZRM dostępne: ZRM S-01, LZRM, ZRM P-01, ZRM P-02)
+
+| Pacjent | Kat. | Rekomendowany ZRM | Rekomendowany szpital | Uzasadnienie |
+|---|---|---|---|---|
+| S1-06 (otwarte złamanie) | T2 | ZRM P-01 | Szpital Powiatowy | Stabilna, wymaga zaopatrzenia ortopedycznego; Miejski nr 2 ma już 2 żółtych z Tury 1 |
+| S1-07 (złamanie żeber) | T2 | ZRM P-02 | Szpital Powiatowy | Stabilny, wymaga monitorowania; Powiatowy ma pojemność 3 żółtych |
+
+**Uwaga:** Powyższa dyslokacja jest referencyjna (optymalna). Mimo dostępności 4 ZRM, racjonalne jest przypisanie zespołów podstawowych (P-01, P-02) do stabilnych T2 — użycie ZRM S lub LZRM do T2 jest nieoptymalne (ocena jakości: 0 pkt za dopasowanie typu ZRM). Inne racjonalne przypisania są akceptowalne — kluczowe jest: (1) T1 do szpitali z OR, (2) brak przekroczenia pojemności, (3) logiczne użycie ZRM S/LZRM, (4) prawidłowa priorytetyzacja T1 przed T2 w Turze 1.
+
+**Stan pojemności po pełnej dyslokacji (Scenariusz 1):**
+| Szpital | CZER. użyte/maks. | ŻÓŁ. użyte/maks. |
+|---|---|---|
+| Szpital Uniwersytecki | 2/3 | 0/3 |
+| Szpital Miejski nr 2 | 1/2 | 1/2 |
+| Szpital Powiatowy | 0/0 | 2/3 |
 
 ## Scenariusz 2 — referencyjna dyslokacja
+
+### Tura 1 (4 ZRM dostępne: ZRM S-01, LZRM, ZRM P-01, ZRM P-02)
 
 | Pacjent | Kat. | Rekomendowany ZRM | Rekomendowany szpital | Uzasadnienie |
 |---|---|---|---|---|
@@ -485,8 +503,22 @@ Każdy krok decyzyjny algorytmu START jest testowany co najmniej dwukrotnie (obi
 | S2-09 (oparzenie dróg oddechowych) | T1 | LZRM | Szpital Uniwersytecki (CU) | Oparzenie inhalacyjne, może wymagać intubacji i OIT |
 | S2-10 (uraz zmiażdżeniowy) | T1 | ZRM P-01 | Szpital Miejski nr 2 (SOR + OR) | Uraz wielonarządowy, wymaga bloku — rozkładamy obciążenie |
 | S2-05 (oparzenie 15% TBSA) | T2 | ZRM P-02 | Szpital Miejski nr 2 | Stabilny, wymaga zaopatrzenia oparzeń |
-| S2-06 (złamanie kości udowej) | T2 | (oczekuje na powrót ZRM) | Szpital Miejski nr 2 lub Powiatowy | Stabilna, wymaga zaopatrzenia ortopedycznego |
-| S2-07 (uraz kręgosłupa) | T2 | (oczekuje na powrót ZRM) | Szpital Powiatowy | Stabilny, wymaga diagnostyki i monitorowania |
+
+*→ DM komunikuje powrót wszystkich 4 ZRM*
+
+### Tura 2 (4 ZRM dostępne: ZRM S-01, LZRM, ZRM P-01, ZRM P-02)
+
+| Pacjent | Kat. | Rekomendowany ZRM | Rekomendowany szpital | Uzasadnienie |
+|---|---|---|---|---|
+| S2-06 (złamanie kości udowej) | T2 | ZRM P-01 | Szpital Powiatowy | Stabilna, wymaga zaopatrzenia ortopedycznego |
+| S2-07 (uraz kręgosłupa) | T2 | ZRM P-02 | Szpital Powiatowy | Stabilny, wymaga diagnostyki i monitorowania |
+
+**Stan pojemności po pełnej dyslokacji (Scenariusz 2):**
+| Szpital | CZER. użyte/maks. | ŻÓŁ. użyte/maks. |
+|---|---|---|
+| Szpital Uniwersytecki | 2/3 | 0/3 |
+| Szpital Miejski nr 2 | 1/2 | 1/2 |
+| Szpital Powiatowy | 0/0 | 2/3 |
 
 ---
 
@@ -531,6 +563,11 @@ Po zakończeniu wszystkich trzech zadań oceń raport uczestnika (tradycyjny: ka
 
 **Uwaga:** Dane o szpitalach są identyczne dla obu scenariuszy i obu metod. Uczestnik otrzymuje kartę informacyjną po przekazaniu raportu z segregacji prowadzącemu (DM). Format karty odpowiada uproszczonej TABELI SZPITALI [zał. nr 13 Procedury MZ v2.3].
 
+**Dane do wpisania w aplikacji (sesja z aplikacją, krok B.5):**
+- Szpital Uniwersytecki: RED = 3, YELLOW = 3
+- Szpital Miejski nr 2: RED = 2, YELLOW = 2
+- Szpital Powiatowy: RED = 0, YELLOW = 3
+
 ---
 
 ## Papierowa Tabela Dyslokacji — szablon do wydrukowania
@@ -570,18 +607,19 @@ Formularz obserwatora zaadaptowany z Procedury MZ v2.3 Karty ocen.
 
 ## Arkusz czasów — szablon dla prowadzącego
 
-| Uczestnik | Sesja | Metoda | Scenariusz | T_start | T_segregacja | T_raport_DM | T_dyslokacja | T_raport_końcowy | Czas_łączny | Uwagi |
-|---|---|---|---|---|---|---|---|---|---|---|
-| U01 | 1 | Tradycyjna | S1 | | | | | | | |
-| U01 | 2 | Aplikacja | S2 | | | | | | | |
+| Uczestnik | Sesja | Metoda | Scenariusz | t_A (segregacja) | t_C1 (dyslokacja T1) | t_C2 (dyslokacja T2) | t_D (raport) | t_suma | Uwagi |
+|---|---|---|---|---|---|---|---|---|---|
+| U01 | 1 | Tradycyjna | S1 | | | | | | |
+| U01 | 2 | Aplikacja | S2 | | | | | | |
+
+**Pomiar:** Każda podfaza mierzona osobnym stoperem (start/stop). Wymiany DM (Podfaza B — w tym B.5 wprowadzanie danych do aplikacji, komunikat o powrocie ZRM) NIE są mierzone — to stałe, identyczne dla każdego uczestnika.
 
 **Definicje:**
-- **T_start** — moment otwarcia koperty z kartami pacjentów
-- **T_segregacja** — moment deklaracji zakończenia segregacji (początek raportu do DM)
-- **T_raport_DM** — moment zakończenia wymiany informacji z DM (po otrzymaniu danych o szpitalach)
-- **T_dyslokacja** — moment deklaracji zakończenia dyslokacji
-- **T_raport_końcowy** — moment deklaracji ukończenia raportu ("Raport gotowy")
-- **Czas_łączny** = T_raport_końcowy − T_start
+- **t_A** — czas segregacji: od otwarcia koperty do deklaracji „skończyłem segregację"
+- **t_C1** — czas dyslokacji Tura 1: od polecenia dyslokacji (B.6) do deklaracji „4 zadysponowanych / brak wolnych ZRM"
+- **t_C2** — czas dyslokacji Tura 2: od zakończenia komunikatu DM o powrocie ZRM do deklaracji „dyslokacja zakończona" (obejmuje kliknięcie „dostarczony" w sesji z aplikacją)
+- **t_D** — czas raportu: od polecenia DM „proszę sporządzić raport" do deklaracji „raport gotowy"
+- **t_suma** = t_A + t_C1 + t_C2 + t_D (porównywalna między metodami, bez czasu wymian DM)
 
 ---
 
@@ -591,15 +629,15 @@ Formularz obserwatora zaadaptowany z Procedury MZ v2.3 Karty ocen.
 
 2. **Potasuj karty** przed włożeniem do koperty — nie układaj ich wg kategorii.
 
-3. **Wręcz uczestnikom listę ZRM i szpitali** na początku sesji, razem z kopertą z kartami pacjentów. W sesji tradycyjnej jest to wydrukowana lista; w sesji z aplikacją dane są wstępnie załadowane w TRIAGE MCI.
+3. **Wręcz uczestnikom listę ZRM i szpitali** po Podfazie A (po segregacji), razem z kartą informacyjną szpitali. W sesji tradycyjnej jest to wydrukowana lista; w sesji z aplikacją uczestnik sam dodaje szpitale (z pojemnością RED/YELLOW) i ZRM w Podfazie B (krok B.5, czas nie jest mierzony).
 
 4. **Nie podpowiadaj** — jeśli uczestnik pyta „czy ten pacjent chodzi?", odpowiedz: „Wszystkie potrzebne informacje są na karcie."
 
-5. **Mierz czas stoperem** — start: moment otwarcia koperty; stop: moment deklaracji „skończyłem/am" (po ukończeniu wszystkich trzech zadań: segregacja, dyslokacja, raport).
+5. **Mierz czas osobnym stoperem na każdą podfazę** — [A] segregacja, [C1] dyslokacja Tura 1, [C2] dyslokacja Tura 2, [D] raport. Wymiany DM (Podfaza B, komunikat o powrocie ZRM) NIE są mierzone. Szczegóły pomiaru: patrz Arkusz czasów i skrypt-eksperymentu-dm.md.
 
 6. **Sesja tradycyjna:** Uczestnik zapisuje wyniki segregacji i dyslokacji na papierowej Tabeli Dyslokacji. Raport pisze odręcznie na oddzielnej kartce.
 
-7. **Sesja z aplikacją:** Uczestnik wpisuje każdego pacjenta do aplikacji TRIAGE MCI, odpowiadając na pytania algorytmu START. Następnie korzysta z modułu DYSPONOWANIE, aby przypisać poszkodowanych do ZRM i szpitali. Na końcu generuje raport w aplikacji.
+7. **Sesja z aplikacją (v2.0):** Uczestnik wpisuje nazwę zdarzenia i KAM na ekranie startowym. Segreguje pacjentów kreatorem START (opcjonalnie zaznaczając płeć i wiek). Po informacji od DM — dodaje szpitale z pojemnością RED/YELLOW i ZRM w module DYSPONOWANIE. Przy pierwszym wejściu w DYSPONOWANIE pojawia się modal GDM. Dysponuje transport (aplikacja pokazuje ostrzeżenia o pojemności). Po Turze 1 oznacza ZRM jako „dostarczony". Na końcu generuje raport i klika ZAKOŃCZ ZDARZENIE.
 
 8. **Karta ocen:** W trakcie lub bezpośrednio po każdej sesji prowadzący wypełnia Kartę ocen (formularz obserwatora) dla danego uczestnika, oceniając przepływ informacji, podejmowanie decyzji oraz dokumentację i raportowanie.
 

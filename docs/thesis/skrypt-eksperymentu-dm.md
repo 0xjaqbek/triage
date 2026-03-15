@@ -1,7 +1,7 @@
 # Skrypt eksperymentu — Standardowy protokół prowadzącego (rola DM/GDM)
 
-**Wersja:** 1.0
-**Data:** 2026-03-14
+**Wersja:** 2.0
+**Data:** 2026-03-15
 **Przeznaczenie:** Wyłącznie dla prowadzącego eksperyment. NIE udostępniać uczestnikom.
 
 ---
@@ -21,7 +21,7 @@ Prowadzący pełni jednocześnie dwie funkcje:
 - **Nie pomagaj.** Nigdy nie sugeruj kategorii segregacyjnej, nie podpowiadaj dyslokacji, nie komentuj decyzji uczestnika.
 - **Nie poganiaj.** Nie mów „proszę się pospieszyć", „zostało mało czasu" itp.
 - **Pytania spoza skryptu → odpowiedź domyślna:** „Proszę opierać się na informacjach, które Pan/Pani posiada."
-- **Timer:** Używaj stopera z międzyczasami (split/lap). Zapisuj każdy timestamp na Arkuszu czasów.
+- **Timer:** Osobny stoper na każdą podfazę (A, C1, C2, D). Start/stop. Wymiany DM nie są mierzone. Zapisuj czasy na Arkuszu czasów.
 
 ### A.3. Identyczne warunki
 
@@ -46,8 +46,8 @@ Poniższe elementy MUSZĄ być identyczne dla każdego uczestnika, niezależnie 
 
 **Sesja z aplikacją:**
 - [ ] Koperta z 12 kartami pacjentów (potasowane!)
-- [ ] Smartfon z TRIAGE MCI (nowe zdarzenie, pusta lista pacjentów)
-- [ ] Zespoły ZRM i szpitale wstępnie skonfigurowane w aplikacji
+- [ ] Smartfon z TRIAGE MCI v2.0 (ekran startowy — nowe zdarzenie, puste listy zespołów i szpitali)
+- [ ] Uczestnik sam doda ZRM, szpitale (z pojemnością RED/YELLOW), KAM i GDM w trakcie sesji
 - [ ] ~~Karta informacyjna szpitali~~ (podasz po segregacji, nie wcześniej!)
 
 ### Materiały prowadzącego
@@ -88,10 +88,12 @@ Odczytaj:
 > Teraz pokażę Panu/Pani krótko aplikację TRIAGE MCI. Będzie Pan/Pani z niej korzystać w jednej z dwóch sesji.
 
 Pokaż na telefonie demo:
-1. Ekran główny → ROZPOCZNIJ TRIAGE
-2. Kreator START — pytania TAK/NIE → wynik segregacji
-3. Moduł DYSPONOWANIE — przypisanie ZRM i szpitala
-4. Moduł RAPORT — generowanie raportu
+1. Ekran startowy → pola: nazwa zdarzenia + KAM (Kierujący Akcją Medyczną) → ROZPOCZNIJ TRIAGE
+2. Kreator START — pytania TAK/NIE → wynik segregacji → opcjonalnie: płeć (M/K/?) i wiek (stepper ±1/±5) → ZATWIERDŹ
+3. Lista pacjentów — kropki kolorów = zmiana kategorii (retriage) z potwierdzeniem
+4. Moduł DYSPONOWANIE — dodawanie szpitali (z pojemnością RED/YELLOW) i ZRM, przypisanie pacjenta do ZRM i szpitala, przycisk „zmień" przy szpitalu w transporcie
+5. Modal GDM — pojawia się raz przy pierwszym wejściu w DYSPONOWANIE (imię i nazwisko GDM)
+6. Moduł RAPORT — generowanie raportu + przycisk ZAKOŃCZ ZDARZENIE (odwracalny)
 
 **Nie komentuj zalet ani wad aplikacji. Pokaż, jak działają przyciski.**
 
@@ -107,7 +109,7 @@ Odczytaj:
 
 Odczytaj:
 
-> Będę mierzyć czas od momentu otwarcia koperty z kartami pacjentów. Nie ma limitu czasu, ale proszę pracować tak szybko, jak to możliwe przy zachowaniu dokładności. Czas jest mierzony w kilku etapach, które będę oznaczać.
+> Będę mierzyć czas osobno w każdym etapie zadania: segregacja, dyslokacja i raport. Nie ma limitu czasu, ale proszę pracować tak szybko, jak to możliwe przy zachowaniu dokładności. Czas naszej wzajemnej komunikacji nie jest mierzony.
 >
 > Czy ma Pan/Pani pytania zanim rozpoczniemy?
 
@@ -115,7 +117,9 @@ Odczytaj:
 
 ---
 
-### FAZA 1: Sesja (timer działa)
+### FAZA 1: Sesja
+
+**Zasada pomiaru czasu:** Każda podfaza mierzona **osobnym stoperem** (start/stop). Między podfazami stoper nie działa — wymiana DM jest stałą i nie jest mierzona.
 
 ---
 
@@ -129,11 +133,11 @@ Następnie odczytaj:
 >
 > [SESJA TRADYCYJNA]: Proszę otworzyć kopertę. Na podstawie kart pacjentów proszę przeprowadzić segregację i odnotować wyniki na Tabeli Dyslokacji — kolumny: numer, kategoria, płeć/wiek, obrażenia. Po zakończeniu segregacji proszę o przekazanie mi raportu z rozpoznania wstępnego.
 >
-> [SESJA Z APLIKACJĄ]: Proszę otworzyć kopertę. Na podstawie kart pacjentów proszę przeprowadzić segregację w aplikacji TRIAGE MCI, przechodząc kreator START dla każdego pacjenta. Po zakończeniu segregacji proszę o przekazanie mi raportu z rozpoznania wstępnego.
+> [SESJA Z APLIKACJĄ]: Proszę wpisać nazwę zdarzenia i swoje dane jako KAM w aplikacji, a następnie rozpocząć triage. Proszę otworzyć kopertę. Na podstawie kart pacjentów proszę przeprowadzić segregację w aplikacji TRIAGE MCI, przechodząc kreator START dla każdego pacjenta. Przy każdym pacjencie może Pan/Pani opcjonalnie zaznaczyć płeć i wiek. Po zakończeniu segregacji proszę o przekazanie mi raportu z rozpoznania wstępnego.
 >
 > Zaczynamy.
 
-**→ URUCHOM TIMER (T_start)**
+**→ START stopera [A]**
 
 **W trakcie Podfazy A:**
 - NIE inicjuj kontaktu z uczestnikiem
@@ -148,13 +152,15 @@ Następnie odczytaj:
 | „Czy mogę już przekazać raport?" | „Proszę zakończyć segregację wszystkich poszkodowanych, a następnie przekazać raport." |
 | „Ile mam czasu?" | „Nie ma limitu czasu. Proszę pracować tak szybko, jak to możliwe." |
 
-**Trigger zakończenia Podfazy A:** Uczestnik mówi wariant: „Skończyłem segregację" / „Mam raport z rozpoznania" / „Gotowy do raportu"
+**Trigger zakończenia:** Uczestnik mówi wariant: „Skończyłem segregację" / „Mam raport z rozpoznania" / „Gotowy do raportu"
 
-**→ ZAPISZ MIĘDZYCZAS (T_segregacja)**
+**→ STOP stopera [A] → zapisz czas segregacji**
 
 ---
 
 #### PODFAZA B: Raport z rozpoznania wstępnego + przekazanie danych
+
+**⏱ Stoper NIE działa — wymiana DM jest stałą.**
 
 **Krok B.1 — Przyjęcie raportu**
 
@@ -198,21 +204,41 @@ Odczytaj:
 
 *(Wręcz uczestnikowi wydrukowaną Kartę informacyjną szpitali.)*
 
-**Krok B.5 — Polecenie dyslokacji**
+**Krok B.5 — Wprowadzenie danych do aplikacji (tylko sesja z aplikacją)**
+
+**⏱ Stoper NIE działa — wprowadzanie danych jest stałą procedurą, nie mierzoną zmienną.**
+
+Odczytaj:
+
+> [SESJA Z APLIKACJĄ]: Proszę teraz przejść do zakładki DYSPONOWANIE w aplikacji i wprowadzić dane: najpierw usunąć domyślne zespoły i szpitale, a następnie dodać cztery podane zespoły ZRM oraz trzy szpitale z podanymi pojemnościami (liczba miejsc dla grupy czerwonej i żółtej). Proszę korzystać z karty informacyjnej szpitali.
+>
+> [SESJA TRADYCYJNA]: *(pomiń ten krok)*
+
+*(Poczekaj, aż uczestnik wprowadzi dane. Nie mierz czasu. Nie pomagaj — jeśli pyta, odpowiedz: „Informacje są na karcie szpitali." Gdy uczestnik powie, że gotowy — przejdź do B.6.)*
+
+**Krok B.6 — Polecenie dyslokacji**
 
 Odczytaj:
 
 > Proszę o przeprowadzenie dyslokacji poszkodowanych z grupy czerwonej i żółtej. Proszę przypisać poszkodowanych do zespołów ZRM i wskazać szpitale docelowe.
 
-**→ ZAPISZ MIĘDZYCZAS (T_raport_DM)**
+---
+
+#### PODFAZA C: Dyslokacja (dwie tury)
+
+Dyslokacja przebiega w **dwóch turach**, odzwierciedlając realistyczny cykl dysponowania ZRM:
+- **Tura 1:** Uczestnik dysponuje 4 poszkodowanych (do 4 dostępnych ZRM)
+- **Tura 2:** Po komunikacie DM o powrocie ZRM, uczestnik dysponuje pozostałych poszkodowanych
 
 ---
 
-#### PODFAZA C: Dyslokacja
+**TURA 1 — pierwsze zadysponowanie**
+
+**→ START stopera [C1]** (natychmiast po wypowiedzeniu polecenia dyslokacji w B.6)
 
 **Uczestnik pracuje:**
 - Sesja tradycyjna: wypełnia kolumny ZRM i Szpital na Tabeli Dyslokacji
-- Sesja z aplikacją: używa modułu DYSPONOWANIE
+- Sesja z aplikacją: używa modułu DYSPONOWANIE (przy pierwszym wejściu pojawi się modal GDM — uczestnik wpisuje imię i nazwisko GDM lub pomija)
 
 **Prowadzący (DM) jest dostępny.** Odpowiadaj na pytania wg poniższej tabeli:
 
@@ -224,11 +250,55 @@ Odczytaj:
 | „Czy mogą przyjechać dodatkowe ZRM?" | „Dysponuje Pan/Pani czterema zespołami. Nie ma możliwości zadysponowania dodatkowych zespołów w tym czasie." |
 | „Czy szpital może przyjąć więcej pacjentów?" | „Proszę opierać się na informacjach o pojemności szpitali, które przekazałem." |
 | „Który szpital jest najlepszy dla tego pacjenta?" | „Decyzja o dyslokacji należy do Kierującego Akcją Medyczną." |
+| „Aplikacja pokazuje BRAK MIEJSC" | „To ostrzeżenie informacyjne. Decyzja o dyslokacji należy do Kierującego Akcją Medyczną." |
+| „Jak wpisać GDM?" | „Proszę wpisać imię i nazwisko Głównego Dyspozytora Medycznego lub pominąć." |
+| „Jak zmienić szpital?" | „Proszę kliknąć przycisk «zmień» obok nazwy szpitala w sekcji transportu." |
 | Uczestnik przekazuje plan dyslokacji | „Przyjmuję. [Powtórz przypisanie]. Potwierdzam dyslokację." |
 
-**Trigger zakończenia Podfazy C:** Uczestnik mówi wariant: „Dyslokacja zakończona" / „Wszyscy przypisani" / „Gotowe"
+**Trigger zakończenia Tury 1:** Uczestnik zadysponował 4 poszkodowanych i mówi wariant: „Czterech zadysponowanych" / „Brak wolnych ZRM" / „Pozostali oczekują" — **LUB** próbuje zadysponować 5. pacjenta (wtedy przypomnij: „Wszystkie cztery zespoły ZRM są w drodze do szpitali.")
 
-**→ ZAPISZ MIĘDZYCZAS (T_dyslokacja)**
+**→ STOP stopera [C1] → zapisz czas dyslokacji Tura 1**
+
+---
+
+**KOMUNIKAT DM — powrót ZRM:**
+
+**⏱ Stoper NIE działa — wymiana DM jest stałą.**
+
+Odczytaj:
+
+> Kierujący Akcją Medyczną, informuję: wszystkie cztery zespoły ratownictwa medycznego dostarczyły poszkodowanych do szpitali i są w drodze powrotnej na miejsce zdarzenia. ZRM P-01, ZRM P-02, ZRM S-01 oraz LZRM — dostępne do ponownego zadysponowania. Proszę kontynuować dyslokację pozostałych poszkodowanych.
+
+Następnie odczytaj instrukcję odpowiednią dla metody:
+
+> **[SESJA TRADYCYJNA]:** Proszę kontynuować uzupełnianie Tabeli Dyslokacji dla pozostałych poszkodowanych.
+>
+> **[SESJA Z APLIKACJĄ]:** Proszę oznaczyć wszystkie cztery zespoły ZRM jako „dostarczony" w aplikacji, aby zwolnić je do ponownego zadysponowania. Następnie proszę przypisać pozostałych poszkodowanych.
+
+---
+
+**TURA 2 — ponowne zadysponowanie**
+
+**→ START stopera [C2]** (natychmiast po zakończeniu komunikatu DM)
+
+Uczestnik dysponuje pozostałych poszkodowanych (z grupy T2) przy użyciu 4 zwróconych ZRM. Do zadysponowania pozostaje 2 poszkodowanych — uczestnik decyduje, które ZRM przypisać (test: czy ponownie użyje ZRM S/LZRM do T2, czy racjonalnie przydzieli zespoły podstawowe).
+
+**Przebieg wg metody:**
+- **Sesja tradycyjna:** Uczestnik dopisuje ZRM i szpital w kolejnych wierszach Tabeli Dyslokacji.
+- **Sesja z aplikacją:** Uczestnik najpierw klika „dostarczony" przy każdym z 4 ZRM (zmienia status z „w trasie" na „dostępny"), następnie przypisuje pozostałych poszkodowanych w module DYSPONOWANIE.
+
+**Tabela odpowiedzi DM — jak w Turze 1**, plus:
+
+| Pytanie uczestnika | Odpowiedź DM |
+|---|---|
+| „Czy te ZRM mogą jechać do innego szpitala niż poprzednio?" | „Tak, zespoły mogą być zadysponowane do dowolnego szpitala." |
+| „Czy szpitale mają jeszcze wolne miejsca?" | „Pojemność szpitali podałem w informacji — proszę uwzględnić poszkodowanych już zadysponowanych w Turze 1." |
+| „Jak oznaczyć dostarczony w aplikacji?" | „Proszę kliknąć przy każdym zespole przycisk oznaczający dostarczenie poszkodowanego do szpitala." |
+| „Nie widzę wolnych ZRM w aplikacji" | „Proszę najpierw oznaczyć zespoły jako dostarczone — wtedy będą ponownie dostępne." |
+
+**Trigger zakończenia Tury 2:** Uczestnik mówi wariant: „Dyslokacja zakończona" / „Wszyscy przypisani" / „Gotowe"
+
+**→ STOP stopera [C2] → zapisz czas dyslokacji Tura 2**
 
 ---
 
@@ -238,8 +308,10 @@ Odczytaj:
 
 > Kierujący Akcją Medyczną, proszę o sporządzenie raportu z przebiegu zdarzenia.
 
+**→ START stopera [D]**
+
 - Sesja tradycyjna: uczestnik pisze raport odręcznie na kartce A4
-- Sesja z aplikacją: uczestnik generuje raport w module RAPORT
+- Sesja z aplikacją: uczestnik generuje raport w module RAPORT, a następnie klika ZAKOŃCZ ZDARZENIE
 
 **DM nie kontaktuje się z uczestnikiem w tej podfazie.**
 
@@ -247,12 +319,13 @@ Jeśli uczestnik pyta:
 
 | Pytanie | Odpowiedź DM |
 |---|---|
-| „Co ma zawierać raport?" | „Raport powinien zawierać podsumowanie zdarzenia: liczbę poszkodowanych, podział na grupy, przypisanie zespołów i szpitali, oraz dane o przebiegu akcji." |
-| „Czy raport z aplikacji wystarczy?" | „Proszę wygenerować raport w aplikacji." |
+| „Co ma zawierać raport?" | „Raport powinien zawierać podsumowanie zdarzenia: liczbę poszkodowanych, podział na grupy, przypisanie zespołów i szpitali, oraz dane o przebiegu akcji. Proszę też oznaczyć zakończenie zdarzenia." |
+| „Czy raport z aplikacji wystarczy?" | „Proszę wygenerować raport w aplikacji i zakończyć zdarzenie." |
+| „Jak zakończyć zdarzenie?" | „Proszę kliknąć przycisk ZAKOŃCZ ZDARZENIE w sekcji RAPORT." |
 
-**Trigger zakończenia Podfazy D:** Uczestnik mówi: „Raport gotowy" / „Skończyłem"
+**Trigger zakończenia:** Uczestnik mówi: „Raport gotowy" / „Skończyłem"
 
-**→ ZATRZYMAJ TIMER (T_raport_końcowy = T_total)**
+**→ STOP stopera [D] → zapisz czas raportu**
 
 ---
 
@@ -328,6 +401,16 @@ Wręcz:
 | „Który ZRM jest najlepszy?" | „Decyzja o przypisaniu ZRM należy do Kierującego Akcją Medyczną." |
 | „Gdzie wysłać tego pacjenta?" | „Decyzja o dyslokacji należy do Kierującego Akcją Medyczną." |
 | „Jak daleko jest szpital?" | „Czasy dojazdu podałem w informacji o szpitalach — proszę sprawdzić na karcie." |
+| „Kiedy wrócą ZRM?" | [Tura 1]: „Poinformuję, gdy zespoły będą dostępne." / [Tura 2]: „Wszystkie cztery zespoły są dostępne." |
+| „Czy te ZRM mogą jechać do innego szpitala?" | „Tak, zespoły mogą być zadysponowane do dowolnego szpitala." |
+| „Czy szpitale mają jeszcze wolne miejsca po Turze 1?" | „Proszę uwzględnić poszkodowanych już zadysponowanych. Pojemność szpitali podałem w informacji." |
+| „Aplikacja pokazuje BRAK MIEJSC RED/YELLOW" | „To ostrzeżenie informacyjne. Decyzja o dyslokacji należy do Kierującego Akcją Medyczną." |
+| „Jak wpisać płeć i wiek?" | „Przy zatwierdzaniu pacjenta może Pan/Pani opcjonalnie wybrać płeć i ustawić wiek." |
+| „Jak zmienić kategorię pacjenta?" | „Proszę kliknąć odpowiednią kropkę koloru przy pacjencie." |
+| „Jak zmienić szpital w transporcie?" | „Proszę kliknąć przycisk «zmień» obok nazwy szpitala." |
+| „Jak zakończyć zdarzenie?" | „Proszę kliknąć przycisk ZAKOŃCZ ZDARZENIE w sekcji RAPORT." |
+| „Co wpisać w polu KAM?" | „Proszę wpisać imię i nazwisko Kierującego Akcją Medyczną." |
+| „Co to jest GDM?" | „Główny Dyspozytor Medyczny. Proszę wpisać moje dane: [podaj swoje imię i nazwisko jako prowadzącego]." |
 
 ### D.4. Odpowiedzi ZAKAZANE
 
@@ -347,7 +430,7 @@ Wręcz:
 
 1. **Przeczytaj cały skrypt 2 razy** — zaznacz miejsca, gdzie musisz odczytać tekst dosłownie
 2. **Przeprowadź 2 sesje próbne** — poproś kolegę/koleżankę o odegranie roli uczestnika
-3. **Przećwicz obsługę stopera** — upewnij się, że potrafisz zapisywać międzyczasy bez przerywania sesji
+3. **Przećwicz obsługę stopera** — osobny start/stop na każdą podfazę (A, C1, C2, D); upewnij się, że potrafisz szybko resetować i uruchamiać stoper między fazami
 4. **Wydrukuj materiały** — sprawdź, czy masz wystarczającą liczbę kopii na cały dzień badań
 5. **Przygotuj stanowisko** — stół, krzesło, cisza, brak rozpraszaczy
 
@@ -358,7 +441,8 @@ Wręcz:
 | Zapomnienie o wręczeniu Karty szpitali | Karta leży na osobnym stosie, wręczasz ją po Kroku B.4 |
 | Korekta błędnej segregacji uczestnika | NIE koryguj. Powtórz dokładnie to, co uczestnik powiedział |
 | Różne tempo mówienia w różnych sesjach | Czytaj z karty w jednakowym tempie |
-| Zapomnienie o międzyczasie | Timer z dźwiękowym potwierdzeniem (beep) pomaga |
+| Zapomnienie o uruchomieniu/zatrzymaniu stopera | Wydrukuj ściągawkę: A→start, „skończyłem segregację"→stop A, po B.6→start C1, „brak ZRM"→stop C1, po komunikacie→start C2, „gotowe"→stop C2, po poleceniu raportu→start D, „raport gotowy"→stop D |
+| Pominięcie kroku B.5 (dane w aplikacji) | Sesja z aplikacją: po wręczeniu karty szpitali POCZEKAJ, aż uczestnik doda szpitale (z pojemnością) i ZRM w aplikacji |
 | Rozmowa towarzyska w trakcie przerwy | Ograniczaj kontakt w przerwie do minimum |
 
 ---
@@ -393,19 +477,18 @@ Wręcz:
 
 ## G. Arkusz czasów — szablon
 
-| ID | Sesja | Metoda | Scenariusz | T_start | T_segregacja | T_raport_DM | T_dyslokacja | T_raport_końcowy | Czas_łączny | Uwagi |
-|---|---|---|---|---|---|---|---|---|---|---|
-| U__ | 1 |  |  | : | : | : | : | : | | |
-| U__ | 2 |  |  | : | : | : | : | : | | |
+| ID | Sesja | Metoda | Scenariusz | t_A (segregacja) | t_C1 (dyslokacja T1) | t_C2 (dyslokacja T2) | t_D (raport) | t_suma | Uwagi |
+|---|---|---|---|---|---|---|---|---|---|
+| U__ | 1 |  |  | | | | | | |
+| U__ | 2 |  |  | | | | | | |
+
+**Pomiar:** Każda faza mierzona osobnym stoperem (start/stop). Wymiany DM (Podfaza B w tym B.5 — wprowadzanie danych do aplikacji, komunikat o powrocie ZRM) NIE są mierzone — to stałe, identyczne dla każdego uczestnika.
 
 **Obliczenia:**
-- Czas segregacji = T_segregacja − T_start
-- Czas wymiany DM = T_raport_DM − T_segregacja
-- Czas dyslokacji = T_dyslokacja − T_raport_DM
-- Czas raportu = T_raport_końcowy − T_dyslokacja
-- Czas łączny = T_raport_końcowy − T_start
+- t_dyslokacja = t_C1 + t_C2
+- t_suma = t_A + t_C1 + t_C2 + t_D
 
-**Uwaga:** Czas wymiany DM jest stałą (identyczne komunikaty), więc do porównania metod używaj: Czas łączny − Czas wymiany DM.
+Wartość t_suma jest bezpośrednio porównywalna między metodami, bo nie zawiera czasu wymian DM.
 
 ---
 
@@ -434,5 +517,5 @@ Losowanie: użyj generatora liczb losowych lub metody kopertowej. Przygotuj komp
 - [ ] Arkusz czasów wypełniony dla obu sesji
 - [ ] Karta ocen wypełniona dla obu sesji
 - [ ] Kwestionariusz SUS + preferencje + dane demograficzne zebrane
-- [ ] Aplikacja zresetowana (nowe zdarzenie) dla następnego uczestnika
+- [ ] Aplikacja zresetowana (nowe zdarzenie, puste listy) dla następnego uczestnika
 - [ ] Nowy komplet kart pacjentów przygotowany i potasowany
