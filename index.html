@@ -200,20 +200,6 @@ body {
 
 .p-notes::placeholder { color: var(--text3); }
 
-.p-desc {
-  width: 100px;
-  padding: 4px 7px;
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  color: var(--text);
-  font-size: 11px;
-  font-family: var(--font);
-  outline: none;
-  flex-shrink: 0;
-}
-
-.p-desc::placeholder { color: var(--text4); }
 
 .triage-dots {
   display: flex;
@@ -2089,7 +2075,6 @@ const TRANSLATIONS = {
     override_color: 'ZMIEŃ KOLOR RĘCZNIE',
     notes_placeholder: 'Dodatkowe notatki (obrażenia, mechanizm...)',
     notes_placeholder2: 'Notatki (obrażenia, mechanizm...)',
-    desc_placeholder: 'Opis...',
     patients_onsite: 'Pacjenci na miejscu',
     patients_empty: 'Brak zarejestrowanych pacjentów',
     change_to: 'Zmień na',
@@ -2128,6 +2113,7 @@ const TRANSLATIONS = {
     rpt_report: 'Raport:',
     rpt_summary: '--- PODSUMOWANIE ---',
     rpt_total_patients: 'Łącznie pacjentów:',
+    rpt_patients_header: '--- LISTA PACJENTÓW ---',
     rpt_transport_header: '--- TRANSPORT DO SZPITALI ---',
     rpt_no_dispatched: 'Brak zadysponowanych transportów',
     rpt_onsite_header: '--- POZOSTALI NA MIEJSCU',
@@ -2308,7 +2294,6 @@ const TRANSLATIONS = {
     override_color: 'OVERRIDE COLOUR',
     notes_placeholder: 'Additional notes (injuries, mechanism...)',
     notes_placeholder2: 'Notes (injuries, mechanism...)',
-    desc_placeholder: 'Desc...',
     patients_onsite: 'Patients on scene',
     patients_empty: 'No registered patients',
     change_to: 'Change to',
@@ -2347,6 +2332,7 @@ const TRANSLATIONS = {
     rpt_report: 'Report:',
     rpt_summary: '--- SUMMARY ---',
     rpt_total_patients: 'Total patients:',
+    rpt_patients_header: '--- PATIENT LIST ---',
     rpt_transport_header: '--- HOSPITAL TRANSPORTS ---',
     rpt_no_dispatched: 'No dispatched transports',
     rpt_onsite_header: '--- REMAINING ON SCENE',
@@ -2527,7 +2513,6 @@ const TRANSLATIONS = {
     override_color: 'CAMBIA COLORE MANUALMENTE',
     notes_placeholder: 'Note aggiuntive (lesioni, meccanismo...)',
     notes_placeholder2: 'Note (lesioni, meccanismo...)',
-    desc_placeholder: 'Desc...',
     patients_onsite: 'Pazienti sul posto',
     patients_empty: 'Nessun paziente registrato',
     change_to: 'Cambia in',
@@ -2566,6 +2551,7 @@ const TRANSLATIONS = {
     rpt_report: 'Rapporto:',
     rpt_summary: '--- RIEPILOGO ---',
     rpt_total_patients: 'Pazienti totali:',
+    rpt_patients_header: '--- ELENCO PAZIENTI ---',
     rpt_transport_header: '--- TRASPORTI VERSO OSPEDALI ---',
     rpt_no_dispatched: 'Nessun trasporto inviato',
     rpt_onsite_header: '--- RIMANENTI SUL POSTO',
@@ -2746,7 +2732,6 @@ const TRANSLATIONS = {
     override_color: 'CHANGER COULEUR MANUELLEMENT',
     notes_placeholder: 'Notes supplémentaires (blessures, mécanisme...)',
     notes_placeholder2: 'Notes (blessures, mécanisme...)',
-    desc_placeholder: 'Desc...',
     patients_onsite: 'Patients sur place',
     patients_empty: 'Aucun patient enregistré',
     change_to: 'Changer en',
@@ -2785,6 +2770,7 @@ const TRANSLATIONS = {
     rpt_report: 'Rapport :',
     rpt_summary: '--- RÉSUMÉ ---',
     rpt_total_patients: 'Patients au total :',
+    rpt_patients_header: '--- LISTE DES PATIENTS ---',
     rpt_transport_header: '--- TRANSPORTS VERS HÔPITAUX ---',
     rpt_no_dispatched: 'Aucun transport envoyé',
     rpt_onsite_header: '--- RESTANTS SUR PLACE',
@@ -2965,7 +2951,6 @@ const TRANSLATIONS = {
     override_color: 'FARBE MANUELL ÄNDERN',
     notes_placeholder: 'Zusätzliche Notizen (Verletzungen, Mechanismus...)',
     notes_placeholder2: 'Notizen (Verletzungen, Mechanismus...)',
-    desc_placeholder: 'Beschr...',
     patients_onsite: 'Patienten vor Ort',
     patients_empty: 'Keine registrierten Patienten',
     change_to: 'Ändern zu',
@@ -3004,6 +2989,7 @@ const TRANSLATIONS = {
     rpt_report: 'Bericht:',
     rpt_summary: '--- ZUSAMMENFASSUNG ---',
     rpt_total_patients: 'Patienten gesamt:',
+    rpt_patients_header: '--- PATIENTENLISTE ---',
     rpt_transport_header: '--- TRANSPORTE ZU KRANKENHÄUSERN ---',
     rpt_no_dispatched: 'Keine disponierten Transporte',
     rpt_onsite_header: '--- VERBLEIBENDE VOR ORT',
@@ -3184,7 +3170,6 @@ const TRANSLATIONS = {
     override_color: 'ZMĚNIT BARVU RUČNĚ',
     notes_placeholder: 'Další poznámky (zranění, mechanismus...)',
     notes_placeholder2: 'Poznámky (zranění, mechanismus...)',
-    desc_placeholder: 'Popis...',
     patients_onsite: 'Pacienti na místě',
     patients_empty: 'Žádní registrovaní pacienti',
     change_to: 'Změnit na',
@@ -3223,6 +3208,7 @@ const TRANSLATIONS = {
     rpt_report: 'Hlášení:',
     rpt_summary: '--- SOUHRN ---',
     rpt_total_patients: 'Celkem pacientů:',
+    rpt_patients_header: '--- SEZNAM PACIENTŮ ---',
     rpt_transport_header: '--- TRANSPORTY DO NEMOCNIC ---',
     rpt_no_dispatched: 'Žádné vyslané transporty',
     rpt_onsite_header: '--- ZBÝVAJÍCÍ NA MÍSTĚ',
@@ -3403,7 +3389,6 @@ const TRANSLATIONS = {
     override_color: 'ALTERAR COR MANUALMENTE',
     notes_placeholder: 'Notas adicionais (lesões, mecanismo...)',
     notes_placeholder2: 'Notas (lesões, mecanismo...)',
-    desc_placeholder: 'Desc...',
     patients_onsite: 'Pacientes no local',
     patients_empty: 'Nenhum paciente registado',
     change_to: 'Alterar para',
@@ -3442,6 +3427,7 @@ const TRANSLATIONS = {
     rpt_report: 'Relatório:',
     rpt_summary: '--- RESUMO ---',
     rpt_total_patients: 'Total de pacientes:',
+    rpt_patients_header: '--- LISTA DE PACIENTES ---',
     rpt_transport_header: '--- TRANSPORTES PARA HOSPITAIS ---',
     rpt_no_dispatched: 'Nenhum transporte despachado',
     rpt_onsite_header: '--- RESTANTES NO LOCAL',
@@ -3865,12 +3851,11 @@ function confirmPatient() {
 // ===== PATIENTS =====
 function addPatient(triage, notes, pathInfo) {
   const id = nextId++;
-  const fullNotes = [pathInfo || '', notes || ''].filter(Boolean).join(' | ');
   const sex = document.getElementById('patientSex') ? document.getElementById('patientSex').value : '';
   const age = document.getElementById('patientAge') ? document.getElementById('patientAge').value : '';
   patients.unshift({
     id, tag: 'P-' + String(id).padStart(3, '0'), triage, time: now(),
-    notes: fullNotes, description: '', status: 'na_miejscu', teamId: null, hospitalId: null, dispatchTime: null,
+    notes: notes || '', pathInfo: pathInfo || '', status: 'na_miejscu', teamId: null, hospitalId: null, dispatchTime: null,
     sex: sex || '', age: age || '', triageHistory: [], hospitalChangeHistory: []
   });
   renderAll();
@@ -3887,11 +3872,6 @@ function updateNotes(id, val) {
   saveState();
 }
 
-function updateDescription(id, val) {
-  const p = patients.find(x => x.id === id);
-  if (p) p.description = val;
-  saveState();
-}
 
 function removePatient(id) {
   if (!confirm(t('confirm_remove_patient'))) return;
@@ -4043,7 +4023,6 @@ function renderPatients() {
         <div class="p-time">${t(p.triage.toLowerCase()+'_text')}${demoStr ? ' • ' + demoStr : ''} • ${p.time}${(p.triageHistory && p.triageHistory.length) ? ' <span class="retriage-badge" title="' + p.triageHistory.map(h=>h.from+'→'+h.to+' '+h.time).join(', ') + '">↺' + p.triageHistory.length + '</span>' : ''}</div>
         <input class="p-notes" placeholder="${t('notes_placeholder2')}" value="${escHtml(p.notes)}" oninput="updateNotes(${p.id},this.value)">
       </div>
-      <input class="p-desc" placeholder="${t('desc_placeholder')}" value="${escHtml(p.description || '')}" oninput="updateDescription(${p.id},this.value)">
       <div class="triage-dots">${dots}</div>
       <button class="btn-remove" onclick="removePatient(${p.id})" title="${t('btn_remove')}">✕</button>
     </div>`;
@@ -4092,7 +4071,7 @@ function renderDispatchSelects() {
   let pHtml = '<option value="">' + t('select_patient') + '</option>';
   onSite.forEach(p => {
     const tr = TRIAGE[p.triage];
-    pHtml += `<option value="${p.id}">${tr.icon} ${p.tag}${p.description ? ' ' + escHtml(p.description) : ''} – ${t(p.triage.toLowerCase()+'_text')}${p.notes ? ' (' + escHtml(p.notes) + ')' : ''}</option>`;
+    pHtml += `<option value="${p.id}">${tr.icon} ${p.tag} – ${t(p.triage.toLowerCase()+'_text')}${p.notes ? ' (' + escHtml(p.notes) + ')' : ''}</option>`;
   });
   document.getElementById('selPatient').innerHTML = pHtml;
 
@@ -4210,7 +4189,6 @@ function renderReport() {
         html += `<div class="report-row">
           <div class="p-tag p-tag-${p.triage}">${p.tag}</div>
           ${demoStr ? `<span style="color:var(--text3);font-size:11px">${demoStr}</span>` : ''}
-          ${p.description ? `<span style="color:var(--text)">${escHtml(p.description)}</span>` : ''}
           <span style="color:var(--text2)">${t('report_team_label')} ${team ? escHtml(team.name) : '—'}</span>
           <span style="color:var(--text4)">•</span>
           <span style="color:var(--text3);font-size:10px">${t('report_departure')} ${p.dispatchTime || '—'}</span>
@@ -4234,9 +4212,8 @@ function renderReport() {
       html += `<div class="report-row">
         <div class="p-tag p-tag-${p.triage}">${p.tag}</div>
         ${demoStr ? `<span style="color:var(--text3);font-size:11px">${demoStr}</span>` : ''}
-        ${p.description ? `<span style="color:var(--text)">${escHtml(p.description)}</span>` : ''}
         <span style="color:var(--text2)">${t(p.triage.toLowerCase()+'_text')}</span>
-        ${p.notes ? `<span style="color:var(--text3);font-size:11px">– ${escHtml(p.notes)}</span>` : ''}
+        ${p.notes ? `<span style="color:var(--text);font-size:11px">– ${escHtml(p.notes)}</span>` : ''}
       </div>`;
     });
     html += `</div>`;
@@ -4263,6 +4240,16 @@ function buildReportText() {
     text += `${v.icon} ${t(k.toLowerCase()+'_label')}: ${counts[k]}\n`;
   }
 
+  // Complete patient list
+  text += `\n${t('rpt_patients_header')}\n`;
+  patients.forEach(p => {
+    const demo = [p.sex, p.age ? p.age + 'y' : ''].filter(Boolean).join('/');
+    let line = `  ${p.tag}${demo ? ' ' + demo : ''} [${p.triage}]`;
+    if (p.notes) line += ' – ' + p.notes;
+    if (p.pathInfo) line += ' | ' + p.pathInfo;
+    text += line + '\n';
+  });
+
   const byHospital = {};
   patients.filter(p => p.hospitalId).forEach(p => {
     const h = hospitals.find(x => x.id === p.hospitalId);
@@ -4281,7 +4268,7 @@ function buildReportText() {
       const team = teams.find(tm => tm.id === p.teamId);
       const st = p.status === 'dostarczony' ? t('status_delivered') : t('status_in_transport');
       const demo = [p.sex, p.age ? p.age + 'y' : ''].filter(Boolean).join('/');
-      let line = `  ${p.tag}${demo ? ' ' + demo : ''}${p.description ? ' ' + p.description : ''} [${p.triage}] → ${t('report_team_label')} ${team ? team.name : '—'} | ${p.dispatchTime} | ${st}`;
+      let line = `  ${p.tag}${demo ? ' ' + demo : ''} [${p.triage}] → ${t('report_team_label')} ${team ? team.name : '—'} | ${p.dispatchTime} | ${st}`;
       if (p.triageHistory && p.triageHistory.length) line += ' | retriage: ' + p.triageHistory.map(h => h.from + '→' + h.to + ' ' + h.time).join(', ');
       if (p.hospitalChangeHistory && p.hospitalChangeHistory.length) line += ' | hosp.change: ' + p.hospitalChangeHistory.map(h => h.from + '→' + h.to + ' ' + h.time).join(', ');
       text += line + '\n';
@@ -4293,7 +4280,7 @@ function buildReportText() {
     text += `\n${t('rpt_onsite_header')} (${onSite.length}) ---\n`;
     onSite.forEach(p => {
       const demo = [p.sex, p.age ? p.age + 'y' : ''].filter(Boolean).join('/');
-      text += `  ${p.tag}${demo ? ' ' + demo : ''}${p.description ? ' ' + p.description : ''} [${p.triage}] ${p.notes ? '– ' + p.notes : ''}\n`;
+      text += `  ${p.tag}${demo ? ' ' + demo : ''} [${p.triage}] ${p.notes ? '– ' + p.notes : ''}\n`;
     });
   }
 
