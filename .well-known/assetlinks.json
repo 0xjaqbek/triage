@@ -1,0 +1,10 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "io.github.jaqbek.triage",
+    "sha256_cert_fingerprints": [
+      "78:B9:69:AD:2C:A2:04:B1:4F:D6:14:6F:68:1E:6C:6C:85:CC:90:23:EA:E0:61:2F:B6:FC:6F:2E:91:E5:AE:D3"
+    ]
+  }
+}]
