@@ -1633,6 +1633,8 @@ body.help-on .help-bubble:not(.dismissed) {
         <li data-i18n="cl_211_3">Chronologiczne sortowanie transportów na ekranie segregacji</li>
         <li data-i18n="cl_211_4">Informacja o przekroczeniu pojemności innej kategorii przy wyborze szpitala</li>
         <li data-i18n="cl_211_5">Wyświetlanie wolnych łóżek żółtych gdy czerwone są zajęte i odwrotnie</li>
+        <li data-i18n="cl_211_6">Naprawiono zduplikowane przyciski i znikające opcje w modalu raportu</li>
+        <li data-i18n="cl_211_7">Zwijana/rozwijana historia transportów (domyślnie zwinięta)</li>
       </ul>
     </div>
     <div class="info-section">
@@ -1864,8 +1866,8 @@ body.help-on .help-bubble:not(.dismissed) {
       </div>
 
       <div class="section" id="historySection" style="display:none;margin-top:20px">
-        <div class="section-title" data-i18n="history_title">Historia transportów</div>
-        <div id="historyList"></div>
+        <div class="section-title manage-toggle" onclick="toggleManageBox(this)"><span data-i18n="history_title">Historia transportów</span><span class="manage-toggle-btn" data-i18n="manage_expand">pokaż</span></div>
+        <div class="manage-box collapsed" id="historyList"></div>
       </div>
     </div>
 
@@ -2003,11 +2005,9 @@ body.help-on .help-bubble:not(.dismissed) {
       <div class="modal-report-text" id="modalReportText"></div>
     </div>
     <div class="modal-footer">
-      <button class="btn-modal-close" onclick="closeModal()" data-i18n="modal_close">Zamknij</button>
       <button class="btn-modal-copy" id="btnModalCopy" onclick="copyFromModal()">📋 Kopiuj do schowka</button>
       <button class="btn-modal-send" onclick="toggleSendOptions()" data-i18n="btn_send">📤 Wyślij</button>
       <div class="send-options" id="sendOptions">
-        <button class="btn-modal-close" onclick="closeModal()" data-i18n="modal_close">Zamknij</button>
         <button class="btn-send-sms" onclick="sendViaSms()">💬 SMS</button>
         <button class="btn-send-email" onclick="sendViaEmail()">📧 Email</button>
       </div>
@@ -2236,6 +2236,8 @@ const TRANSLATIONS = {
     cl_211_3: 'Chronologiczne sortowanie transportów na ekranie segregacji',
     cl_211_4: 'Informacja o przekroczeniu pojemności innej kategorii przy wyborze szpitala',
     cl_211_5: 'Wyświetlanie wolnych łóżek żółtych gdy czerwone są zajęte i odwrotnie',
+    cl_211_6: 'Naprawiono zduplikowane przyciski i znikające opcje w modalu raportu',
+    cl_211_7: 'Zwijana/rozwijana historia transportów (domyślnie zwinięta)',
   },
   en: {
     setup_subtitle: 'Mass Casualty Incident Management System',
@@ -2452,6 +2454,8 @@ const TRANSLATIONS = {
     cl_211_3: 'Chronological transport sorting on triage screen',
     cl_211_4: 'Cross-category overlimit info when selecting hospital',
     cl_211_5: 'Show available yellow beds when red are full and vice versa',
+    cl_211_6: 'Fixed duplicate buttons and disappearing options in report modal',
+    cl_211_7: 'Collapsible transport history (collapsed by default)',
   },
   it: {
     setup_subtitle: 'Sistema di gestione degli incidenti con vittime multiple',
@@ -2668,6 +2672,8 @@ const TRANSLATIONS = {
     cl_211_3: 'Ordinamento cronologico dei trasporti nella schermata triage',
     cl_211_4: 'Info superamento capacità altra categoria nella selezione ospedale',
     cl_211_5: 'Mostra posti gialli disponibili quando i rossi sono pieni e viceversa',
+    cl_211_6: 'Corretti pulsanti duplicati e opzioni scomparse nel modale del rapporto',
+    cl_211_7: 'Storico trasporti comprimibile (compresso per impostazione predefinita)',
   },
   fr: {
     setup_subtitle: 'Système de gestion d\'incident à victimes multiples',
@@ -2884,6 +2890,8 @@ const TRANSLATIONS = {
     cl_211_3: 'Tri chronologique des transports sur l\'écran de triage',
     cl_211_4: 'Info dépassement de capacité autre catégorie lors de la sélection d\'hôpital',
     cl_211_5: 'Afficher les places jaunes disponibles quand les rouges sont pleines et vice versa',
+    cl_211_6: 'Correction des boutons dupliqués et options disparues dans le modal du rapport',
+    cl_211_7: 'Historique des transports repliable (replié par défaut)',
   },
   de: {
     setup_subtitle: 'Managementsystem für Massenanfälle von Verletzten',
@@ -3100,6 +3108,8 @@ const TRANSLATIONS = {
     cl_211_3: 'Chronologische Sortierung der Transporte auf dem Triage-Bildschirm',
     cl_211_4: 'Kapazitätsüberschreitung anderer Kategorie bei Krankenhausauswahl',
     cl_211_5: 'Verfügbare gelbe Betten anzeigen wenn rote voll sind und umgekehrt',
+    cl_211_6: 'Doppelte Schaltflächen und verschwindende Optionen im Berichtsmodal behoben',
+    cl_211_7: 'Einklappbare Transporthistorie (standardmäßig eingeklappt)',
   },
   cs: {
     setup_subtitle: 'Systém řízení hromadného neštěstí',
@@ -3316,6 +3326,8 @@ const TRANSLATIONS = {
     cl_211_3: 'Chronologické řazení transportů na obrazovce třídění',
     cl_211_4: 'Info o překročení kapacity jiné kategorie při výběru nemocnice',
     cl_211_5: 'Zobrazit volná žlutá lůžka když jsou červená plná a naopak',
+    cl_211_6: 'Opraveny duplicitní tlačítka a mizející možnosti v modálu hlášení',
+    cl_211_7: 'Sbalitelná historie transportů (sbalená ve výchozím stavu)',
   },
   pt: {
     setup_subtitle: 'Sistema de gestão de incidentes com múltiplas vítimas',
@@ -3532,6 +3544,8 @@ const TRANSLATIONS = {
     cl_211_3: 'Ordenação cronológica dos transportes no ecrã de triagem',
     cl_211_4: 'Info excesso de capacidade de outra categoria na seleção de hospital',
     cl_211_5: 'Mostrar vagas amarelas disponíveis quando as vermelhas estão cheias e vice-versa',
+    cl_211_6: 'Corrigidos botões duplicados e opções desaparecidas no modal do relatório',
+    cl_211_7: 'Histórico de transportes recolhível (recolhido por padrão)',
   },
 };
 
@@ -4288,6 +4302,10 @@ function copyReport() {
   btn.textContent = '📋 ' + t('modal_copy');
   btn.classList.remove('copied');
   document.getElementById('sendOptions').classList.remove('open');
+  // Reset button visibility in case toggleSendOptions hid them
+  const footer = document.querySelector('#reportModal .modal-footer');
+  footer.querySelector('.btn-modal-copy').style.display = '';
+  footer.querySelector('.btn-modal-send').style.display = '';
 }
 
 function closeModal() {
@@ -4331,7 +4349,6 @@ function toggleSendOptions() {
   const opts = document.getElementById('sendOptions');
   const isOpen = opts.classList.toggle('open');
   const footer = opts.closest('.modal-footer');
-  footer.querySelector('.btn-modal-close').style.display = isOpen ? 'none' : '';
   footer.querySelector('.btn-modal-copy').style.display = isOpen ? 'none' : '';
   footer.querySelector('.btn-modal-send').style.display = isOpen ? 'none' : '';
 }
