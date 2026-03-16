@@ -318,48 +318,51 @@ body {
 .form-row {
   display: flex;
   gap: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   flex-wrap: wrap;
   align-items: flex-end;
 }
 
-.form-group { flex: 1; min-width: 170px; }
+.form-group { flex: 1; min-width: 100%; }
 
 .form-label {
   display: block;
-  font-size: 10px;
+  font-size: 12px;
   color: var(--text3);
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  margin-bottom: 5px;
+  margin-bottom: 6px;
   font-weight: 600;
 }
 
 .form-select {
   width: 100%;
-  padding: 9px 10px;
+  padding: 12px 14px;
   background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 6px;
+  border: 2px solid var(--border);
+  border-radius: 8px;
   color: var(--text);
-  font-size: 12px;
+  font-size: 15px;
   font-family: var(--font);
   outline: none;
   cursor: pointer;
+  min-height: 44px;
 }
 
 .btn-dispatch {
-  padding: 9px 24px;
+  width: 100%;
+  padding: 14px 24px;
   background: var(--red);
   color: #fff;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
-  font-size: 12px;
+  font-size: 15px;
   font-weight: 700;
   font-family: var(--font);
   letter-spacing: 0.04em;
   margin-top: 4px;
+  min-height: 48px;
 }
 
 .btn-dispatch:disabled { opacity: 0.4; cursor: default; }
