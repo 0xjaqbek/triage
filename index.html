@@ -359,6 +359,31 @@ body {
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 12px;
+  overflow: hidden;
+  transition: max-height 0.25s ease, padding 0.25s ease, opacity 0.2s ease;
+}
+.manage-box.collapsed {
+  max-height: 0;
+  padding: 0 12px;
+  border-color: transparent;
+  opacity: 0;
+}
+.manage-toggle {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+}
+.manage-toggle-btn {
+  font-size: 10px;
+  color: var(--text3);
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 2px 8px;
+  cursor: pointer;
+  font-family: var(--font);
 }
 
 .manage-item {
@@ -1555,7 +1580,7 @@ body.help-on .help-bubble:not(.dismissed) {
   <div class="info-box" style="position:relative;">
     <button class="btn-changelog" onclick="openChangelog()" data-i18n="btn_changelog">Changelog</button>
     <h2>TRIAGE MCI</h2>
-    <div class="info-version">v2.1.0</div>
+    <div class="info-version">v2.1.1</div>
 
     <div class="info-section">
       <h3 data-i18n="info_about_title">O aplikacji</h3>
@@ -1600,6 +1625,16 @@ body.help-on .help-bubble:not(.dismissed) {
 <div id="changelogModal" class="info-overlay hidden" onclick="if(event.target===this)closeChangelog()">
   <div class="info-box">
     <h2 data-i18n="changelog_title">Changelog</h2>
+    <div class="info-section">
+      <h3>v2.1.1</h3>
+      <ul class="changelog-list">
+        <li data-i18n="cl_211_1">Zwijane/rozwijane listy zespołów i szpitali w panelu zarządzania</li>
+        <li data-i18n="cl_211_2">Podpowiedź „miejsca ZAJĘTE / WSZYSTKIE" przy liście szpitali</li>
+        <li data-i18n="cl_211_3">Chronologiczne sortowanie transportów na ekranie segregacji</li>
+        <li data-i18n="cl_211_4">Informacja o przekroczeniu pojemności innej kategorii przy wyborze szpitala</li>
+        <li data-i18n="cl_211_5">Wyświetlanie wolnych łóżek żółtych gdy czerwone są zajęte i odwrotnie</li>
+      </ul>
+    </div>
     <div class="info-section">
       <h3>v2.1.0</h3>
       <ul class="changelog-list">
@@ -1781,7 +1816,7 @@ body.help-on .help-bubble:not(.dismissed) {
               <select class="form-select" id="selTeam"><option value="">— wybierz zespół —</option></select>
             </div>
             <div class="form-group">
-              <label class="form-label" data-i18n="dispatch_hospital">Szpital docelowy</label>
+              <label class="form-label"><span data-i18n="dispatch_hospital">Szpital docelowy</span> <span style="font-weight:400;font-size:10px;color:var(--text3)" data-i18n="dispatch_hospital_hint">— miejsca ZAJĘTE / WSZYSTKIE</span></label>
               <select class="form-select" id="selHospital"><option value="">— wybierz szpital —</option></select>
             </div>
           </div>
@@ -1795,8 +1830,8 @@ body.help-on .help-bubble:not(.dismissed) {
 
       <div class="manage-row">
         <div class="manage-panel">
-          <div class="section-title" data-i18n="teams_title">Zespoły ZRM</div>
-          <div class="manage-box">
+          <div class="section-title manage-toggle" onclick="toggleManageBox(this)"><span data-i18n="teams_title">Zespoły ZRM</span><span class="manage-toggle-btn" data-i18n="manage_collapse">zwiń</span></div>
+          <div class="manage-box" id="teamsBox">
             <div id="teamsList"></div>
             <div class="add-row">
               <input class="add-input" id="newTeamInput" placeholder="Nowy zespół..." data-i18n-placeholder="new_team_placeholder">
@@ -1809,8 +1844,8 @@ body.help-on .help-bubble:not(.dismissed) {
           </div>
         </div>
         <div class="manage-panel">
-          <div class="section-title" data-i18n="hospitals_title">Szpitale</div>
-          <div class="manage-box">
+          <div class="section-title manage-toggle" onclick="toggleManageBox(this)"><span data-i18n="hospitals_title">Szpitale</span><span class="manage-toggle-btn" data-i18n="manage_collapse">zwiń</span></div>
+          <div class="manage-box" id="hospitalsBox">
             <div id="hospitalsList"></div>
             <div class="add-row" style="flex-wrap:wrap">
               <input class="add-input" id="newHospitalInput" placeholder="Nowy szpital..." data-i18n-placeholder="new_hospital_placeholder" style="flex:1;min-width:120px;">
@@ -1998,6 +2033,8 @@ const TRANSLATIONS = {
     btn_download: 'Pobierz',
     btn_close: 'ZAMKNIJ',
     btn_add: '+ Dodaj',
+    manage_collapse: 'zwiń',
+    manage_expand: 'pokaż',
     btn_yes: 'TAK',
     btn_no: 'NIE',
     install_title: 'Zainstaluj aplikację na ekranie głównym:',
@@ -2063,6 +2100,7 @@ const TRANSLATIONS = {
     dispatch_patient: 'Pacjent',
     dispatch_team: 'Zespół ZRM',
     dispatch_hospital: 'Szpital docelowy',
+    dispatch_hospital_hint: '— miejsca ZAJĘTE / WSZYSTKIE',
     select_patient: '— wybierz pacjenta —',
     select_team: '— wybierz zespół —',
     select_hospital: '— wybierz szpital —',
@@ -2193,6 +2231,11 @@ const TRANSLATIONS = {
     cl_210_5: 'Pojemność szpitali na osobnej linii w widoku transportu',
     cl_210_6: 'Większe i czytelniejsze pola płci, wieku i notatek',
     cl_210_7: 'Dwurzędowy układ szpitali w panelu zarządzania',
+    cl_211_1: 'Zwijane/rozwijane listy zespołów i szpitali w panelu zarządzania',
+    cl_211_2: 'Podpowiedź „miejsca ZAJĘTE / WSZYSTKIE" przy liście szpitali',
+    cl_211_3: 'Chronologiczne sortowanie transportów na ekranie segregacji',
+    cl_211_4: 'Informacja o przekroczeniu pojemności innej kategorii przy wyborze szpitala',
+    cl_211_5: 'Wyświetlanie wolnych łóżek żółtych gdy czerwone są zajęte i odwrotnie',
   },
   en: {
     setup_subtitle: 'Mass Casualty Incident Management System',
@@ -2206,6 +2249,8 @@ const TRANSLATIONS = {
     btn_download: 'Download',
     btn_close: 'CLOSE',
     btn_add: '+ Add',
+    manage_collapse: 'hide',
+    manage_expand: 'show',
     btn_yes: 'YES',
     btn_no: 'NO',
     install_title: 'Install app on home screen:',
@@ -2271,6 +2316,7 @@ const TRANSLATIONS = {
     dispatch_patient: 'Patient',
     dispatch_team: 'EMS Team',
     dispatch_hospital: 'Destination hospital',
+    dispatch_hospital_hint: '— beds OCCUPIED / TOTAL',
     select_patient: '— select patient —',
     select_team: '— select team —',
     select_hospital: '— select hospital —',
@@ -2401,6 +2447,11 @@ const TRANSLATIONS = {
     cl_210_5: 'Hospital capacity on separate line in transport view',
     cl_210_6: 'Larger and brighter sex, age and notes fields',
     cl_210_7: 'Two-row hospital layout in manage panel',
+    cl_211_1: 'Collapsible team and hospital lists in manage panel',
+    cl_211_2: 'Capacity hint "OCCUPIED / TOTAL" on hospital dropdown label',
+    cl_211_3: 'Chronological transport sorting on triage screen',
+    cl_211_4: 'Cross-category overlimit info when selecting hospital',
+    cl_211_5: 'Show available yellow beds when red are full and vice versa',
   },
   it: {
     setup_subtitle: 'Sistema di gestione degli incidenti con vittime multiple',
@@ -2414,6 +2465,8 @@ const TRANSLATIONS = {
     btn_download: 'Scarica',
     btn_close: 'CHIUDI',
     btn_add: '+ Aggiungi',
+    manage_collapse: 'nascondi',
+    manage_expand: 'mostra',
     btn_yes: 'SÌ',
     btn_no: 'NO',
     install_title: 'Installa l\'app sulla schermata principale:',
@@ -2479,6 +2532,7 @@ const TRANSLATIONS = {
     dispatch_patient: 'Paziente',
     dispatch_team: 'Squadra EMS',
     dispatch_hospital: 'Ospedale di destinazione',
+    dispatch_hospital_hint: '— posti OCCUPATI / TOTALI',
     select_patient: '— seleziona paziente —',
     select_team: '— seleziona squadra —',
     select_hospital: '— seleziona ospedale —',
@@ -2609,6 +2663,11 @@ const TRANSLATIONS = {
     cl_210_5: 'Capacità ospedali su riga separata nella vista trasporti',
     cl_210_6: 'Campi sesso, età e note più grandi e leggibili',
     cl_210_7: 'Layout ospedali a due righe nel pannello gestione',
+    cl_211_1: 'Liste squadre e ospedali comprimibili nel pannello gestione',
+    cl_211_2: 'Suggerimento capacità "OCCUPATI / TOTALI" sull\'etichetta ospedale',
+    cl_211_3: 'Ordinamento cronologico dei trasporti nella schermata triage',
+    cl_211_4: 'Info superamento capacità altra categoria nella selezione ospedale',
+    cl_211_5: 'Mostra posti gialli disponibili quando i rossi sono pieni e viceversa',
   },
   fr: {
     setup_subtitle: 'Système de gestion d\'incident à victimes multiples',
@@ -2622,6 +2681,8 @@ const TRANSLATIONS = {
     btn_download: 'Télécharger',
     btn_close: 'FERMER',
     btn_add: '+ Ajouter',
+    manage_collapse: 'masquer',
+    manage_expand: 'afficher',
     btn_yes: 'OUI',
     btn_no: 'NON',
     install_title: 'Installer l\'app sur l\'écran d\'accueil :',
@@ -2687,6 +2748,7 @@ const TRANSLATIONS = {
     dispatch_patient: 'Patient',
     dispatch_team: 'Équipe SMUR',
     dispatch_hospital: 'Hôpital de destination',
+    dispatch_hospital_hint: '— places OCCUPÉES / TOTALES',
     select_patient: '— sélectionner patient —',
     select_team: '— sélectionner équipe —',
     select_hospital: '— sélectionner hôpital —',
@@ -2817,6 +2879,11 @@ const TRANSLATIONS = {
     cl_210_5: 'Capacité des hôpitaux sur ligne séparée dans la vue transport',
     cl_210_6: 'Champs sexe, âge et notes plus grands et lisibles',
     cl_210_7: 'Disposition des hôpitaux sur deux lignes dans le panneau de gestion',
+    cl_211_1: 'Listes d\'équipes et d\'hôpitaux repliables dans le panneau de gestion',
+    cl_211_2: 'Indication de capacité « OCCUPÉES / TOTALES » sur l\'étiquette hôpital',
+    cl_211_3: 'Tri chronologique des transports sur l\'écran de triage',
+    cl_211_4: 'Info dépassement de capacité autre catégorie lors de la sélection d\'hôpital',
+    cl_211_5: 'Afficher les places jaunes disponibles quand les rouges sont pleines et vice versa',
   },
   de: {
     setup_subtitle: 'Managementsystem für Massenanfälle von Verletzten',
@@ -2830,6 +2897,8 @@ const TRANSLATIONS = {
     btn_download: 'Download',
     btn_close: 'SCHLIESSEN',
     btn_add: '+ Hinzufügen',
+    manage_collapse: 'ausblenden',
+    manage_expand: 'anzeigen',
     btn_yes: 'JA',
     btn_no: 'NEIN',
     install_title: 'App auf dem Startbildschirm installieren:',
@@ -2895,6 +2964,7 @@ const TRANSLATIONS = {
     dispatch_patient: 'Patient',
     dispatch_team: 'Rettungsteam',
     dispatch_hospital: 'Zielkrankenhaus',
+    dispatch_hospital_hint: '— Plätze BELEGT / GESAMT',
     select_patient: '— Patient wählen —',
     select_team: '— Team wählen —',
     select_hospital: '— Krankenhaus wählen —',
@@ -3025,6 +3095,11 @@ const TRANSLATIONS = {
     cl_210_5: 'Krankenhauskapazität auf separater Zeile in der Transportansicht',
     cl_210_6: 'Größere und besser lesbare Felder für Geschlecht, Alter und Notizen',
     cl_210_7: 'Zweizeiliges Krankenhauslayout im Verwaltungspanel',
+    cl_211_1: 'Einklappbare Team- und Krankenhauslisten im Verwaltungspanel',
+    cl_211_2: 'Kapazitätshinweis „BELEGT / GESAMT" auf Krankenhaus-Label',
+    cl_211_3: 'Chronologische Sortierung der Transporte auf dem Triage-Bildschirm',
+    cl_211_4: 'Kapazitätsüberschreitung anderer Kategorie bei Krankenhausauswahl',
+    cl_211_5: 'Verfügbare gelbe Betten anzeigen wenn rote voll sind und umgekehrt',
   },
   cs: {
     setup_subtitle: 'Systém řízení hromadného neštěstí',
@@ -3038,6 +3113,8 @@ const TRANSLATIONS = {
     btn_download: 'Stáhnout',
     btn_close: 'ZAVŘÍT',
     btn_add: '+ Přidat',
+    manage_collapse: 'skrýt',
+    manage_expand: 'zobrazit',
     btn_yes: 'ANO',
     btn_no: 'NE',
     install_title: 'Nainstalovat aplikaci na domovskou obrazovku:',
@@ -3103,6 +3180,7 @@ const TRANSLATIONS = {
     dispatch_patient: 'Pacient',
     dispatch_team: 'Posádka ZZS',
     dispatch_hospital: 'Cílová nemocnice',
+    dispatch_hospital_hint: '— místa OBSAZENÁ / CELKEM',
     select_patient: '— vyberte pacienta —',
     select_team: '— vyberte posádku —',
     select_hospital: '— vyberte nemocnici —',
@@ -3233,6 +3311,11 @@ const TRANSLATIONS = {
     cl_210_5: 'Kapacita nemocnic na samostatném řádku v zobrazení transportu',
     cl_210_6: 'Větší a čitelnější pole pro pohlaví, věk a poznámky',
     cl_210_7: 'Dvouřádkové rozložení nemocnic v panelu správy',
+    cl_211_1: 'Sbalitelné seznamy týmů a nemocnic v panelu správy',
+    cl_211_2: 'Nápověda kapacity „OBSAZENÁ / CELKEM" na štítku nemocnice',
+    cl_211_3: 'Chronologické řazení transportů na obrazovce třídění',
+    cl_211_4: 'Info o překročení kapacity jiné kategorie při výběru nemocnice',
+    cl_211_5: 'Zobrazit volná žlutá lůžka když jsou červená plná a naopak',
   },
   pt: {
     setup_subtitle: 'Sistema de gestão de incidentes com múltiplas vítimas',
@@ -3246,6 +3329,8 @@ const TRANSLATIONS = {
     btn_download: 'Transferir',
     btn_close: 'FECHAR',
     btn_add: '+ Adicionar',
+    manage_collapse: 'ocultar',
+    manage_expand: 'mostrar',
     btn_yes: 'SIM',
     btn_no: 'NÃO',
     install_title: 'Instalar app no ecrã principal:',
@@ -3311,6 +3396,7 @@ const TRANSLATIONS = {
     dispatch_patient: 'Paciente',
     dispatch_team: 'Equipa INEM',
     dispatch_hospital: 'Hospital de destino',
+    dispatch_hospital_hint: '— vagas OCUPADAS / TOTAIS',
     select_patient: '— selecionar paciente —',
     select_team: '— selecionar equipa —',
     select_hospital: '— selecionar hospital —',
@@ -3441,6 +3527,11 @@ const TRANSLATIONS = {
     cl_210_5: 'Capacidade dos hospitais em linha separada na vista de transporte',
     cl_210_6: 'Campos de sexo, idade e notas maiores e mais legíveis',
     cl_210_7: 'Layout de hospitais em duas linhas no painel de gestão',
+    cl_211_1: 'Listas de equipas e hospitais recolhíveis no painel de gestão',
+    cl_211_2: 'Dica de capacidade "OCUPADAS / TOTAIS" no rótulo do hospital',
+    cl_211_3: 'Ordenação cronológica dos transportes no ecrã de triagem',
+    cl_211_4: 'Info excesso de capacidade de outra categoria na seleção de hospital',
+    cl_211_5: 'Mostrar vagas amarelas disponíveis quando as vermelhas estão cheias e vice-versa',
   },
 };
 
@@ -3941,7 +4032,8 @@ function renderPatients() {
 }
 
 function renderTransporting() {
-  const inTransport = patients.filter(p => p.status === 'transportowany');
+  const inTransport = patients.filter(p => p.status === 'transportowany')
+    .sort((a, b) => (a.dispatchTime || '').localeCompare(b.dispatchTime || ''));
   const section = document.getElementById('transportSection');
 
   if (inTransport.length === 0) {
@@ -3994,6 +4086,13 @@ function renderDispatchSelects() {
   document.getElementById('selHospital').innerHTML = buildHospitalOptions(selP);
 
   checkDispatchReady();
+}
+
+function toggleManageBox(titleEl) {
+  const box = titleEl.nextElementSibling;
+  const btn = titleEl.querySelector('.manage-toggle-btn');
+  const isCollapsed = box.classList.toggle('collapsed');
+  btn.textContent = isCollapsed ? t('manage_expand') : t('manage_collapse');
 }
 
 function renderManage() {
@@ -4551,8 +4650,13 @@ function buildHospitalOptions(selP) {
     if (h.redCapacity > 0 || h.yellowCapacity > 0) {
       const parts = [];
       const pt = selP ? selP.triage : null;
-      if (h.redCapacity > 0 && pt !== 'T2') parts.push('R:' + usage.red + '/' + h.redCapacity);
-      if (h.yellowCapacity > 0 && pt !== 'T1') parts.push('Y:' + usage.yellow + '/' + h.yellowCapacity);
+      const redFull = h.redCapacity === 0 || usage.red >= h.redCapacity;
+      const yellowFull = h.yellowCapacity === 0 || usage.yellow >= h.yellowCapacity;
+      if (h.redCapacity > 0 && (pt !== 'T2' || yellowFull)) parts.push('R:' + usage.red + '/' + h.redCapacity);
+      if (h.yellowCapacity > 0 && (pt !== 'T1' || redFull)) parts.push('Y:' + usage.yellow + '/' + h.yellowCapacity);
+      // Show overlimit for the other category as a warning
+      if (pt === 'T2' && h.redCapacity > 0 && usage.red > h.redCapacity) parts.push('R:+' + (usage.red - h.redCapacity) + '!');
+      if (pt === 'T1' && h.yellowCapacity > 0 && usage.yellow > h.yellowCapacity) parts.push('Y:+' + (usage.yellow - h.yellowCapacity) + '!');
       if (parts.length) capInfo = ' [' + parts.join(' ') + ']';
     }
     const warn = allFull && selP ? getCapacityWarning(h, selP.triage) : '';
