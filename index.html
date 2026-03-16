@@ -1832,7 +1832,7 @@ body.help-on .help-bubble:not(.dismissed) {
 
       <div class="manage-row">
         <div class="manage-panel">
-          <div class="section-title manage-toggle" onclick="toggleManageBox(this)"><span data-i18n="hospitals_title">Szpitale</span><span class="manage-toggle-btn" data-i18n="manage_collapse">zwiń</span></div>
+          <div class="section-title manage-toggle" onclick="toggleManageBox(this)"><span data-i18n="hospitals_title">Szpitale</span> <span style="font-weight:400;font-size:10px;color:var(--text3)" data-i18n="hospitals_subtitle">— łóżka WSZYSTKIE</span><span class="manage-toggle-btn" data-i18n="manage_collapse">zwiń</span></div>
           <div class="manage-box" id="hospitalsBox">
             <div id="hospitalsList"></div>
             <div class="add-row" style="flex-wrap:wrap">
@@ -2107,6 +2107,7 @@ const TRANSLATIONS = {
     btn_dispatch: 'DYSPONUJ TRANSPORT',
     teams_title: 'Zespoły ZRM',
     hospitals_title: 'Szpitale',
+    hospitals_subtitle: '— łóżka WSZYSTKIE',
     new_team_placeholder: 'Nowy zespół...',
     new_hospital_placeholder: 'Nowy szpital...',
     history_title: 'Historia transportów',
@@ -2325,6 +2326,7 @@ const TRANSLATIONS = {
     btn_dispatch: 'DISPATCH TRANSPORT',
     teams_title: 'EMS Teams',
     hospitals_title: 'Hospitals',
+    hospitals_subtitle: '— TOTAL beds',
     new_team_placeholder: 'New team...',
     new_hospital_placeholder: 'New hospital...',
     history_title: 'Transport history',
@@ -2543,6 +2545,7 @@ const TRANSLATIONS = {
     btn_dispatch: 'INVIA TRASPORTO',
     teams_title: 'Squadre EMS',
     hospitals_title: 'Ospedali',
+    hospitals_subtitle: '— posti letto TOTALI',
     new_team_placeholder: 'Nuova squadra...',
     new_hospital_placeholder: 'Nuovo ospedale...',
     history_title: 'Storico trasporti',
@@ -2761,6 +2764,7 @@ const TRANSLATIONS = {
     btn_dispatch: 'ENVOYER TRANSPORT',
     teams_title: 'Équipes SMUR',
     hospitals_title: 'Hôpitaux',
+    hospitals_subtitle: '— lits TOTAUX',
     new_team_placeholder: 'Nouvelle équipe...',
     new_hospital_placeholder: 'Nouvel hôpital...',
     history_title: 'Historique des transports',
@@ -2979,6 +2983,7 @@ const TRANSLATIONS = {
     btn_dispatch: 'TRANSPORT DISPONIEREN',
     teams_title: 'Rettungsteams',
     hospitals_title: 'Krankenhäuser',
+    hospitals_subtitle: '— Betten GESAMT',
     new_team_placeholder: 'Neues Team...',
     new_hospital_placeholder: 'Neues Krankenhaus...',
     history_title: 'Transporthistorie',
@@ -3197,6 +3202,7 @@ const TRANSLATIONS = {
     btn_dispatch: 'VYSLAT TRANSPORT',
     teams_title: 'Posádky ZZS',
     hospitals_title: 'Nemocnice',
+    hospitals_subtitle: '— lůžka CELKEM',
     new_team_placeholder: 'Nová posádka...',
     new_hospital_placeholder: 'Nová nemocnice...',
     history_title: 'Historie transportů',
@@ -3415,6 +3421,7 @@ const TRANSLATIONS = {
     btn_dispatch: 'DESPACHAR TRANSPORTE',
     teams_title: 'Equipas INEM',
     hospitals_title: 'Hospitais',
+    hospitals_subtitle: '— leitos TOTAIS',
     new_team_placeholder: 'Nova equipa...',
     new_hospital_placeholder: 'Novo hospital...',
     history_title: 'Histórico de transportes',
