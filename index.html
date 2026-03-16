@@ -153,12 +153,13 @@ body {
 .patient-card {
   background: var(--surface);
   border-radius: 8px;
-  padding: 10px 14px;
-  margin-bottom: 7px;
-  display: flex;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: auto auto auto;
+  gap: 6px 10px;
   align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
 }
 
 .pc-T1 { border: 1px solid #DC262655; border-left: 4px solid var(--red); }
@@ -167,7 +168,7 @@ body {
 .pc-T4 { border: 1px solid #6B728055; border-left: 4px solid var(--black-t); }
 
 .p-tag {
-  padding: 3px 9px;
+  padding: 4px 10px;
   border-radius: 4px;
   font-weight: 800;
   font-size: 13px;
@@ -175,6 +176,7 @@ body {
   text-align: center;
   font-family: var(--font);
   color: #fff;
+  grid-column: 1; grid-row: 1;
 }
 
 .p-tag-T1 { background: var(--red); }
@@ -182,12 +184,12 @@ body {
 .p-tag-T3 { background: var(--green); }
 .p-tag-T4 { background: var(--black-t); }
 
-.p-info { flex: 1; min-width: 100px; }
-.p-time { font-size: 10px; color: var(--text3); }
+.p-info { grid-column: 2; grid-row: 1; min-width: 0; }
+.p-time { font-size: 11px; color: var(--text3); }
 
 .p-notes {
+  grid-column: 1 / -1; grid-row: 2;
   width: 100%;
-  margin-top: 5px;
   padding: 10px 12px;
   background: var(--bg);
   border: 2px solid var(--border);
@@ -200,15 +202,21 @@ body {
 
 .p-notes::placeholder { color: var(--text3); }
 
+.p-card-actions {
+  grid-column: 1 / -1; grid-row: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
 
 .triage-dots {
   display: flex;
-  gap: 4px;
-  margin-left: auto;
+  gap: 6px;
 }
 
 .t-dot {
-  width: 20px; height: 20px;
+  width: 32px; height: 32px;
   border-radius: 50%;
   border: 2px solid;
   background: transparent;
@@ -228,47 +236,75 @@ body {
 .t-dot.active-T4 { background: var(--black-t); }
 
 .btn-remove {
-  padding: 3px 9px;
+  padding: 6px 14px;
   background: transparent;
   border: 1px solid #EF444466;
   color: #EF4444;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 600;
   font-family: var(--font);
+  min-height: 32px;
 }
 
 /* TRANSPORT CARD */
 .transport-card {
   background: var(--surface);
-  border: 1px solid #D9770644;
-  border-left: 4px solid var(--yellow);
   border-radius: 8px;
-  padding: 8px 14px;
-  margin-bottom: 7px;
-  display: flex;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: auto auto;
+  gap: 6px 10px;
   align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
   font-size: 12px;
 }
+.transport-card .tc-border { border-left: 4px solid var(--yellow); }
 
-.transport-card .team { color: var(--yellow-light); font-weight: 600; }
-.transport-card .arrow { color: var(--text4); }
-.transport-card .hospital { color: var(--white); }
-.transport-card .time { color: var(--text4); font-size: 10px; margin-left: auto; }
+.tc-T1 { border: 1px solid #DC262655; border-left: 4px solid var(--red); }
+.tc-T2 { border: 1px solid #D9770644; border-left: 4px solid var(--yellow); }
+.tc-T3 { border: 1px solid #16A34A55; border-left: 4px solid var(--green); }
+.tc-T4 { border: 1px solid #6B728055; border-left: 4px solid var(--black-t); }
+
+.tc-row1 { grid-column: 2; grid-row: 1; display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: center; min-width: 0; }
+.tc-row1 .team { color: var(--yellow-light); font-weight: 600; }
+.tc-row1 .arrow { color: var(--text4); }
+.tc-row1 .hospital { color: var(--white); font-weight: 500; }
+.tc-row1 .time { color: var(--text4); font-size: 10px; }
+
+.tc-actions {
+  grid-column: 1 / -1; grid-row: 2;
+  display: flex;
+  gap: 8px;
+}
 
 .btn-delivered {
-  padding: 3px 9px;
+  flex: 1;
+  padding: 8px 12px;
   background: transparent;
   border: 1px solid var(--green-light);
   color: var(--green-light);
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
-  font-size: 10px;
+  font-size: 13px;
   font-weight: 600;
   font-family: var(--font);
+  min-height: 36px;
+}
+
+.btn-change-hospital-tc {
+  padding: 8px 12px;
+  background: transparent;
+  border: 1px solid var(--yellow);
+  color: var(--yellow);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: var(--font);
+  min-height: 36px;
 }
 
 /* DISPATCH FORM */
@@ -1446,18 +1482,6 @@ body.help-on .help-bubble:not(.dismissed) {
 }
 
 /* HOSPITAL CHANGE BUTTON */
-.btn-change-hospital {
-  padding: 2px 8px;
-  background: transparent;
-  border: 1px solid var(--border2);
-  color: var(--text3);
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 9px;
-  font-weight: 600;
-  font-family: var(--font);
-  letter-spacing: 0.03em;
-}
 
 /* RETRIAGE BADGE */
 .retriage-badge {
@@ -4021,10 +4045,12 @@ function renderPatients() {
       <div class="p-tag p-tag-${p.triage}">${p.tag}</div>
       <div class="p-info">
         <div class="p-time">${t(p.triage.toLowerCase()+'_text')}${demoStr ? ' • ' + demoStr : ''} • ${p.time}${(p.triageHistory && p.triageHistory.length) ? ' <span class="retriage-badge" title="' + p.triageHistory.map(h=>h.from+'→'+h.to+' '+h.time).join(', ') + '">↺' + p.triageHistory.length + '</span>' : ''}</div>
-        <input class="p-notes" placeholder="${t('notes_placeholder2')}" value="${escHtml(p.notes)}" oninput="updateNotes(${p.id},this.value)">
       </div>
-      <div class="triage-dots">${dots}</div>
       <button class="btn-remove" onclick="removePatient(${p.id})" title="${t('btn_remove')}">✕</button>
+      <input class="p-notes" placeholder="${t('notes_placeholder2')}" value="${escHtml(p.notes)}" oninput="updateNotes(${p.id},this.value)">
+      <div class="p-card-actions">
+        <div class="triage-dots">${dots}</div>
+      </div>
     </div>`;
   });
 
@@ -4048,15 +4074,18 @@ function renderTransporting() {
   inTransport.forEach(p => {
     const team = teams.find(tm => tm.id === p.teamId);
     const hosp = hospitals.find(h => h.id === p.hospitalId);
-    html += `<div class="transport-card">
-      <div class="p-tag p-tag-${p.triage}">${p.tag}</div>
-      ${p.sex || p.age ? `<span class="p-demo">${p.sex || ''}${p.sex && p.age ? '/' : ''}${p.age || ''}</span>` : ''}
-      <span class="team">${team ? escHtml(team.name) : '—'}</span>
-      <span class="arrow">→</span>
-      <span class="hospital">${hosp ? escHtml(hosp.name) : '—'}</span>
-      <button class="btn-change-hospital" onclick="requestHospitalChange(${p.id})" title="${t('btn_change_hospital')}">${t('btn_change_hospital')}</button>
-      <span class="time">${p.dispatchTime}</span>
-      <button class="btn-delivered" onclick="markDelivered(${p.id})">✓ ${t('btn_delivered')}</button>
+    html += `<div class="transport-card tc-${p.triage}">
+      <div class="p-tag p-tag-${p.triage}" style="grid-column:1;grid-row:1">${p.tag}</div>
+      <div class="tc-row1">
+        <span class="team">${team ? escHtml(team.name) : '—'}</span>
+        <span class="arrow">→</span>
+        <span class="hospital">${hosp ? escHtml(hosp.name) : '—'}</span>
+        <span class="time">${p.dispatchTime}</span>
+      </div>
+      <div class="tc-actions">
+        <button class="btn-change-hospital-tc" onclick="requestHospitalChange(${p.id})">${t('btn_change_hospital')}</button>
+        <button class="btn-delivered" onclick="markDelivered(${p.id})">✓ ${t('btn_delivered')}</button>
+      </div>
     </div>`;
   });
 
