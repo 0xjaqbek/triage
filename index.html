@@ -1832,20 +1832,6 @@ body.help-on .help-bubble:not(.dismissed) {
 
       <div class="manage-row">
         <div class="manage-panel">
-          <div class="section-title manage-toggle" onclick="toggleManageBox(this)"><span data-i18n="teams_title">Zespoły ZRM</span><span class="manage-toggle-btn" data-i18n="manage_collapse">zwiń</span></div>
-          <div class="manage-box" id="teamsBox">
-            <div id="teamsList"></div>
-            <div class="add-row">
-              <input class="add-input" id="newTeamInput" placeholder="Nowy zespół..." data-i18n-placeholder="new_team_placeholder">
-              <button class="add-btn" onclick="addTeam()" data-i18n="btn_add">+ Dodaj</button>
-            </div>
-          </div>
-          <div class="help-bubble" data-help-id="help-manage-teams" data-arrow="up" style="position:relative;margin-top:8px;left:0;right:0;">
-            <button class="help-close" onclick="dismissBubble('help-manage-teams')">✕</button>
-            <span data-i18n="help_manage_teams">Dodawaj i usuwaj zespoły ZRM dostępne na miejscu zdarzenia.</span>
-          </div>
-        </div>
-        <div class="manage-panel">
           <div class="section-title manage-toggle" onclick="toggleManageBox(this)"><span data-i18n="hospitals_title">Szpitale</span><span class="manage-toggle-btn" data-i18n="manage_collapse">zwiń</span></div>
           <div class="manage-box" id="hospitalsBox">
             <div id="hospitalsList"></div>
@@ -1860,7 +1846,21 @@ body.help-on .help-bubble:not(.dismissed) {
           </div>
           <div class="help-bubble" data-help-id="help-manage-hospitals" data-arrow="up" style="position:relative;margin-top:8px;left:0;right:0;">
             <button class="help-close" onclick="dismissBubble('help-manage-hospitals')">✕</button>
-            <span data-i18n="help_manage_hospitals">Dodawaj i usuwaj szpitale docelowe.</span>
+            <span data-i18n="help_manage_hospitals">Dodawaj i usuwaj szpitale docelowe. 🔴 i 🟡 oznaczają liczbę łóżek dla pacjentów czerwonych (T1) i żółtych (T2).</span>
+          </div>
+        </div>
+        <div class="manage-panel">
+          <div class="section-title manage-toggle" onclick="toggleManageBox(this)"><span data-i18n="teams_title">Zespoły ZRM</span><span class="manage-toggle-btn" data-i18n="manage_collapse">zwiń</span></div>
+          <div class="manage-box" id="teamsBox">
+            <div id="teamsList"></div>
+            <div class="add-row">
+              <input class="add-input" id="newTeamInput" placeholder="Nowy zespół..." data-i18n-placeholder="new_team_placeholder">
+              <button class="add-btn" onclick="addTeam()" data-i18n="btn_add">+ Dodaj</button>
+            </div>
+          </div>
+          <div class="help-bubble" data-help-id="help-manage-teams" data-arrow="up" style="position:relative;margin-top:8px;left:0;right:0;">
+            <button class="help-close" onclick="dismissBubble('help-manage-teams')">✕</button>
+            <span data-i18n="help_manage_teams">Dodawaj i usuwaj zespoły ZRM dostępne na miejscu zdarzenia.</span>
           </div>
         </div>
       </div>
@@ -2159,7 +2159,7 @@ const TRANSLATIONS = {
     help_delivered_btn: 'Oznacza pacjenta jako dostarczonego do szpitala. Zespół ZRM zostaje zwolniony i ponownie pojawia się na liście do dyspozycji.',
     help_dispatch_form: 'Wybierz pacjenta, zespół ZRM i szpital, aby zadysponować transport.',
     help_manage_teams: 'Dodawaj i usuwaj zespoły ZRM dostępne na miejscu zdarzenia.',
-    help_manage_hospitals: 'Dodawaj i usuwaj szpitale docelowe.',
+    help_manage_hospitals: 'Dodawaj i usuwaj szpitale docelowe. 🔴 i 🟡 oznaczają liczbę łóżek dla pacjentów czerwonych (T1) i żółtych (T2).',
     help_report: 'Automatycznie generowany raport ze zdarzenia. Możesz skopiować tekst lub wysłać przez SMS/e-mail.',
     btn_changelog: 'Changelog',
     changelog_title: 'Historia zmian',
@@ -2377,7 +2377,7 @@ const TRANSLATIONS = {
     help_delivered_btn: 'Marks the patient as delivered to the hospital. The EMS team is freed and reappears in the dispatch list for a new assignment.',
     help_dispatch_form: 'Select a patient, EMS team, and hospital to dispatch transport.',
     help_manage_teams: 'Add or remove EMS teams available on scene.',
-    help_manage_hospitals: 'Add or remove destination hospitals.',
+    help_manage_hospitals: 'Add or remove destination hospitals. 🔴 and 🟡 indicate bed capacity for red (T1) and yellow (T2) patients.',
     help_report: 'Auto-generated event report. Copy the text or send via SMS/email.',
     btn_changelog: 'Changelog',
     changelog_title: 'Changelog',
@@ -2595,7 +2595,7 @@ const TRANSLATIONS = {
     help_delivered_btn: 'Segna il paziente come consegnato all\'ospedale. Il team EMS viene liberato e riappare nella lista di invio.',
     help_dispatch_form: 'Seleziona paziente, team EMS e ospedale per inviare il trasporto.',
     help_manage_teams: 'Aggiungi o rimuovi team EMS disponibili sulla scena.',
-    help_manage_hospitals: 'Aggiungi o rimuovi ospedali di destinazione.',
+    help_manage_hospitals: 'Aggiungi o rimuovi ospedali di destinazione. 🔴 e 🟡 indicano i posti letto per pazienti rossi (T1) e gialli (T2).',
     help_report: 'Rapporto evento generato automaticamente. Copia il testo o invia via SMS/email.',
     btn_changelog: 'Changelog',
     changelog_title: 'Cronologia modifiche',
@@ -2813,7 +2813,7 @@ const TRANSLATIONS = {
     help_delivered_btn: 'Marque le patient comme livré à l\'hôpital. L\'équipe EMS est libérée et réapparaît dans la liste d\'envoi.',
     help_dispatch_form: 'Sélectionnez un patient, une équipe EMS et un hôpital pour envoyer le transport.',
     help_manage_teams: 'Ajoutez ou supprimez les équipes EMS disponibles sur place.',
-    help_manage_hospitals: 'Ajoutez ou supprimez les hôpitaux de destination.',
+    help_manage_hospitals: 'Ajoutez ou supprimez les hôpitaux de destination. 🔴 et 🟡 indiquent la capacité en lits pour les patients rouges (T1) et jaunes (T2).',
     help_report: 'Rapport d\'événement généré automatiquement. Copiez le texte ou envoyez par SMS/e-mail.',
     btn_changelog: 'Changelog',
     changelog_title: 'Historique des modifications',
@@ -3031,7 +3031,7 @@ const TRANSLATIONS = {
     help_delivered_btn: 'Markiert den Patienten als im Krankenhaus zugestellt. Das Rettungsteam wird frei und erscheint wieder in der Dispositionsliste.',
     help_dispatch_form: 'Patient, Rettungsteam und Krankenhaus auswählen, um den Transport zu disponieren.',
     help_manage_teams: 'Rettungsteams hinzufügen oder entfernen.',
-    help_manage_hospitals: 'Zielkrankenhäuser hinzufügen oder entfernen.',
+    help_manage_hospitals: 'Zielkrankenhäuser hinzufügen oder entfernen. 🔴 und 🟡 zeigen die Bettenkapazität für rote (T1) und gelbe (T2) Patienten.',
     help_report: 'Automatisch generierter Ereignisbericht. Text kopieren oder per SMS/E-Mail senden.',
     btn_changelog: 'Changelog',
     changelog_title: 'Änderungsprotokoll',
@@ -3249,7 +3249,7 @@ const TRANSLATIONS = {
     help_delivered_btn: 'Označí pacienta jako doručeného do nemocnice. Tým ZZS se uvolní a znovu se objeví v seznamu k dispozici.',
     help_dispatch_form: 'Vyberte pacienta, tým ZZS a nemocnici pro odeslání transportu.',
     help_manage_teams: 'Přidávejte nebo odebírejte týmy ZZS dostupné na místě.',
-    help_manage_hospitals: 'Přidávejte nebo odebírejte cílové nemocnice.',
+    help_manage_hospitals: 'Přidávejte nebo odebírejte cílové nemocnice. 🔴 a 🟡 označují kapacitu lůžek pro červené (T1) a žluté (T2) pacienty.',
     help_report: 'Automaticky vygenerované hlášení z události. Zkopírujte text nebo odešlete přes SMS/e-mail.',
     btn_changelog: 'Changelog',
     changelog_title: 'Historie změn',
@@ -3467,7 +3467,7 @@ const TRANSLATIONS = {
     help_delivered_btn: 'Marca o paciente como entregue no hospital. A equipa EMS fica disponível e reaparece na lista de despacho.',
     help_dispatch_form: 'Selecione paciente, equipa EMS e hospital para despachar transporte.',
     help_manage_teams: 'Adicione ou remova equipas EMS disponíveis no local.',
-    help_manage_hospitals: 'Adicione ou remova hospitais de destino.',
+    help_manage_hospitals: 'Adicione ou remova hospitais de destino. 🔴 e 🟡 indicam a capacidade de leitos para pacientes vermelhos (T1) e amarelos (T2).',
     help_report: 'Relatório do evento gerado automaticamente. Copie o texto ou envie por SMS/e-mail.',
     btn_changelog: 'Changelog',
     changelog_title: 'Histórico de alterações',
