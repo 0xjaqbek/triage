@@ -188,17 +188,17 @@ body {
 .p-notes {
   width: 100%;
   margin-top: 5px;
-  padding: 5px 9px;
+  padding: 10px 12px;
   background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  color: var(--text);
-  font-size: 11px;
+  border: 2px solid var(--border);
+  border-radius: 6px;
+  color: var(--white);
+  font-size: 15px;
   font-family: var(--font);
   outline: none;
 }
 
-.p-notes::placeholder { color: var(--text4); }
+.p-notes::placeholder { color: var(--text3); }
 
 .p-desc {
   width: 100px;
@@ -979,11 +979,11 @@ body.help-on .help-bubble:not(.dismissed) {
 .result-card {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 16px 20px;
+  border-radius: 10px;
+  padding: 10px 14px;
   animation: resultIn 0.3s ease-out;
 }
 
@@ -993,10 +993,10 @@ body.help-on .help-bubble:not(.dismissed) {
 }
 
 .result-color {
-  width: 56px; height: 56px;
-  border-radius: 10px;
+  width: 44px; height: 44px;
+  border-radius: 8px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 28px;
+  font-size: 22px;
   font-weight: 900;
   color: #fff;
   font-family: var(--font);
@@ -1011,16 +1011,16 @@ body.help-on .help-bubble:not(.dismissed) {
 .result-info { flex: 1; text-align: left; }
 
 .result-label {
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 800;
   color: var(--white);
-  margin-bottom: 3px;
+  margin-bottom: 2px;
 }
 
 .result-path {
-  font-size: 11px;
+  font-size: 10px;
   color: var(--text3);
-  line-height: 1.4;
+  line-height: 1.3;
 }
 
 .result-actions {
@@ -1334,27 +1334,29 @@ body.help-on .help-bubble:not(.dismissed) {
 
 /* SEX/AGE BUTTONS */
 .sex-btn {
-  padding: 4px 10px;
+  padding: 8px 16px;
   background: var(--surface);
-  border: 1px solid var(--border2);
-  color: var(--text2);
-  border-radius: 4px;
+  border: 2px solid var(--border2);
+  color: var(--white);
+  border-radius: 6px;
   cursor: pointer;
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 700;
   font-family: var(--font);
   transition: all 0.15s;
+  min-width: 44px;
+  text-align: center;
 }
 .sex-btn.active { background: var(--red); color: #fff; border-color: var(--red); }
 
 .age-input {
-  width: 48px;
-  padding: 4px 2px;
+  width: 56px;
+  padding: 8px 4px;
   background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  color: var(--text);
-  font-size: 12px;
+  border: 2px solid var(--border);
+  border-radius: 6px;
+  color: var(--white);
+  font-size: 16px;
   font-family: var(--font);
   text-align: center;
   outline: none;
@@ -1364,15 +1366,17 @@ body.help-on .help-bubble:not(.dismissed) {
 .age-input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
 
 .age-step-btn {
-  padding: 4px 6px;
+  padding: 8px 10px;
   background: var(--surface);
-  border: 1px solid var(--border);
-  color: var(--text2);
-  border-radius: 4px;
+  border: 2px solid var(--border);
+  color: var(--white);
+  border-radius: 6px;
   cursor: pointer;
-  font-size: 11px;
+  font-size: 14px;
   font-weight: 700;
   font-family: var(--font);
+  min-width: 38px;
+  text-align: center;
 }
 
 /* EVENT END BUTTON */
@@ -1423,8 +1427,11 @@ body.help-on .help-bubble:not(.dismissed) {
 .cap-input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
 
 .manage-hospital-item {
-  flex-wrap: wrap;
-  gap: 6px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto;
+  gap: 4px 8px;
+  align-items: center;
 }
 
 /* HOSPITAL CHANGE BUTTON */
@@ -1548,7 +1555,7 @@ body.help-on .help-bubble:not(.dismissed) {
   <div class="info-box" style="position:relative;">
     <button class="btn-changelog" onclick="openChangelog()" data-i18n="btn_changelog">Changelog</button>
     <h2>TRIAGE MCI</h2>
-    <div class="info-version">v2.0.0</div>
+    <div class="info-version">v2.1.0</div>
 
     <div class="info-section">
       <h3 data-i18n="info_about_title">O aplikacji</h3>
@@ -1593,6 +1600,18 @@ body.help-on .help-bubble:not(.dismissed) {
 <div id="changelogModal" class="info-overlay hidden" onclick="if(event.target===this)closeChangelog()">
   <div class="info-box">
     <h2 data-i18n="changelog_title">Changelog</h2>
+    <div class="info-section">
+      <h3>v2.1.0</h3>
+      <ul class="changelog-list">
+        <li data-i18n="cl_210_1">Modal konfiguracji zespołów ZRM przy pierwszym dysponowaniu</li>
+        <li data-i18n="cl_210_2">Modal konfiguracji szpitali z pojemnością przy pierwszym dysponowaniu</li>
+        <li data-i18n="cl_210_3">Inteligentne filtrowanie szpitali wg pojemności dla wybranego pacjenta</li>
+        <li data-i18n="cl_210_4">Poprawiono ostrzeżenie pojemności dla szpitali z zerową pojemnością</li>
+        <li data-i18n="cl_210_5">Pojemność szpitali na osobnej linii w widoku transportu</li>
+        <li data-i18n="cl_210_6">Większe i czytelniejsze pola płci, wieku i notatek</li>
+        <li data-i18n="cl_210_7">Dwurzędowy układ szpitali w panelu zarządzania</li>
+      </ul>
+    </div>
     <div class="info-section">
       <h3>v2.0.0</h3>
       <ul class="changelog-list">
@@ -1688,16 +1707,16 @@ body.help-on .help-bubble:not(.dismissed) {
             <div class="result-path" id="resultPath"></div>
           </div>
         </div>
-        <div class="sex-age-row" style="margin-top:10px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
-          <div style="display:flex;align-items:center;gap:4px;">
-            <span class="form-label" style="margin:0;font-size:11px;color:var(--text3)" data-i18n="sex_label">Płeć:</span>
+        <div class="sex-age-row" style="margin-top:12px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
+          <div style="display:flex;align-items:center;gap:6px;">
+            <span class="form-label" style="margin:0;font-size:14px;color:var(--text2)" data-i18n="sex_label">Płeć:</span>
             <input type="hidden" id="patientSex" value="">
             <button type="button" class="sex-btn" onclick="selectSex('M')" data-sex="M">M</button>
             <button type="button" class="sex-btn" onclick="selectSex('K')" data-sex="K">K</button>
             <button type="button" class="sex-btn" onclick="selectSex('?')" data-sex="?">?</button>
           </div>
-          <div style="display:flex;align-items:center;gap:4px;">
-            <span class="form-label" style="margin:0;font-size:11px;color:var(--text3)" data-i18n="age_label">Wiek:</span>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <span class="form-label" style="margin:0;font-size:14px;color:var(--text2)" data-i18n="age_label">Wiek:</span>
             <button type="button" class="age-step-btn" onclick="stepAge(-5)">−5</button>
             <button type="button" class="age-step-btn" onclick="stepAge(-1)">−1</button>
             <input type="number" id="patientAge" class="age-input" value="" min="0" max="150" placeholder="—">
@@ -1847,6 +1866,58 @@ body.help-on .help-bubble:not(.dismissed) {
     <div class="modal-footer" style="justify-content:flex-end;gap:8px;padding:12px 16px">
       <button class="btn-modal-close" onclick="closeGdmModal()" data-i18n="gdm_skip">POMIŃ</button>
       <button class="btn-dispatch" style="padding:8px 20px;font-size:12px" onclick="saveGdm()" data-i18n="gdm_save">ZAPISZ</button>
+    </div>
+  </div>
+</div>
+
+<!-- TEAM SETUP MODAL -->
+<div class="modal-overlay" id="teamSetupModal">
+  <div class="modal" style="max-width:420px">
+    <div class="modal-header">
+      <div class="modal-title" data-i18n="team_setup_title">Zespoły ZRM</div>
+      <button class="modal-close" onclick="skipTeamSetup()">&times;</button>
+    </div>
+    <div class="modal-body" style="padding:16px">
+      <p style="color:var(--text2);font-size:12px;margin-bottom:12px" data-i18n="team_setup_text">Czy znasz zespoły ZRM zadysponowane na miejsce zdarzenia?</p>
+      <div id="teamSetupList" style="display:flex;flex-direction:column;gap:6px;margin-bottom:12px;max-height:200px;overflow-y:auto"></div>
+      <div id="teamSetupForm" style="display:none;flex-direction:column;gap:8px">
+        <input class="event-input" id="teamSetupName" style="width:100%;font-size:14px;padding:10px 12px" placeholder="np. G0119 — karetka S" data-i18n-placeholder="team_setup_name_placeholder">
+        <button class="btn-dispatch" style="width:100%;padding:10px 14px;font-size:14px" onclick="addTeamSetupItem()" data-i18n="team_setup_add">+ DODAJ ZESPÓŁ</button>
+      </div>
+      <div id="teamSetupChoice" style="display:flex;gap:8px;margin-top:4px">
+        <button class="btn-dispatch" style="flex:1;padding:10px 14px;font-size:14px" onclick="showTeamSetupForm()" data-i18n="team_setup_yes">TAK, ZNAM ZESPOŁY</button>
+        <button class="btn-modal-close" style="flex:1;padding:10px 14px;font-size:13px" onclick="skipTeamSetup()" data-i18n="team_setup_no">NIE, UŻYJ DOMYŚLNYCH</button>
+      </div>
+    </div>
+    <div class="modal-footer" id="teamSetupFooter" style="display:none;justify-content:flex-end;gap:8px;padding:12px 16px">
+      <button class="btn-modal-close" onclick="skipTeamSetup()" data-i18n="team_setup_skip">POMIŃ (DOMYŚLNE)</button>
+      <button class="btn-dispatch" style="padding:8px 20px;font-size:12px" onclick="confirmTeamSetup()" data-i18n="team_setup_confirm">ZATWIERDŹ</button>
+    </div>
+  </div>
+</div>
+
+<!-- HOSPITAL SETUP MODAL -->
+<div class="modal-overlay" id="hospitalSetupModal">
+  <div class="modal" style="max-width:420px">
+    <div class="modal-header">
+      <div class="modal-title" data-i18n="hosp_setup_title">Szpitale docelowe</div>
+      <button class="modal-close" onclick="skipHospitalSetup()">&times;</button>
+    </div>
+    <div class="modal-body" style="padding:16px">
+      <p style="color:var(--text2);font-size:12px;margin-bottom:12px" data-i18n="hosp_setup_text">Dodaj szpitale i ich pojemność. Pomiń, aby zachować domyślne.</p>
+      <div id="hospSetupList" style="display:flex;flex-direction:column;gap:6px;margin-bottom:12px;max-height:200px;overflow-y:auto"></div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <input class="event-input" id="hospSetupName" style="width:100%;font-size:14px;padding:10px 12px" placeholder="Nazwa szpitala..." data-i18n-placeholder="hosp_setup_name_placeholder">
+        <div style="display:flex;gap:10px;align-items:center">
+          <label style="display:flex;align-items:center;gap:4px;color:var(--text2);font-size:14px">🔴<input type="number" class="cap-input" id="hospSetupRed" min="0" placeholder="0" style="width:56px;padding:8px 4px;font-size:16px;text-align:center;border-radius:6px;border:2px solid var(--border)"></label>
+          <label style="display:flex;align-items:center;gap:4px;color:var(--text2);font-size:14px">🟡<input type="number" class="cap-input" id="hospSetupYellow" min="0" placeholder="0" style="width:56px;padding:8px 4px;font-size:16px;text-align:center;border-radius:6px;border:2px solid var(--border)"></label>
+        </div>
+        <button class="btn-dispatch" style="width:100%;padding:10px 14px;font-size:14px" onclick="addHospitalSetupItem()" data-i18n="hosp_setup_add">+ DODAJ SZPITAL</button>
+      </div>
+    </div>
+    <div class="modal-footer" style="justify-content:flex-end;gap:8px;padding:12px 16px">
+      <button class="btn-modal-close" onclick="skipHospitalSetup()" data-i18n="hosp_setup_skip">POMIŃ (DOMYŚLNE)</button>
+      <button class="btn-dispatch" style="padding:8px 20px;font-size:12px" onclick="confirmHospitalSetup()" data-i18n="hosp_setup_confirm">ZATWIERDŹ</button>
     </div>
   </div>
 </div>
@@ -2079,6 +2150,20 @@ const TRANSLATIONS = {
     gdm_input_placeholder: 'Imię i nazwisko GDM',
     gdm_skip: 'POMIŃ',
     gdm_save: 'ZAPISZ',
+    hosp_setup_title: 'Szpitale docelowe',
+    hosp_setup_text: 'Dodaj szpitale i ich pojemność. Pomiń, aby zachować domyślne.',
+    hosp_setup_name_placeholder: 'Nazwa szpitala...',
+    hosp_setup_skip: 'POMIŃ (DOMYŚLNE)',
+    hosp_setup_confirm: 'ZATWIERDŹ',
+    hosp_setup_add: '+ DODAJ SZPITAL',
+    team_setup_title: 'Zespoły ZRM',
+    team_setup_text: 'Czy znasz zespoły ZRM zadysponowane na miejsce zdarzenia?',
+    team_setup_name_placeholder: 'np. G0119 — karetka S',
+    team_setup_yes: 'TAK, ZNAM ZESPOŁY',
+    team_setup_no: 'NIE, UŻYJ DOMYŚLNYCH',
+    team_setup_add: '+ DODAJ ZESPÓŁ',
+    team_setup_skip: 'POMIŃ (DOMYŚLNE)',
+    team_setup_confirm: 'ZATWIERDŹ',
     btn_end_event: 'ZAKOŃCZ ZDARZENIE',
     btn_revert_end: 'COFNIJ ZAKOŃCZENIE',
     confirm_end_event: 'Czy na pewno chcesz zakończyć zdarzenie?',
@@ -2101,6 +2186,13 @@ const TRANSLATIONS = {
     cl_200_5: 'Przycisk zakończenia zdarzenia (odwracalny)',
     cl_200_6: 'Potwierdzenie retriażu z historią zmian',
     cl_200_7: 'Zmiana szpitala w trakcie transportu',
+    cl_210_1: 'Modal konfiguracji zespołów ZRM przy pierwszym dysponowaniu',
+    cl_210_2: 'Modal konfiguracji szpitali z pojemnością przy pierwszym dysponowaniu',
+    cl_210_3: 'Inteligentne filtrowanie szpitali wg pojemności dla wybranego pacjenta',
+    cl_210_4: 'Poprawiono ostrzeżenie pojemności dla szpitali z zerową pojemnością',
+    cl_210_5: 'Pojemność szpitali na osobnej linii w widoku transportu',
+    cl_210_6: 'Większe i czytelniejsze pola płci, wieku i notatek',
+    cl_210_7: 'Dwurzędowy układ szpitali w panelu zarządzania',
   },
   en: {
     setup_subtitle: 'Mass Casualty Incident Management System',
@@ -2266,6 +2358,20 @@ const TRANSLATIONS = {
     gdm_input_placeholder: 'Medical Director name',
     gdm_skip: 'SKIP',
     gdm_save: 'SAVE',
+    hosp_setup_title: 'Destination hospitals',
+    hosp_setup_text: 'Add hospitals and their capacity. Skip to keep defaults.',
+    hosp_setup_name_placeholder: 'Hospital name...',
+    hosp_setup_skip: 'SKIP (DEFAULTS)',
+    hosp_setup_confirm: 'CONFIRM',
+    hosp_setup_add: '+ ADD HOSPITAL',
+    team_setup_title: 'EMS Teams',
+    team_setup_text: 'Do you know which EMS teams have been dispatched to the scene?',
+    team_setup_name_placeholder: 'e.g. ALS-01 ambulance',
+    team_setup_yes: 'YES, I KNOW THE TEAMS',
+    team_setup_no: 'NO, USE DEFAULTS',
+    team_setup_add: '+ ADD TEAM',
+    team_setup_skip: 'SKIP (DEFAULTS)',
+    team_setup_confirm: 'CONFIRM',
     btn_end_event: 'END EVENT',
     btn_revert_end: 'REVERT END',
     confirm_end_event: 'Are you sure you want to end the event?',
@@ -2288,6 +2394,13 @@ const TRANSLATIONS = {
     cl_200_5: 'Reversible event end button',
     cl_200_6: 'Retriage confirmation with change history',
     cl_200_7: 'Hospital change during transport',
+    cl_210_1: 'EMS team setup modal on first dispatch',
+    cl_210_2: 'Hospital setup modal with capacity on first dispatch',
+    cl_210_3: 'Smart hospital filtering by capacity for selected patient',
+    cl_210_4: 'Fixed capacity warning for hospitals with zero capacity',
+    cl_210_5: 'Hospital capacity on separate line in transport view',
+    cl_210_6: 'Larger and brighter sex, age and notes fields',
+    cl_210_7: 'Two-row hospital layout in manage panel',
   },
   it: {
     setup_subtitle: 'Sistema di gestione degli incidenti con vittime multiple',
@@ -2453,6 +2566,20 @@ const TRANSLATIONS = {
     gdm_input_placeholder: 'Nome del Direttore Medico',
     gdm_skip: 'SALTA',
     gdm_save: 'SALVA',
+    hosp_setup_title: 'Ospedali destinazione',
+    hosp_setup_text: 'Aggiungi ospedali e capacità. Salta per mantenere i predefiniti.',
+    hosp_setup_name_placeholder: 'Nome ospedale...',
+    hosp_setup_skip: 'SALTA (PREDEFINITI)',
+    hosp_setup_confirm: 'CONFERMA',
+    hosp_setup_add: '+ AGGIUNGI OSPEDALE',
+    team_setup_title: 'Squadre MSA/MSB',
+    team_setup_text: 'Conosci le squadre inviate sul posto?',
+    team_setup_name_placeholder: 'es. MSA-01 ambulanza',
+    team_setup_yes: 'SÌ, CONOSCO LE SQUADRE',
+    team_setup_no: 'NO, USA PREDEFINITE',
+    team_setup_add: '+ AGGIUNGI SQUADRA',
+    team_setup_skip: 'SALTA (PREDEFINITE)',
+    team_setup_confirm: 'CONFERMA',
     btn_end_event: 'TERMINA EVENTO',
     btn_revert_end: 'ANNULLA FINE',
     confirm_end_event: 'Sei sicuro di voler terminare l\'evento?',
@@ -2475,6 +2602,13 @@ const TRANSLATIONS = {
     cl_200_5: 'Pulsante fine evento reversibile',
     cl_200_6: 'Conferma retriage con cronologia modifiche',
     cl_200_7: 'Cambio ospedale durante il trasporto',
+    cl_210_1: 'Configurazione squadre al primo invio',
+    cl_210_2: 'Configurazione ospedali con capacità al primo invio',
+    cl_210_3: 'Filtro intelligente ospedali per capacità del paziente selezionato',
+    cl_210_4: 'Corretto avviso capacità per ospedali con capacità zero',
+    cl_210_5: 'Capacità ospedali su riga separata nella vista trasporti',
+    cl_210_6: 'Campi sesso, età e note più grandi e leggibili',
+    cl_210_7: 'Layout ospedali a due righe nel pannello gestione',
   },
   fr: {
     setup_subtitle: 'Système de gestion d\'incident à victimes multiples',
@@ -2640,6 +2774,20 @@ const TRANSLATIONS = {
     gdm_input_placeholder: 'Nom du Directeur Médical',
     gdm_skip: 'PASSER',
     gdm_save: 'ENREGISTRER',
+    hosp_setup_title: 'Hôpitaux de destination',
+    hosp_setup_text: 'Ajoutez des hôpitaux et leur capacité. Passez pour garder les défauts.',
+    hosp_setup_name_placeholder: 'Nom de l\'hôpital...',
+    hosp_setup_skip: 'PASSER (DÉFAUTS)',
+    hosp_setup_confirm: 'CONFIRMER',
+    hosp_setup_add: '+ AJOUTER HÔPITAL',
+    team_setup_title: 'Équipes SMUR/VSAV',
+    team_setup_text: 'Connaissez-vous les équipes envoyées sur les lieux ?',
+    team_setup_name_placeholder: 'ex. SMUR-01 ambulance',
+    team_setup_yes: 'OUI, JE CONNAIS LES ÉQUIPES',
+    team_setup_no: 'NON, UTILISER PAR DÉFAUT',
+    team_setup_add: '+ AJOUTER ÉQUIPE',
+    team_setup_skip: 'PASSER (DÉFAUT)',
+    team_setup_confirm: 'CONFIRMER',
     btn_end_event: 'TERMINER L\'ÉVÉNEMENT',
     btn_revert_end: 'ANNULER LA FIN',
     confirm_end_event: 'Êtes-vous sûr de vouloir terminer l\'événement ?',
@@ -2662,6 +2810,13 @@ const TRANSLATIONS = {
     cl_200_5: 'Bouton fin d\'événement réversible',
     cl_200_6: 'Confirmation de retriage avec historique',
     cl_200_7: 'Changement d\'hôpital pendant le transport',
+    cl_210_1: 'Configuration des équipes au premier envoi',
+    cl_210_2: 'Configuration des hôpitaux avec capacité au premier envoi',
+    cl_210_3: 'Filtrage intelligent des hôpitaux par capacité du patient sélectionné',
+    cl_210_4: 'Correction de l\'avertissement de capacité pour les hôpitaux à capacité zéro',
+    cl_210_5: 'Capacité des hôpitaux sur ligne séparée dans la vue transport',
+    cl_210_6: 'Champs sexe, âge et notes plus grands et lisibles',
+    cl_210_7: 'Disposition des hôpitaux sur deux lignes dans le panneau de gestion',
   },
   de: {
     setup_subtitle: 'Managementsystem für Massenanfälle von Verletzten',
@@ -2827,6 +2982,20 @@ const TRANSLATIONS = {
     gdm_input_placeholder: 'Name des Leitenden Notarztes',
     gdm_skip: 'ÜBERSPRINGEN',
     gdm_save: 'SPEICHERN',
+    hosp_setup_title: 'Zielkrankenhäuser',
+    hosp_setup_text: 'Krankenhäuser und Kapazität hinzufügen. Überspringen für Standardwerte.',
+    hosp_setup_name_placeholder: 'Krankenhausname...',
+    hosp_setup_skip: 'ÜBERSPRINGEN (STANDARD)',
+    hosp_setup_confirm: 'BESTÄTIGEN',
+    hosp_setup_add: '+ KRANKENHAUS HINZUFÜGEN',
+    team_setup_title: 'Rettungsteams',
+    team_setup_text: 'Kennen Sie die zum Einsatzort entsandten Teams?',
+    team_setup_name_placeholder: 'z.B. RTW-01 Rettungswagen',
+    team_setup_yes: 'JA, ICH KENNE DIE TEAMS',
+    team_setup_no: 'NEIN, STANDARD VERWENDEN',
+    team_setup_add: '+ TEAM HINZUFÜGEN',
+    team_setup_skip: 'ÜBERSPRINGEN (STANDARD)',
+    team_setup_confirm: 'BESTÄTIGEN',
     btn_end_event: 'EINSATZ BEENDEN',
     btn_revert_end: 'ENDE RÜCKGÄNGIG',
     confirm_end_event: 'Sind Sie sicher, dass Sie den Einsatz beenden möchten?',
@@ -2849,6 +3018,13 @@ const TRANSLATIONS = {
     cl_200_5: 'Umkehrbarer Einsatzende-Button',
     cl_200_6: 'Retriage-Bestätigung mit Änderungshistorie',
     cl_200_7: 'Krankenhauswechsel während Transport',
+    cl_210_1: 'Team-Konfiguration beim ersten Einsatz',
+    cl_210_2: 'Krankenhaus-Konfiguration mit Kapazität beim ersten Einsatz',
+    cl_210_3: 'Intelligente Krankenhausfilterung nach Kapazität des Patienten',
+    cl_210_4: 'Kapazitätswarnung für Krankenhäuser mit Nullkapazität korrigiert',
+    cl_210_5: 'Krankenhauskapazität auf separater Zeile in der Transportansicht',
+    cl_210_6: 'Größere und besser lesbare Felder für Geschlecht, Alter und Notizen',
+    cl_210_7: 'Zweizeiliges Krankenhauslayout im Verwaltungspanel',
   },
   cs: {
     setup_subtitle: 'Systém řízení hromadného neštěstí',
@@ -3014,6 +3190,20 @@ const TRANSLATIONS = {
     gdm_input_placeholder: 'Jméno vedoucího lékaře',
     gdm_skip: 'PŘESKOČIT',
     gdm_save: 'ULOŽIT',
+    hosp_setup_title: 'Cílové nemocnice',
+    hosp_setup_text: 'Přidejte nemocnice a kapacitu. Přeskočte pro výchozí.',
+    hosp_setup_name_placeholder: 'Název nemocnice...',
+    hosp_setup_skip: 'PŘESKOČIT (VÝCHOZÍ)',
+    hosp_setup_confirm: 'POTVRDIT',
+    hosp_setup_add: '+ PŘIDAT NEMOCNICI',
+    team_setup_title: 'Záchranné týmy',
+    team_setup_text: 'Znáte týmy vyslané na místo události?',
+    team_setup_name_placeholder: 'např. RZP-01 sanitka',
+    team_setup_yes: 'ANO, ZNÁM TÝMY',
+    team_setup_no: 'NE, POUŽÍT VÝCHOZÍ',
+    team_setup_add: '+ PŘIDAT TÝM',
+    team_setup_skip: 'PŘESKOČIT (VÝCHOZÍ)',
+    team_setup_confirm: 'POTVRDIT',
     btn_end_event: 'UKONČIT UDÁLOST',
     btn_revert_end: 'VRÁTIT UKONČENÍ',
     confirm_end_event: 'Opravdu chcete ukončit událost?',
@@ -3036,6 +3226,13 @@ const TRANSLATIONS = {
     cl_200_5: 'Vratitelné tlačítko ukončení události',
     cl_200_6: 'Potvrzení retriáže s historií změn',
     cl_200_7: 'Změna nemocnice během transportu',
+    cl_210_1: 'Konfigurace týmů při prvním vyslání',
+    cl_210_2: 'Konfigurace nemocnic s kapacitou při prvním vyslání',
+    cl_210_3: 'Inteligentní filtrování nemocnic podle kapacity pro vybraného pacienta',
+    cl_210_4: 'Opraveno varování kapacity pro nemocnice s nulovou kapacitou',
+    cl_210_5: 'Kapacita nemocnic na samostatném řádku v zobrazení transportu',
+    cl_210_6: 'Větší a čitelnější pole pro pohlaví, věk a poznámky',
+    cl_210_7: 'Dvouřádkové rozložení nemocnic v panelu správy',
   },
   pt: {
     setup_subtitle: 'Sistema de gestão de incidentes com múltiplas vítimas',
@@ -3201,6 +3398,20 @@ const TRANSLATIONS = {
     gdm_input_placeholder: 'Nome do Diretor Médico',
     gdm_skip: 'PULAR',
     gdm_save: 'SALVAR',
+    hosp_setup_title: 'Hospitais de destino',
+    hosp_setup_text: 'Adicione hospitais e capacidade. Pule para manter os padrões.',
+    hosp_setup_name_placeholder: 'Nome do hospital...',
+    hosp_setup_skip: 'PULAR (PADRÃO)',
+    hosp_setup_confirm: 'CONFIRMAR',
+    hosp_setup_add: '+ ADICIONAR HOSPITAL',
+    team_setup_title: 'Equipas VMER/SIV',
+    team_setup_text: 'Conhece as equipas enviadas para o local?',
+    team_setup_name_placeholder: 'ex. VMER-01 ambulância',
+    team_setup_yes: 'SIM, CONHEÇO AS EQUIPAS',
+    team_setup_no: 'NÃO, USAR PADRÃO',
+    team_setup_add: '+ ADICIONAR EQUIPA',
+    team_setup_skip: 'PULAR (PADRÃO)',
+    team_setup_confirm: 'CONFIRMAR',
     btn_end_event: 'ENCERRAR EVENTO',
     btn_revert_end: 'REVERTER ENCERRAMENTO',
     confirm_end_event: 'Tem certeza de que deseja encerrar o evento?',
@@ -3223,6 +3434,13 @@ const TRANSLATIONS = {
     cl_200_5: 'Botão reversível de encerramento do evento',
     cl_200_6: 'Confirmação de retriagem com histórico de alterações',
     cl_200_7: 'Alteração de hospital durante transporte',
+    cl_210_1: 'Configuração de equipas no primeiro envio',
+    cl_210_2: 'Configuração de hospitais com capacidade no primeiro envio',
+    cl_210_3: 'Filtragem inteligente de hospitais por capacidade do paciente selecionado',
+    cl_210_4: 'Corrigido aviso de capacidade para hospitais com capacidade zero',
+    cl_210_5: 'Capacidade dos hospitais em linha separada na vista de transporte',
+    cl_210_6: 'Campos de sexo, idade e notas maiores e mais legíveis',
+    cl_210_7: 'Layout de hospitais em duas linhas no painel de gestão',
   },
 };
 
@@ -3289,6 +3507,8 @@ let hospitals = (TRANSLATIONS[currentLang].default_hospitals || TRANSLATIONS.pl.
 let kamName = '';
 let gdmName = '';
 let gdmModalShown = false;
+let teamSetupShown = false;
+let hospitalSetupShown = false;
 let eventEndTime = '';
 
 // ===== PERSISTENCE =====
@@ -3296,7 +3516,7 @@ function saveState() {
   try {
     localStorage.setItem('triageAppState', JSON.stringify({
       eventName, eventTime, nextId, patients, transports, teams, hospitals, currentView,
-      kamName, gdmName, gdmModalShown, eventEndTime
+      kamName, gdmName, gdmModalShown, teamSetupShown, hospitalSetupShown, eventEndTime
     }));
   } catch(e) {}
 }
@@ -3317,6 +3537,8 @@ function loadState() {
     kamName = s.kamName || '';
     gdmName = s.gdmName || '';
     gdmModalShown = s.gdmModalShown || false;
+    teamSetupShown = s.teamSetupShown || false;
+    hospitalSetupShown = s.hospitalSetupShown || false;
     eventEndTime = s.eventEndTime || '';
     return true;
   } catch(e) { return false; }
@@ -3386,6 +3608,8 @@ function updateHeaderTime() {
 document.getElementById('eventNameInput').addEventListener('keydown', e => { if (e.key === 'Enter') startEvent(); });
 document.getElementById('kamNameInput').addEventListener('keydown', e => { if (e.key === 'Enter') startEvent(); });
 document.getElementById('gdmNameInput').addEventListener('keydown', e => { if (e.key === 'Enter') saveGdm(); });
+document.getElementById('teamSetupName').addEventListener('keydown', e => { if (e.key === 'Enter') addTeamSetupItem(); });
+document.getElementById('hospSetupName').addEventListener('keydown', e => { if (e.key === 'Enter') addHospitalSetupItem(); });
 
 // ===== VIEW SWITCHING =====
 let currentView = 'triage';
@@ -3398,6 +3622,8 @@ function switchView(v) {
   });
   if (v === 'triage' && !wizResult) resetWizard();
   if (v === 'dispatch' && !gdmModalShown && !gdmName) openGdmModal();
+  else if (v === 'dispatch' && !teamSetupShown) openTeamSetupModal();
+  else if (v === 'dispatch' && !hospitalSetupShown) openHospitalSetupModal();
   if (v === 'report') updateEndEventBtn();
   renderAll();
   saveState();
@@ -3602,20 +3828,7 @@ function refreshHospitalSelect() {
   const prevVal = document.getElementById('selHospital').value;
   const selPId = parseInt(document.getElementById('selPatient').value);
   const selP = selPId ? patients.find(x => x.id === selPId) : null;
-  let hHtml = '<option value="">' + t('select_hospital') + '</option>';
-  hospitals.forEach(h => {
-    const usage = getHospitalUsage(h.id);
-    let capInfo = '';
-    if (h.redCapacity > 0 || h.yellowCapacity > 0) {
-      const parts = [];
-      if (h.redCapacity > 0) parts.push('R:' + usage.red + '/' + h.redCapacity);
-      if (h.yellowCapacity > 0) parts.push('Y:' + usage.yellow + '/' + h.yellowCapacity);
-      capInfo = ' [' + parts.join(' ') + ']';
-    }
-    const warn = selP ? getCapacityWarning(h, selP.triage) : '';
-    hHtml += `<option value="${h.id}">${escHtml(h.name)}${capInfo}${warn}</option>`;
-  });
-  document.getElementById('selHospital').innerHTML = hHtml;
+  document.getElementById('selHospital').innerHTML = buildHospitalOptions(selP);
   document.getElementById('selHospital').value = prevVal;
 }
 
@@ -3775,24 +3988,10 @@ function renderDispatchSelects() {
   teams.filter(tm => !busyTeamIds.has(tm.id)).forEach(tm => { tHtml += `<option value="${tm.id}">${escHtml(tm.name)}</option>`; });
   document.getElementById('selTeam').innerHTML = tHtml;
 
-  // Get selected patient triage for capacity warning
+  // Get selected patient triage for capacity-aware filtering
   const selPId = parseInt(document.getElementById('selPatient').value);
   const selP = selPId ? patients.find(x => x.id === selPId) : null;
-
-  let hHtml = '<option value="">' + t('select_hospital') + '</option>';
-  hospitals.forEach(h => {
-    const usage = getHospitalUsage(h.id);
-    let capInfo = '';
-    if (h.redCapacity > 0 || h.yellowCapacity > 0) {
-      const parts = [];
-      if (h.redCapacity > 0) parts.push('R:' + usage.red + '/' + h.redCapacity);
-      if (h.yellowCapacity > 0) parts.push('Y:' + usage.yellow + '/' + h.yellowCapacity);
-      capInfo = ' [' + parts.join(' ') + ']';
-    }
-    const warn = selP ? getCapacityWarning(h, selP.triage) : '';
-    hHtml += `<option value="${h.id}">${escHtml(h.name)}${capInfo}${warn}</option>`;
-  });
-  document.getElementById('selHospital').innerHTML = hHtml;
+  document.getElementById('selHospital').innerHTML = buildHospitalOptions(selP);
 
   checkDispatchReady();
 }
@@ -3808,12 +4007,12 @@ function renderManage() {
   hospitals.forEach(h => {
     const usage = getHospitalUsage(h.id);
     hHtml += `<div class="manage-item manage-hospital-item">
-      <span>${escHtml(h.name)}</span>
-      <div class="cap-inputs">
+      <span style="grid-column:1;grid-row:1">${escHtml(h.name)}</span>
+      <button class="btn-rm" onclick="removeHospital(${h.id})" style="grid-column:2;grid-row:1/3;align-self:center">✕</button>
+      <div class="cap-inputs" style="grid-column:1;grid-row:2">
         <label class="cap-label">🔴<input type="number" class="cap-input" min="0" value="${h.redCapacity || ''}" placeholder="0" onchange="updateHospitalCapacity(${h.id},'redCapacity',this.value)" title="${t('capacity_red')}"></label>
         <label class="cap-label">🟡<input type="number" class="cap-input" min="0" value="${h.yellowCapacity || ''}" placeholder="0" onchange="updateHospitalCapacity(${h.id},'yellowCapacity',this.value)" title="${t('capacity_yellow')}"></label>
       </div>
-      <button class="btn-rm" onclick="removeHospital(${h.id})">✕</button>
     </div>`;
   });
   document.getElementById('hospitalsList').innerHTML = hHtml;
@@ -3879,7 +4078,7 @@ function renderReport() {
         capStr = ` <small style="color:var(--text3)">[${parts.join(' ')}]</small>`;
       }
       html += `<div class="report-block">
-        <div class="report-hospital">📍 ${escHtml(hospName)}${capStr} <small>(${pts.length} ${t('report_patients')})</small></div>`;
+        <div class="report-hospital">📍 ${escHtml(hospName)} <small>(${pts.length} ${t('report_patients')})</small>${capStr ? '<br>' + capStr : ''}</div>`;
 
       pts.forEach(p => {
         const team = teams.find(tm => tm.id === p.teamId);
@@ -4068,7 +4267,13 @@ document.getElementById('hospitalChangeModal').addEventListener('click', functio
 });
 
 // Close modal on Escape
-document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeInfo(); closeGdmModal(); closeRetriageModal(); closeHospitalChangeModal(); } });
+document.getElementById('teamSetupModal').addEventListener('click', function(e) {
+  if (e.target === this) skipTeamSetup();
+});
+document.getElementById('hospitalSetupModal').addEventListener('click', function(e) {
+  if (e.target === this) skipHospitalSetup();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeInfo(); closeGdmModal(); closeTeamSetupModal(); closeHospitalSetupModal(); closeRetriageModal(); closeHospitalChangeModal(); } });
 
 // ===== GDM MODAL =====
 function openGdmModal() {
@@ -4079,10 +4284,131 @@ function closeGdmModal() {
   document.getElementById('gdmModal').classList.remove('open');
   gdmModalShown = true;
   saveState();
+  if (!teamSetupShown) openTeamSetupModal();
+  else if (!hospitalSetupShown) openHospitalSetupModal();
 }
 function saveGdm() {
   gdmName = (document.getElementById('gdmNameInput').value || '').trim();
   closeGdmModal();
+}
+
+// ===== TEAM SETUP MODAL =====
+let teamSetupItems = [];
+
+function openTeamSetupModal() {
+  teamSetupItems = [];
+  renderTeamSetupList();
+  document.getElementById('teamSetupName').value = '';
+  document.getElementById('teamSetupForm').style.display = 'none';
+  document.getElementById('teamSetupChoice').style.display = 'flex';
+  document.getElementById('teamSetupFooter').style.display = 'none';
+  document.getElementById('teamSetupModal').classList.add('open');
+}
+function closeTeamSetupModal() {
+  document.getElementById('teamSetupModal').classList.remove('open');
+}
+function showTeamSetupForm() {
+  document.getElementById('teamSetupChoice').style.display = 'none';
+  document.getElementById('teamSetupForm').style.display = 'flex';
+  document.getElementById('teamSetupFooter').style.display = 'flex';
+  document.getElementById('teamSetupName').focus();
+}
+function addTeamSetupItem() {
+  const nameInput = document.getElementById('teamSetupName');
+  const name = (nameInput.value || '').trim();
+  if (!name) { nameInput.focus(); return; }
+  teamSetupItems.push({ name });
+  nameInput.value = '';
+  nameInput.focus();
+  renderTeamSetupList();
+}
+function removeTeamSetupItem(idx) {
+  teamSetupItems.splice(idx, 1);
+  renderTeamSetupList();
+}
+function renderTeamSetupList() {
+  const el = document.getElementById('teamSetupList');
+  if (!teamSetupItems.length) { el.innerHTML = ''; return; }
+  el.innerHTML = teamSetupItems.map((tm, i) =>
+    `<div style="display:flex;align-items:center;gap:8px;padding:6px 8px;background:var(--bg);border-radius:6px;">
+      <span style="flex:1;color:var(--white);font-size:13px">${escHtml(tm.name)}</span>
+      <button class="btn-rm" onclick="removeTeamSetupItem(${i})" style="font-size:10px;padding:2px 6px">✕</button>
+    </div>`
+  ).join('');
+}
+function skipTeamSetup() {
+  teamSetupShown = true;
+  saveState();
+  closeTeamSetupModal();
+  if (!hospitalSetupShown) openHospitalSetupModal();
+}
+function confirmTeamSetup() {
+  teamSetupShown = true;
+  if (teamSetupItems.length > 0) {
+    teams = teamSetupItems.map((tm, i) => ({ id: Date.now() + i, name: tm.name }));
+  }
+  renderAll();
+  saveState();
+  closeTeamSetupModal();
+  if (!hospitalSetupShown) openHospitalSetupModal();
+}
+
+// ===== HOSPITAL SETUP MODAL =====
+let hospSetupItems = [];
+
+function openHospitalSetupModal() {
+  hospSetupItems = [];
+  renderHospSetupList();
+  document.getElementById('hospSetupName').value = '';
+  document.getElementById('hospSetupRed').value = '';
+  document.getElementById('hospSetupYellow').value = '';
+  document.getElementById('hospitalSetupModal').classList.add('open');
+}
+function closeHospitalSetupModal() {
+  document.getElementById('hospitalSetupModal').classList.remove('open');
+}
+function addHospitalSetupItem() {
+  const nameInput = document.getElementById('hospSetupName');
+  const name = (nameInput.value || '').trim();
+  if (!name) { nameInput.focus(); return; }
+  const red = parseInt(document.getElementById('hospSetupRed').value) || 0;
+  const yellow = parseInt(document.getElementById('hospSetupYellow').value) || 0;
+  hospSetupItems.push({ name, redCapacity: red, yellowCapacity: yellow });
+  nameInput.value = '';
+  document.getElementById('hospSetupRed').value = '';
+  document.getElementById('hospSetupYellow').value = '';
+  nameInput.focus();
+  renderHospSetupList();
+}
+function removeHospSetupItem(idx) {
+  hospSetupItems.splice(idx, 1);
+  renderHospSetupList();
+}
+function renderHospSetupList() {
+  const el = document.getElementById('hospSetupList');
+  if (!hospSetupItems.length) { el.innerHTML = ''; return; }
+  el.innerHTML = hospSetupItems.map((h, i) =>
+    `<div style="display:flex;align-items:center;gap:8px;padding:6px 8px;background:var(--bg);border-radius:6px;">
+      <span style="flex:1;color:var(--white);font-size:13px">${escHtml(h.name)}</span>
+      ${h.redCapacity ? '<span style="font-size:11px">🔴' + h.redCapacity + '</span>' : ''}
+      ${h.yellowCapacity ? '<span style="font-size:11px">🟡' + h.yellowCapacity + '</span>' : ''}
+      <button class="btn-rm" onclick="removeHospSetupItem(${i})" style="font-size:10px;padding:2px 6px">✕</button>
+    </div>`
+  ).join('');
+}
+function skipHospitalSetup() {
+  hospitalSetupShown = true;
+  saveState();
+  closeHospitalSetupModal();
+}
+function confirmHospitalSetup() {
+  hospitalSetupShown = true;
+  if (hospSetupItems.length > 0) {
+    hospitals = hospSetupItems.map((h, i) => ({ id: Date.now() + i, name: h.name, redCapacity: h.redCapacity, yellowCapacity: h.yellowCapacity }));
+  }
+  renderAll();
+  saveState();
+  closeHospitalSetupModal();
 }
 
 // ===== EVENT END =====
@@ -4199,6 +4525,40 @@ function getCapacityWarning(hospital, patientTriage) {
   if (patientTriage === 'T1' && usage.red >= hospital.redCapacity) return ' ⚠ ' + t('capacity_full_red');
   if (patientTriage === 'T2' && usage.yellow >= hospital.yellowCapacity) return ' ⚠ ' + t('capacity_full_yellow');
   return '';
+}
+function hasCapacityFor(hospital, patientTriage) {
+  if (!hospital.redCapacity && !hospital.yellowCapacity) return true;
+  const usage = getHospitalUsage(hospital.id);
+  if (patientTriage === 'T1') return usage.red < hospital.redCapacity;
+  if (patientTriage === 'T2') return usage.yellow < hospital.yellowCapacity;
+  return true;
+}
+function buildHospitalOptions(selP) {
+  let hList = hospitals;
+  let allFull = false;
+  if (selP && (selP.triage === 'T1' || selP.triage === 'T2')) {
+    const withCap = hospitals.filter(h => hasCapacityFor(h, selP.triage));
+    if (withCap.length > 0) {
+      hList = withCap;
+    } else {
+      allFull = true;
+    }
+  }
+  let html = '<option value="">' + t('select_hospital') + '</option>';
+  hList.forEach(h => {
+    const usage = getHospitalUsage(h.id);
+    let capInfo = '';
+    if (h.redCapacity > 0 || h.yellowCapacity > 0) {
+      const parts = [];
+      const pt = selP ? selP.triage : null;
+      if (h.redCapacity > 0 && pt !== 'T2') parts.push('R:' + usage.red + '/' + h.redCapacity);
+      if (h.yellowCapacity > 0 && pt !== 'T1') parts.push('Y:' + usage.yellow + '/' + h.yellowCapacity);
+      if (parts.length) capInfo = ' [' + parts.join(' ') + ']';
+    }
+    const warn = allFull && selP ? getCapacityWarning(h, selP.triage) : '';
+    html += `<option value="${h.id}">${escHtml(h.name)}${capInfo}${warn}</option>`;
+  });
+  return html;
 }
 function updateHospitalCapacity(hospitalId, field, value) {
   const h = hospitals.find(x => x.id === hospitalId);
