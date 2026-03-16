@@ -1,1 +1,23 @@
 node_modules/
+
+# TWA / Bubblewrap / Android build
+*.apk
+*.aab
+*.idsig
+*.keystore
+*.jks
+app/
+build/
+.gradle/
+gradle/
+gradlew
+gradlew.bat
+build.gradle
+settings.gradle
+gradle.properties
+manifest-checksum.txt
+store_icon.png
+twa-manifest.json
+
+# Release zip
+*.zip
