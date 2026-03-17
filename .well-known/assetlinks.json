@@ -4,7 +4,8 @@
     "namespace": "android_app",
     "package_name": "io.github.jaqbek.triage",
     "sha256_cert_fingerprints": [
-      "78:B9:69:AD:2C:A2:04:B1:4F:D6:14:6F:68:1E:6C:6C:85:CC:90:23:EA:E0:61:2F:B6:FC:6F:2E:91:E5:AE:D3"
+      "78:B9:69:AD:2C:A2:04:B1:4F:D6:14:6F:68:1E:6C:6C:85:CC:90:23:EA:E0:61:2F:B6:FC:6F:2E:91:E5:AE:D3",
+      "AE:F4:37:AC:49:21:88:AA:EB:41:1A:93:63:89:78:9C:D6:E8:10:66:86:43:80:41:06:E0:6D:21:5A:25:EC:AD"
     ]
   }
 }]
