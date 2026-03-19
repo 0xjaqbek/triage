@@ -4553,8 +4553,8 @@ const ZONE_PATHS = {
 };
 
 let injuryModalPatientId = null;
-let injuryModalView = 'front';
 let injuryModalSelectedZone = null;
+let injuryModalZoneSnapshot = []; // snapshot of zone injuries before editing
 let pendingInjuries = {};
 
 function getInjuriesRef() {
@@ -4565,7 +4565,6 @@ function getInjuriesRef() {
 
 function openInjuryModal(patientId) {
   injuryModalPatientId = patientId;
-  injuryModalView = 'front';
   injuryModalSelectedZone = null;
   renderInjuryModal();
   document.getElementById('injuryModal').classList.add('open');
@@ -4573,26 +4572,56 @@ function openInjuryModal(patientId) {
 
 function openInjuryModalForResult() {
   injuryModalPatientId = null;
-  injuryModalView = 'front';
   injuryModalSelectedZone = null;
   renderInjuryModal();
   document.getElementById('injuryModal').classList.add('open');
 }
 
-function closeInjuryModal() {
+function confirmInjuryModal() {
   document.getElementById('injuryModal').classList.remove('open');
   if (injuryModalPatientId !== null) { renderAll(); saveState(); }
   updateResultInjuryBtn();
 }
 
-function switchInjuryView(view) {
-  injuryModalView = view;
+function rejectInjuryModal() {
+  // Revert all changes — restore from snapshot stored at open time
+  if (injuryModalPatientId !== null) {
+    const p = patients.find(x => x.id === injuryModalPatientId);
+    if (p) p.injuries = JSON.parse(injuryModalOpenSnapshot || '{}');
+  } else {
+    pendingInjuries = JSON.parse(injuryModalOpenSnapshot || '{}');
+  }
+  document.getElementById('injuryModal').classList.remove('open');
+  updateResultInjuryBtn();
+}
+
+let injuryModalOpenSnapshot = '{}';
+
+function closeInjuryModal() {
+  confirmInjuryModal();
+}
+
+function selectBodyZone(zone) {
+  injuryModalSelectedZone = zone;
+  const injuries = getInjuriesRef();
+  injuryModalZoneSnapshot = injuries[zone] ? [...injuries[zone]] : [];
+  renderInjuryZonePanel();
+}
+
+function confirmZoneInjuries() {
   injuryModalSelectedZone = null;
   renderInjuryModal();
 }
 
-function selectBodyZone(zone) {
-  injuryModalSelectedZone = (injuryModalSelectedZone === zone) ? null : zone;
+function rejectZoneInjuries() {
+  const injuries = getInjuriesRef();
+  const zone = injuryModalSelectedZone;
+  if (injuryModalZoneSnapshot.length > 0) {
+    injuries[zone] = [...injuryModalZoneSnapshot];
+  } else {
+    delete injuries[zone];
+  }
+  injuryModalSelectedZone = null;
   renderInjuryModal();
 }
 
@@ -4603,23 +4632,37 @@ function toggleInjury(zone, type) {
   if (idx >= 0) injuries[zone].splice(idx, 1);
   else injuries[zone].push(type);
   if (injuries[zone].length === 0) delete injuries[zone];
-  renderInjuryModal();
+  renderInjuryZonePanel();
+}
+
+function getSideLabels() {
+  // L/P for left/right sides — mirrored for back view
+  const map = {
+    pl: ['L', 'P'], en: ['L', 'R'], it: ['S', 'D'], fr: ['G', 'D'],
+    de: ['L', 'R'], cs: ['L', 'P'], pt: ['E', 'D']
+  };
+  return map[currentLang] || ['L', 'R'];
 }
 
 function renderBodySvg(injuries, view) {
   const zones = ZONE_PATHS[view];
+  const [leftLabel, rightLabel] = getSideLabels();
+  // For back view, left/right are mirrored visually
+  const svgLeft = view === 'front' ? leftLabel : rightLabel;
+  const svgRight = view === 'front' ? rightLabel : leftLabel;
   let paths = '';
   for (const [zone, d] of Object.entries(zones)) {
     const hasInj = injuries[zone] && injuries[zone].length > 0;
-    const isSel = injuryModalSelectedZone === zone;
-    const cls = 'body-zone' + (hasInj ? ' active' : '') + (isSel ? ' selected' : '');
+    const cls = 'body-zone' + (hasInj ? ' active' : '');
     paths += `<path d="${d}" class="${cls}" onclick="selectBodyZone('${zone}')" />`;
     if (hasInj) {
-      // Add count badge at approximate zone center
       const c = getZoneCenter(zone, view);
       paths += `<text x="${c[0]}" y="${c[1]}" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="700" pointer-events="none">${injuries[zone].length}</text>`;
     }
   }
+  // Side labels
+  paths += `<text x="3" y="60" fill="var(--text3)" font-size="9" font-weight="700">${svgLeft}</text>`;
+  paths += `<text x="93" y="60" fill="var(--text3)" font-size="9" font-weight="700">${svgRight}</text>`;
   const label = view === 'front' ? t('injury_view_front') : t('injury_view_back');
   return `<div style="text-align:center"><svg viewBox="0 0 100 220" xmlns="http://www.w3.org/2000/svg">${paths}</svg><div style="font-size:10px;color:var(--text3);margin-top:4px">${label}</div></div>`;
 }
@@ -4635,31 +4678,39 @@ function getZoneCenter(zone, view) {
 }
 
 function renderInjuryModal() {
+  injuryModalOpenSnapshot = JSON.stringify(getInjuriesRef());
   const injuries = getInjuriesRef();
   let html = '';
-  // View tabs
-  html += '<div class="injury-view-tabs">';
-  html += `<button class="injury-view-tab${injuryModalView === 'front' ? ' active' : ''}" onclick="switchInjuryView('front')">${t('injury_view_front')}</button>`;
-  html += `<button class="injury-view-tab${injuryModalView === 'back' ? ' active' : ''}" onclick="switchInjuryView('back')">${t('injury_view_back')}</button>`;
-  html += '</div>';
-  // SVGs side by side
+  // SVGs side by side — body diagram view
   html += '<div class="body-svg-wrap">';
   html += renderBodySvg(injuries, 'front');
   html += renderBodySvg(injuries, 'back');
   html += '</div>';
-  // Zone detail panel
-  if (injuryModalSelectedZone) {
-    const zone = injuryModalSelectedZone;
-    const zoneInj = injuries[zone] || [];
-    html += '<div class="zone-detail-panel">';
-    html += `<div class="zone-detail-title">${t('zone_' + zone)}</div>`;
-    html += '<div class="injury-toggles">';
-    INJURY_TYPES.forEach(type => {
-      const isActive = zoneInj.includes(type);
-      html += `<button class="injury-toggle${isActive ? ' active' : ''}" onclick="toggleInjury('${zone}','${type}')">${isActive ? '✓ ' : ''}${t('inj_' + type)}</button>`;
-    });
-    html += '</div></div>';
-  }
+  // Confirm / Reject buttons
+  html += '<div class="injury-view-tabs">';
+  html += `<button class="injury-view-tab" onclick="rejectInjuryModal()">✕ ${t('btn_no')}</button>`;
+  html += `<button class="injury-view-tab active" onclick="confirmInjuryModal()">✓ ${t('btn_yes')}</button>`;
+  html += '</div>';
+  document.getElementById('injuryModalBody').innerHTML = html;
+}
+
+function renderInjuryZonePanel() {
+  const injuries = getInjuriesRef();
+  const zone = injuryModalSelectedZone;
+  const zoneInj = injuries[zone] || [];
+  let html = '';
+  html += `<div class="zone-detail-title" style="margin-bottom:12px">${t('zone_' + zone)}</div>`;
+  html += '<div class="injury-toggles">';
+  INJURY_TYPES.forEach(type => {
+    const isActive = zoneInj.includes(type);
+    html += `<button class="injury-toggle${isActive ? ' active' : ''}" onclick="toggleInjury('${zone}','${type}')">${isActive ? '✓ ' : ''}${t('inj_' + type)}</button>`;
+  });
+  html += '</div>';
+  // Confirm / Reject zone
+  html += '<div class="injury-view-tabs" style="margin-top:12px">';
+  html += `<button class="injury-view-tab" onclick="rejectZoneInjuries()">✕ ${t('btn_no')}</button>`;
+  html += `<button class="injury-view-tab active" onclick="confirmZoneInjuries()">✓ ${t('btn_yes')}</button>`;
+  html += '</div>';
   document.getElementById('injuryModalBody').innerHTML = html;
 }
 
