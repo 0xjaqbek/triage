@@ -1505,6 +1505,64 @@ body.help-on .help-bubble:not(.dismissed) {
   color: var(--text3);
   font-weight: 600;
 }
+
+/* BODY INJURY DIAGRAM */
+.btn-injury-diagram {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: var(--surface);
+  border: 2px solid var(--border2);
+  color: var(--text2);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: var(--font);
+}
+.btn-injury-diagram.has-injuries { border-color: var(--red); color: var(--white); }
+
+.injury-view-tabs { display: flex; gap: 4px; margin-bottom: 12px; }
+.injury-view-tab {
+  flex: 1; padding: 8px; background: transparent; border: 1px solid var(--border);
+  color: var(--text2); border-radius: 6px; cursor: pointer; font-size: 12px;
+  font-weight: 700; font-family: var(--font); text-align: center;
+}
+.injury-view-tab.active { background: var(--red); color: #fff; border-color: var(--red); }
+
+.body-svg-wrap { display: flex; justify-content: center; gap: 16px; margin-bottom: 12px; }
+.body-svg-wrap svg { width: 140px; height: auto; }
+
+.body-zone {
+  fill: rgba(255,255,255,0.06); stroke: var(--text4); stroke-width: 1;
+  cursor: pointer; transition: fill 0.15s, stroke 0.15s;
+}
+.body-zone.active { fill: rgba(220,38,38,0.25); stroke: var(--red); stroke-width: 1.5; stroke-dasharray: 4 2; }
+.body-zone.selected { fill: rgba(220,38,38,0.4); stroke: var(--white); stroke-width: 2; stroke-dasharray: none; }
+
+.zone-detail-panel {
+  background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 12px;
+}
+.zone-detail-title {
+  font-size: 12px; font-weight: 700; color: var(--white);
+  text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px;
+}
+.injury-toggles { display: flex; flex-wrap: wrap; gap: 6px; }
+.injury-toggle {
+  padding: 8px 12px; background: var(--surface); border: 1px solid var(--border2);
+  color: var(--text2); border-radius: 20px; cursor: pointer; font-size: 13px;
+  font-weight: 600; font-family: var(--font); min-height: 36px;
+}
+.injury-toggle.active { background: var(--red); color: #fff; border-color: var(--red); }
+
+.btn-injury-mini {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 6px 10px; background: transparent; border: 1px dashed var(--border2);
+  color: var(--text3); border-radius: 6px; cursor: pointer; font-size: 11px;
+  font-family: var(--font); max-width: 100%; overflow: hidden; text-overflow: ellipsis;
+}
+.btn-injury-mini.has-data { border-color: var(--red); border-style: solid; color: var(--text2); }
 </style>
 </head>
 <body>
@@ -1780,6 +1838,9 @@ body.help-on .help-bubble:not(.dismissed) {
           </div>
         </div>
         <div style="margin-top:10px">
+          <button class="btn-injury-diagram" id="btnInjuryResult" onclick="openInjuryModalForResult()">🩻 <span data-i18n="btn_body_diagram">Obrażenia ciała</span></button>
+        </div>
+        <div style="margin-top:10px">
           <input class="p-notes" id="resultNotes" placeholder="Dodatkowe notatki (obrażenia, mechanizm...)" data-i18n-placeholder="notes_placeholder">
         </div>
         <div class="result-actions">
@@ -2009,6 +2070,17 @@ body.help-on .help-bubble:not(.dismissed) {
       <button class="btn-modal-close" onclick="closeHospitalChangeModal()" data-i18n="btn_cancel">ANULUJ</button>
       <button class="btn-dispatch" style="padding:8px 20px;font-size:12px" id="hospitalChangeConfirmBtn" data-i18n="btn_confirm">POTWIERDŹ</button>
     </div>
+  </div>
+</div>
+
+<!-- INJURY DIAGRAM MODAL -->
+<div class="modal-overlay" id="injuryModal">
+  <div class="modal" style="max-width:480px">
+    <div class="modal-header">
+      <div class="modal-title" data-i18n="injury_modal_title">Obrażenia ciała</div>
+      <button class="modal-close" onclick="closeInjuryModal()">&times;</button>
+    </div>
+    <div class="modal-body" id="injuryModalBody"></div>
   </div>
 </div>
 
@@ -2262,6 +2334,28 @@ const TRANSLATIONS = {
     cl_211_10: 'Pełna lista pacjentów (notatki, płeć, wiek, ścieżka) w raporcie tekstowym',
     cl_211_11: 'Karty pacjentów i transportów dostosowane do urządzeń mobilnych (większe przyciski, układ siatkowy)',
     cl_211_12: 'Formularz dysponowania dostosowany do urządzeń mobilnych (większe pola, pełna szerokość)',
+    injury_modal_title: 'Obrażenia ciała',
+    injury_view_front: 'PRZÓD',
+    injury_view_back: 'TYŁ',
+    btn_body_diagram: 'Obrażenia ciała',
+    btn_body_diagram_empty: 'Zaznacz obrażenia',
+    zone_head: 'Głowa',
+    zone_chest: 'Klatka piersiowa',
+    zone_abdomen: 'Brzuch',
+    zone_upperBack: 'Górna część pleców',
+    zone_lowerBack: 'Dolna część pleców',
+    zone_leftArm: 'Lewa ręka',
+    zone_rightArm: 'Prawa ręka',
+    zone_leftLeg: 'Lewa noga',
+    zone_rightLeg: 'Prawa noga',
+    inj_fracture: 'Złamanie',
+    inj_bleeding: 'Krwawienie',
+    inj_burn: 'Oparzenie',
+    inj_wound: 'Rana',
+    inj_swelling: 'Obrzęk',
+    inj_pain: 'Ból',
+    inj_amputation: 'Amputacja',
+    rpt_injuries: 'Obrażenia',
   },
   en: {
     setup_subtitle: 'Mass Casualty Incident Management System',
@@ -2486,6 +2580,28 @@ const TRANSLATIONS = {
     cl_211_10: 'Complete patient list (notes, sex, age, path) in text report',
     cl_211_11: 'Mobile-friendly patient and transport cards (bigger buttons, grid layout)',
     cl_211_12: 'Mobile-friendly dispatch form (bigger fields, full-width layout)',
+    injury_modal_title: 'Body Injuries',
+    injury_view_front: 'FRONT',
+    injury_view_back: 'BACK',
+    btn_body_diagram: 'Body injuries',
+    btn_body_diagram_empty: 'Mark injuries',
+    zone_head: 'Head',
+    zone_chest: 'Chest',
+    zone_abdomen: 'Abdomen',
+    zone_upperBack: 'Upper back',
+    zone_lowerBack: 'Lower back',
+    zone_leftArm: 'Left arm',
+    zone_rightArm: 'Right arm',
+    zone_leftLeg: 'Left leg',
+    zone_rightLeg: 'Right leg',
+    inj_fracture: 'Fracture',
+    inj_bleeding: 'Bleeding',
+    inj_burn: 'Burn',
+    inj_wound: 'Wound',
+    inj_swelling: 'Swelling',
+    inj_pain: 'Pain',
+    inj_amputation: 'Amputation',
+    rpt_injuries: 'Injuries',
   },
   it: {
     setup_subtitle: 'Sistema di gestione degli incidenti con vittime multiple',
@@ -2710,6 +2826,28 @@ const TRANSLATIONS = {
     cl_211_10: 'Elenco completo pazienti (note, sesso, età, percorso) nel rapporto testuale',
     cl_211_11: 'Schede pazienti e trasporti ottimizzate per dispositivi mobili (pulsanti più grandi, layout a griglia)',
     cl_211_12: 'Modulo di invio ottimizzato per dispositivi mobili (campi più grandi, larghezza piena)',
+    injury_modal_title: 'Lesioni corporee',
+    injury_view_front: 'DAVANTI',
+    injury_view_back: 'DIETRO',
+    btn_body_diagram: 'Lesioni corporee',
+    btn_body_diagram_empty: 'Segna lesioni',
+    zone_head: 'Testa',
+    zone_chest: 'Torace',
+    zone_abdomen: 'Addome',
+    zone_upperBack: 'Parte superiore della schiena',
+    zone_lowerBack: 'Parte inferiore della schiena',
+    zone_leftArm: 'Braccio sinistro',
+    zone_rightArm: 'Braccio destro',
+    zone_leftLeg: 'Gamba sinistra',
+    zone_rightLeg: 'Gamba destra',
+    inj_fracture: 'Frattura',
+    inj_bleeding: 'Emorragia',
+    inj_burn: 'Ustione',
+    inj_wound: 'Ferita',
+    inj_swelling: 'Gonfiore',
+    inj_pain: 'Dolore',
+    inj_amputation: 'Amputazione',
+    rpt_injuries: 'Lesioni',
   },
   fr: {
     setup_subtitle: 'Système de gestion d\'incident à victimes multiples',
@@ -2934,6 +3072,28 @@ const TRANSLATIONS = {
     cl_211_10: 'Liste complète des patients (notes, sexe, âge, parcours) dans le rapport texte',
     cl_211_11: 'Cartes patients et transports adaptées aux mobiles (boutons plus grands, disposition en grille)',
     cl_211_12: 'Formulaire d\'envoi adapté aux mobiles (champs plus grands, pleine largeur)',
+    injury_modal_title: 'Blessures corporelles',
+    injury_view_front: 'AVANT',
+    injury_view_back: 'DOS',
+    btn_body_diagram: 'Blessures corporelles',
+    btn_body_diagram_empty: 'Marquer les blessures',
+    zone_head: 'Tête',
+    zone_chest: 'Thorax',
+    zone_abdomen: 'Abdomen',
+    zone_upperBack: 'Haut du dos',
+    zone_lowerBack: 'Bas du dos',
+    zone_leftArm: 'Bras gauche',
+    zone_rightArm: 'Bras droit',
+    zone_leftLeg: 'Jambe gauche',
+    zone_rightLeg: 'Jambe droite',
+    inj_fracture: 'Fracture',
+    inj_bleeding: 'Hémorragie',
+    inj_burn: 'Brûlure',
+    inj_wound: 'Plaie',
+    inj_swelling: 'Gonflement',
+    inj_pain: 'Douleur',
+    inj_amputation: 'Amputation',
+    rpt_injuries: 'Blessures',
   },
   de: {
     setup_subtitle: 'Managementsystem für Massenanfälle von Verletzten',
@@ -3158,6 +3318,28 @@ const TRANSLATIONS = {
     cl_211_10: 'Vollständige Patientenliste (Notizen, Geschlecht, Alter, Pfad) im Textbericht',
     cl_211_11: 'Mobilfreundliche Patienten- und Transportkarten (größere Schaltflächen, Rasterlayout)',
     cl_211_12: 'Mobilfreundliches Versandformular (größere Felder, volle Breite)',
+    injury_modal_title: 'Körperverletzungen',
+    injury_view_front: 'VORNE',
+    injury_view_back: 'HINTEN',
+    btn_body_diagram: 'Körperverletzungen',
+    btn_body_diagram_empty: 'Verletzungen markieren',
+    zone_head: 'Kopf',
+    zone_chest: 'Brustkorb',
+    zone_abdomen: 'Bauch',
+    zone_upperBack: 'Oberer Rücken',
+    zone_lowerBack: 'Unterer Rücken',
+    zone_leftArm: 'Linker Arm',
+    zone_rightArm: 'Rechter Arm',
+    zone_leftLeg: 'Linkes Bein',
+    zone_rightLeg: 'Rechtes Bein',
+    inj_fracture: 'Fraktur',
+    inj_bleeding: 'Blutung',
+    inj_burn: 'Verbrennung',
+    inj_wound: 'Wunde',
+    inj_swelling: 'Schwellung',
+    inj_pain: 'Schmerz',
+    inj_amputation: 'Amputation',
+    rpt_injuries: 'Verletzungen',
   },
   cs: {
     setup_subtitle: 'Systém řízení hromadného neštěstí',
@@ -3382,6 +3564,28 @@ const TRANSLATIONS = {
     cl_211_10: 'Kompletní seznam pacientů (poznámky, pohlaví, věk, cesta) v textové zprávě',
     cl_211_11: 'Karty pacientů a transportů přizpůsobené mobilním zařízením (větší tlačítka, mřížkové rozložení)',
     cl_211_12: 'Formulář odesílání přizpůsobený mobilním zařízením (větší pole, plná šířka)',
+    injury_modal_title: 'Tělesná zranění',
+    injury_view_front: 'ZEPŘEDU',
+    injury_view_back: 'ZEZADU',
+    btn_body_diagram: 'Tělesná zranění',
+    btn_body_diagram_empty: 'Označit zranění',
+    zone_head: 'Hlava',
+    zone_chest: 'Hrudník',
+    zone_abdomen: 'Břicho',
+    zone_upperBack: 'Horní záda',
+    zone_lowerBack: 'Dolní záda',
+    zone_leftArm: 'Levá paže',
+    zone_rightArm: 'Pravá paže',
+    zone_leftLeg: 'Levá noha',
+    zone_rightLeg: 'Pravá noha',
+    inj_fracture: 'Zlomenina',
+    inj_bleeding: 'Krvácení',
+    inj_burn: 'Popálenina',
+    inj_wound: 'Rána',
+    inj_swelling: 'Otok',
+    inj_pain: 'Bolest',
+    inj_amputation: 'Amputace',
+    rpt_injuries: 'Zranění',
   },
   pt: {
     setup_subtitle: 'Sistema de gestão de incidentes com múltiplas vítimas',
@@ -3606,6 +3810,28 @@ const TRANSLATIONS = {
     cl_211_10: 'Lista completa de pacientes (notas, sexo, idade, percurso) no relatório de texto',
     cl_211_11: 'Cartões de pacientes e transportes adaptados a dispositivos móveis (botões maiores, layout em grelha)',
     cl_211_12: 'Formulário de despacho adaptado a dispositivos móveis (campos maiores, largura total)',
+    injury_modal_title: 'Lesões corporais',
+    injury_view_front: 'FRENTE',
+    injury_view_back: 'COSTAS',
+    btn_body_diagram: 'Lesões corporais',
+    btn_body_diagram_empty: 'Marcar lesões',
+    zone_head: 'Cabeça',
+    zone_chest: 'Tórax',
+    zone_abdomen: 'Abdómen',
+    zone_upperBack: 'Parte superior das costas',
+    zone_lowerBack: 'Parte inferior das costas',
+    zone_leftArm: 'Braço esquerdo',
+    zone_rightArm: 'Braço direito',
+    zone_leftLeg: 'Perna esquerda',
+    zone_rightLeg: 'Perna direita',
+    inj_fracture: 'Fratura',
+    inj_bleeding: 'Hemorragia',
+    inj_burn: 'Queimadura',
+    inj_wound: 'Ferida',
+    inj_swelling: 'Inchaço',
+    inj_pain: 'Dor',
+    inj_amputation: 'Amputação',
+    rpt_injuries: 'Lesões',
   },
 };
 
@@ -3694,7 +3920,7 @@ function loadState() {
     eventName = s.eventName || '';
     eventTime = s.eventTime || '';
     nextId = s.nextId || 1;
-    patients = (s.patients || []).map(p => ({ triageHistory: [], hospitalChangeHistory: [], sex: '', age: '', ...p }));
+    patients = (s.patients || []).map(p => ({ triageHistory: [], hospitalChangeHistory: [], sex: '', age: '', injuries: {}, ...p }));
     transports = s.transports || [];
     teams = s.teams || [];
     hospitals = (s.hospitals || []).map(h => ({ redCapacity: 0, yellowCapacity: 0, ...h }));
@@ -3822,6 +4048,8 @@ function resetWizard() {
   document.getElementById('resultNotes').value = '';
   if (document.getElementById('patientSex')) { document.getElementById('patientSex').value = ''; document.querySelectorAll('.sex-btn').forEach(b => b.classList.remove('active')); }
   if (document.getElementById('patientAge')) document.getElementById('patientAge').value = '';
+  pendingInjuries = {};
+  updateResultInjuryBtn();
   renderWizard();
 }
 
@@ -3911,18 +4139,18 @@ function confirmPatient() {
   if (!wizResult) return;
   const notes = document.getElementById('resultNotes').value.trim();
   const pathStr = wizPath.map(p => p.question.split('.')[0].trim() + ': ' + p.answer).join(', ');
-  addPatient(wizResult, notes, pathStr);
+  addPatient(wizResult, notes, pathStr, pendingInjuries);
   resetWizard();
 }
 
 // ===== PATIENTS =====
-function addPatient(triage, notes, pathInfo) {
+function addPatient(triage, notes, pathInfo, injuries) {
   const id = nextId++;
   const sex = document.getElementById('patientSex') ? document.getElementById('patientSex').value : '';
   const age = document.getElementById('patientAge') ? document.getElementById('patientAge').value : '';
   patients.unshift({
     id, tag: 'P-' + String(id).padStart(3, '0'), triage, time: now(),
-    notes: notes || '', pathInfo: pathInfo || '', status: 'na_miejscu', teamId: null, hospitalId: null, dispatchTime: null,
+    notes: notes || '', pathInfo: pathInfo || '', injuries: injuries || {}, status: 'na_miejscu', teamId: null, hospitalId: null, dispatchTime: null,
     sex: sex || '', age: age || '', triageHistory: [], hospitalChangeHistory: []
   });
   renderAll();
@@ -4090,6 +4318,7 @@ function renderPatients() {
         <div class="p-time">${t(p.triage.toLowerCase()+'_text')}${demoStr ? ' • ' + demoStr : ''} • ${p.time}${(p.triageHistory && p.triageHistory.length) ? ' <span class="retriage-badge" title="' + p.triageHistory.map(h=>h.from+'→'+h.to+' '+h.time).join(', ') + '">↺' + p.triageHistory.length + '</span>' : ''}</div>
       </div>
       <button class="btn-remove" onclick="removePatient(${p.id})" title="${t('btn_remove')}">✕</button>
+      <div style="grid-column:1/-1"><button class="btn-injury-mini${Object.keys(p.injuries||{}).length ? ' has-data' : ''}" onclick="openInjuryModal(${p.id})">🩻 ${Object.keys(p.injuries||{}).length ? injurySummaryText(p.injuries) : t('btn_body_diagram_empty')}</button></div>
       <input class="p-notes" placeholder="${t('notes_placeholder2')}" value="${escHtml(p.notes)}" oninput="updateNotes(${p.id},this.value)">
       <div class="p-card-actions">
         <div class="triage-dots">${dots}</div>
@@ -4266,6 +4495,7 @@ function renderReport() {
           <span style="color:var(--text3);font-size:10px">${t('report_departure')} ${p.dispatchTime || '—'}</span>
           <span class="status-badge ${statusCls}">${statusTxt}</span>
           ${retriageHtml}${hospChangeHtml}
+          ${injurySummaryText(p.injuries) ? `<div style="font-size:10px;color:var(--text3);width:100%">🩻 ${escHtml(injurySummaryText(p.injuries))}</div>` : ''}
         </div>`;
       });
       html += `</div>`;
@@ -4286,6 +4516,7 @@ function renderReport() {
         ${demoStr ? `<span style="color:var(--text3);font-size:11px">${demoStr}</span>` : ''}
         <span style="color:var(--text2)">${t(p.triage.toLowerCase()+'_text')}</span>
         ${p.notes ? `<span style="color:var(--text);font-size:11px">– ${escHtml(p.notes)}</span>` : ''}
+        ${injurySummaryText(p.injuries) ? `<div style="font-size:10px;color:var(--text3);width:100%">🩻 ${escHtml(injurySummaryText(p.injuries))}</div>` : ''}
       </div>`;
     });
     html += `</div>`;
@@ -4293,6 +4524,167 @@ function renderReport() {
 
   document.getElementById('reportContent').innerHTML = html;
 }
+
+// ===== BODY INJURY DIAGRAM =====
+const INJURY_TYPES = ['fracture', 'bleeding', 'burn', 'wound', 'swelling', 'pain', 'amputation'];
+const FRONT_ZONES = ['head', 'chest', 'abdomen', 'leftArm', 'rightArm', 'leftLeg', 'rightLeg'];
+const BACK_ZONES = ['head', 'upperBack', 'lowerBack', 'leftArm', 'rightArm', 'leftLeg', 'rightLeg'];
+
+// SVG paths for body zones (simple stylized silhouette, viewBox 0 0 100 220)
+const ZONE_PATHS = {
+  front: {
+    head: 'M42,8 Q42,0 50,0 Q58,0 58,8 L58,22 Q58,28 50,28 Q42,28 42,22 Z',
+    chest: 'M32,32 L68,32 L70,70 L30,70 Z',
+    abdomen: 'M30,70 L70,70 L68,100 L32,100 Z',
+    leftArm: 'M12,34 L30,32 L28,70 L24,90 L16,90 L20,70 L12,34 Z',
+    rightArm: 'M88,34 L70,32 L72,70 L76,90 L84,90 L80,70 L88,34 Z',
+    leftLeg: 'M32,100 L50,102 L48,160 L44,210 L34,210 L36,160 L30,100 Z',
+    rightLeg: 'M68,100 L50,102 L52,160 L56,210 L66,210 L64,160 L70,100 Z'
+  },
+  back: {
+    head: 'M42,8 Q42,0 50,0 Q58,0 58,8 L58,22 Q58,28 50,28 Q42,28 42,22 Z',
+    upperBack: 'M32,32 L68,32 L70,66 L30,66 Z',
+    lowerBack: 'M30,66 L70,66 L68,100 L32,100 Z',
+    leftArm: 'M12,34 L30,32 L28,70 L24,90 L16,90 L20,70 L12,34 Z',
+    rightArm: 'M88,34 L70,32 L72,70 L76,90 L84,90 L80,70 L88,34 Z',
+    leftLeg: 'M32,100 L50,102 L48,160 L44,210 L34,210 L36,160 L30,100 Z',
+    rightLeg: 'M68,100 L50,102 L52,160 L56,210 L66,210 L64,160 L70,100 Z'
+  }
+};
+
+let injuryModalPatientId = null;
+let injuryModalView = 'front';
+let injuryModalSelectedZone = null;
+let pendingInjuries = {};
+
+function getInjuriesRef() {
+  if (injuryModalPatientId === null) return pendingInjuries;
+  const p = patients.find(x => x.id === injuryModalPatientId);
+  return p ? p.injuries : {};
+}
+
+function openInjuryModal(patientId) {
+  injuryModalPatientId = patientId;
+  injuryModalView = 'front';
+  injuryModalSelectedZone = null;
+  renderInjuryModal();
+  document.getElementById('injuryModal').classList.add('open');
+}
+
+function openInjuryModalForResult() {
+  injuryModalPatientId = null;
+  injuryModalView = 'front';
+  injuryModalSelectedZone = null;
+  renderInjuryModal();
+  document.getElementById('injuryModal').classList.add('open');
+}
+
+function closeInjuryModal() {
+  document.getElementById('injuryModal').classList.remove('open');
+  if (injuryModalPatientId !== null) { renderAll(); saveState(); }
+  updateResultInjuryBtn();
+}
+
+function switchInjuryView(view) {
+  injuryModalView = view;
+  injuryModalSelectedZone = null;
+  renderInjuryModal();
+}
+
+function selectBodyZone(zone) {
+  injuryModalSelectedZone = (injuryModalSelectedZone === zone) ? null : zone;
+  renderInjuryModal();
+}
+
+function toggleInjury(zone, type) {
+  const injuries = getInjuriesRef();
+  if (!injuries[zone]) injuries[zone] = [];
+  const idx = injuries[zone].indexOf(type);
+  if (idx >= 0) injuries[zone].splice(idx, 1);
+  else injuries[zone].push(type);
+  if (injuries[zone].length === 0) delete injuries[zone];
+  renderInjuryModal();
+}
+
+function renderBodySvg(injuries, view) {
+  const zones = ZONE_PATHS[view];
+  let paths = '';
+  for (const [zone, d] of Object.entries(zones)) {
+    const hasInj = injuries[zone] && injuries[zone].length > 0;
+    const isSel = injuryModalSelectedZone === zone;
+    const cls = 'body-zone' + (hasInj ? ' active' : '') + (isSel ? ' selected' : '');
+    paths += `<path d="${d}" class="${cls}" onclick="selectBodyZone('${zone}')" />`;
+    if (hasInj) {
+      // Add count badge at approximate zone center
+      const c = getZoneCenter(zone, view);
+      paths += `<text x="${c[0]}" y="${c[1]}" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="700" pointer-events="none">${injuries[zone].length}</text>`;
+    }
+  }
+  const label = view === 'front' ? t('injury_view_front') : t('injury_view_back');
+  return `<div style="text-align:center"><svg viewBox="0 0 100 220" xmlns="http://www.w3.org/2000/svg">${paths}</svg><div style="font-size:10px;color:var(--text3);margin-top:4px">${label}</div></div>`;
+}
+
+function getZoneCenter(zone, view) {
+  const centers = {
+    head: [50, 14], chest: [50, 51], abdomen: [50, 85],
+    upperBack: [50, 49], lowerBack: [50, 83],
+    leftArm: [22, 60], rightArm: [78, 60],
+    leftLeg: [41, 155], rightLeg: [59, 155]
+  };
+  return centers[zone] || [50, 50];
+}
+
+function renderInjuryModal() {
+  const injuries = getInjuriesRef();
+  let html = '';
+  // View tabs
+  html += '<div class="injury-view-tabs">';
+  html += `<button class="injury-view-tab${injuryModalView === 'front' ? ' active' : ''}" onclick="switchInjuryView('front')">${t('injury_view_front')}</button>`;
+  html += `<button class="injury-view-tab${injuryModalView === 'back' ? ' active' : ''}" onclick="switchInjuryView('back')">${t('injury_view_back')}</button>`;
+  html += '</div>';
+  // SVGs side by side
+  html += '<div class="body-svg-wrap">';
+  html += renderBodySvg(injuries, 'front');
+  html += renderBodySvg(injuries, 'back');
+  html += '</div>';
+  // Zone detail panel
+  if (injuryModalSelectedZone) {
+    const zone = injuryModalSelectedZone;
+    const zoneInj = injuries[zone] || [];
+    html += '<div class="zone-detail-panel">';
+    html += `<div class="zone-detail-title">${t('zone_' + zone)}</div>`;
+    html += '<div class="injury-toggles">';
+    INJURY_TYPES.forEach(type => {
+      const isActive = zoneInj.includes(type);
+      html += `<button class="injury-toggle${isActive ? ' active' : ''}" onclick="toggleInjury('${zone}','${type}')">${isActive ? '✓ ' : ''}${t('inj_' + type)}</button>`;
+    });
+    html += '</div></div>';
+  }
+  document.getElementById('injuryModalBody').innerHTML = html;
+}
+
+function injurySummaryText(injuries) {
+  if (!injuries) return '';
+  const parts = [];
+  for (const [zone, types] of Object.entries(injuries)) {
+    if (types && types.length > 0) parts.push(t('zone_' + zone) + ': ' + types.map(ty => t('inj_' + ty)).join(', '));
+  }
+  return parts.join(' | ');
+}
+
+function updateResultInjuryBtn() {
+  const btn = document.getElementById('btnInjuryResult');
+  if (!btn) return;
+  const summary = injurySummaryText(pendingInjuries);
+  const hasInj = Object.keys(pendingInjuries).length > 0;
+  btn.className = 'btn-injury-diagram' + (hasInj ? ' has-injuries' : '');
+  btn.innerHTML = '🩻 ' + (hasInj ? summary : t('btn_body_diagram'));
+}
+
+// Close injury modal on overlay click
+document.getElementById('injuryModal').addEventListener('click', function(e) {
+  if (e.target === this) closeInjuryModal();
+});
 
 // ===== REPORT MODAL =====
 function buildReportText() {
@@ -4319,6 +4711,8 @@ function buildReportText() {
     let line = `  ${p.tag}${demo ? ' ' + demo : ''} [${p.triage}]`;
     if (p.notes) line += ' – ' + p.notes;
     if (p.pathInfo) line += ' | ' + p.pathInfo;
+    const injText = injurySummaryText(p.injuries);
+    if (injText) line += ' | ' + t('rpt_injuries') + ': ' + injText;
     text += line + '\n';
   });
 
@@ -4455,7 +4849,7 @@ document.getElementById('teamSetupModal').addEventListener('click', function(e) 
 document.getElementById('hospitalSetupModal').addEventListener('click', function(e) {
   if (e.target === this) skipHospitalSetup();
 });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeInfo(); closeGdmModal(); closeTeamSetupModal(); closeHospitalSetupModal(); closeRetriageModal(); closeHospitalChangeModal(); } });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeInfo(); closeGdmModal(); closeTeamSetupModal(); closeHospitalSetupModal(); closeRetriageModal(); closeHospitalChangeModal(); closeInjuryModal(); } });
 
 // ===== GDM MODAL =====
 function openGdmModal() {
