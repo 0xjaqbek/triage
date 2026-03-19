@@ -1774,7 +1774,7 @@ body.help-on .help-bubble:not(.dismissed) {
             <span class="form-label" style="margin:0;font-size:14px;color:var(--text2)" data-i18n="age_label">Wiek:</span>
             <button type="button" class="age-step-btn" onclick="stepAge(-5)">−5</button>
             <button type="button" class="age-step-btn" onclick="stepAge(-1)">−1</button>
-            <input type="number" id="patientAge" class="age-input" value="" min="0" max="150" placeholder="—">
+            <input type="number" id="patientAge" class="age-input" value="" min="0" max="150" placeholder="—" oninput="if(this.value<0)this.value=0;if(this.value>150)this.value=150">
             <button type="button" class="age-step-btn" onclick="stepAge(1)">+1</button>
             <button type="button" class="age-step-btn" onclick="stepAge(5)">+5</button>
           </div>
@@ -4735,11 +4735,11 @@ function buildHospitalOptions(selP) {
       const pt = selP ? selP.triage : null;
       const redFull = h.redCapacity === 0 || usage.red >= h.redCapacity;
       const yellowFull = h.yellowCapacity === 0 || usage.yellow >= h.yellowCapacity;
-      if (h.redCapacity > 0 && (pt !== 'T2' || yellowFull)) parts.push('R:' + usage.red + '/' + h.redCapacity);
-      if (h.yellowCapacity > 0 && (pt !== 'T1' || redFull)) parts.push('Y:' + usage.yellow + '/' + h.yellowCapacity);
+      if (h.redCapacity > 0 && (pt !== 'T2' || yellowFull)) parts.push('🔴' + usage.red + '/' + h.redCapacity);
+      if (h.yellowCapacity > 0 && (pt !== 'T1' || redFull)) parts.push('🟡' + usage.yellow + '/' + h.yellowCapacity);
       // Show overlimit for the other category as a warning
-      if (pt === 'T2' && h.redCapacity > 0 && usage.red > h.redCapacity) parts.push('R:+' + (usage.red - h.redCapacity) + '!');
-      if (pt === 'T1' && h.yellowCapacity > 0 && usage.yellow > h.yellowCapacity) parts.push('Y:+' + (usage.yellow - h.yellowCapacity) + '!');
+      if (pt === 'T2' && h.redCapacity > 0 && usage.red > h.redCapacity) parts.push('🔴+' + (usage.red - h.redCapacity) + '!');
+      if (pt === 'T1' && h.yellowCapacity > 0 && usage.yellow > h.yellowCapacity) parts.push('🟡+' + (usage.yellow - h.yellowCapacity) + '!');
       if (parts.length) capInfo = ' [' + parts.join(' ') + ']';
     }
     const warn = allFull && selP ? getCapacityWarning(h, selP.triage) : '';
