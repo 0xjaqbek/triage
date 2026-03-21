@@ -91,45 +91,60 @@ input:focus { border-color: var(--blue); }
 .status { text-align: center; font-size: 13px; color: var(--green); margin-top: 8px; display: none; }
 .back { display: inline-block; margin-bottom: 12px; font-size: 13px; color: var(--blue); text-decoration: none; }
 .back:hover { text-decoration: underline; }
+.lang-select {
+  display: block; margin: 0 auto 16px; padding: 8px 12px;
+  background: var(--surface); color: var(--text); border: 1px solid var(--border2);
+  border-radius: 10px; font-size: 13px; font-weight: 700; font-family: var(--font); cursor: pointer;
+}
 </style>
 </head>
 <body>
 
 <a class="back" href="../">← TRIAGE MCI</a>
 
-<h1>Dyspozytor</h1>
-<p class="subtitle">Przygotuj dane dla zespołu w terenie</p>
+<select class="lang-select" id="langSelect" onchange="setLanguage(this.value)">
+  <option value="pl">🇵🇱 PL</option>
+  <option value="en">🇬🇧 EN</option>
+  <option value="it">🇮🇹 IT</option>
+  <option value="fr">🇫🇷 FR</option>
+  <option value="de">🇩🇪 DE</option>
+  <option value="cs">🇨🇿 CS</option>
+  <option value="pt">🇵🇹 PT</option>
+</select>
+
+<h1 data-i18n="title">Dyspozytor</h1>
+<p class="subtitle" data-i18n="subtitle">Przygotuj dane dla zespołu w terenie</p>
 
 <!-- EVENT NAME -->
 <div class="section">
-  <div class="section-title">📋 Nazwa zdarzenia</div>
-  <input type="text" id="eventInput" placeholder="np. MCI Kraków-Nowa Huta">
+  <div class="section-title" data-i18n="event_title">📋 Nazwa zdarzenia</div>
+  <input type="text" id="eventInput" data-i18n-placeholder="event_placeholder" placeholder="np. MCI Kraków-Nowa Huta">
 </div>
 
 <!-- GDM -->
 <div class="section">
-  <div class="section-title">👤 Główny Dyspozytor Medyczny (GDM)</div>
-  <input type="text" id="gdmInput" placeholder="Imię i nazwisko GDM">
+  <div class="section-title" data-i18n="gdm_title">👤 Główny Dyspozytor Medyczny (GDM)</div>
+  <input type="text" id="gdmInput" data-i18n-placeholder="gdm_placeholder" placeholder="Imię i nazwisko GDM">
 </div>
 
 <!-- ZRM TEAMS -->
 <div class="section">
-  <div class="section-title">🚑 Zespoły ZRM</div>
-  <div class="section-desc">Zespoły zadysponowane na miejsce zdarzenia</div>
+  <div class="section-title" data-i18n="zrm_title">🚑 Zespoły ZRM</div>
+  <div class="section-desc" data-i18n="zrm_desc">Zespoły zadysponowane na miejsce zdarzenia</div>
   <div id="teamList"></div>
   <div class="add-row">
-    <input type="text" id="teamNameInput" placeholder="Nazwa zespołu (np. K01 Kraków)">
+    <input type="text" id="teamNameInput" data-i18n-placeholder="zrm_placeholder" placeholder="Nazwa zespołu (np. K01 Kraków)">
     <button class="btn btn-add" style="width:auto;min-width:44px;padding:10px" onclick="addTeam()">+</button>
   </div>
 </div>
 
 <!-- HOSPITALS -->
 <div class="section">
-  <div class="section-title">🏥 Szpitale docelowe</div>
-  <div class="section-desc">Szpitale i ich pojemność łóżkowa (WSZYSTKIE łóżka)</div>
+  <div class="section-title" data-i18n="hosp_title">🏥 Szpitale docelowe</div>
+  <div class="section-desc" data-i18n="hosp_desc">Szpitale i ich pojemność łóżkowa (WSZYSTKIE łóżka)</div>
   <div id="hospList"></div>
   <div style="margin-top:8px">
-    <input type="text" id="hospNameInput" placeholder="Nazwa szpitala" style="margin-bottom:6px">
+    <input type="text" id="hospNameInput" data-i18n-placeholder="hosp_name_placeholder" placeholder="Nazwa szpitala" style="margin-bottom:6px">
     <div class="hosp-caps">
       <label>🔴<input type="number" class="cap-red" id="hospRedInput" min="0" placeholder="0"></label>
       <label>🟡<input type="number" class="cap-yellow" id="hospYellowInput" min="0" placeholder="0"></label>
@@ -143,17 +158,205 @@ input:focus { border-color: var(--blue); }
 
 <!-- ACTIONS -->
 <div class="actions">
-  <button class="btn btn-primary" onclick="generateAndPreview()">📋 Podgląd danych</button>
-  <button class="btn btn-green" onclick="sendSms()">📱 Wyślij SMS</button>
-  <button class="btn btn-outline" onclick="copyData()">📋 Kopiuj dane</button>
+  <button class="btn btn-primary" onclick="generateAndPreview()" data-i18n="btn_preview">📋 Podgląd danych</button>
+  <button class="btn btn-green" onclick="sendSms()" data-i18n="btn_sms">📱 Wyślij SMS</button>
+  <button class="btn btn-outline" onclick="copyData()" data-i18n="btn_copy">📋 Kopiuj dane</button>
 </div>
 
 <div class="output-box" id="outputBox"></div>
 <div class="status" id="status"></div>
 
 <script>
+const TRANSLATIONS = {
+  pl: {
+    title: 'Dyspozytor',
+    subtitle: 'Przygotuj dane dla zespołu w terenie',
+    event_title: '📋 Nazwa zdarzenia',
+    event_placeholder: 'np. MCI Kraków-Nowa Huta',
+    gdm_title: '👤 Główny Dyspozytor Medyczny (GDM)',
+    gdm_placeholder: 'Imię i nazwisko GDM',
+    zrm_title: '🚑 Zespoły ZRM',
+    zrm_desc: 'Zespoły zadysponowane na miejsce zdarzenia',
+    zrm_placeholder: 'Nazwa zespołu (np. K01 Kraków)',
+    hosp_title: '🏥 Szpitale docelowe',
+    hosp_desc: 'Szpitale i ich pojemność łóżkowa (WSZYSTKIE łóżka)',
+    hosp_name_placeholder: 'Nazwa szpitala',
+    btn_preview: '📋 Podgląd danych',
+    btn_sms: '📱 Wyślij SMS',
+    btn_copy: '📋 Kopiuj dane',
+    preview_header: 'Podgląd danych do wysłania:',
+    preview_event: 'Zdarzenie',
+    preview_size: 'Rozmiar',
+    preview_chars: 'znaków',
+    status_empty: 'Wprowadź przynajmniej jedną daną',
+    status_copied: 'Skopiowano do schowka!'
+  },
+  en: {
+    title: 'Dispatcher',
+    subtitle: 'Prepare data for the field team',
+    event_title: '📋 Event name',
+    event_placeholder: 'e.g. MCI Kraków-Nowa Huta',
+    gdm_title: '👤 Medical Dispatch Manager (GDM)',
+    gdm_placeholder: 'GDM full name',
+    zrm_title: '🚑 EMS Teams',
+    zrm_desc: 'Teams dispatched to the incident scene',
+    zrm_placeholder: 'Team name (e.g. K01 Kraków)',
+    hosp_title: '🏥 Destination hospitals',
+    hosp_desc: 'Hospitals and their bed capacity (ALL beds)',
+    hosp_name_placeholder: 'Hospital name',
+    btn_preview: '📋 Preview data',
+    btn_sms: '📱 Send SMS',
+    btn_copy: '📋 Copy data',
+    preview_header: 'Data preview:',
+    preview_event: 'Event',
+    preview_size: 'Size',
+    preview_chars: 'characters',
+    status_empty: 'Enter at least one piece of data',
+    status_copied: 'Copied to clipboard!'
+  },
+  it: {
+    title: 'Dispatcher',
+    subtitle: 'Prepara i dati per la squadra sul campo',
+    event_title: '📋 Nome evento',
+    event_placeholder: 'es. MCI Kraków-Nowa Huta',
+    gdm_title: '👤 Responsabile Medico (GDM)',
+    gdm_placeholder: 'Nome e cognome GDM',
+    zrm_title: '🚑 Squadre ZRM',
+    zrm_desc: 'Squadre inviate sul luogo dell\'incidente',
+    zrm_placeholder: 'Nome squadra (es. K01 Kraków)',
+    hosp_title: '🏥 Ospedali di destinazione',
+    hosp_desc: 'Ospedali e capacità posti letto (TUTTI i posti)',
+    hosp_name_placeholder: 'Nome ospedale',
+    btn_preview: '📋 Anteprima dati',
+    btn_sms: '📱 Invia SMS',
+    btn_copy: '📋 Copia dati',
+    preview_header: 'Anteprima dei dati:',
+    preview_event: 'Evento',
+    preview_size: 'Dimensione',
+    preview_chars: 'caratteri',
+    status_empty: 'Inserisci almeno un dato',
+    status_copied: 'Copiato negli appunti!'
+  },
+  fr: {
+    title: 'Dispatcher',
+    subtitle: 'Préparez les données pour l\'équipe de terrain',
+    event_title: '📋 Nom de l\'événement',
+    event_placeholder: 'ex. MCI Kraków-Nowa Huta',
+    gdm_title: '👤 Directeur Médical (GDM)',
+    gdm_placeholder: 'Nom et prénom du GDM',
+    zrm_title: '🚑 Équipes ZRM',
+    zrm_desc: 'Équipes envoyées sur les lieux',
+    zrm_placeholder: 'Nom de l\'équipe (ex. K01 Kraków)',
+    hosp_title: '🏥 Hôpitaux de destination',
+    hosp_desc: 'Hôpitaux et capacité en lits (TOUS les lits)',
+    hosp_name_placeholder: 'Nom de l\'hôpital',
+    btn_preview: '📋 Aperçu des données',
+    btn_sms: '📱 Envoyer SMS',
+    btn_copy: '📋 Copier les données',
+    preview_header: 'Aperçu des données :',
+    preview_event: 'Événement',
+    preview_size: 'Taille',
+    preview_chars: 'caractères',
+    status_empty: 'Saisissez au moins une donnée',
+    status_copied: 'Copié dans le presse-papiers !'
+  },
+  de: {
+    title: 'Disponent',
+    subtitle: 'Daten für das Feldteam vorbereiten',
+    event_title: '📋 Ereignisname',
+    event_placeholder: 'z.B. MCI Kraków-Nowa Huta',
+    gdm_title: '👤 Leitender Disponent (GDM)',
+    gdm_placeholder: 'Vor- und Nachname GDM',
+    zrm_title: '🚑 ZRM-Teams',
+    zrm_desc: 'Zum Einsatzort entsandte Teams',
+    zrm_placeholder: 'Teamname (z.B. K01 Kraków)',
+    hosp_title: '🏥 Zielkrankenhäuser',
+    hosp_desc: 'Krankenhäuser und Bettenkapazität (ALLE Betten)',
+    hosp_name_placeholder: 'Krankenhausname',
+    btn_preview: '📋 Datenvorschau',
+    btn_sms: '📱 SMS senden',
+    btn_copy: '📋 Daten kopieren',
+    preview_header: 'Datenvorschau:',
+    preview_event: 'Ereignis',
+    preview_size: 'Größe',
+    preview_chars: 'Zeichen',
+    status_empty: 'Geben Sie mindestens ein Datum ein',
+    status_copied: 'In die Zwischenablage kopiert!'
+  },
+  cs: {
+    title: 'Dispečer',
+    subtitle: 'Připravte data pro tým v terénu',
+    event_title: '📋 Název události',
+    event_placeholder: 'např. MCI Kraków-Nowa Huta',
+    gdm_title: '👤 Hlavní dispečer (GDM)',
+    gdm_placeholder: 'Jméno a příjmení GDM',
+    zrm_title: '🚑 Týmy ZRM',
+    zrm_desc: 'Týmy vyslané na místo události',
+    zrm_placeholder: 'Název týmu (např. K01 Kraków)',
+    hosp_title: '🏥 Cílové nemocnice',
+    hosp_desc: 'Nemocnice a kapacita lůžek (VŠECHNA lůžka)',
+    hosp_name_placeholder: 'Název nemocnice',
+    btn_preview: '📋 Náhled dat',
+    btn_sms: '📱 Odeslat SMS',
+    btn_copy: '📋 Kopírovat data',
+    preview_header: 'Náhled dat:',
+    preview_event: 'Událost',
+    preview_size: 'Velikost',
+    preview_chars: 'znaků',
+    status_empty: 'Zadejte alespoň jeden údaj',
+    status_copied: 'Zkopírováno do schránky!'
+  },
+  pt: {
+    title: 'Dispatcher',
+    subtitle: 'Prepare os dados para a equipa no terreno',
+    event_title: '📋 Nome do evento',
+    event_placeholder: 'ex. MCI Kraków-Nowa Huta',
+    gdm_title: '👤 Diretor Médico (GDM)',
+    gdm_placeholder: 'Nome completo do GDM',
+    zrm_title: '🚑 Equipas ZRM',
+    zrm_desc: 'Equipas enviadas para o local do incidente',
+    zrm_placeholder: 'Nome da equipa (ex. K01 Kraków)',
+    hosp_title: '🏥 Hospitais de destino',
+    hosp_desc: 'Hospitais e capacidade de camas (TODAS as camas)',
+    hosp_name_placeholder: 'Nome do hospital',
+    btn_preview: '📋 Pré-visualizar dados',
+    btn_sms: '📱 Enviar SMS',
+    btn_copy: '📋 Copiar dados',
+    preview_header: 'Pré-visualização dos dados:',
+    preview_event: 'Evento',
+    preview_size: 'Tamanho',
+    preview_chars: 'caracteres',
+    status_empty: 'Introduza pelo menos um dado',
+    status_copied: 'Copiado para a área de transferência!'
+  }
+};
+
+let currentLang = localStorage.getItem('triageLang') || 'pl';
 let zrmTeams = [];
 let hospItems = [];
+
+function t(key) { return (TRANSLATIONS[currentLang] || TRANSLATIONS.pl)[key] || TRANSLATIONS.pl[key] || key; }
+
+function setLanguage(lang) {
+  currentLang = lang;
+  localStorage.setItem('triageLang', lang);
+  document.documentElement.lang = lang;
+  document.getElementById('langSelect').value = lang;
+  applyTranslations();
+}
+
+function applyTranslations() {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    const val = t(key);
+    if (val) el.textContent = val;
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    const val = t(key);
+    if (val) el.placeholder = val;
+  });
+}
 
 function escHtml(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
 
@@ -213,7 +416,6 @@ function buildData() {
 
 function encode(data) {
   const json = JSON.stringify(data);
-  // Use UTF-8 safe Base64 encoding
   const bytes = new TextEncoder().encode(json);
   let binary = '';
   bytes.forEach(b => binary += String.fromCharCode(b));
@@ -228,24 +430,24 @@ function buildLink(encoded) {
 function generateAndPreview() {
   const data = buildData();
   if (!data.ev && !data.gdm && !data.zrm && !data.szp) {
-    showStatus('Wprowadź przynajmniej jedną daną', true);
+    showStatus(t('status_empty'), true);
     return;
   }
   const el = document.getElementById('preview');
-  let html = '<h3>Podgląd danych do wysłania:</h3>';
-  if (data.ev) html += `<div class="p-item">📋 Zdarzenie: <strong>${escHtml(data.ev)}</strong></div>`;
+  let html = '<h3>' + t('preview_header') + '</h3>';
+  if (data.ev) html += `<div class="p-item">📋 ${t('preview_event')}: <strong>${escHtml(data.ev)}</strong></div>`;
   if (data.gdm) html += `<div class="p-item">👤 GDM: <strong>${escHtml(data.gdm)}</strong></div>`;
   if (data.zrm) {
     html += '<div class="p-item" style="margin-top:6px">🚑 ZRM:</div>';
     data.zrm.forEach(t => html += `<div class="p-item" style="padding-left:16px">• ${escHtml(t)}</div>`);
   }
   if (data.szp) {
-    html += '<div class="p-item" style="margin-top:6px">🏥 Szpitale:</div>';
+    html += '<div class="p-item" style="margin-top:6px">🏥 ' + t('hosp_title').replace('🏥 ', '') + ':</div>';
     data.szp.forEach(h => html += `<div class="p-item" style="padding-left:16px">• ${escHtml(h.n)} — 🔴${h.r} 🟡${h.y}</div>`);
   }
   const encoded = encode(data);
   const link = buildLink(encoded);
-  html += `<div style="margin-top:10px;font-size:11px;color:var(--text3)">Rozmiar: ${encoded.length} znaków (${Math.ceil(encoded.length / 153)} SMS)</div>`;
+  html += `<div style="margin-top:10px;font-size:11px;color:var(--text3)">${t('preview_size')}: ${encoded.length} ${t('preview_chars')} (${Math.ceil(encoded.length / 153)} SMS)</div>`;
   el.innerHTML = html;
   el.style.display = 'block';
 
@@ -257,7 +459,7 @@ function generateAndPreview() {
 function sendSms() {
   const data = buildData();
   if (!data.ev && !data.gdm && !data.zrm && !data.szp) {
-    showStatus('Wprowadź przynajmniej jedną daną', true);
+    showStatus(t('status_empty'), true);
     return;
   }
   const encoded = encode(data);
@@ -268,22 +470,21 @@ function sendSms() {
 function copyData() {
   const data = buildData();
   if (!data.ev && !data.gdm && !data.zrm && !data.szp) {
-    showStatus('Wprowadź przynajmniej jedną daną', true);
+    showStatus(t('status_empty'), true);
     return;
   }
   const encoded = encode(data);
   const link = buildLink(encoded);
   navigator.clipboard.writeText(link).then(() => {
-    showStatus('Skopiowano do schowka!');
+    showStatus(t('status_copied'));
   }).catch(() => {
-    // Fallback
     const ta = document.createElement('textarea');
     ta.value = link;
     document.body.appendChild(ta);
     ta.select();
     document.execCommand('copy');
     document.body.removeChild(ta);
-    showStatus('Skopiowano do schowka!');
+    showStatus(t('status_copied'));
   });
 }
 
@@ -298,6 +499,11 @@ function showStatus(msg, isError) {
 // Enter key support
 document.getElementById('teamNameInput').addEventListener('keydown', e => { if (e.key === 'Enter') addTeam(); });
 document.getElementById('hospNameInput').addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('hospRedInput').focus(); });
+
+// Init
+document.getElementById('langSelect').value = currentLang;
+document.documentElement.lang = currentLang;
+applyTranslations();
 </script>
 
 </body>
