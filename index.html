@@ -1641,6 +1641,7 @@ body.help-on .help-bubble:not(.dismissed) {
       <span data-i18n="help_toggle_info">Włącza lub wyłącza dymki z podpowiedziami.</span>
     </div>
   </div>
+  <div class="setup-footer"><a href="./dyspozytor/" style="color:var(--blue);text-decoration:none;font-size:13px" data-i18n="setup_dispatcher_link">Tryb dyspozytora →</a></div>
   <div class="setup-footer"><span data-i18n="setup_footer">Zgłoszenia i propozycje ulepszeń:</span> <a href="mailto:jaqbek.eth@gmail.com">jaqbek.eth@gmail.com</a></div>
 </div>
 
@@ -1653,7 +1654,7 @@ body.help-on .help-bubble:not(.dismissed) {
   <div class="info-box" style="position:relative;">
     <button class="btn-changelog" onclick="openChangelog()" data-i18n="btn_changelog">Changelog</button>
     <h2>TRIAGE MCI</h2>
-    <div class="info-version">v2.2.0</div>
+    <div class="info-version">v2.3.0</div>
 
     <div class="info-section">
       <h3 data-i18n="info_about_title">O aplikacji</h3>
@@ -1698,6 +1699,15 @@ body.help-on .help-bubble:not(.dismissed) {
 <div id="changelogModal" class="info-overlay hidden" onclick="if(event.target===this)closeChangelog()">
   <div class="info-box">
     <h2 data-i18n="changelog_title">Changelog</h2>
+    <div class="info-section">
+      <h3>v2.3.0</h3>
+      <ul class="changelog-list">
+        <li data-i18n="cl_230_1">Import danych od dyspozytora przez SMS/link lub wklejenie</li>
+        <li data-i18n="cl_230_2">Strona dyspozytora do przygotowania i wysyłki danych ZRM/szpitali</li>
+        <li data-i18n="cl_230_3">Import w trakcie zdarzenia zachowuje pacjentów i KAM</li>
+        <li data-i18n="cl_230_4">Łączenie nazw zdarzeń (użytkownik | dyspozytor)</li>
+      </ul>
+    </div>
     <div class="info-section">
       <h3>v2.2.0</h3>
       <ul class="changelog-list">
@@ -2166,6 +2176,7 @@ const TRANSLATIONS = {
     setup_subtitle: 'System zarządzania zdarzeniem masowym',
     setup_placeholder: 'Nazwa zdarzenia (np. Wypadek A4 km 312)',
     setup_start: 'ROZPOCZNIJ TRIAGE',
+    setup_dispatcher_link: 'Tryb dyspozytora →',
     setup_footer: 'Zgłoszenia i propozycje ulepszeń:',
     nav_triage: 'SEGREGACJA',
     nav_dispatch: 'DYSPONOWANIE',
@@ -2399,6 +2410,18 @@ const TRANSLATIONS = {
     cl_211_10: 'Pełna lista pacjentów (notatki, płeć, wiek, ścieżka) w raporcie tekstowym',
     cl_211_11: 'Karty pacjentów i transportów dostosowane do urządzeń mobilnych (większe przyciski, układ siatkowy)',
     cl_211_12: 'Formularz dysponowania dostosowany do urządzeń mobilnych (większe pola, pełna szerokość)',
+    cl_220_1: 'Diagram obrażeń ciała (9 stref, 7 typów urazów) z widokiem przód/tył',
+    cl_220_2: 'Pytania segregacji przeformułowane na logikę pozytywnego wyniku (TAK = lepiej)',
+    cl_220_3: 'Ikony 🔴/🟡 zamiast R:/Y: w liście szpitali',
+    cl_220_4: 'Blokada ujemnego wieku pacjenta',
+    cl_220_5: 'Większe pola pojemności szpitali z kolorowymi obramowaniami',
+    cl_220_6: 'Pojemność szpitali w jednym wierszu z nazwą',
+    cl_220_7: 'Wycentrowane elementy wyniku segregacji',
+    cl_220_8: 'Próg dwukolumnowego widoku zarządzania zmieniony na ~750px',
+    cl_230_1: 'Import danych od dyspozytora przez SMS/link lub wklejenie',
+    cl_230_2: 'Strona dyspozytora do przygotowania i wysyłki danych ZRM/szpitali',
+    cl_230_3: 'Import w trakcie zdarzenia zachowuje pacjentów i KAM',
+    cl_230_4: 'Łączenie nazw zdarzeń (użytkownik | dyspozytor)',
     injury_modal_title: 'Obrażenia ciała',
     injury_view_front: 'PRZÓD',
     injury_view_back: 'TYŁ',
@@ -2426,6 +2449,7 @@ const TRANSLATIONS = {
     setup_subtitle: 'Mass Casualty Incident Management System',
     setup_placeholder: 'Event name (e.g. Highway A4 crash km 312)',
     setup_start: 'START TRIAGE',
+    setup_dispatcher_link: 'Dispatcher mode →',
     setup_footer: 'Reports and suggestions:',
     nav_triage: 'TRIAGE',
     nav_dispatch: 'DISPATCH',
@@ -2659,6 +2683,18 @@ const TRANSLATIONS = {
     cl_211_10: 'Complete patient list (notes, sex, age, path) in text report',
     cl_211_11: 'Mobile-friendly patient and transport cards (bigger buttons, grid layout)',
     cl_211_12: 'Mobile-friendly dispatch form (bigger fields, full-width layout)',
+    cl_220_1: 'Body injury diagram (9 zones, 7 injury types) with front/back view',
+    cl_220_2: 'Triage questions reframed to positive-outcome logic (YES = better)',
+    cl_220_3: '🔴/🟡 icons instead of R:/Y: in hospital list',
+    cl_220_4: 'Prevent negative patient age',
+    cl_220_5: 'Bigger hospital capacity inputs with colored borders',
+    cl_220_6: 'Hospital capacity in single row with name',
+    cl_220_7: 'Centered triage result elements',
+    cl_220_8: 'Two-column manage panel breakpoint changed to ~750px',
+    cl_230_1: 'Dispatcher data import via SMS/link or paste',
+    cl_230_2: 'Dispatcher page for preparing and sending ZRM/hospital data',
+    cl_230_3: 'Mid-event import preserves patients and MCI Commander',
+    cl_230_4: 'Event name merging (user | dispatcher)',
     injury_modal_title: 'Body Injuries',
     injury_view_front: 'FRONT',
     injury_view_back: 'BACK',
@@ -2686,6 +2722,7 @@ const TRANSLATIONS = {
     setup_subtitle: 'Sistema di gestione degli incidenti con vittime multiple',
     setup_placeholder: 'Nome evento (es. Incidente A4 km 312)',
     setup_start: 'AVVIA TRIAGE',
+    setup_dispatcher_link: 'Modalità dispatcher →',
     setup_footer: 'Segnalazioni e suggerimenti:',
     nav_triage: 'TRIAGE',
     nav_dispatch: 'INVIO',
@@ -2919,6 +2956,18 @@ const TRANSLATIONS = {
     cl_211_10: 'Elenco completo pazienti (note, sesso, età, percorso) nel rapporto testuale',
     cl_211_11: 'Schede pazienti e trasporti ottimizzate per dispositivi mobili (pulsanti più grandi, layout a griglia)',
     cl_211_12: 'Modulo di invio ottimizzato per dispositivi mobili (campi più grandi, larghezza piena)',
+    cl_220_1: 'Diagramma lesioni corporee (9 zone, 7 tipi di lesione) con vista anteriore/posteriore',
+    cl_220_2: 'Domande di triage riformulate con logica a esito positivo (SÌ = meglio)',
+    cl_220_3: 'Icone 🔴/🟡 al posto di R:/Y: nella lista ospedali',
+    cl_220_4: 'Blocco età negativa del paziente',
+    cl_220_5: 'Campi capacità ospedaliera più grandi con bordi colorati',
+    cl_220_6: 'Capacità ospedaliera in riga singola con il nome',
+    cl_220_7: 'Elementi risultato triage centrati',
+    cl_220_8: 'Soglia pannello gestione a due colonne cambiata a ~750px',
+    cl_230_1: 'Importazione dati dal dispatcher via SMS/link o incolla',
+    cl_230_2: 'Pagina dispatcher per preparare e inviare dati ZRM/ospedali',
+    cl_230_3: 'Importazione durante evento preserva pazienti e comandante',
+    cl_230_4: 'Unione nomi eventi (utente | dispatcher)',
     injury_modal_title: 'Lesioni corporee',
     injury_view_front: 'DAVANTI',
     injury_view_back: 'DIETRO',
@@ -2946,6 +2995,7 @@ const TRANSLATIONS = {
     setup_subtitle: 'Système de gestion d\'incident à victimes multiples',
     setup_placeholder: 'Nom de l\'événement (ex. Accident A4 km 312)',
     setup_start: 'DÉMARRER LE TRIAGE',
+    setup_dispatcher_link: 'Mode dispatcher →',
     setup_footer: 'Signalements et suggestions :',
     nav_triage: 'TRIAGE',
     nav_dispatch: 'ENVOI',
@@ -3179,6 +3229,18 @@ const TRANSLATIONS = {
     cl_211_10: 'Liste complète des patients (notes, sexe, âge, parcours) dans le rapport texte',
     cl_211_11: 'Cartes patients et transports adaptées aux mobiles (boutons plus grands, disposition en grille)',
     cl_211_12: 'Formulaire d\'envoi adapté aux mobiles (champs plus grands, pleine largeur)',
+    cl_220_1: 'Diagramme des blessures corporelles (9 zones, 7 types) avec vue avant/arrière',
+    cl_220_2: 'Questions de triage reformulées en logique de résultat positif (OUI = mieux)',
+    cl_220_3: 'Icônes 🔴/🟡 au lieu de R:/Y: dans la liste des hôpitaux',
+    cl_220_4: 'Blocage de l\'âge négatif du patient',
+    cl_220_5: 'Champs de capacité hospitalière plus grands avec bordures colorées',
+    cl_220_6: 'Capacité hospitalière sur une seule ligne avec le nom',
+    cl_220_7: 'Éléments du résultat de triage centrés',
+    cl_220_8: 'Seuil du panneau de gestion à deux colonnes changé à ~750px',
+    cl_230_1: 'Import des données du dispatcher via SMS/lien ou collage',
+    cl_230_2: 'Page dispatcher pour préparer et envoyer les données ZRM/hôpitaux',
+    cl_230_3: 'Import en cours d\'événement préserve patients et commandant',
+    cl_230_4: 'Fusion des noms d\'événements (utilisateur | dispatcher)',
     injury_modal_title: 'Blessures corporelles',
     injury_view_front: 'AVANT',
     injury_view_back: 'DOS',
@@ -3206,6 +3268,7 @@ const TRANSLATIONS = {
     setup_subtitle: 'Managementsystem für Massenanfälle von Verletzten',
     setup_placeholder: 'Ereignisname (z.B. Unfall A4 km 312)',
     setup_start: 'TRIAGE STARTEN',
+    setup_dispatcher_link: 'Disponentenmodus →',
     setup_footer: 'Meldungen und Verbesserungsvorschläge:',
     nav_triage: 'SICHTUNG',
     nav_dispatch: 'DISPOSITION',
@@ -3439,6 +3502,18 @@ const TRANSLATIONS = {
     cl_211_10: 'Vollständige Patientenliste (Notizen, Geschlecht, Alter, Pfad) im Textbericht',
     cl_211_11: 'Mobilfreundliche Patienten- und Transportkarten (größere Schaltflächen, Rasterlayout)',
     cl_211_12: 'Mobilfreundliches Versandformular (größere Felder, volle Breite)',
+    cl_220_1: 'Körperverletzungsdiagramm (9 Zonen, 7 Verletzungsarten) mit Vorder-/Rückansicht',
+    cl_220_2: 'Triage-Fragen auf positive Ergebnislogik umformuliert (JA = besser)',
+    cl_220_3: '🔴/🟡-Symbole statt R:/Y: in der Krankenhausliste',
+    cl_220_4: 'Negatives Patientenalter verhindert',
+    cl_220_5: 'Größere Kapazitätseingaben mit farbigen Rändern',
+    cl_220_6: 'Krankenhauskapazität in einer Zeile mit dem Namen',
+    cl_220_7: 'Triage-Ergebniselemente zentriert',
+    cl_220_8: 'Zweispaltige Verwaltungsansicht-Schwelle auf ~750px geändert',
+    cl_230_1: 'Datenimport vom Dispatcher per SMS/Link oder Einfügen',
+    cl_230_2: 'Dispatcher-Seite zur Vorbereitung und Versendung von ZRM-/Krankenhausdaten',
+    cl_230_3: 'Import während Ereignis bewahrt Patienten und Einsatzleiter',
+    cl_230_4: 'Zusammenführung von Ereignisnamen (Benutzer | Disponent)',
     injury_modal_title: 'Körperverletzungen',
     injury_view_front: 'VORNE',
     injury_view_back: 'HINTEN',
@@ -3466,6 +3541,7 @@ const TRANSLATIONS = {
     setup_subtitle: 'Systém řízení hromadného neštěstí',
     setup_placeholder: 'Název události (např. Nehoda D1 km 312)',
     setup_start: 'ZAHÁJIT TŘÍDĚNÍ',
+    setup_dispatcher_link: 'Režim dispečera →',
     setup_footer: 'Hlášení a návrhy na zlepšení:',
     nav_triage: 'TŘÍDĚNÍ',
     nav_dispatch: 'VÝJEZDY',
@@ -3699,6 +3775,18 @@ const TRANSLATIONS = {
     cl_211_10: 'Kompletní seznam pacientů (poznámky, pohlaví, věk, cesta) v textové zprávě',
     cl_211_11: 'Karty pacientů a transportů přizpůsobené mobilním zařízením (větší tlačítka, mřížkové rozložení)',
     cl_211_12: 'Formulář odesílání přizpůsobený mobilním zařízením (větší pole, plná šířka)',
+    cl_220_1: 'Diagram zranění těla (9 zón, 7 typů zranění) s předním/zadním pohledem',
+    cl_220_2: 'Otázky třídění přeformulovány na logiku pozitivního výsledku (ANO = lépe)',
+    cl_220_3: 'Ikony 🔴/🟡 místo R:/Y: v seznamu nemocnic',
+    cl_220_4: 'Blokace záporného věku pacienta',
+    cl_220_5: 'Větší pole kapacity nemocnic s barevnými okraji',
+    cl_220_6: 'Kapacita nemocnice v jednom řádku s názvem',
+    cl_220_7: 'Vycentrované prvky výsledku třídění',
+    cl_220_8: 'Práh dvousloupcového panelu správy změněn na ~750px',
+    cl_230_1: 'Import dat od dispečera přes SMS/odkaz nebo vložení',
+    cl_230_2: 'Stránka dispečera pro přípravu a odeslání dat ZRM/nemocnic',
+    cl_230_3: 'Import během události zachovává pacienty a velitele',
+    cl_230_4: 'Sloučení názvů událostí (uživatel | dispečer)',
     injury_modal_title: 'Tělesná zranění',
     injury_view_front: 'ZEPŘEDU',
     injury_view_back: 'ZEZADU',
@@ -3726,6 +3814,7 @@ const TRANSLATIONS = {
     setup_subtitle: 'Sistema de gestão de incidentes com múltiplas vítimas',
     setup_placeholder: 'Nome do evento (ex. Acidente A4 km 312)',
     setup_start: 'INICIAR TRIAGEM',
+    setup_dispatcher_link: 'Modo dispatcher →',
     setup_footer: 'Reportar problemas e sugestões:',
     nav_triage: 'TRIAGEM',
     nav_dispatch: 'DESPACHO',
@@ -3959,6 +4048,18 @@ const TRANSLATIONS = {
     cl_211_10: 'Lista completa de pacientes (notas, sexo, idade, percurso) no relatório de texto',
     cl_211_11: 'Cartões de pacientes e transportes adaptados a dispositivos móveis (botões maiores, layout em grelha)',
     cl_211_12: 'Formulário de despacho adaptado a dispositivos móveis (campos maiores, largura total)',
+    cl_220_1: 'Diagrama de lesões corporais (9 zonas, 7 tipos de lesão) com vista frontal/traseira',
+    cl_220_2: 'Perguntas de triagem reformuladas para lógica de resultado positivo (SIM = melhor)',
+    cl_220_3: 'Ícones 🔴/🟡 em vez de R:/Y: na lista de hospitais',
+    cl_220_4: 'Bloqueio de idade negativa do paciente',
+    cl_220_5: 'Campos de capacidade hospitalar maiores com bordas coloridas',
+    cl_220_6: 'Capacidade hospitalar em linha única com o nome',
+    cl_220_7: 'Elementos do resultado de triagem centralizados',
+    cl_220_8: 'Limiar do painel de gestão de duas colunas alterado para ~750px',
+    cl_230_1: 'Importação de dados do dispatcher via SMS/link ou colagem',
+    cl_230_2: 'Página do dispatcher para preparar e enviar dados ZRM/hospitais',
+    cl_230_3: 'Importação durante evento preserva pacientes e comandante',
+    cl_230_4: 'Fusão de nomes de eventos (utilizador | dispatcher)',
     injury_modal_title: 'Lesões corporais',
     injury_view_front: 'FRENTE',
     injury_view_back: 'COSTAS',
