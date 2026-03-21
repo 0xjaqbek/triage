@@ -100,6 +100,12 @@ input:focus { border-color: var(--blue); }
 <h1>Dyspozytor</h1>
 <p class="subtitle">Przygotuj dane dla zespołu w terenie</p>
 
+<!-- EVENT NAME -->
+<div class="section">
+  <div class="section-title">📋 Nazwa zdarzenia</div>
+  <input type="text" id="eventInput" placeholder="np. MCI Kraków-Nowa Huta">
+</div>
+
 <!-- GDM -->
 <div class="section">
   <div class="section-title">👤 Kierownik Działań Medycznych (GDM)</div>
@@ -195,8 +201,10 @@ function renderHospitals() {
 
 // --- ENCODE ---
 function buildData() {
+  const ev = (document.getElementById('eventInput').value || '').trim();
   const gdm = (document.getElementById('gdmInput').value || '').trim();
   const data = {};
+  if (ev) data.ev = ev;
   if (gdm) data.gdm = gdm;
   if (zrmTeams.length) data.zrm = zrmTeams;
   if (hospItems.length) data.szp = hospItems;
@@ -219,12 +227,13 @@ function buildLink(encoded) {
 // --- ACTIONS ---
 function generateAndPreview() {
   const data = buildData();
-  if (!data.gdm && !data.zrm && !data.szp) {
+  if (!data.ev && !data.gdm && !data.zrm && !data.szp) {
     showStatus('Wprowadź przynajmniej jedną daną', true);
     return;
   }
   const el = document.getElementById('preview');
   let html = '<h3>Podgląd danych do wysłania:</h3>';
+  if (data.ev) html += `<div class="p-item">📋 Zdarzenie: <strong>${escHtml(data.ev)}</strong></div>`;
   if (data.gdm) html += `<div class="p-item">👤 GDM: <strong>${escHtml(data.gdm)}</strong></div>`;
   if (data.zrm) {
     html += '<div class="p-item" style="margin-top:6px">🚑 ZRM:</div>';
@@ -247,7 +256,7 @@ function generateAndPreview() {
 
 function sendSms() {
   const data = buildData();
-  if (!data.gdm && !data.zrm && !data.szp) {
+  if (!data.ev && !data.gdm && !data.zrm && !data.szp) {
     showStatus('Wprowadź przynajmniej jedną daną', true);
     return;
   }
@@ -258,7 +267,7 @@ function sendSms() {
 
 function copyData() {
   const data = buildData();
-  if (!data.gdm && !data.zrm && !data.szp) {
+  if (!data.ev && !data.gdm && !data.zrm && !data.szp) {
     showStatus('Wprowadź przynajmniej jedną daną', true);
     return;
   }

@@ -2340,6 +2340,9 @@ const TRANSLATIONS = {
     import_accept: 'IMPORTUJ',
     import_reject: 'ODRZUĆ',
     event_imported: 'Zdarzenie (import)',
+    import_event_label: 'Zdarzenie',
+    import_from_dispatcher: '(dyspozytor)',
+    import_mid_event_warning: 'Zdarzenie w toku — pacjenci i KAM zostaną zachowani. Zespoły ZRM i szpitale zostaną zastąpione.',
     hosp_setup_title: 'Szpitale docelowe',
     hosp_setup_text: 'Dodaj szpitale i ich pojemność. Pomiń, aby zachować domyślne.',
     hosp_setup_name_placeholder: 'Nazwa szpitala...',
@@ -2597,6 +2600,9 @@ const TRANSLATIONS = {
     import_accept: 'IMPORT',
     import_reject: 'REJECT',
     event_imported: 'Event (imported)',
+    import_event_label: 'Event',
+    import_from_dispatcher: '(dispatcher)',
+    import_mid_event_warning: 'Event in progress — patients and MCI Commander will be kept. ZRM teams and hospitals will be replaced.',
     hosp_setup_title: 'Destination hospitals',
     hosp_setup_text: 'Add hospitals and their capacity. Skip to keep defaults.',
     hosp_setup_name_placeholder: 'Hospital name...',
@@ -2854,6 +2860,9 @@ const TRANSLATIONS = {
     import_accept: 'IMPORTA',
     import_reject: 'RIFIUTA',
     event_imported: 'Evento (importato)',
+    import_event_label: 'Evento',
+    import_from_dispatcher: '(dispatcher)',
+    import_mid_event_warning: 'Evento in corso — pazienti e comandante saranno mantenuti. Squadre ZRM e ospedali saranno sostituiti.',
     hosp_setup_title: 'Ospedali destinazione',
     hosp_setup_text: 'Aggiungi ospedali e capacità. Salta per mantenere i predefiniti.',
     hosp_setup_name_placeholder: 'Nome ospedale...',
@@ -3111,6 +3120,9 @@ const TRANSLATIONS = {
     import_accept: 'IMPORTER',
     import_reject: 'REJETER',
     event_imported: 'Événement (importé)',
+    import_event_label: 'Événement',
+    import_from_dispatcher: '(dispatcher)',
+    import_mid_event_warning: 'Événement en cours — patients et commandant seront conservés. Équipes ZRM et hôpitaux seront remplacés.',
     hosp_setup_title: 'Hôpitaux de destination',
     hosp_setup_text: 'Ajoutez des hôpitaux et leur capacité. Passez pour garder les défauts.',
     hosp_setup_name_placeholder: 'Nom de l\'hôpital...',
@@ -3368,6 +3380,9 @@ const TRANSLATIONS = {
     import_accept: 'IMPORTIEREN',
     import_reject: 'ABLEHNEN',
     event_imported: 'Ereignis (importiert)',
+    import_event_label: 'Ereignis',
+    import_from_dispatcher: '(Disponent)',
+    import_mid_event_warning: 'Ereignis läuft — Patienten und Einsatzleiter bleiben erhalten. ZRM-Teams und Krankenhäuser werden ersetzt.',
     hosp_setup_title: 'Zielkrankenhäuser',
     hosp_setup_text: 'Krankenhäuser und Kapazität hinzufügen. Überspringen für Standardwerte.',
     hosp_setup_name_placeholder: 'Krankenhausname...',
@@ -3625,6 +3640,9 @@ const TRANSLATIONS = {
     import_accept: 'IMPORTOVAT',
     import_reject: 'ODMÍTNOUT',
     event_imported: 'Událost (importováno)',
+    import_event_label: 'Událost',
+    import_from_dispatcher: '(dispečer)',
+    import_mid_event_warning: 'Probíhající událost — pacienti a velitel budou zachováni. Týmy ZRM a nemocnice budou nahrazeny.',
     hosp_setup_title: 'Cílové nemocnice',
     hosp_setup_text: 'Přidejte nemocnice a kapacitu. Přeskočte pro výchozí.',
     hosp_setup_name_placeholder: 'Název nemocnice...',
@@ -3882,6 +3900,9 @@ const TRANSLATIONS = {
     import_accept: 'IMPORTAR',
     import_reject: 'REJEITAR',
     event_imported: 'Evento (importado)',
+    import_event_label: 'Evento',
+    import_from_dispatcher: '(dispatcher)',
+    import_mid_event_warning: 'Evento em andamento — pacientes e comandante serão mantidos. Equipes ZRM e hospitais serão substituídos.',
     hosp_setup_title: 'Hospitais de destino',
     hosp_setup_text: 'Adicione hospitais e capacidade. Pule para manter os padrões.',
     hosp_setup_name_placeholder: 'Nome do hospital...',
@@ -5054,7 +5075,9 @@ function decodeImportData(input) {
 }
 
 function renderImportPreviewHtml(data) {
+  const midEvent = !!eventName;
   let html = '';
+  if (data.ev) html += `<div style="font-size:13px;color:var(--white);margin-bottom:6px">📋 ${t('import_event_label') || 'Zdarzenie'}: <strong>${escHtml(data.ev)}</strong></div>`;
   if (data.gdm) html += `<div style="font-size:13px;color:var(--white);margin-bottom:6px">👤 GDM: <strong>${escHtml(data.gdm)}</strong></div>`;
   if (data.zrm && data.zrm.length) {
     html += '<div style="font-size:12px;color:var(--text2);margin-top:6px">🚑 ZRM:</div>';
@@ -5065,16 +5088,32 @@ function renderImportPreviewHtml(data) {
     data.szp.forEach(h => html += `<div style="font-size:12px;color:var(--white);padding-left:14px">• ${escHtml(h.n)} — 🔴${h.r||0} 🟡${h.y||0}</div>`);
   }
   if (!html) html = '<div style="color:var(--text3);font-size:12px">Brak danych</div>';
+  if (midEvent) {
+    html += `<div style="margin-top:12px;padding:8px 10px;background:rgba(234,179,8,0.1);border:1px solid var(--yellow);border-radius:6px;font-size:11px;color:var(--yellow)">${t('import_mid_event_warning') || 'Zdarzenie w toku — pacjenci i KAM zostaną zachowani. Zespoły ZRM i szpitale zostaną zastąpione.'}</div>`;
+  }
   return html;
 }
 
 function applyImportData(data) {
+  const midEvent = !!eventName;
   if (data.gdm) gdmName = data.gdm;
   if (data.zrm && data.zrm.length) {
     teams = data.zrm.map((name, i) => ({ id: Date.now() + i, name }));
   }
   if (data.szp && data.szp.length) {
     hospitals = data.szp.map((h, i) => ({ id: Date.now() + 100 + i, name: h.n, redCapacity: h.r || 0, yellowCapacity: h.y || 0 }));
+  }
+  // Event name: merge if mid-event, otherwise use dispatcher's
+  if (data.ev) {
+    if (midEvent && eventName) {
+      // Combine: user's name + dispatcher's name
+      const dispLabel = t('import_from_dispatcher') || '(dyspozytor)';
+      if (!eventName.includes(data.ev)) {
+        eventName = eventName + ' | ' + data.ev + ' ' + dispLabel;
+      }
+    } else {
+      eventName = data.ev;
+    }
   }
   gdmModalShown = true;
   teamSetupShown = true;
@@ -5147,24 +5186,28 @@ function checkUrlImport() {
 
 function acceptUrlImport() {
   if (!pendingImportData) return;
+  const wasRunning = !!eventName;
   applyImportData(pendingImportData);
   pendingImportData = null;
   document.getElementById('importUrlOverlay').classList.add('hidden');
   // Clear URL params
   window.history.replaceState({}, '', window.location.pathname);
-  // Start event if not started and go to triage (segregacja)
-  if (!eventName) {
-    eventName = t('event_imported') || 'Zdarzenie (import)';
+  if (!wasRunning) {
+    // Fresh start — set event name if not set by import data
+    if (!eventName) {
+      eventName = t('event_imported') || 'Zdarzenie (import)';
+    }
     eventTime = now();
+    document.getElementById('setup').classList.add('hidden');
+    document.getElementById('btnDownload').classList.add('hidden');
+    document.getElementById('btnInfo').classList.add('hidden');
+    document.getElementById('app').classList.remove('hidden');
+    updateHeaderTime();
+    setInterval(updateHeaderTime, 1000);
+    resetWizard();
   }
+  // Always go to triage (segregacja)
   currentView = 'triage';
-  document.getElementById('setup').classList.add('hidden');
-  document.getElementById('btnDownload').classList.add('hidden');
-  document.getElementById('btnInfo').classList.add('hidden');
-  document.getElementById('app').classList.remove('hidden');
-  updateHeaderTime();
-  setInterval(updateHeaderTime, 1000);
-  resetWizard();
   switchView('triage');
   saveState();
 }
