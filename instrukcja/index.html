@@ -1,0 +1,2614 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TRIAGE MCI - Instrukcja</title>
+<style>
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0C0F14; color: #E8ECF1; line-height: 1.7; padding: 24px 16px; max-width: 720px; margin: 0 auto; }
+h1 { font-size: 24px; margin-bottom: 8px; color: #F8FAFC; }
+h2 { font-size: 18px; margin-top: 28px; margin-bottom: 8px; color: #F8FAFC; }
+h3 { font-size: 15px; margin-top: 20px; margin-bottom: 6px; color: #F8FAFC; }
+p, li { font-size: 14px; color: #94A3B8; margin-bottom: 8px; }
+ul, ol { padding-left: 20px; margin-bottom: 12px; }
+a { color: #60A5FA; text-decoration: none; }
+a:hover { text-decoration: underline; }
+code { background: #1A1F2B; padding: 2px 6px; border-radius: 4px; font-size: 13px; color: #E8ECF1; }
+pre { background: #1A1F2B; padding: 12px; border-radius: 8px; overflow-x: auto; margin-bottom: 12px; }
+pre code { padding: 0; background: none; }
+hr { border: none; border-top: 1px solid #1E293B; margin: 28px 0; }
+strong { color: #F8FAFC; }
+.back { display: inline-block; margin-bottom: 20px; font-size: 14px; color: #60A5FA; text-decoration: none; }
+.back:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<a href="../" class="back">&larr; TRIAGE MCI</a>
+<div id="content"></div>
+<script>
+var CONTENT = {};
+
+CONTENT.pl = '<h1>Instrukcja obs\u0142ugi TRIAGE MCI</h1>\
+<h2>1. Czym jest TRIAGE MCI</h2>\
+<p>TRIAGE MCI to aplikacja webowa (PWA) do segregacji i zarz\u0105dzania zdarzeniem masowym (MCI) oparta na algorytmie START. Umo\u017Cliwia:</p>\
+<ul>\
+<li>Klasyfikacj\u0119 pacjent\u00F3w w 4 kategoriach (T1\u2013T4)</li>\
+<li>Zarz\u0105dzanie transportem do szpitali</li>\
+<li>\u015Aledzenie pojemno\u015Bci szpitali</li>\
+<li>Generowanie i wysy\u0142anie raport\u00F3w</li>\
+<li>Import danych od dyspozytora</li>\
+</ul>\
+<p>Aplikacja dzia\u0142a w pe\u0142ni offline. Wszystkie dane przechowywane s\u0105 wy\u0142\u0105cznie na urz\u0105dzeniu u\u017Cytkownika \u2014 \u017Cadne informacje nie s\u0105 wysy\u0142ane na zewn\u0119trzne serwery.</p>\
+<p>Obs\u0142uguje 7 j\u0119zyk\u00F3w: polski, angielski, w\u0142oski, francuski, niemiecki, czeski, portugalski.</p>\
+<hr>\
+<h2>2. Rozpocz\u0119cie zdarzenia</h2>\
+<h3>Ekran startowy</h3>\
+<p>Po uruchomieniu aplikacji pojawi si\u0119 ekran konfiguracji zdarzenia:</p>\
+<ol>\
+<li><strong>Wyb\u00F3r j\u0119zyka</strong> \u2014 selektor u g\u00F3ry ekranu. Zmiana j\u0119zyka natychmiast t\u0142umaczy ca\u0142y interfejs.</li>\
+<li><strong>Nazwa zdarzenia</strong> \u2014 pole obowi\u0105zkowe. Wpisz lokalizacj\u0119 i typ zdarzenia (np. \u201EWypadek A4 km 312\u201D). Pojawi si\u0119 w raportach.</li>\
+<li><strong>KAM</strong> \u2014 pole opcjonalne. Kieruj\u0105cy Akcj\u0105 Medyczn\u0105 \u2014 imi\u0119 i nazwisko osoby koordynuj\u0105cej dzia\u0142ania na miejscu.</li>\
+<li><strong>Poka\u017C podpowiedzi</strong> \u2014 prze\u0142\u0105cznik w\u0142\u0105czaj\u0105cy dymki z kontekstowymi wskaz\u00F3wkami w ca\u0142ej aplikacji. Przydatne przy pierwszym u\u017Cyciu.</li>\
+<li><strong>ROZPOCZNIJ TRIAGE</strong> \u2014 rozpoczyna zdarzenie i uruchamia zegar.</li>\
+</ol>\
+<h3>Wznowienie zdarzenia</h3>\
+<p>Je\u015Bli w pami\u0119ci urz\u0105dzenia istnieje zapisane zdarzenie, przy uruchomieniu pojawi si\u0119 opcja:</p>\
+<ul>\
+<li><strong>KONTYNUUJ</strong> \u2014 wznawia zapisane zdarzenie ze wszystkimi danymi</li>\
+<li><strong>NOWE ZDARZENIE</strong> \u2014 kasuje poprzednie dane i rozpoczyna od nowa</li>\
+</ul>\
+<hr>\
+<h2>3. Segregacja (algorytm START)</h2>\
+<h3>Nawigacja</h3>\
+<p>Aplikacja ma 3 zak\u0142adki w g\u00F3rnej cz\u0119\u015Bci ekranu:</p>\
+<ul>\
+<li><strong>SEGREGACJA</strong> \u2014 klasyfikacja pacjent\u00F3w</li>\
+<li><strong>DYSPONOWANIE</strong> \u2014 transport i zarz\u0105dzanie</li>\
+<li><strong>RAPORT</strong> \u2014 podsumowanie i eksport</li>\
+</ul>\
+<p>Pasek statystyk pod nawigacj\u0105 pokazuje liczb\u0119 pacjent\u00F3w w ka\u017Cdej kategorii: \uD83D\uDD34 T1, \uD83D\uDFE1 T2, \uD83D\uDFE2 T3, \u26AB T4 oraz sum\u0119.</p>\
+<h3>Kreator segregacji START</h3>\
+<p>Kreator prowadzi przez 6-krokowy algorytm START. Na ka\u017Cdym kroku odpowiadasz TAK lub NIE:</p>\
+<p><strong>Krok 1 \u2014 Czy pacjent chodzi?</strong></p>\
+<ul>\
+<li>TAK \u2192 T3 Zielony (odroczony)</li>\
+<li>NIE \u2192 przejd\u017A do kroku 2</li>\
+</ul>\
+<p><strong>Krok 2 \u2014 Czy oddycha spontanicznie?</strong></p>\
+<ul>\
+<li>TAK \u2192 przejd\u017A do kroku 4 (ocena cz\u0119sto\u015Bci oddech\u00F3w)</li>\
+<li>NIE \u2192 przejd\u017A do kroku 3</li>\
+</ul>\
+<p><strong>Krok 3 \u2014 Udro\u017Cnij drogi oddechowe. Czy oddycha po udro\u017Cnieniu?</strong></p>\
+<ul>\
+<li>TAK \u2192 T1 Czerwony (natychmiastowy)</li>\
+<li>NIE \u2192 T4 Czarny (zgon)</li>\
+</ul>\
+<p><strong>Krok 4 \u2014 Czy cz\u0119sto\u015B\u0107 oddech\u00F3w jest prawid\u0142owa (\u2264 30/min)?</strong></p>\
+<ul>\
+<li>TAK \u2192 przejd\u017A do kroku 5</li>\
+<li>NIE \u2192 T1 Czerwony (natychmiastowy)</li>\
+</ul>\
+<p><strong>Krok 5 \u2014 Czy nawr\u00F3t kapilarny jest prawid\u0142owy (\u2264 2 sek.) i t\u0119tno na tt. promieniowej obecne?</strong></p>\
+<ul>\
+<li>TAK \u2192 przejd\u017A do kroku 6</li>\
+<li>NIE \u2192 T1 Czerwony (natychmiastowy)</li>\
+</ul>\
+<p><strong>Krok 6 \u2014 Czy spe\u0142nia proste polecenia?</strong></p>\
+<ul>\
+<li>TAK \u2192 T2 \u017B\u00F3\u0142ty (pilny)</li>\
+<li>NIE \u2192 T1 Czerwony (natychmiastowy)</li>\
+</ul>\
+<p>Ka\u017Cde pytanie ma podpowied\u017A (hint) widoczn\u0105 pod pytaniem \u2014 opisuje jak oceni\u0107 dany parametr.</p>\
+<h3>Karta wyniku</h3>\
+<p>Po zako\u0144czeniu segregacji pojawia si\u0119 karta wyniku z:</p>\
+<ul>\
+<li><strong>Kolorowy znacznik</strong> \u2014 du\u017Cy kwadrat z kategori\u0105 (T1/T2/T3/T4)</li>\
+<li><strong>\u015Acie\u017Cka decyzyjna</strong> \u2014 pokazuje przebieg algorytmu</li>\
+<li><strong>P\u0142e\u0107</strong> \u2014 przyciski M (m\u0119\u017Cczyzna), K (kobieta), ? (nieznana)</li>\
+<li><strong>Wiek</strong> \u2014 pole numeryczne z przyciskami -5, -1, +1, +5 (zakres 0\u2013150)</li>\
+<li><strong>Obra\u017Cenia cia\u0142a</strong> \u2014 przycisk otwieraj\u0105cy diagram obra\u017Ce\u0144 (patrz sekcja 4)</li>\
+<li><strong>Notatki</strong> \u2014 pole na dodatkowe informacje (obra\u017Cenia, mechanizm urazu itp.)</li>\
+</ul>\
+<p>Dost\u0119pne akcje:</p>\
+<ul>\
+<li><strong>\u2713 ZATWIERD\u0179 PACJENTA</strong> \u2014 dodaje pacjenta do listy</li>\
+<li><strong>\u21BA OD NOWA</strong> \u2014 resetuje kreator do kroku 1</li>\
+<li><strong>ZMIE\u0143 KOLOR R\u0118CZNIE</strong> \u2014 otwiera rz\u0105d 4 przycisk\u00F3w (T1\u2013T4) do r\u0119cznej zmiany kategorii</li>\
+</ul>\
+<h3>Lista pacjent\u00F3w na miejscu</h3>\
+<p>Poni\u017Cej kreatora wy\u015Bwietla si\u0119 lista \u201EPacjenci na miejscu\u201D posortowana wg priorytetu (T1 \u2192 T2 \u2192 T3 \u2192 T4).</p>\
+<p>Ka\u017Cda karta pacjenta zawiera:</p>\
+<ul>\
+<li>Kolorowy znacznik (np. P-001)</li>\
+<li>Kategori\u0119, p\u0142e\u0107/wiek, czas rejestracji</li>\
+<li>Pole notatek (edytowalne)</li>\
+<li>Przycisk obra\u017Ce\u0144 (\uD83E\uDE7B) z podsumowaniem</li>\
+<li>4 kropki retria\u017Cu (T1\u2013T4) \u2014 kliknij aby zmieni\u0107 kategori\u0119</li>\
+<li>Przycisk usuni\u0119cia (\u2715)</li>\
+<li>Znacznik retria\u017Cu (\u21BAn) je\u015Bli kategoria by\u0142a zmieniana</li>\
+</ul>\
+<h3>Lista w transporcie</h3>\
+<p>Sekcja \u201EW transporcie\u201D pojawia si\u0119 gdy pacjenci s\u0105 w drodze do szpitala. Ka\u017Cda karta pokazuje:</p>\
+<ul>\
+<li>Znacznik pacjenta z kolorem kategorii</li>\
+<li>Tras\u0119: Zesp\u00F3\u0142 \u2192 Szpital \u2192 czas wyjazdu</li>\
+<li>Przycisk \u201Ezmie\u0144\u201D \u2014 zmiana szpitala docelowego</li>\
+<li>Przycisk \u201E\u2713 Dostarczony\u201D \u2014 oznacza dostarczenie i zwalnia zesp\u00F3\u0142 ZRM</li>\
+</ul>\
+<hr>\
+<h2>4. Diagram obra\u017Ce\u0144 cia\u0142a</h2>\
+<p>Przycisk \u201E\uD83E\uDE7B Obra\u017Cenia cia\u0142a\u201D otwiera interaktywny diagram cia\u0142a.</p>\
+<h3>Widok diagramu</h3>\
+<p>Wy\u015Bwietlane s\u0105 dwa zarysy cia\u0142a obok siebie:</p>\
+<ul>\
+<li><strong>PRZ\u00D3D</strong> (front) \u2014 g\u0142owa, klatka piersiowa, brzuch, ramiona, nogi</li>\
+<li><strong>TY\u0141</strong> (back) \u2014 g\u0142owa, g\u00F3rna cz\u0119\u015B\u0107 plec\u00F3w, dolna cz\u0119\u015B\u0107 plec\u00F3w, ramiona, nogi</li>\
+</ul>\
+<p>Po bokach widoczne s\u0105 oznaczenia stron: <strong>L</strong> (lewa) i <strong>P</strong> (prawa), odwr\u00F3cone dla widoku ty\u0142u.</p>\
+<p>Kliknij na stref\u0119 cia\u0142a aby j\u0105 wybra\u0107.</p>\
+<h3>Panel obra\u017Ce\u0144 strefy</h3>\
+<p>Po wybraniu strefy otwiera si\u0119 panel z 7 typami uraz\u00F3w do zaznaczenia:</p>\
+<ul>\
+<li>Z\u0142amanie</li>\
+<li>Krwawienie</li>\
+<li>Oparzenie</li>\
+<li>Rana</li>\
+<li>Opuchlizna</li>\
+<li>B\u00F3l</li>\
+<li>Amputacja</li>\
+</ul>\
+<p>Zaznaczone typy oznaczone s\u0105 \u2713. Ka\u017Cdy mo\u017Cna w\u0142\u0105czy\u0107/wy\u0142\u0105czy\u0107 klikni\u0119ciem.</p>\
+<p>Na dole panelu:</p>\
+<ul>\
+<li><strong>\u2715 NIE</strong> \u2014 odrzuca zmiany w tej strefie</li>\
+<li><strong>\u2713 TAK</strong> \u2014 zatwierdza obra\u017Cenia dla wybranej strefy</li>\
+</ul>\
+<h3>Zatwierdzanie diagramu</h3>\
+<p>Po zaznaczeniu obra\u017Ce\u0144 we wszystkich potrzebnych strefach:</p>\
+<ul>\
+<li><strong>\u2713 TAK</strong> \u2014 zatwierdza ca\u0142y diagram obra\u017Ce\u0144</li>\
+<li><strong>\u2715 NIE</strong> \u2014 odrzuca wszystkie zmiany i wraca do stanu sprzed otwarcia</li>\
+</ul>\
+<p>Zaznaczone obra\u017Cenia widoczne s\u0105:</p>\
+<ul>\
+<li>Na karcie pacjenta jako skr\u00F3cone podsumowanie (np. \u201E\uD83E\uDE7B G\u0142owa: Z\u0142amanie, Krwawienie\u201D)</li>\
+<li>W raporcie przy danym pacjencie</li>\
+</ul>\
+<hr>\
+<h2>5. Dysponowanie</h2>\
+<h3>Modalne okna konfiguracji</h3>\
+<p>Przy pierwszym wej\u015Bciu w zak\u0142adk\u0119 Dysponowanie pojawiaj\u0105 si\u0119 kolejno 3 modale:</p>\
+<p><strong>1. Kierownik Dzia\u0142a\u0144 Medycznych (GDM)</strong></p>\
+<ul>\
+<li>Pole na imi\u0119 i nazwisko GDM</li>\
+<li>Przycisk importu danych od dyspozytora (patrz sekcja 6)</li>\
+<li>POMI\u0143 lub ZAPISZ</li>\
+</ul>\
+<p><strong>2. Zespo\u0142y ZRM</strong></p>\
+<ul>\
+<li>Pytanie: \u201ECzy znasz zespo\u0142y ZRM zadysponowane na miejsce?\u201D</li>\
+<li>TAK \u2192 formularz dodawania zespo\u0142\u00F3w (nazwa + przycisk dodaj)</li>\
+<li>NIE \u2192 u\u017Cyj domy\u015Blnych zespo\u0142\u00F3w (S-01, S-02, P-01, P-02, P-03, LPR)</li>\
+<li>ZATWIERD\u0179 lub POMI\u0143 (DOMY\u015ALNE)</li>\
+</ul>\
+<p><strong>3. Szpitale docelowe</strong></p>\
+<ul>\
+<li>Formularz dodawania szpitali z pojemno\u015Bci\u0105:\
+<ul>\
+<li>Nazwa szpitala</li>\
+<li>\uD83D\uDD34 Pojemno\u015B\u0107 czerwona (T1) \u2014 liczba \u0142\u00F3\u017Cek</li>\
+<li>\uD83D\uDFE1 Pojemno\u015B\u0107 \u017C\u00F3\u0142ta (T2) \u2014 liczba \u0142\u00F3\u017Cek</li>\
+</ul></li>\
+<li>ZATWIERD\u0179 lub POMI\u0143 (DOMY\u015ALNE)</li>\
+</ul>\
+<p>Ka\u017Cdy modal pojawia si\u0119 tylko raz na zdarzenie.</p>\
+<h3>Formularz dysponowania</h3>\
+<p>Sekcja \u201EZadysponuj transport\u201D zawiera:</p>\
+<ol>\
+<li><strong>Pacjent</strong> \u2014 lista rozwijana z pacjentami na miejscu, posortowana wg priorytetu</li>\
+<li><strong>Zesp\u00F3\u0142 ZRM</strong> \u2014 lista dost\u0119pnych zespo\u0142\u00F3w (zaj\u0119te zespo\u0142y s\u0105 ukryte)</li>\
+<li><strong>Szpital</strong> \u2014 lista szpitali z informacj\u0105 o zaj\u0119to\u015Bci:\
+<ul>\
+<li>Format: \u201ENazwa szpitala [\uD83D\uDD34 zaj\u0119te/wszystkie \uD83D\uDFE1 zaj\u0119te/wszystkie]\u201D</li>\
+<li>Szpitale bez wolnych miejsc w kategorii pacjenta oznaczone ostrze\u017Ceniem</li>\
+</ul></li>\
+<li><strong>DYSPONUJ TRANSPORT</strong> \u2014 przycisk aktywny gdy wszystkie pola wype\u0142nione</li>\
+</ol>\
+<h3>Panele zarz\u0105dzania</h3>\
+<p>Pod formularzem znajduj\u0105 si\u0119 dwa panele (na szerokich ekranach obok siebie, na w\u0105skich pod sob\u0105):</p>\
+<p><strong>Szpitale</strong> (\u0142\u00F3\u017Cka WSZYSTKIE):</p>\
+<ul>\
+<li>Lista szpitali z edytowalnymi polami pojemno\u015Bci (\uD83D\uDD34 i \uD83D\uDFE1)</li>\
+<li>Dodawanie nowych szpitali</li>\
+<li>Usuwanie szpitali (\u2715)</li>\
+<li>Zwijanie/rozwijanie listy</li>\
+</ul>\
+<p><strong>Zespo\u0142y ZRM:</strong></p>\
+<ul>\
+<li>Lista zespo\u0142\u00F3w z przyciskami usuwania</li>\
+<li>Dodawanie nowych zespo\u0142\u00F3w</li>\
+<li>Zwijanie/rozwijanie listy</li>\
+</ul>\
+<h3>Historia transport\u00F3w</h3>\
+<p>Na dole sekcji dysponowania (domy\u015Blnie zwini\u0119ta). Rozwi\u0144 aby zobaczy\u0107 chronologiczn\u0105 list\u0119 wszystkich transport\u00F3w z:</p>\
+<ul>\
+<li>Znacznik pacjenta z kolorem</li>\
+<li>Zesp\u00F3\u0142 \u2192 Szpital \u2192 czas wyjazdu</li>\
+<li>Status (w transporcie / dostarczony)</li>\
+</ul>\
+<hr>\
+<h2>6. Import danych od dyspozytora</h2>\
+<p>Funkcja pozwala dyspozytorowi przes\u0142a\u0107 dane (nazw\u0119 zdarzenia, GDM, zespo\u0142y ZRM, szpitale z pojemno\u015Bci\u0105) do ratownika w terenie.</p>\
+<h3>Metoda 1 \u2014 Link SMS (jedno klikni\u0119cie)</h3>\
+<p>Dyspozytor wysy\u0142a SMS z linkiem w formacie:</p>\
+<pre><code>https://0xjaqbek.github.io/triage/?i=DANE_BASE64</code></pre>\
+<p>Po klikni\u0119ciu linku:</p>\
+<ol>\
+<li>Aplikacja otwiera si\u0119 z cache (nie wymaga internetu je\u015Bli zainstalowana)</li>\
+<li>Pojawia si\u0119 podgl\u0105d danych: nazwa zdarzenia, GDM, zespo\u0142y, szpitale</li>\
+<li><strong>IMPORTUJ</strong> \u2014 importuje dane i otwiera segregacj\u0119</li>\
+<li><strong>ODRZU\u0106</strong> \u2014 ignoruje dane</li>\
+</ol>\
+<h3>Metoda 2 \u2014 Wklejenie danych</h3>\
+<p>Je\u015Bli link nie otwiera aplikacji (zablokowane urz\u0105dzenia):</p>\
+<ol>\
+<li>Otw\u00F3rz aplikacj\u0119, przejd\u017A do Dysponowanie</li>\
+<li>W modalu GDM kliknij <strong>\uD83D\uDCE5 IMPORTUJ DANE OD DYSPOZYTORA</strong></li>\
+<li>Wklej tre\u015B\u0107 SMS (ca\u0142y link lub sam kod Base64)</li>\
+<li>Podgl\u0105d danych pojawi si\u0119 automatycznie</li>\
+<li><strong>IMPORTUJ</strong> \u2014 zatwierdza dane</li>\
+</ol>\
+<h3>Import w trakcie zdarzenia</h3>\
+<p>Je\u015Bli zdarzenie jest ju\u017C rozpocz\u0119te i masz posegregowanych pacjent\u00F3w:</p>\
+<ul>\
+<li><strong>Pacjenci</strong> \u2014 zachowani (nigdy nie s\u0105 usuwani)</li>\
+<li><strong>KAM</strong> \u2014 zachowany</li>\
+<li><strong>GDM</strong> \u2014 zast\u0105piony danymi dyspozytora</li>\
+<li><strong>Zespo\u0142y ZRM</strong> \u2014 zast\u0105pione danymi dyspozytora</li>\
+<li><strong>Szpitale</strong> \u2014 zast\u0105pione danymi dyspozytora</li>\
+<li><strong>Nazwa zdarzenia</strong> \u2014 po\u0142\u0105czone: \u201ETwoja nazwa | Nazwa dyspozytora (dyspozytor)\u201D</li>\
+</ul>\
+<p>\u017B\u00F3\u0142te ostrze\u017Cenie w podgl\u0105dzie informuje o zachowaniu pacjent\u00F3w i KAM.</p>\
+<hr>\
+<h2>7. Tryb dyspozytora</h2>\
+<p>Dost\u0119pny przez link \u201ETryb dyspozytora \u2192\u201D na ekranie startowym lub pod adresem <code>/dyspozytor/</code>.</p>\
+<p>Strona pozwala dyspozytorowi przygotowa\u0107 i wys\u0142a\u0107 dane dla zespo\u0142u w terenie.</p>\
+<h3>Formularz</h3>\
+<ol>\
+<li><strong>Nazwa zdarzenia</strong> \u2014 np. \u201EMCI Krak\u00F3w-Nowa Huta\u201D</li>\
+<li><strong>G\u0142\u00F3wny Dyspozytor Medyczny (GDM)</strong> \u2014 imi\u0119 i nazwisko</li>\
+<li><strong>Zespo\u0142y ZRM</strong> \u2014 dodawaj po jednym (nazwa + przycisk \u201E+\u201D)</li>\
+<li><strong>Szpitale docelowe</strong> \u2014 nazwa + pojemno\u015B\u0107 \uD83D\uDD34 i \uD83D\uDFE1 (+ przycisk dodaj)</li>\
+</ol>\
+<h3>Wysy\u0142anie</h3>\
+<ul>\
+<li><strong>\uD83D\uDCCB Podgl\u0105d danych</strong> \u2014 pokazuje podsumowanie z rozmiarem w znakach i liczb\u0105 SMS</li>\
+<li><strong>\uD83D\uDCF1 Wy\u015Blij SMS</strong> \u2014 otwiera aplikacj\u0119 SMS z gotowym linkiem</li>\
+<li><strong>\uD83D\uDCCB Kopiuj dane</strong> \u2014 kopiuje link do schowka</li>\
+</ul>\
+<p>Dane kodowane s\u0105 w Base64 (kompatybilno\u015B\u0107 z SMS GSM-7 \u2014 do 1530 znak\u00F3w w 10 segmentach SMS). Pomie\u015Bci ok. 20 szpitali i 20 zespo\u0142\u00F3w.</p>\
+<hr>\
+<h2>8. Raport</h2>\
+<h3>Raport wizualny</h3>\
+<p>Sekcja \u201ERaport dla dyspozytora\u201D generuje si\u0119 automatycznie i zawiera:</p>\
+<p><strong>Nag\u0142\u00F3wek:</strong></p>\
+<ul>\
+<li>Nazwa zdarzenia, czas rozpocz\u0119cia, czas raportu</li>\
+<li>KAM i GDM (je\u015Bli podane)</li>\
+<li>Czas zako\u0144czenia (je\u015Bli zdarzenie zako\u0144czone)</li>\
+</ul>\
+<p><strong>Podsumowanie:</strong></p>\
+<ul>\
+<li>Kolorowe znaczniki z liczb\u0105 pacjent\u00F3w w ka\u017Cdej kategorii</li>\
+<li>\u0141\u0105czna liczba pacjent\u00F3w</li>\
+</ul>\
+<p><strong>Szpitale</strong> (osobny blok dla ka\u017Cdego szpitala z transportami):</p>\
+<ul>\
+<li>Nazwa szpitala, liczba pacjent\u00F3w, info o pojemno\u015Bci</li>\
+<li>Lista pacjent\u00F3w z: znacznik, wiek/p\u0142e\u0107, zesp\u00F3\u0142, czas, status (W TRANSPORCIE / DOSTARCZONY)</li>\
+<li>Historia retria\u017Cu (np. \u21BAT1\u2192T2\u2192T1)</li>\
+<li>Historia zmian szpitala (np. \u21C4Szpital1\u2192Szpital2)</li>\
+<li>Podsumowanie obra\u017Ce\u0144</li>\
+</ul>\
+<p><strong>Pacjenci na miejscu</strong> (je\u015Bli kto\u015B pozosta\u0142):</p>\
+<ul>\
+<li>Lista z: znacznik, wiek/p\u0142e\u0107, kategoria, notatki, obra\u017Cenia</li>\
+</ul>\
+<h3>Raport tekstowy</h3>\
+<p>Przycisk \u201E\uD83D\uDCCB Raport tekstowy\u201D otwiera modal z pe\u0142nym raportem w formacie tekstowym. Zawiera kompletn\u0105 list\u0119 pacjent\u00F3w z notatkami, p\u0142ci\u0105, wiekiem i \u015Bcie\u017Ck\u0105 segregacji.</p>\
+<h3>Wysy\u0142anie raportu</h3>\
+<ul>\
+<li><strong>\uD83D\uDCCB Kopiuj do schowka</strong> \u2014 kopiuje pe\u0142ny tekst raportu</li>\
+<li><strong>\uD83D\uDCE4 Wy\u015Blij</strong> \u2014 otwiera opcje:\
+<ul>\
+<li><strong>SMS</strong> \u2014 otwiera natywn\u0105 aplikacj\u0119 SMS z tre\u015Bci\u0105 raportu</li>\
+<li><strong>Email</strong> \u2014 otwiera klienta email z tematem i tre\u015Bci\u0105 raportu</li>\
+</ul></li>\
+</ul>\
+<h3>Zako\u0144czenie zdarzenia</h3>\
+<p>Przycisk <strong>ZAKO\u0143CZ ZDARZENIE</strong> w nag\u0142\u00F3wku raportu:</p>\
+<ul>\
+<li>Zapisuje czas zako\u0144czenia</li>\
+<li>Zmienia si\u0119 na <strong>COFNIJ ZAKO\u0143CZENIE</strong> (odwracalne)</li>\
+<li>Czas zako\u0144czenia pojawia si\u0119 w raporcie</li>\
+</ul>\
+<hr>\
+<h2>9. Retria\u017C i zmiana szpitala</h2>\
+<h3>Retria\u017C</h3>\
+<p>Na karcie pacjenta w sekcji \u201EPacjenci na miejscu\u201D znajduj\u0105 si\u0119 4 kolorowe kropki (T1\u2013T4). Klikni\u0119cie innej kategorii ni\u017C aktualna:</p>\
+<ol>\
+<li>Otwiera okno potwierdzenia: \u201EZmieni\u0107 kategori\u0119 pacjenta P-001 z T1 na T2?\u201D</li>\
+<li><strong>POTWIERD\u0179</strong> \u2014 zmienia kategori\u0119, zapisuje w historii</li>\
+<li><strong>ANULUJ</strong> \u2014 bez zmian</li>\
+</ol>\
+<p>Historia retria\u017Cu:</p>\
+<ul>\
+<li>Znacznik \u21BAn na karcie pacjenta (n = liczba zmian)</li>\
+<li>Pe\u0142na historia w raporcie (np. T1\u2192T2\u2192T1 z godzinami)</li>\
+</ul>\
+<h3>Zmiana szpitala w transporcie</h3>\
+<p>Na karcie pacjenta \u201EW transporcie\u201D przycisk \u201Ezmie\u0144\u201D:</p>\
+<ol>\
+<li>Otwiera modal z aktualnym szpitalem</li>\
+<li>Lista rozwijana z dost\u0119pnymi szpitalami (z informacj\u0105 o pojemno\u015Bci)</li>\
+<li><strong>POTWIERD\u0179</strong> \u2014 zmienia szpital, zapisuje w historii</li>\
+<li><strong>ANULUJ</strong> \u2014 bez zmian</li>\
+</ol>\
+<p>Historia zmian szpitala widoczna w raporcie (\u21C4Szpital1\u2192Szpital2).</p>\
+<hr>\
+<h2>10. Instalacja i tryb offline</h2>\
+<h3>Instalacja jako PWA</h3>\
+<p><strong>Android (Chrome):</strong></p>\
+<ol>\
+<li>Otw\u00F3rz aplikacj\u0119 w Chrome</li>\
+<li>Tapnij \u22EE (menu) w prawym g\u00F3rnym rogu</li>\
+<li>Wybierz \u201EDodaj do ekranu g\u0142\u00F3wnego\u201D</li>\
+<li>Tapnij \u201EZainstaluj\u201D</li>\
+</ol>\
+<p><strong>iOS (Safari):</strong></p>\
+<ol>\
+<li>Otw\u00F3rz aplikacj\u0119 w Safari</li>\
+<li>Tapnij \u2399 (Udost\u0119pnij)</li>\
+<li>Przewi\u0144 w d\u00F3\u0142 i wybierz \u201EDodaj do ekranu pocz\u0105tkowego\u201D</li>\
+</ol>\
+<p>Po instalacji aplikacja dzia\u0142a jako osobna aplikacja z pe\u0142nym trybem offline.</p>\
+<h3>Tryb offline</h3>\
+<p>Aplikacja po pierwszym za\u0142adowaniu zapisuje si\u0119 w cache urz\u0105dzenia. Wszystkie funkcje dzia\u0142aj\u0105 bez po\u0142\u0105czenia z internetem:</p>\
+<ul>\
+<li>Segregacja pacjent\u00F3w</li>\
+<li>Dysponowanie transportu</li>\
+<li>Generowanie raport\u00F3w</li>\
+<li>Import danych (wklejanie)</li>\
+</ul>\
+<p>Internet potrzebny jest tylko do: pierwszego pobrania, aktualizacji, oraz wysy\u0142ki SMS/email (przez natywne aplikacje urz\u0105dzenia).</p>\
+<h3>Pobranie jako plik HTML</h3>\
+<p>Przycisk <strong>\u2B07 Pobierz</strong> na ekranie startowym pobiera aplikacj\u0119 jako samodzielny plik HTML. Mo\u017Cna go przenie\u015B\u0107 na pendrive i uruchomi\u0107 na dowolnym komputerze z przegl\u0105dark\u0105.</p>\
+<hr>\
+<h2>11. Prywatno\u015B\u0107</h2>\
+<ul>\
+<li>Wszystkie dane przechowywane s\u0105 <strong>wy\u0142\u0105cznie na urz\u0105dzeniu</strong> (localStorage)</li>\
+<li>\u017Badne dane <strong>nie s\u0105 wysy\u0142ane</strong> na serwery zewn\u0119trzne</li>\
+<li>Brak analityki, \u015Bledzenia, telemetrii</li>\
+<li>Brak plik\u00F3w cookie do \u015Bledzenia</li>\
+<li>Funkcje SMS i email korzystaj\u0105 z natywnych aplikacji urz\u0105dzenia \u2014 aplikacja nie wysy\u0142a wiadomo\u015Bci bezpo\u015Brednio</li>\
+<li>Usuni\u0119cie danych: u\u017Cyj \u201EZako\u0144cz zdarzenie\u201D lub wyczy\u015B\u0107 dane przegl\u0105darki</li>\
+</ul>\
+<p>Pe\u0142na polityka prywatno\u015Bci dost\u0119pna pod adresem <code>/privacy/</code>.</p>';
+
+CONTENT.en = '<h1>TRIAGE MCI User Manual</h1>\
+<h2>1. What is TRIAGE MCI</h2>\
+<p>TRIAGE MCI is a web application (PWA) for triage and mass casualty incident (MCI) management based on the START algorithm. It allows you to:</p>\
+<ul>\
+<li>Classify patients into 4 categories (T1\u2013T4)</li>\
+<li>Manage transport to hospitals</li>\
+<li>Track hospital capacity</li>\
+<li>Generate and send reports</li>\
+<li>Import data from a dispatcher</li>\
+</ul>\
+<p>The application works fully offline. All data is stored exclusively on the user\'s device \u2014 no information is sent to external servers.</p>\
+<p>It supports 7 languages: Polish, English, Italian, French, German, Czech, and Portuguese.</p>\
+<hr>\
+<h2>2. Starting an Incident</h2>\
+<h3>Start Screen</h3>\
+<p>When you launch the application, the incident configuration screen appears:</p>\
+<ol>\
+<li><strong>Language selection</strong> \u2014 selector at the top of the screen. Changing the language immediately translates the entire interface.</li>\
+<li><strong>Incident name</strong> \u2014 required field. Enter the location and type of incident (e.g., \u201CCrash A4 km 312\u201D). This will appear in reports.</li>\
+<li><strong>MCI Commander</strong> \u2014 optional field. Medical Action Commander \u2014 the name of the person coordinating on-scene operations.</li>\
+<li><strong>Show hints</strong> \u2014 toggle that enables contextual hint bubbles throughout the application. Useful for first-time use.</li>\
+<li><strong>START TRIAGE</strong> \u2014 starts the incident and launches the timer.</li>\
+</ol>\
+<h3>Resuming an Incident</h3>\
+<p>If a saved incident exists in device memory, the following options appear on launch:</p>\
+<ul>\
+<li><strong>CONTINUE</strong> \u2014 resumes the saved incident with all data</li>\
+<li><strong>NEW INCIDENT</strong> \u2014 clears previous data and starts from scratch</li>\
+</ul>\
+<hr>\
+<h2>3. Triage (START Algorithm)</h2>\
+<h3>Navigation</h3>\
+<p>The application has 3 tabs at the top of the screen:</p>\
+<ul>\
+<li><strong>TRIAGE</strong> \u2014 patient classification</li>\
+<li><strong>DISPATCH</strong> \u2014 transport and management</li>\
+<li><strong>REPORT</strong> \u2014 summary and export</li>\
+</ul>\
+<p>The statistics bar below the navigation shows the number of patients in each category: \uD83D\uDD34 T1, \uD83D\uDFE1 T2, \uD83D\uDFE2 T3, \u26AB T4, and the total.</p>\
+<h3>START Triage Wizard</h3>\
+<p>The wizard guides you through the 6-step START algorithm. At each step, you answer YES or NO:</p>\
+<p><strong>Step 1 \u2014 Can the patient walk?</strong></p>\
+<ul>\
+<li>YES \u2192 T3 Green (delayed)</li>\
+<li>NO \u2192 proceed to step 2</li>\
+</ul>\
+<p><strong>Step 2 \u2014 Is the patient breathing spontaneously?</strong></p>\
+<ul>\
+<li>YES \u2192 proceed to step 4 (respiratory rate assessment)</li>\
+<li>NO \u2192 proceed to step 3</li>\
+</ul>\
+<p><strong>Step 3 \u2014 Open the airway. Is the patient breathing after airway opening?</strong></p>\
+<ul>\
+<li>YES \u2192 T1 Red (immediate)</li>\
+<li>NO \u2192 T4 Black (deceased)</li>\
+</ul>\
+<p><strong>Step 4 \u2014 Is the respiratory rate normal (\u2264 30/min)?</strong></p>\
+<ul>\
+<li>YES \u2192 proceed to step 5</li>\
+<li>NO \u2192 T1 Red (immediate)</li>\
+</ul>\
+<p><strong>Step 5 \u2014 Is capillary refill normal (\u2264 2 sec) and radial pulse present?</strong></p>\
+<ul>\
+<li>YES \u2192 proceed to step 6</li>\
+<li>NO \u2192 T1 Red (immediate)</li>\
+</ul>\
+<p><strong>Step 6 \u2014 Can the patient follow simple commands?</strong></p>\
+<ul>\
+<li>YES \u2192 T2 Yellow (urgent)</li>\
+<li>NO \u2192 T1 Red (immediate)</li>\
+</ul>\
+<p>Each question has a hint displayed below it \u2014 describing how to assess the given parameter.</p>\
+<h3>Result Card</h3>\
+<p>After completing triage, a result card appears with:</p>\
+<ul>\
+<li><strong>Color tag</strong> \u2014 a large square with the category (T1/T2/T3/T4)</li>\
+<li><strong>Decision path</strong> \u2014 shows the algorithm flow</li>\
+<li><strong>Sex</strong> \u2014 buttons M (male), F (female), ? (unknown)</li>\
+<li><strong>Age</strong> \u2014 numeric field with buttons -5, -1, +1, +5 (range 0\u2013150)</li>\
+<li><strong>Body injuries</strong> \u2014 button to open the injury diagram (see section 4)</li>\
+<li><strong>Notes</strong> \u2014 field for additional information (injuries, mechanism of injury, etc.)</li>\
+</ul>\
+<p>Available actions:</p>\
+<ul>\
+<li><strong>\u2713 CONFIRM PATIENT</strong> \u2014 adds the patient to the list</li>\
+<li><strong>\u21BA START OVER</strong> \u2014 resets the wizard to step 1</li>\
+<li><strong>CHANGE COLOR MANUALLY</strong> \u2014 opens a row of 4 buttons (T1\u2013T4) for manual category override</li>\
+</ul>\
+<h3>On-Scene Patient List</h3>\
+<p>Below the wizard, the \u201COn-scene patients\u201D list is displayed, sorted by priority (T1 \u2192 T2 \u2192 T3 \u2192 T4).</p>\
+<p>Each patient card contains:</p>\
+<ul>\
+<li>Color tag (e.g., P-001)</li>\
+<li>Category, sex/age, registration time</li>\
+<li>Notes field (editable)</li>\
+<li>Injury button (\uD83E\uDE7B) with summary</li>\
+<li>4 retriage dots (T1\u2013T4) \u2014 click to change category</li>\
+<li>Delete button (\u2715)</li>\
+<li>Retriage badge (\u21BAn) if the category was changed</li>\
+</ul>\
+<h3>In-Transit List</h3>\
+<p>The \u201CIn transit\u201D section appears when patients are en route to a hospital. Each card shows:</p>\
+<ul>\
+<li>Patient tag with category color</li>\
+<li>Route: Team \u2192 Hospital \u2192 departure time</li>\
+<li>\u201Cchange\u201D button \u2014 change the destination hospital</li>\
+<li>\u201C\u2713 Delivered\u201D button \u2014 marks delivery and releases the EMS team</li>\
+</ul>\
+<hr>\
+<h2>4. Body Injury Diagram</h2>\
+<p>The \u201C\uD83E\uDE7B Body injuries\u201D button opens an interactive body diagram.</p>\
+<h3>Diagram View</h3>\
+<p>Two body outlines are displayed side by side:</p>\
+<ul>\
+<li><strong>FRONT</strong> \u2014 head, chest, abdomen, arms, legs</li>\
+<li><strong>BACK</strong> \u2014 head, upper back, lower back, arms, legs</li>\
+</ul>\
+<p>Side labels are visible: <strong>L</strong> (left) and <strong>R</strong> (right), reversed for the back view.</p>\
+<p>Click on a body zone to select it.</p>\
+<h3>Zone Injury Panel</h3>\
+<p>After selecting a zone, a panel opens with 7 injury types to mark:</p>\
+<ul>\
+<li>Fracture</li>\
+<li>Bleeding</li>\
+<li>Burn</li>\
+<li>Wound</li>\
+<li>Swelling</li>\
+<li>Pain</li>\
+<li>Amputation</li>\
+</ul>\
+<p>Checked types are marked with \u2713. Each can be toggled on/off by clicking.</p>\
+<p>At the bottom of the panel:</p>\
+<ul>\
+<li><strong>\u2715 NO</strong> \u2014 discards changes for this zone</li>\
+<li><strong>\u2713 YES</strong> \u2014 confirms injuries for the selected zone</li>\
+</ul>\
+<h3>Confirming the Diagram</h3>\
+<p>After marking injuries in all needed zones:</p>\
+<ul>\
+<li><strong>\u2713 YES</strong> \u2014 confirms the entire injury diagram</li>\
+<li><strong>\u2715 NO</strong> \u2014 discards all changes and reverts to the state before opening</li>\
+</ul>\
+<p>Marked injuries are visible:</p>\
+<ul>\
+<li>On the patient card as an abbreviated summary (e.g., \u201C\uD83E\uDE7B Head: Fracture, Bleeding\u201D)</li>\
+<li>In the report for the given patient</li>\
+</ul>\
+<hr>\
+<h2>5. Dispatch</h2>\
+<h3>Configuration Modals</h3>\
+<p>When you first enter the Dispatch tab, 3 modals appear in sequence:</p>\
+<p><strong>1. Medical Operations Director (GDM)</strong></p>\
+<ul>\
+<li>Field for GDM name</li>\
+<li>Button to import data from the dispatcher (see section 6)</li>\
+<li>SKIP or SAVE</li>\
+</ul>\
+<p><strong>2. EMS Teams</strong></p>\
+<ul>\
+<li>Question: \u201CDo you know the EMS teams dispatched to the scene?\u201D</li>\
+<li>YES \u2192 form for adding teams (name + add button)</li>\
+<li>NO \u2192 use default teams (S-01, S-02, P-01, P-02, P-03, LPR)</li>\
+<li>CONFIRM or SKIP (DEFAULT)</li>\
+</ul>\
+<p><strong>3. Destination Hospitals</strong></p>\
+<ul>\
+<li>Form for adding hospitals with capacity:\
+<ul>\
+<li>Hospital name</li>\
+<li>\uD83D\uDD34 Red capacity (T1) \u2014 number of beds</li>\
+<li>\uD83D\uDFE1 Yellow capacity (T2) \u2014 number of beds</li>\
+</ul></li>\
+<li>CONFIRM or SKIP (DEFAULT)</li>\
+</ul>\
+<p>Each modal appears only once per incident.</p>\
+<h3>Dispatch Form</h3>\
+<p>The \u201CDispatch transport\u201D section contains:</p>\
+<ol>\
+<li><strong>Patient</strong> \u2014 dropdown list of on-scene patients, sorted by priority</li>\
+<li><strong>EMS Team</strong> \u2014 list of available teams (busy teams are hidden)</li>\
+<li><strong>Hospital</strong> \u2014 list of hospitals with occupancy information:\
+<ul>\
+<li>Format: \u201CHospital name [\uD83D\uDD34 occupied/total \uD83D\uDFE1 occupied/total]\u201D</li>\
+<li>Hospitals with no available beds for the patient\'s category are flagged with a warning</li>\
+</ul></li>\
+<li><strong>DISPATCH TRANSPORT</strong> \u2014 button active when all fields are filled</li>\
+</ol>\
+<h3>Management Panels</h3>\
+<p>Below the form are two panels (side by side on wide screens, stacked on narrow screens):</p>\
+<p><strong>Hospitals</strong> (ALL beds):</p>\
+<ul>\
+<li>List of hospitals with editable capacity fields (\uD83D\uDD34 and \uD83D\uDFE1)</li>\
+<li>Adding new hospitals</li>\
+<li>Removing hospitals (\u2715)</li>\
+<li>Collapsing/expanding the list</li>\
+</ul>\
+<p><strong>EMS Teams:</strong></p>\
+<ul>\
+<li>List of teams with delete buttons</li>\
+<li>Adding new teams</li>\
+<li>Collapsing/expanding the list</li>\
+</ul>\
+<h3>Transport History</h3>\
+<p>At the bottom of the dispatch section (collapsed by default). Expand to see a chronological list of all transports with:</p>\
+<ul>\
+<li>Patient tag with color</li>\
+<li>Team \u2192 Hospital \u2192 departure time</li>\
+<li>Status (in transit / delivered)</li>\
+</ul>\
+<hr>\
+<h2>6. Importing Data from the Dispatcher</h2>\
+<p>This feature allows the dispatcher to send data (incident name, GDM, EMS teams, hospitals with capacity) to the responder in the field.</p>\
+<h3>Method 1 \u2014 SMS Link (one click)</h3>\
+<p>The dispatcher sends an SMS with a link in this format:</p>\
+<pre><code>https://0xjaqbek.github.io/triage/?i=BASE64_DATA</code></pre>\
+<p>After clicking the link:</p>\
+<ol>\
+<li>The application opens from cache (no internet required if installed)</li>\
+<li>A data preview appears: incident name, GDM, teams, hospitals</li>\
+<li><strong>IMPORT</strong> \u2014 imports the data and opens triage</li>\
+<li><strong>DISCARD</strong> \u2014 ignores the data</li>\
+</ol>\
+<h3>Method 2 \u2014 Pasting Data</h3>\
+<p>If the link does not open the application (locked devices):</p>\
+<ol>\
+<li>Open the application, go to Dispatch</li>\
+<li>In the GDM modal, click <strong>\uD83D\uDCE5 IMPORT DATA FROM DISPATCHER</strong></li>\
+<li>Paste the SMS content (the full link or just the Base64 code)</li>\
+<li>The data preview appears automatically</li>\
+<li><strong>IMPORT</strong> \u2014 confirms the data</li>\
+</ol>\
+<h3>Import During an Active Incident</h3>\
+<p>If the incident is already in progress and you have triaged patients:</p>\
+<ul>\
+<li><strong>Patients</strong> \u2014 preserved (never deleted)</li>\
+<li><strong>MCI Commander</strong> \u2014 preserved</li>\
+<li><strong>GDM</strong> \u2014 replaced with dispatcher data</li>\
+<li><strong>EMS Teams</strong> \u2014 replaced with dispatcher data</li>\
+<li><strong>Hospitals</strong> \u2014 replaced with dispatcher data</li>\
+<li><strong>Incident name</strong> \u2014 merged: \u201CYour name | Dispatcher name (dispatcher)\u201D</li>\
+</ul>\
+<p>A yellow warning in the preview informs you that patients and MCI Commander are preserved.</p>\
+<hr>\
+<h2>7. Dispatcher Mode</h2>\
+<p>Accessible via the \u201CDispatcher mode \u2192\u201D link on the start screen or at <code>/dyspozytor/</code>.</p>\
+<p>This page allows the dispatcher to prepare and send data to the field team.</p>\
+<h3>Form</h3>\
+<ol>\
+<li><strong>Incident name</strong> \u2014 e.g., \u201CMCI Krakow-Nowa Huta\u201D</li>\
+<li><strong>Medical Operations Director (GDM)</strong> \u2014 full name</li>\
+<li><strong>EMS Teams</strong> \u2014 add one at a time (name + \u201C+\u201D button)</li>\
+<li><strong>Destination hospitals</strong> \u2014 name + \uD83D\uDD34 and \uD83D\uDFE1 capacity (+ add button)</li>\
+</ol>\
+<h3>Sending</h3>\
+<ul>\
+<li><strong>\uD83D\uDCCB Preview data</strong> \u2014 shows a summary with character count and number of SMS segments</li>\
+<li><strong>\uD83D\uDCF1 Send SMS</strong> \u2014 opens the SMS app with a ready-made link</li>\
+<li><strong>\uD83D\uDCCB Copy data</strong> \u2014 copies the link to the clipboard</li>\
+</ul>\
+<p>Data is encoded in Base64 (compatible with GSM-7 SMS \u2014 up to 1,530 characters in 10 SMS segments). This can accommodate approximately 20 hospitals and 20 teams.</p>\
+<hr>\
+<h2>8. Report</h2>\
+<h3>Visual Report</h3>\
+<p>The \u201CReport for dispatcher\u201D section is generated automatically and contains:</p>\
+<p><strong>Header:</strong></p>\
+<ul>\
+<li>Incident name, start time, report time</li>\
+<li>MCI Commander and GDM (if provided)</li>\
+<li>End time (if the incident is closed)</li>\
+</ul>\
+<p><strong>Summary:</strong></p>\
+<ul>\
+<li>Color tags with patient counts for each category</li>\
+<li>Total patient count</li>\
+</ul>\
+<p><strong>Hospitals</strong> (separate block for each hospital with transports):</p>\
+<ul>\
+<li>Hospital name, patient count, capacity info</li>\
+<li>Patient list with: tag, age/sex, team, time, status (IN TRANSIT / DELIVERED)</li>\
+<li>Retriage history (e.g., \u21BAT1\u2192T2\u2192T1)</li>\
+<li>Hospital change history (e.g., \u21C4Hospital1\u2192Hospital2)</li>\
+<li>Injury summary</li>\
+</ul>\
+<p><strong>On-scene patients</strong> (if any remain):</p>\
+<ul>\
+<li>List with: tag, age/sex, category, notes, injuries</li>\
+</ul>\
+<h3>Text Report</h3>\
+<p>The \u201C\uD83D\uDCCB Text report\u201D button opens a modal with the full report in text format. It includes a complete patient list with notes, sex, age, and triage pathway.</p>\
+<h3>Sending the Report</h3>\
+<ul>\
+<li><strong>\uD83D\uDCCB Copy to clipboard</strong> \u2014 copies the full report text</li>\
+<li><strong>\uD83D\uDCE4 Send</strong> \u2014 opens options:\
+<ul>\
+<li><strong>SMS</strong> \u2014 opens the native SMS app with the report content</li>\
+<li><strong>Email</strong> \u2014 opens the email client with the subject and report content</li>\
+</ul></li>\
+</ul>\
+<h3>Closing the Incident</h3>\
+<p>The <strong>END INCIDENT</strong> button in the report header:</p>\
+<ul>\
+<li>Saves the end time</li>\
+<li>Changes to <strong>UNDO CLOSING</strong> (reversible)</li>\
+<li>The end time appears in the report</li>\
+</ul>\
+<hr>\
+<h2>9. Retriage and Hospital Change</h2>\
+<h3>Retriage</h3>\
+<p>On the patient card in the \u201COn-scene patients\u201D section, there are 4 colored dots (T1\u2013T4). Clicking a different category than the current one:</p>\
+<ol>\
+<li>Opens a confirmation dialog: \u201CChange patient P-001 category from T1 to T2?\u201D</li>\
+<li><strong>CONFIRM</strong> \u2014 changes the category, saves to history</li>\
+<li><strong>CANCEL</strong> \u2014 no changes</li>\
+</ol>\
+<p>Retriage history:</p>\
+<ul>\
+<li>Badge \u21BAn on the patient card (n = number of changes)</li>\
+<li>Full history in the report (e.g., T1\u2192T2\u2192T1 with timestamps)</li>\
+</ul>\
+<h3>Changing Hospital During Transport</h3>\
+<p>On the patient card in \u201CIn transit,\u201D the \u201Cchange\u201D button:</p>\
+<ol>\
+<li>Opens a modal with the current hospital</li>\
+<li>Dropdown list of available hospitals (with capacity info)</li>\
+<li><strong>CONFIRM</strong> \u2014 changes the hospital, saves to history</li>\
+<li><strong>CANCEL</strong> \u2014 no changes</li>\
+</ol>\
+<p>Hospital change history is visible in the report (\u21C4Hospital1\u2192Hospital2).</p>\
+<hr>\
+<h2>10. Installation and Offline Mode</h2>\
+<h3>Installing as a PWA</h3>\
+<p><strong>Android (Chrome):</strong></p>\
+<ol>\
+<li>Open the application in Chrome</li>\
+<li>Tap \u22EE (menu) in the upper right corner</li>\
+<li>Select \u201CAdd to Home screen\u201D</li>\
+<li>Tap \u201CInstall\u201D</li>\
+</ol>\
+<p><strong>iOS (Safari):</strong></p>\
+<ol>\
+<li>Open the application in Safari</li>\
+<li>Tap \u2399 (Share)</li>\
+<li>Scroll down and select \u201CAdd to Home Screen\u201D</li>\
+</ol>\
+<p>After installation, the application runs as a standalone app with full offline mode.</p>\
+<h3>Offline Mode</h3>\
+<p>After the first load, the application is saved in the device\'s cache. All features work without an internet connection:</p>\
+<ul>\
+<li>Patient triage</li>\
+<li>Transport dispatch</li>\
+<li>Report generation</li>\
+<li>Data import (pasting)</li>\
+</ul>\
+<p>Internet is only needed for: the initial download, updates, and sending SMS/email (via the device\'s native apps).</p>\
+<h3>Download as HTML File</h3>\
+<p>The <strong>\u2B07 Download</strong> button on the start screen downloads the application as a standalone HTML file. It can be transferred to a USB drive and opened on any computer with a browser.</p>\
+<hr>\
+<h2>11. Privacy</h2>\
+<ul>\
+<li>All data is stored <strong>exclusively on the device</strong> (localStorage)</li>\
+<li>No data is <strong>sent</strong> to external servers</li>\
+<li>No analytics, tracking, or telemetry</li>\
+<li>No tracking cookies</li>\
+<li>SMS and email features use the device\'s native apps \u2014 the application does not send messages directly</li>\
+<li>To delete data: use \u201CEnd incident\u201D or clear browser data</li>\
+</ul>\
+<p>The full privacy policy is available at <code>/privacy/</code>.</p>';
+
+CONTENT.it = '<h1>Manuale d\'uso TRIAGE MCI</h1>\
+<h2>1. Cos\'\u00E8 TRIAGE MCI</h2>\
+<p>TRIAGE MCI \u00E8 un\'applicazione web (PWA) per il triage e la gestione degli incidenti con numerose vittime (MCI), basata sull\'algoritmo START. Consente di:</p>\
+<ul>\
+<li>Classificare i pazienti in 4 categorie (T1\u2013T4)</li>\
+<li>Gestire il trasporto verso gli ospedali</li>\
+<li>Monitorare la capacit\u00E0 degli ospedali</li>\
+<li>Generare e inviare rapporti</li>\
+<li>Importare dati dal dispatching</li>\
+</ul>\
+<p>L\'applicazione funziona interamente offline. Tutti i dati vengono memorizzati esclusivamente sul dispositivo dell\'utente \u2014 nessuna informazione viene inviata a server esterni.</p>\
+<p>Supporta 7 lingue: polacco, inglese, italiano, francese, tedesco, ceco, portoghese.</p>\
+<hr>\
+<h2>2. Avvio dell\'evento</h2>\
+<h3>Schermata iniziale</h3>\
+<p>All\'avvio dell\'applicazione apparir\u00E0 la schermata di configurazione dell\'evento:</p>\
+<ol>\
+<li><strong>Selezione della lingua</strong> \u2014 selettore in alto sullo schermo. La modifica della lingua traduce immediatamente l\'intera interfaccia.</li>\
+<li><strong>Nome dell\'evento</strong> \u2014 campo obbligatorio. Inserire la posizione e il tipo di evento (es. \u201CIncidente A4 km 312\u201D). Apparir\u00E0 nei rapporti.</li>\
+<li><strong>KAM</strong> \u2014 campo facoltativo. Responsabile dell\'Azione Medica \u2014 nome e cognome della persona che coordina le operazioni sul posto.</li>\
+<li><strong>Mostra suggerimenti</strong> \u2014 interruttore che attiva i fumetti con suggerimenti contestuali in tutta l\'applicazione. Utile al primo utilizzo.</li>\
+<li><strong>INIZIA TRIAGE</strong> \u2014 avvia l\'evento e fa partire il cronometro.</li>\
+</ol>\
+<h3>Ripresa dell\'evento</h3>\
+<p>Se nella memoria del dispositivo \u00E8 presente un evento salvato, all\'avvio apparir\u00E0 l\'opzione:</p>\
+<ul>\
+<li><strong>CONTINUA</strong> \u2014 riprende l\'evento salvato con tutti i dati</li>\
+<li><strong>NUOVO EVENTO</strong> \u2014 cancella i dati precedenti e ricomincia da zero</li>\
+</ul>\
+<hr>\
+<h2>3. Triage (algoritmo START)</h2>\
+<h3>Navigazione</h3>\
+<p>L\'applicazione ha 3 schede nella parte superiore dello schermo:</p>\
+<ul>\
+<li><strong>TRIAGE</strong> \u2014 classificazione dei pazienti</li>\
+<li><strong>DISPATCHING</strong> \u2014 trasporto e gestione</li>\
+<li><strong>RAPPORTO</strong> \u2014 riepilogo ed esportazione</li>\
+</ul>\
+<p>La barra delle statistiche sotto la navigazione mostra il numero di pazienti in ogni categoria: \uD83D\uDD34 T1, \uD83D\uDFE1 T2, \uD83D\uDFE2 T3, \u26AB T4 e il totale.</p>\
+<h3>Procedura guidata di triage START</h3>\
+<p>La procedura guidata accompagna l\'utente attraverso l\'algoritmo START in 6 passaggi. Ad ogni passaggio si risponde S\u00CC o NO:</p>\
+<p><strong>Passaggio 1 \u2014 Il paziente cammina?</strong></p>\
+<ul>\
+<li>S\u00CC \u2192 T3 Verde (differito)</li>\
+<li>NO \u2192 passare al passaggio 2</li>\
+</ul>\
+<p><strong>Passaggio 2 \u2014 Respira spontaneamente?</strong></p>\
+<ul>\
+<li>S\u00CC \u2192 passare al passaggio 4 (valutazione della frequenza respiratoria)</li>\
+<li>NO \u2192 passare al passaggio 3</li>\
+</ul>\
+<p><strong>Passaggio 3 \u2014 Liberare le vie aeree. Respira dopo la disostruzione?</strong></p>\
+<ul>\
+<li>S\u00CC \u2192 T1 Rosso (immediato)</li>\
+<li>NO \u2192 T4 Nero (decesso)</li>\
+</ul>\
+<p><strong>Passaggio 4 \u2014 La frequenza respiratoria \u00E8 nella norma (\u2264 30/min)?</strong></p>\
+<ul>\
+<li>S\u00CC \u2192 passare al passaggio 5</li>\
+<li>NO \u2192 T1 Rosso (immediato)</li>\
+</ul>\
+<p><strong>Passaggio 5 \u2014 Il refill capillare \u00E8 nella norma (\u2264 2 sec.) e il polso radiale \u00E8 presente?</strong></p>\
+<ul>\
+<li>S\u00CC \u2192 passare al passaggio 6</li>\
+<li>NO \u2192 T1 Rosso (immediato)</li>\
+</ul>\
+<p><strong>Passaggio 6 \u2014 Esegue ordini semplici?</strong></p>\
+<ul>\
+<li>S\u00CC \u2192 T2 Giallo (urgente)</li>\
+<li>NO \u2192 T1 Rosso (immediato)</li>\
+</ul>\
+<p>Ogni domanda ha un suggerimento (hint) visibile sotto la domanda \u2014 descrive come valutare il parametro in questione.</p>\
+<h3>Scheda del risultato</h3>\
+<p>Al termine del triage appare la scheda del risultato con:</p>\
+<ul>\
+<li><strong>Indicatore colorato</strong> \u2014 grande quadrato con la categoria (T1/T2/T3/T4)</li>\
+<li><strong>Percorso decisionale</strong> \u2014 mostra lo svolgimento dell\'algoritmo</li>\
+<li><strong>Sesso</strong> \u2014 pulsanti M (maschio), F (femmina), ? (sconosciuto)</li>\
+<li><strong>Et\u00E0</strong> \u2014 campo numerico con pulsanti -5, -1, +1, +5 (intervallo 0\u2013150)</li>\
+<li><strong>Lesioni corporee</strong> \u2014 pulsante che apre il diagramma delle lesioni (vedi sezione 4)</li>\
+<li><strong>Note</strong> \u2014 campo per informazioni aggiuntive (lesioni, meccanismo del trauma ecc.)</li>\
+</ul>\
+<p>Azioni disponibili:</p>\
+<ul>\
+<li><strong>\u2713 CONFERMA PAZIENTE</strong> \u2014 aggiunge il paziente alla lista</li>\
+<li><strong>\u21BA DA CAPO</strong> \u2014 reimposta la procedura guidata al passaggio 1</li>\
+<li><strong>CAMBIA COLORE MANUALMENTE</strong> \u2014 apre una fila di 4 pulsanti (T1\u2013T4) per la modifica manuale della categoria</li>\
+</ul>\
+<h3>Lista pazienti sul posto</h3>\
+<p>Sotto la procedura guidata \u00E8 visualizzata la lista \u201CPazienti sul posto\u201D ordinata per priorit\u00E0 (T1 \u2192 T2 \u2192 T3 \u2192 T4).</p>\
+<p>Ogni scheda paziente contiene:</p>\
+<ul>\
+<li>Indicatore colorato (es. P-001)</li>\
+<li>Categoria, sesso/et\u00E0, ora di registrazione</li>\
+<li>Campo note (modificabile)</li>\
+<li>Pulsante lesioni (\uD83E\uDE7B) con riepilogo</li>\
+<li>4 punti di re-triage (T1\u2013T4) \u2014 cliccare per cambiare la categoria</li>\
+<li>Pulsante di eliminazione (\u2715)</li>\
+<li>Indicatore di re-triage (\u21BAn) se la categoria \u00E8 stata modificata</li>\
+</ul>\
+<h3>Lista in trasporto</h3>\
+<p>La sezione \u201CIn trasporto\u201D appare quando i pazienti sono in viaggio verso l\'ospedale. Ogni scheda mostra:</p>\
+<ul>\
+<li>Indicatore del paziente con il colore della categoria</li>\
+<li>Percorso: Squadra \u2192 Ospedale \u2192 ora di partenza</li>\
+<li>Pulsante \u201Cmodifica\u201D \u2014 modifica dell\'ospedale di destinazione</li>\
+<li>Pulsante \u201C\u2713 Consegnato\u201D \u2014 segna la consegna e libera la squadra</li>\
+</ul>\
+<hr>\
+<h2>4. Diagramma delle lesioni corporee</h2>\
+<p>Il pulsante \u201C\uD83E\uDE7B Lesioni corporee\u201D apre un diagramma interattivo del corpo.</p>\
+<h3>Vista del diagramma</h3>\
+<p>Vengono visualizzati due contorni del corpo affiancati:</p>\
+<ul>\
+<li><strong>ANTERIORE</strong> (front) \u2014 testa, torace, addome, braccia, gambe</li>\
+<li><strong>POSTERIORE</strong> (back) \u2014 testa, parte superiore della schiena, parte inferiore della schiena, braccia, gambe</li>\
+</ul>\
+<p>Ai lati sono visibili le indicazioni dei lati: <strong>S</strong> (sinistra) e <strong>D</strong> (destra), invertite per la vista posteriore.</p>\
+<p>Cliccare su una zona del corpo per selezionarla.</p>\
+<h3>Pannello delle lesioni della zona</h3>\
+<p>Dopo aver selezionato una zona, si apre un pannello con 7 tipi di trauma da contrassegnare:</p>\
+<ul>\
+<li>Frattura</li>\
+<li>Emorragia</li>\
+<li>Ustione</li>\
+<li>Ferita</li>\
+<li>Gonfiore</li>\
+<li>Dolore</li>\
+<li>Amputazione</li>\
+</ul>\
+<p>I tipi contrassegnati sono indicati con \u2713. Ognuno pu\u00F2 essere attivato/disattivato con un clic.</p>\
+<p>In fondo al pannello:</p>\
+<ul>\
+<li><strong>\u2715 NO</strong> \u2014 annulla le modifiche in questa zona</li>\
+<li><strong>\u2713 S\u00CC</strong> \u2014 conferma le lesioni per la zona selezionata</li>\
+</ul>\
+<h3>Conferma del diagramma</h3>\
+<p>Dopo aver contrassegnato le lesioni in tutte le zone necessarie:</p>\
+<ul>\
+<li><strong>\u2713 S\u00CC</strong> \u2014 conferma l\'intero diagramma delle lesioni</li>\
+<li><strong>\u2715 NO</strong> \u2014 annulla tutte le modifiche e torna allo stato precedente all\'apertura</li>\
+</ul>\
+<p>Le lesioni contrassegnate sono visibili:</p>\
+<ul>\
+<li>Sulla scheda del paziente come riepilogo abbreviato (es. \u201C\uD83E\uDE7B Testa: Frattura, Emorragia\u201D)</li>\
+<li>Nel rapporto relativo al paziente</li>\
+</ul>\
+<hr>\
+<h2>5. Dispatching</h2>\
+<h3>Finestre modali di configurazione</h3>\
+<p>Al primo accesso alla scheda Dispatching appaiono in sequenza 3 finestre modali:</p>\
+<p><strong>1. Direttore delle Operazioni Mediche (GDM)</strong></p>\
+<ul>\
+<li>Campo per nome e cognome del GDM</li>\
+<li>Pulsante di importazione dati dal dispatching (vedi sezione 6)</li>\
+<li>SALTA o SALVA</li>\
+</ul>\
+<p><strong>2. Squadre di soccorso</strong></p>\
+<ul>\
+<li>Domanda: \u201CConosci le squadre di soccorso inviate sul posto?\u201D</li>\
+<li>S\u00CC \u2192 modulo per aggiungere le squadre (nome + pulsante aggiungi)</li>\
+<li>NO \u2192 usa le squadre predefinite (S-01, S-02, P-01, P-02, P-03, LPR)</li>\
+<li>CONFERMA o SALTA (PREDEFINITE)</li>\
+</ul>\
+<p><strong>3. Ospedali di destinazione</strong></p>\
+<ul>\
+<li>Modulo per aggiungere ospedali con capacit\u00E0:\
+<ul>\
+<li>Nome dell\'ospedale</li>\
+<li>\uD83D\uDD34 Capacit\u00E0 rossa (T1) \u2014 numero di posti letto</li>\
+<li>\uD83D\uDFE1 Capacit\u00E0 gialla (T2) \u2014 numero di posti letto</li>\
+</ul></li>\
+<li>CONFERMA o SALTA (PREDEFINITE)</li>\
+</ul>\
+<p>Ogni finestra modale appare solo una volta per evento.</p>\
+<h3>Modulo di dispatching</h3>\
+<p>La sezione \u201CDisponi il trasporto\u201D contiene:</p>\
+<ol>\
+<li><strong>Paziente</strong> \u2014 elenco a discesa con i pazienti sul posto, ordinato per priorit\u00E0</li>\
+<li><strong>Squadra di soccorso</strong> \u2014 elenco delle squadre disponibili (le squadre occupate sono nascoste)</li>\
+<li><strong>Ospedale</strong> \u2014 elenco degli ospedali con informazioni sull\'occupazione:\
+<ul>\
+<li>Formato: \u201CNome ospedale [\uD83D\uDD34 occupati/totali \uD83D\uDFE1 occupati/totali]\u201D</li>\
+<li>Ospedali senza posti liberi nella categoria del paziente contrassegnati con avviso</li>\
+</ul></li>\
+<li><strong>DISPONI TRASPORTO</strong> \u2014 pulsante attivo quando tutti i campi sono compilati</li>\
+</ol>\
+<h3>Pannelli di gestione</h3>\
+<p>Sotto il modulo si trovano due pannelli (su schermi larghi affiancati, su schermi stretti sovrapposti):</p>\
+<p><strong>Ospedali</strong> (posti letto TOTALI):</p>\
+<ul>\
+<li>Elenco degli ospedali con campi di capacit\u00E0 modificabili (\uD83D\uDD34 e \uD83D\uDFE1)</li>\
+<li>Aggiunta di nuovi ospedali</li>\
+<li>Eliminazione degli ospedali (\u2715)</li>\
+<li>Comprimere/espandere l\'elenco</li>\
+</ul>\
+<p><strong>Squadre di soccorso:</strong></p>\
+<ul>\
+<li>Elenco delle squadre con pulsanti di eliminazione</li>\
+<li>Aggiunta di nuove squadre</li>\
+<li>Comprimere/espandere l\'elenco</li>\
+</ul>\
+<h3>Cronologia dei trasporti</h3>\
+<p>In fondo alla sezione dispatching (compressa per impostazione predefinita). Espandere per visualizzare l\'elenco cronologico di tutti i trasporti con:</p>\
+<ul>\
+<li>Indicatore del paziente con colore</li>\
+<li>Squadra \u2192 Ospedale \u2192 ora di partenza</li>\
+<li>Stato (in trasporto / consegnato)</li>\
+</ul>\
+<hr>\
+<h2>6. Importazione dati dal dispatching</h2>\
+<p>La funzione consente al dispatcher di inviare dati (nome dell\'evento, GDM, squadre di soccorso, ospedali con capacit\u00E0) al soccorritore sul campo.</p>\
+<h3>Metodo 1 \u2014 Link SMS (un solo clic)</h3>\
+<p>Il dispatcher invia un SMS con un link nel formato:</p>\
+<pre><code>https://0xjaqbek.github.io/triage/?i=DATI_BASE64</code></pre>\
+<p>Dopo aver cliccato il link:</p>\
+<ol>\
+<li>L\'applicazione si apre dalla cache (non richiede internet se installata)</li>\
+<li>Appare un\'anteprima dei dati: nome dell\'evento, GDM, squadre, ospedali</li>\
+<li><strong>IMPORTA</strong> \u2014 importa i dati e apre il triage</li>\
+<li><strong>RIFIUTA</strong> \u2014 ignora i dati</li>\
+</ol>\
+<h3>Metodo 2 \u2014 Incollare i dati</h3>\
+<p>Se il link non apre l\'applicazione (dispositivi bloccati):</p>\
+<ol>\
+<li>Aprire l\'applicazione, andare alla sezione Dispatching</li>\
+<li>Nella finestra modale GDM cliccare <strong>\uD83D\uDCE5 IMPORTA DATI DAL DISPATCHER</strong></li>\
+<li>Incollare il contenuto dell\'SMS (l\'intero link o solo il codice Base64)</li>\
+<li>L\'anteprima dei dati apparir\u00E0 automaticamente</li>\
+<li><strong>IMPORTA</strong> \u2014 conferma i dati</li>\
+</ol>\
+<h3>Importazione durante l\'evento</h3>\
+<p>Se l\'evento \u00E8 gi\u00E0 in corso e ci sono pazienti gi\u00E0 triaggiati:</p>\
+<ul>\
+<li><strong>Pazienti</strong> \u2014 mantenuti (non vengono mai eliminati)</li>\
+<li><strong>KAM</strong> \u2014 mantenuto</li>\
+<li><strong>GDM</strong> \u2014 sostituito con i dati del dispatcher</li>\
+<li><strong>Squadre di soccorso</strong> \u2014 sostituite con i dati del dispatcher</li>\
+<li><strong>Ospedali</strong> \u2014 sostituiti con i dati del dispatcher</li>\
+<li><strong>Nome dell\'evento</strong> \u2014 unito: \u201CIl tuo nome | Nome del dispatcher (dispatcher)\u201D</li>\
+</ul>\
+<p>Un avviso giallo nell\'anteprima informa sul mantenimento dei pazienti e del KAM.</p>\
+<hr>\
+<h2>7. Modalit\u00E0 dispatcher</h2>\
+<p>Accessibile tramite il link \u201CModalit\u00E0 dispatcher \u2192\u201D nella schermata iniziale o all\'indirizzo <code>/dyspozytor/</code>.</p>\
+<p>La pagina consente al dispatcher di preparare e inviare i dati per la squadra sul campo.</p>\
+<h3>Modulo</h3>\
+<ol>\
+<li><strong>Nome dell\'evento</strong> \u2014 es. \u201CMCI Krak\u00F3w-Nowa Huta\u201D</li>\
+<li><strong>Direttore delle Operazioni Mediche (GDM)</strong> \u2014 nome e cognome</li>\
+<li><strong>Squadre di soccorso</strong> \u2014 aggiungere una alla volta (nome + pulsante \u201C+\u201D)</li>\
+<li><strong>Ospedali di destinazione</strong> \u2014 nome + capacit\u00E0 \uD83D\uDD34 e \uD83D\uDFE1 (+ pulsante aggiungi)</li>\
+</ol>\
+<h3>Invio</h3>\
+<ul>\
+<li><strong>\uD83D\uDCCB Anteprima dati</strong> \u2014 mostra il riepilogo con la dimensione in caratteri e il numero di SMS</li>\
+<li><strong>\uD83D\uDCF1 Invia SMS</strong> \u2014 apre l\'applicazione SMS con il link pronto</li>\
+<li><strong>\uD83D\uDCCB Copia dati</strong> \u2014 copia il link negli appunti</li>\
+</ul>\
+<p>I dati sono codificati in Base64 (compatibilit\u00E0 con SMS GSM-7 \u2014 fino a 1530 caratteri in 10 segmenti SMS). Pu\u00F2 contenere circa 20 ospedali e 20 squadre.</p>\
+<hr>\
+<h2>8. Rapporto</h2>\
+<h3>Rapporto visuale</h3>\
+<p>La sezione \u201CRapporto per il dispatcher\u201D si genera automaticamente e contiene:</p>\
+<p><strong>Intestazione:</strong></p>\
+<ul>\
+<li>Nome dell\'evento, ora di inizio, ora del rapporto</li>\
+<li>KAM e GDM (se indicati)</li>\
+<li>Ora di chiusura (se l\'evento \u00E8 concluso)</li>\
+</ul>\
+<p><strong>Riepilogo:</strong></p>\
+<ul>\
+<li>Indicatori colorati con il numero di pazienti in ogni categoria</li>\
+<li>Numero totale di pazienti</li>\
+</ul>\
+<p><strong>Ospedali</strong> (blocco separato per ogni ospedale con i trasporti):</p>\
+<ul>\
+<li>Nome dell\'ospedale, numero di pazienti, informazioni sulla capacit\u00E0</li>\
+<li>Elenco dei pazienti con: indicatore, et\u00E0/sesso, squadra, ora, stato (IN TRASPORTO / CONSEGNATO)</li>\
+<li>Cronologia del re-triage (es. \u21BAT1\u2192T2\u2192T1)</li>\
+<li>Cronologia dei cambi di ospedale (es. \u21C4Ospedale1\u2192Ospedale2)</li>\
+<li>Riepilogo delle lesioni</li>\
+</ul>\
+<p><strong>Pazienti sul posto</strong> (se qualcuno \u00E8 rimasto):</p>\
+<ul>\
+<li>Elenco con: indicatore, et\u00E0/sesso, categoria, note, lesioni</li>\
+</ul>\
+<h3>Rapporto testuale</h3>\
+<p>Il pulsante \u201C\uD83D\uDCCB Rapporto testuale\u201D apre una finestra modale con il rapporto completo in formato testo. Contiene l\'elenco completo dei pazienti con note, sesso, et\u00E0 e percorso di triage.</p>\
+<h3>Invio del rapporto</h3>\
+<ul>\
+<li><strong>\uD83D\uDCCB Copia negli appunti</strong> \u2014 copia il testo completo del rapporto</li>\
+<li><strong>\uD83D\uDCE4 Invia</strong> \u2014 apre le opzioni:\
+<ul>\
+<li><strong>SMS</strong> \u2014 apre l\'applicazione SMS nativa con il contenuto del rapporto</li>\
+<li><strong>Email</strong> \u2014 apre il client email con oggetto e contenuto del rapporto</li>\
+</ul></li>\
+</ul>\
+<h3>Chiusura dell\'evento</h3>\
+<p>Il pulsante <strong>CHIUDI EVENTO</strong> nell\'intestazione del rapporto:</p>\
+<ul>\
+<li>Salva l\'ora di chiusura</li>\
+<li>Si trasforma in <strong>ANNULLA CHIUSURA</strong> (reversibile)</li>\
+<li>L\'ora di chiusura appare nel rapporto</li>\
+</ul>\
+<hr>\
+<h2>9. Re-triage e cambio di ospedale</h2>\
+<h3>Re-triage</h3>\
+<p>Sulla scheda del paziente nella sezione \u201CPazienti sul posto\u201D ci sono 4 punti colorati (T1\u2013T4). Cliccando una categoria diversa da quella attuale:</p>\
+<ol>\
+<li>Si apre una finestra di conferma: \u201CCambiare la categoria del paziente P-001 da T1 a T2?\u201D</li>\
+<li><strong>CONFERMA</strong> \u2014 cambia la categoria e la salva nella cronologia</li>\
+<li><strong>ANNULLA</strong> \u2014 nessuna modifica</li>\
+</ol>\
+<p>Cronologia del re-triage:</p>\
+<ul>\
+<li>Indicatore \u21BAn sulla scheda del paziente (n = numero di modifiche)</li>\
+<li>Cronologia completa nel rapporto (es. T1\u2192T2\u2192T1 con orari)</li>\
+</ul>\
+<h3>Cambio di ospedale durante il trasporto</h3>\
+<p>Sulla scheda del paziente \u201CIn trasporto\u201D il pulsante \u201Cmodifica\u201D:</p>\
+<ol>\
+<li>Apre una finestra modale con l\'ospedale attuale</li>\
+<li>Elenco a discesa con gli ospedali disponibili (con informazioni sulla capacit\u00E0)</li>\
+<li><strong>CONFERMA</strong> \u2014 cambia l\'ospedale e lo salva nella cronologia</li>\
+<li><strong>ANNULLA</strong> \u2014 nessuna modifica</li>\
+</ol>\
+<p>La cronologia dei cambi di ospedale \u00E8 visibile nel rapporto (\u21C4Ospedale1\u2192Ospedale2).</p>\
+<hr>\
+<h2>10. Installazione e modalit\u00E0 offline</h2>\
+<h3>Installazione come PWA</h3>\
+<p><strong>Android (Chrome):</strong></p>\
+<ol>\
+<li>Aprire l\'applicazione in Chrome</li>\
+<li>Toccare \u22EE (menu) nell\'angolo in alto a destra</li>\
+<li>Selezionare \u201CAggiungi alla schermata Home\u201D</li>\
+<li>Toccare \u201CInstalla\u201D</li>\
+</ol>\
+<p><strong>iOS (Safari):</strong></p>\
+<ol>\
+<li>Aprire l\'applicazione in Safari</li>\
+<li>Toccare \u2399 (Condividi)</li>\
+<li>Scorrere verso il basso e selezionare \u201CAggiungi alla schermata Home\u201D</li>\
+</ol>\
+<p>Dopo l\'installazione l\'applicazione funziona come un\'applicazione indipendente con piena modalit\u00E0 offline.</p>\
+<h3>Modalit\u00E0 offline</h3>\
+<p>L\'applicazione, dopo il primo caricamento, viene salvata nella cache del dispositivo. Tutte le funzioni operano senza connessione a internet:</p>\
+<ul>\
+<li>Triage dei pazienti</li>\
+<li>Dispatching dei trasporti</li>\
+<li>Generazione dei rapporti</li>\
+<li>Importazione dati (incollare)</li>\
+</ul>\
+<p>La connessione a internet \u00E8 necessaria solo per: il primo download, gli aggiornamenti e l\'invio di SMS/email (tramite le applicazioni native del dispositivo).</p>\
+<h3>Download come file HTML</h3>\
+<p>Il pulsante <strong>\u2B07 Scarica</strong> nella schermata iniziale scarica l\'applicazione come file HTML autonomo. Pu\u00F2 essere trasferito su una chiavetta USB e avviato su qualsiasi computer dotato di browser.</p>\
+<hr>\
+<h2>11. Privacy</h2>\
+<ul>\
+<li>Tutti i dati sono memorizzati <strong>esclusivamente sul dispositivo</strong> (localStorage)</li>\
+<li>Nessun dato viene <strong>inviato</strong> a server esterni</li>\
+<li>Nessuna analitica, tracciamento o telemetria</li>\
+<li>Nessun cookie di tracciamento</li>\
+<li>Le funzioni SMS ed email utilizzano le applicazioni native del dispositivo \u2014 l\'applicazione non invia messaggi direttamente</li>\
+<li>Eliminazione dei dati: utilizzare \u201CChiudi evento\u201D o cancellare i dati del browser</li>\
+</ul>\
+<p>L\'informativa completa sulla privacy \u00E8 disponibile all\'indirizzo <code>/privacy/</code>.</p>';
+
+CONTENT.fr = '<h1>Manuel d\'utilisation TRIAGE MCI</h1>\
+<h2>1. Qu\'est-ce que TRIAGE MCI</h2>\
+<p>TRIAGE MCI est une application web (PWA) de tri et de gestion des incidents \u00E0 victimes multiples (MCI) bas\u00E9e sur l\'algorithme START. Elle permet :</p>\
+<ul>\
+<li>La classification des patients en 4 cat\u00E9gories (T1\u2013T4)</li>\
+<li>La gestion du transport vers les h\u00F4pitaux</li>\
+<li>Le suivi de la capacit\u00E9 hospitali\u00E8re</li>\
+<li>La g\u00E9n\u00E9ration et l\'envoi de rapports</li>\
+<li>L\'importation de donn\u00E9es depuis le r\u00E9gulateur</li>\
+</ul>\
+<p>L\'application fonctionne enti\u00E8rement hors ligne. Toutes les donn\u00E9es sont stock\u00E9es uniquement sur l\'appareil de l\'utilisateur \u2014 aucune information n\'est envoy\u00E9e \u00E0 des serveurs externes.</p>\
+<p>Elle prend en charge 7 langues : polonais, anglais, italien, fran\u00E7ais, allemand, tch\u00E8que, portugais.</p>\
+<hr>\
+<h2>2. D\u00E9marrage d\'un \u00E9v\u00E9nement</h2>\
+<h3>\u00C9cran d\'accueil</h3>\
+<p>Au lancement de l\'application, l\'\u00E9cran de configuration de l\'\u00E9v\u00E9nement s\'affiche :</p>\
+<ol>\
+<li><strong>Choix de la langue</strong> \u2014 s\u00E9lecteur en haut de l\'\u00E9cran. Le changement de langue traduit instantan\u00E9ment toute l\'interface.</li>\
+<li><strong>Nom de l\'\u00E9v\u00E9nement</strong> \u2014 champ obligatoire. Saisissez la localisation et le type d\'\u00E9v\u00E9nement (p. ex. \u00AB Accident A4 km 312 \u00BB). Il appara\u00EEtra dans les rapports.</li>\
+<li><strong>KAM</strong> \u2014 champ facultatif. Directeur des Op\u00E9rations M\u00E9dicales \u2014 nom et pr\u00E9nom de la personne coordonnant les actions sur le terrain.</li>\
+<li><strong>Afficher les info-bulles</strong> \u2014 interrupteur activant les bulles d\'aide contextuelle dans toute l\'application. Utile lors de la premi\u00E8re utilisation.</li>\
+<li><strong>COMMENCER LE TRIAGE</strong> \u2014 lance l\'\u00E9v\u00E9nement et d\u00E9marre le chronom\u00E8tre.</li>\
+</ol>\
+<h3>Reprise d\'un \u00E9v\u00E9nement</h3>\
+<p>Si un \u00E9v\u00E9nement sauvegard\u00E9 existe dans la m\u00E9moire de l\'appareil, une option appara\u00EEt au d\u00E9marrage :</p>\
+<ul>\
+<li><strong>CONTINUER</strong> \u2014 reprend l\'\u00E9v\u00E9nement sauvegard\u00E9 avec toutes les donn\u00E9es</li>\
+<li><strong>NOUVEL \u00C9V\u00C9NEMENT</strong> \u2014 efface les donn\u00E9es pr\u00E9c\u00E9dentes et recommence \u00E0 z\u00E9ro</li>\
+</ul>\
+<hr>\
+<h2>3. Tri (algorithme START)</h2>\
+<h3>Navigation</h3>\
+<p>L\'application dispose de 3 onglets en haut de l\'\u00E9cran :</p>\
+<ul>\
+<li><strong>TRI</strong> \u2014 classification des patients</li>\
+<li><strong>R\u00C9GULATION</strong> \u2014 transport et gestion</li>\
+<li><strong>RAPPORT</strong> \u2014 r\u00E9sum\u00E9 et export</li>\
+</ul>\
+<p>La barre de statistiques sous la navigation affiche le nombre de patients dans chaque cat\u00E9gorie : \uD83D\uDD34 T1, \uD83D\uDFE1 T2, \uD83D\uDFE2 T3, \u26AB T4 ainsi que le total.</p>\
+<h3>Assistant de tri START</h3>\
+<p>L\'assistant guide \u00E0 travers l\'algorithme START en 6 \u00E9tapes. \u00C0 chaque \u00E9tape, vous r\u00E9pondez OUI ou NON :</p>\
+<p><strong>\u00C9tape 1 \u2014 Le patient marche-t-il ?</strong></p>\
+<ul>\
+<li>OUI \u2192 T3 Vert (diff\u00E9r\u00E9)</li>\
+<li>NON \u2192 passer \u00E0 l\'\u00E9tape 2</li>\
+</ul>\
+<p><strong>\u00C9tape 2 \u2014 Respire-t-il spontan\u00E9ment ?</strong></p>\
+<ul>\
+<li>OUI \u2192 passer \u00E0 l\'\u00E9tape 4 (\u00E9valuation de la fr\u00E9quence respiratoire)</li>\
+<li>NON \u2192 passer \u00E0 l\'\u00E9tape 3</li>\
+</ul>\
+<p><strong>\u00C9tape 3 \u2014 Lib\u00E9rez les voies a\u00E9riennes. Respire-t-il apr\u00E8s la lib\u00E9ration ?</strong></p>\
+<ul>\
+<li>OUI \u2192 T1 Rouge (imm\u00E9diat)</li>\
+<li>NON \u2192 T4 Noir (d\u00E9c\u00E9d\u00E9)</li>\
+</ul>\
+<p><strong>\u00C9tape 4 \u2014 La fr\u00E9quence respiratoire est-elle normale (\u2264 30/min) ?</strong></p>\
+<ul>\
+<li>OUI \u2192 passer \u00E0 l\'\u00E9tape 5</li>\
+<li>NON \u2192 T1 Rouge (imm\u00E9diat)</li>\
+</ul>\
+<p><strong>\u00C9tape 5 \u2014 Le temps de recoloration capillaire est-il normal (\u2264 2 s) et le pouls radial est-il pr\u00E9sent ?</strong></p>\
+<ul>\
+<li>OUI \u2192 passer \u00E0 l\'\u00E9tape 6</li>\
+<li>NON \u2192 T1 Rouge (imm\u00E9diat)</li>\
+</ul>\
+<p><strong>\u00C9tape 6 \u2014 Ob\u00E9it-il \u00E0 des ordres simples ?</strong></p>\
+<ul>\
+<li>OUI \u2192 T2 Jaune (urgent)</li>\
+<li>NON \u2192 T1 Rouge (imm\u00E9diat)</li>\
+</ul>\
+<p>Chaque question est accompagn\u00E9e d\'une info-bulle visible sous la question \u2014 elle d\u00E9crit comment \u00E9valuer le param\u00E8tre concern\u00E9.</p>\
+<h3>Fiche de r\u00E9sultat</h3>\
+<p>\u00C0 la fin du tri, une fiche de r\u00E9sultat s\'affiche avec :</p>\
+<ul>\
+<li><strong>Marqueur de couleur</strong> \u2014 grand carr\u00E9 avec la cat\u00E9gorie (T1/T2/T3/T4)</li>\
+<li><strong>Chemin d\u00E9cisionnel</strong> \u2014 montre le d\u00E9roulement de l\'algorithme</li>\
+<li><strong>Sexe</strong> \u2014 boutons H (homme), F (femme), ? (inconnu)</li>\
+<li><strong>\u00C2ge</strong> \u2014 champ num\u00E9rique avec boutons -5, -1, +1, +5 (plage 0\u2013150)</li>\
+<li><strong>L\u00E9sions corporelles</strong> \u2014 bouton ouvrant le diagramme des l\u00E9sions (voir section 4)</li>\
+<li><strong>Notes</strong> \u2014 champ pour des informations suppl\u00E9mentaires (l\u00E9sions, m\u00E9canisme du traumatisme, etc.)</li>\
+</ul>\
+<p>Actions disponibles :</p>\
+<ul>\
+<li><strong>\u2713 VALIDER LE PATIENT</strong> \u2014 ajoute le patient \u00E0 la liste</li>\
+<li><strong>\u21BA RECOMMENCER</strong> \u2014 r\u00E9initialise l\'assistant \u00E0 l\'\u00E9tape 1</li>\
+<li><strong>CHANGER LA COULEUR MANUELLEMENT</strong> \u2014 ouvre une rang\u00E9e de 4 boutons (T1\u2013T4) pour modifier la cat\u00E9gorie manuellement</li>\
+</ul>\
+<h3>Liste des patients sur place</h3>\
+<p>Sous l\'assistant s\'affiche la liste \u00AB Patients sur place \u00BB tri\u00E9e par priorit\u00E9 (T1 \u2192 T2 \u2192 T3 \u2192 T4).</p>\
+<p>Chaque fiche patient contient :</p>\
+<ul>\
+<li>Marqueur de couleur (p. ex. P-001)</li>\
+<li>Cat\u00E9gorie, sexe/\u00E2ge, heure d\'enregistrement</li>\
+<li>Champ de notes (modifiable)</li>\
+<li>Bouton de l\u00E9sions (\uD83E\uDE7B) avec r\u00E9sum\u00E9</li>\
+<li>4 points de re-triage (T1\u2013T4) \u2014 cliquez pour changer de cat\u00E9gorie</li>\
+<li>Bouton de suppression (\u2715)</li>\
+<li>Marqueur de re-triage (\u21BAn) si la cat\u00E9gorie a \u00E9t\u00E9 modifi\u00E9e</li>\
+</ul>\
+<h3>Liste en transport</h3>\
+<p>La section \u00AB En transport \u00BB appara\u00EEt lorsque des patients sont en route vers l\'h\u00F4pital. Chaque fiche affiche :</p>\
+<ul>\
+<li>Marqueur du patient avec la couleur de cat\u00E9gorie</li>\
+<li>Itin\u00E9raire : \u00C9quipe \u2192 H\u00F4pital \u2192 heure de d\u00E9part</li>\
+<li>Bouton \u00AB modifier \u00BB \u2014 changement de l\'h\u00F4pital de destination</li>\
+<li>Bouton \u00AB \u2713 Livr\u00E9 \u00BB \u2014 marque la livraison et lib\u00E8re l\'\u00E9quipe</li>\
+</ul>\
+<hr>\
+<h2>4. Diagramme des l\u00E9sions corporelles</h2>\
+<p>Le bouton \u00AB \uD83E\uDE7B L\u00E9sions corporelles \u00BB ouvre un diagramme corporel interactif.</p>\
+<h3>Vue du diagramme</h3>\
+<p>Deux silhouettes sont affich\u00E9es c\u00F4te \u00E0 c\u00F4te :</p>\
+<ul>\
+<li><strong>AVANT</strong> (face) \u2014 t\u00EAte, thorax, abdomen, bras, jambes</li>\
+<li><strong>ARRI\u00C8RE</strong> (dos) \u2014 t\u00EAte, haut du dos, bas du dos, bras, jambes</li>\
+</ul>\
+<p>Sur les c\u00F4t\u00E9s, les indications lat\u00E9rales sont visibles : <strong>G</strong> (gauche) et <strong>D</strong> (droite), invers\u00E9es pour la vue arri\u00E8re.</p>\
+<p>Cliquez sur une zone du corps pour la s\u00E9lectionner.</p>\
+<h3>Panneau de l\u00E9sions de la zone</h3>\
+<p>Apr\u00E8s la s\u00E9lection d\'une zone, un panneau s\'ouvre avec 7 types de l\u00E9sions \u00E0 cocher :</p>\
+<ul>\
+<li>Fracture</li>\
+<li>H\u00E9morragie</li>\
+<li>Br\u00FBlure</li>\
+<li>Plaie</li>\
+<li>\u0152d\u00E8me</li>\
+<li>Douleur</li>\
+<li>Amputation</li>\
+</ul>\
+<p>Les types coch\u00E9s sont marqu\u00E9s par \u2713. Chacun peut \u00EAtre activ\u00E9/d\u00E9sactiv\u00E9 par un clic.</p>\
+<p>En bas du panneau :</p>\
+<ul>\
+<li><strong>\u2715 NON</strong> \u2014 rejette les modifications pour cette zone</li>\
+<li><strong>\u2713 OUI</strong> \u2014 valide les l\u00E9sions pour la zone s\u00E9lectionn\u00E9e</li>\
+</ul>\
+<h3>Validation du diagramme</h3>\
+<p>Apr\u00E8s avoir coch\u00E9 les l\u00E9sions dans toutes les zones n\u00E9cessaires :</p>\
+<ul>\
+<li><strong>\u2713 OUI</strong> \u2014 valide l\'ensemble du diagramme des l\u00E9sions</li>\
+<li><strong>\u2715 NON</strong> \u2014 rejette toutes les modifications et revient \u00E0 l\'\u00E9tat pr\u00E9c\u00E9dant l\'ouverture</li>\
+</ul>\
+<p>Les l\u00E9sions coch\u00E9es sont visibles :</p>\
+<ul>\
+<li>Sur la fiche patient sous forme de r\u00E9sum\u00E9 abr\u00E9g\u00E9 (p. ex. \u00AB \uD83E\uDE7B T\u00EAte : Fracture, H\u00E9morragie \u00BB)</li>\
+<li>Dans le rapport pour le patient concern\u00E9</li>\
+</ul>\
+<hr>\
+<h2>5. R\u00E9gulation</h2>\
+<h3>Fen\u00EAtres modales de configuration</h3>\
+<p>Lors du premier acc\u00E8s \u00E0 l\'onglet R\u00E9gulation, 3 fen\u00EAtres modales apparaissent successivement :</p>\
+<p><strong>1. Directeur des Secours M\u00E9dicaux (GDM)</strong></p>\
+<ul>\
+<li>Champ pour le nom et pr\u00E9nom du GDM</li>\
+<li>Bouton d\'importation des donn\u00E9es du r\u00E9gulateur (voir section 6)</li>\
+<li>PASSER ou ENREGISTRER</li>\
+</ul>\
+<p><strong>2. \u00C9quipes de secours</strong></p>\
+<ul>\
+<li>Question : \u00AB Connaissez-vous les \u00E9quipes de secours envoy\u00E9es sur place ? \u00BB</li>\
+<li>OUI \u2192 formulaire d\'ajout d\'\u00E9quipes (nom + bouton ajouter)</li>\
+<li>NON \u2192 utiliser les \u00E9quipes par d\u00E9faut (S-01, S-02, P-01, P-02, P-03, LPR)</li>\
+<li>VALIDER ou PASSER (PAR D\u00C9FAUT)</li>\
+</ul>\
+<p><strong>3. H\u00F4pitaux de destination</strong></p>\
+<ul>\
+<li>Formulaire d\'ajout d\'h\u00F4pitaux avec capacit\u00E9 :\
+<ul>\
+<li>Nom de l\'h\u00F4pital</li>\
+<li>\uD83D\uDD34 Capacit\u00E9 rouge (T1) \u2014 nombre de lits</li>\
+<li>\uD83D\uDFE1 Capacit\u00E9 jaune (T2) \u2014 nombre de lits</li>\
+</ul></li>\
+<li>VALIDER ou PASSER (PAR D\u00C9FAUT)</li>\
+</ul>\
+<p>Chaque fen\u00EAtre modale n\'appara\u00EEt qu\'une seule fois par \u00E9v\u00E9nement.</p>\
+<h3>Formulaire de r\u00E9gulation</h3>\
+<p>La section \u00AB Affecter un transport \u00BB contient :</p>\
+<ol>\
+<li><strong>Patient</strong> \u2014 liste d\u00E9roulante des patients sur place, tri\u00E9e par priorit\u00E9</li>\
+<li><strong>\u00C9quipe de secours</strong> \u2014 liste des \u00E9quipes disponibles (les \u00E9quipes occup\u00E9es sont masqu\u00E9es)</li>\
+<li><strong>H\u00F4pital</strong> \u2014 liste des h\u00F4pitaux avec informations d\'occupation :\
+<ul>\
+<li>Format : \u00AB Nom de l\'h\u00F4pital [\uD83D\uDD34 occup\u00E9s/total \uD83D\uDFE1 occup\u00E9s/total] \u00BB</li>\
+<li>Les h\u00F4pitaux sans places disponibles dans la cat\u00E9gorie du patient sont signal\u00E9s par un avertissement</li>\
+</ul></li>\
+<li><strong>AFFECTER LE TRANSPORT</strong> \u2014 bouton actif lorsque tous les champs sont remplis</li>\
+</ol>\
+<h3>Panneaux de gestion</h3>\
+<p>Sous le formulaire se trouvent deux panneaux (c\u00F4te \u00E0 c\u00F4te sur \u00E9crans larges, empil\u00E9s sur \u00E9crans \u00E9troits) :</p>\
+<p><strong>H\u00F4pitaux</strong> (lits TOUS) :</p>\
+<ul>\
+<li>Liste des h\u00F4pitaux avec champs de capacit\u00E9 modifiables (\uD83D\uDD34 et \uD83D\uDFE1)</li>\
+<li>Ajout de nouveaux h\u00F4pitaux</li>\
+<li>Suppression d\'h\u00F4pitaux (\u2715)</li>\
+<li>R\u00E9duction/expansion de la liste</li>\
+</ul>\
+<p><strong>\u00C9quipes de secours :</strong></p>\
+<ul>\
+<li>Liste des \u00E9quipes avec boutons de suppression</li>\
+<li>Ajout de nouvelles \u00E9quipes</li>\
+<li>R\u00E9duction/expansion de la liste</li>\
+</ul>\
+<h3>Historique des transports</h3>\
+<p>En bas de la section de r\u00E9gulation (r\u00E9duit par d\u00E9faut). D\u00E9veloppez pour voir la liste chronologique de tous les transports avec :</p>\
+<ul>\
+<li>Marqueur du patient avec couleur</li>\
+<li>\u00C9quipe \u2192 H\u00F4pital \u2192 heure de d\u00E9part</li>\
+<li>Statut (en transport / livr\u00E9)</li>\
+</ul>\
+<hr>\
+<h2>6. Importation des donn\u00E9es du r\u00E9gulateur</h2>\
+<p>Cette fonction permet au r\u00E9gulateur d\'envoyer des donn\u00E9es (nom de l\'\u00E9v\u00E9nement, GDM, \u00E9quipes de secours, h\u00F4pitaux avec capacit\u00E9) \u00E0 l\'\u00E9quipe sur le terrain.</p>\
+<h3>M\u00E9thode 1 \u2014 Lien SMS (un seul clic)</h3>\
+<p>Le r\u00E9gulateur envoie un SMS avec un lien au format :</p>\
+<pre><code>https://0xjaqbek.github.io/triage/?i=DONN\u00C9ES_BASE64</code></pre>\
+<p>Apr\u00E8s avoir cliqu\u00E9 sur le lien :</p>\
+<ol>\
+<li>L\'application s\'ouvre depuis le cache (ne n\u00E9cessite pas d\'internet si elle est install\u00E9e)</li>\
+<li>Un aper\u00E7u des donn\u00E9es s\'affiche : nom de l\'\u00E9v\u00E9nement, GDM, \u00E9quipes, h\u00F4pitaux</li>\
+<li><strong>IMPORTER</strong> \u2014 importe les donn\u00E9es et ouvre le tri</li>\
+<li><strong>REJETER</strong> \u2014 ignore les donn\u00E9es</li>\
+</ol>\
+<h3>M\u00E9thode 2 \u2014 Collage des donn\u00E9es</h3>\
+<p>Si le lien n\'ouvre pas l\'application (appareils verrouill\u00E9s) :</p>\
+<ol>\
+<li>Ouvrez l\'application, acc\u00E9dez \u00E0 R\u00E9gulation</li>\
+<li>Dans la fen\u00EAtre modale GDM, cliquez sur <strong>\uD83D\uDCE5 IMPORTER LES DONN\u00C9ES DU R\u00C9GULATEUR</strong></li>\
+<li>Collez le contenu du SMS (lien complet ou code Base64 seul)</li>\
+<li>L\'aper\u00E7u des donn\u00E9es s\'affiche automatiquement</li>\
+<li><strong>IMPORTER</strong> \u2014 valide les donn\u00E9es</li>\
+</ol>\
+<h3>Importation en cours d\'\u00E9v\u00E9nement</h3>\
+<p>Si l\'\u00E9v\u00E9nement est d\u00E9j\u00E0 en cours et que vous avez des patients tri\u00E9s :</p>\
+<ul>\
+<li><strong>Patients</strong> \u2014 conserv\u00E9s (jamais supprim\u00E9s)</li>\
+<li><strong>KAM</strong> \u2014 conserv\u00E9</li>\
+<li><strong>GDM</strong> \u2014 remplac\u00E9 par les donn\u00E9es du r\u00E9gulateur</li>\
+<li><strong>\u00C9quipes de secours</strong> \u2014 remplac\u00E9es par les donn\u00E9es du r\u00E9gulateur</li>\
+<li><strong>H\u00F4pitaux</strong> \u2014 remplac\u00E9s par les donn\u00E9es du r\u00E9gulateur</li>\
+<li><strong>Nom de l\'\u00E9v\u00E9nement</strong> \u2014 fusionn\u00E9 : \u00AB Votre nom | Nom du r\u00E9gulateur (r\u00E9gulateur) \u00BB</li>\
+</ul>\
+<p>Un avertissement jaune dans l\'aper\u00E7u informe de la conservation des patients et du KAM.</p>\
+<hr>\
+<h2>7. Mode r\u00E9gulateur</h2>\
+<p>Accessible via le lien \u00AB Mode r\u00E9gulateur \u2192 \u00BB sur l\'\u00E9cran d\'accueil ou \u00E0 l\'adresse <code>/dyspozytor/</code>.</p>\
+<p>Cette page permet au r\u00E9gulateur de pr\u00E9parer et d\'envoyer des donn\u00E9es \u00E0 l\'\u00E9quipe sur le terrain.</p>\
+<h3>Formulaire</h3>\
+<ol>\
+<li><strong>Nom de l\'\u00E9v\u00E9nement</strong> \u2014 p. ex. \u00AB MCI Krak\u00F3w-Nowa Huta \u00BB</li>\
+<li><strong>Directeur des Secours M\u00E9dicaux (GDM)</strong> \u2014 nom et pr\u00E9nom</li>\
+<li><strong>\u00C9quipes de secours</strong> \u2014 ajoutez-les une par une (nom + bouton \u00AB + \u00BB)</li>\
+<li><strong>H\u00F4pitaux de destination</strong> \u2014 nom + capacit\u00E9 \uD83D\uDD34 et \uD83D\uDFE1 (+ bouton ajouter)</li>\
+</ol>\
+<h3>Envoi</h3>\
+<ul>\
+<li><strong>\uD83D\uDCCB Aper\u00E7u des donn\u00E9es</strong> \u2014 affiche le r\u00E9sum\u00E9 avec la taille en caract\u00E8res et le nombre de SMS</li>\
+<li><strong>\uD83D\uDCF1 Envoyer par SMS</strong> \u2014 ouvre l\'application SMS avec le lien pr\u00EAt \u00E0 l\'emploi</li>\
+<li><strong>\uD83D\uDCCB Copier les donn\u00E9es</strong> \u2014 copie le lien dans le presse-papiers</li>\
+</ul>\
+<p>Les donn\u00E9es sont encod\u00E9es en Base64 (compatibilit\u00E9 SMS GSM-7 \u2014 jusqu\'\u00E0 1530 caract\u00E8res en 10 segments SMS). Cela permet d\'inclure environ 20 h\u00F4pitaux et 20 \u00E9quipes.</p>\
+<hr>\
+<h2>8. Rapport</h2>\
+<h3>Rapport visuel</h3>\
+<p>La section \u00AB Rapport pour le r\u00E9gulateur \u00BB se g\u00E9n\u00E8re automatiquement et contient :</p>\
+<p><strong>En-t\u00EAte :</strong></p>\
+<ul>\
+<li>Nom de l\'\u00E9v\u00E9nement, heure de d\u00E9but, heure du rapport</li>\
+<li>KAM et GDM (si renseign\u00E9s)</li>\
+<li>Heure de fin (si l\'\u00E9v\u00E9nement est termin\u00E9)</li>\
+</ul>\
+<p><strong>R\u00E9sum\u00E9 :</strong></p>\
+<ul>\
+<li>Marqueurs de couleur avec le nombre de patients dans chaque cat\u00E9gorie</li>\
+<li>Nombre total de patients</li>\
+</ul>\
+<p><strong>H\u00F4pitaux</strong> (un bloc distinct par h\u00F4pital avec les transports) :</p>\
+<ul>\
+<li>Nom de l\'h\u00F4pital, nombre de patients, informations de capacit\u00E9</li>\
+<li>Liste des patients avec : marqueur, \u00E2ge/sexe, \u00E9quipe, heure, statut (EN TRANSPORT / LIVR\u00C9)</li>\
+<li>Historique de re-triage (p. ex. \u21BAT1\u2192T2\u2192T1)</li>\
+<li>Historique des changements d\'h\u00F4pital (p. ex. \u21C4H\u00F4pital1\u2192H\u00F4pital2)</li>\
+<li>R\u00E9sum\u00E9 des l\u00E9sions</li>\
+</ul>\
+<p><strong>Patients sur place</strong> (s\'il en reste) :</p>\
+<ul>\
+<li>Liste avec : marqueur, \u00E2ge/sexe, cat\u00E9gorie, notes, l\u00E9sions</li>\
+</ul>\
+<h3>Rapport textuel</h3>\
+<p>Le bouton \u00AB \uD83D\uDCCB Rapport textuel \u00BB ouvre une fen\u00EAtre modale avec le rapport complet au format texte. Il contient la liste compl\u00E8te des patients avec notes, sexe, \u00E2ge et chemin de tri.</p>\
+<h3>Envoi du rapport</h3>\
+<ul>\
+<li><strong>\uD83D\uDCCB Copier dans le presse-papiers</strong> \u2014 copie le texte complet du rapport</li>\
+<li><strong>\uD83D\uDCE4 Envoyer</strong> \u2014 ouvre les options :\
+<ul>\
+<li><strong>SMS</strong> \u2014 ouvre l\'application SMS native avec le contenu du rapport</li>\
+<li><strong>Email</strong> \u2014 ouvre le client de messagerie avec l\'objet et le contenu du rapport</li>\
+</ul></li>\
+</ul>\
+<h3>Cl\u00F4ture de l\'\u00E9v\u00E9nement</h3>\
+<p>Le bouton <strong>CL\u00D4TURER L\'\u00C9V\u00C9NEMENT</strong> dans l\'en-t\u00EAte du rapport :</p>\
+<ul>\
+<li>Enregistre l\'heure de fin</li>\
+<li>Se transforme en <strong>ANNULER LA CL\u00D4TURE</strong> (r\u00E9versible)</li>\
+<li>L\'heure de fin appara\u00EEt dans le rapport</li>\
+</ul>\
+<hr>\
+<h2>9. Re-triage et changement d\'h\u00F4pital</h2>\
+<h3>Re-triage</h3>\
+<p>Sur la fiche patient dans la section \u00AB Patients sur place \u00BB se trouvent 4 points de couleur (T1\u2013T4). Un clic sur une cat\u00E9gorie diff\u00E9rente de la cat\u00E9gorie actuelle :</p>\
+<ol>\
+<li>Ouvre une fen\u00EAtre de confirmation : \u00AB Changer la cat\u00E9gorie du patient P-001 de T1 \u00E0 T2 ? \u00BB</li>\
+<li><strong>CONFIRMER</strong> \u2014 change la cat\u00E9gorie, enregistre dans l\'historique</li>\
+<li><strong>ANNULER</strong> \u2014 aucune modification</li>\
+</ol>\
+<p>Historique de re-triage :</p>\
+<ul>\
+<li>Marqueur \u21BAn sur la fiche patient (n = nombre de modifications)</li>\
+<li>Historique complet dans le rapport (p. ex. T1\u2192T2\u2192T1 avec les heures)</li>\
+</ul>\
+<h3>Changement d\'h\u00F4pital en cours de transport</h3>\
+<p>Sur la fiche patient \u00AB En transport \u00BB, bouton \u00AB modifier \u00BB :</p>\
+<ol>\
+<li>Ouvre une fen\u00EAtre modale avec l\'h\u00F4pital actuel</li>\
+<li>Liste d\u00E9roulante des h\u00F4pitaux disponibles (avec informations de capacit\u00E9)</li>\
+<li><strong>CONFIRMER</strong> \u2014 change l\'h\u00F4pital, enregistre dans l\'historique</li>\
+<li><strong>ANNULER</strong> \u2014 aucune modification</li>\
+</ol>\
+<p>L\'historique des changements d\'h\u00F4pital est visible dans le rapport (\u21C4H\u00F4pital1\u2192H\u00F4pital2).</p>\
+<hr>\
+<h2>10. Installation et mode hors ligne</h2>\
+<h3>Installation en tant que PWA</h3>\
+<p><strong>Android (Chrome) :</strong></p>\
+<ol>\
+<li>Ouvrez l\'application dans Chrome</li>\
+<li>Appuyez sur \u22EE (menu) en haut \u00E0 droite</li>\
+<li>S\u00E9lectionnez \u00AB Ajouter \u00E0 l\'\u00E9cran d\'accueil \u00BB</li>\
+<li>Appuyez sur \u00AB Installer \u00BB</li>\
+</ol>\
+<p><strong>iOS (Safari) :</strong></p>\
+<ol>\
+<li>Ouvrez l\'application dans Safari</li>\
+<li>Appuyez sur \u2399 (Partager)</li>\
+<li>Faites d\u00E9filer vers le bas et s\u00E9lectionnez \u00AB Sur l\'\u00E9cran d\'accueil \u00BB</li>\
+</ol>\
+<p>Apr\u00E8s l\'installation, l\'application fonctionne comme une application autonome avec un mode hors ligne complet.</p>\
+<h3>Mode hors ligne</h3>\
+<p>L\'application, apr\u00E8s son premier chargement, se sauvegarde dans le cache de l\'appareil. Toutes les fonctions sont disponibles sans connexion internet :</p>\
+<ul>\
+<li>Tri des patients</li>\
+<li>R\u00E9gulation du transport</li>\
+<li>G\u00E9n\u00E9ration des rapports</li>\
+<li>Importation des donn\u00E9es (collage)</li>\
+</ul>\
+<p>L\'internet n\'est n\u00E9cessaire que pour : le premier t\u00E9l\u00E9chargement, les mises \u00E0 jour, et l\'envoi de SMS/email (via les applications natives de l\'appareil).</p>\
+<h3>T\u00E9l\u00E9chargement en fichier HTML</h3>\
+<p>Le bouton <strong>\u2B07 T\u00E9l\u00E9charger</strong> sur l\'\u00E9cran d\'accueil t\u00E9l\u00E9charge l\'application sous forme de fichier HTML autonome. Il peut \u00EAtre transf\u00E9r\u00E9 sur une cl\u00E9 USB et ex\u00E9cut\u00E9 sur n\'importe quel ordinateur disposant d\'un navigateur.</p>\
+<hr>\
+<h2>11. Confidentialit\u00E9</h2>\
+<ul>\
+<li>Toutes les donn\u00E9es sont stock\u00E9es <strong>uniquement sur l\'appareil</strong> (localStorage)</li>\
+<li>Aucune donn\u00E9e <strong>n\'est envoy\u00E9e</strong> \u00E0 des serveurs externes</li>\
+<li>Pas d\'analytique, de suivi, ni de t\u00E9l\u00E9m\u00E9trie</li>\
+<li>Pas de cookies de pistage</li>\
+<li>Les fonctions SMS et email utilisent les applications natives de l\'appareil \u2014 l\'application n\'envoie pas de messages directement</li>\
+<li>Suppression des donn\u00E9es : utilisez \u00AB Cl\u00F4turer l\'\u00E9v\u00E9nement \u00BB ou effacez les donn\u00E9es du navigateur</li>\
+</ul>\
+<p>La politique de confidentialit\u00E9 compl\u00E8te est disponible \u00E0 l\'adresse <code>/privacy/</code>.</p>';
+
+CONTENT.de = '<h1>Bedienungsanleitung TRIAGE MCI</h1>\
+<h2>1. Was ist TRIAGE MCI</h2>\
+<p>TRIAGE MCI ist eine Webanwendung (PWA) zur Sichtung und zum Management von Massenanf\u00E4llen von Verletzten (MCI), basierend auf dem START-Algorithmus. Sie erm\u00F6glicht:</p>\
+<ul>\
+<li>Klassifizierung von Patienten in 4 Kategorien (T1\u2013T4)</li>\
+<li>Transportmanagement zu Krankenh\u00E4usern</li>\
+<li>\u00DCberwachung der Krankenhauskapazit\u00E4ten</li>\
+<li>Erstellung und Versand von Berichten</li>\
+<li>Import von Daten des Disponenten</li>\
+</ul>\
+<p>Die Anwendung funktioniert vollst\u00E4ndig offline. Alle Daten werden ausschlie\u00DFlich auf dem Ger\u00E4t des Benutzers gespeichert \u2014 es werden keine Informationen an externe Server gesendet.</p>\
+<p>Sie unterst\u00FCtzt 7 Sprachen: Polnisch, Englisch, Italienisch, Franz\u00F6sisch, Deutsch, Tschechisch, Portugiesisch.</p>\
+<hr>\
+<h2>2. Ereignis starten</h2>\
+<h3>Startbildschirm</h3>\
+<p>Nach dem Start der Anwendung erscheint der Ereigniskonfigurationsbildschirm:</p>\
+<ol>\
+<li><strong>Sprachauswahl</strong> \u2014 Selektor oben auf dem Bildschirm. Ein Sprachwechsel \u00FCbersetzt die gesamte Oberfl\u00E4che sofort.</li>\
+<li><strong>Ereignisname</strong> \u2014 Pflichtfeld. Geben Sie den Ort und die Art des Ereignisses ein (z. B. \u201EUnfall A4 km 312\u201C). Erscheint in den Berichten.</li>\
+<li><strong>EAL</strong> \u2014 optionales Feld. Einsatzabschnittsleiter \u2014 Name der Person, die die Ma\u00DFnahmen vor Ort koordiniert.</li>\
+<li><strong>Hinweise anzeigen</strong> \u2014 Schalter zur Aktivierung von kontextuellen Hinweisblasen in der gesamten Anwendung. N\u00FCtzlich bei der ersten Verwendung.</li>\
+<li><strong>TRIAGE STARTEN</strong> \u2014 startet das Ereignis und aktiviert den Timer.</li>\
+</ol>\
+<h3>Ereignis fortsetzen</h3>\
+<p>Falls ein gespeichertes Ereignis im Ger\u00E4tespeicher vorhanden ist, erscheint beim Start die Option:</p>\
+<ul>\
+<li><strong>FORTSETZEN</strong> \u2014 setzt das gespeicherte Ereignis mit allen Daten fort</li>\
+<li><strong>NEUES EREIGNIS</strong> \u2014 l\u00F6scht die vorherigen Daten und beginnt von vorne</li>\
+</ul>\
+<hr>\
+<h2>3. Sichtung (START-Algorithmus)</h2>\
+<h3>Navigation</h3>\
+<p>Die Anwendung verf\u00FCgt \u00FCber 3 Registerkarten im oberen Bereich des Bildschirms:</p>\
+<ul>\
+<li><strong>SICHTUNG</strong> \u2014 Patientenklassifizierung</li>\
+<li><strong>DISPONIERUNG</strong> \u2014 Transport und Management</li>\
+<li><strong>BERICHT</strong> \u2014 Zusammenfassung und Export</li>\
+</ul>\
+<p>Die Statistikleiste unter der Navigation zeigt die Anzahl der Patienten in jeder Kategorie: \uD83D\uDD34 T1, \uD83D\uDFE1 T2, \uD83D\uDFE2 T3, \u26AB T4 sowie die Gesamtsumme.</p>\
+<h3>START-Sichtungsassistent</h3>\
+<p>Der Assistent f\u00FChrt durch den 6-stufigen START-Algorithmus. Bei jedem Schritt antworten Sie JA oder NEIN:</p>\
+<p><strong>Schritt 1 \u2014 Kann der Patient gehen?</strong></p>\
+<ul>\
+<li>JA \u2192 T3 Gr\u00FCn (aufgeschoben)</li>\
+<li>NEIN \u2192 weiter zu Schritt 2</li>\
+</ul>\
+<p><strong>Schritt 2 \u2014 Atmet der Patient spontan?</strong></p>\
+<ul>\
+<li>JA \u2192 weiter zu Schritt 4 (Beurteilung der Atemfrequenz)</li>\
+<li>NEIN \u2192 weiter zu Schritt 3</li>\
+</ul>\
+<p><strong>Schritt 3 \u2014 Atemwege freimachen. Atmet der Patient nach dem Freimachen?</strong></p>\
+<ul>\
+<li>JA \u2192 T1 Rot (sofort)</li>\
+<li>NEIN \u2192 T4 Schwarz (Tod)</li>\
+</ul>\
+<p><strong>Schritt 4 \u2014 Ist die Atemfrequenz normal (\u2264 30/min)?</strong></p>\
+<ul>\
+<li>JA \u2192 weiter zu Schritt 5</li>\
+<li>NEIN \u2192 T1 Rot (sofort)</li>\
+</ul>\
+<p><strong>Schritt 5 \u2014 Ist der Kapillar-Refill normal (\u2264 2 Sek.) und der Radialispuls vorhanden?</strong></p>\
+<ul>\
+<li>JA \u2192 weiter zu Schritt 6</li>\
+<li>NEIN \u2192 T1 Rot (sofort)</li>\
+</ul>\
+<p><strong>Schritt 6 \u2014 Befolgt der Patient einfache Anweisungen?</strong></p>\
+<ul>\
+<li>JA \u2192 T2 Gelb (dringend)</li>\
+<li>NEIN \u2192 T1 Rot (sofort)</li>\
+</ul>\
+<p>Jede Frage enth\u00E4lt einen Hinweis unterhalb der Frage \u2014 er beschreibt, wie der jeweilige Parameter zu beurteilen ist.</p>\
+<h3>Ergebniskarte</h3>\
+<p>Nach Abschluss der Sichtung erscheint die Ergebniskarte mit:</p>\
+<ul>\
+<li><strong>Farbmarkierung</strong> \u2014 gro\u00DFes Quadrat mit Kategorie (T1/T2/T3/T4)</li>\
+<li><strong>Entscheidungspfad</strong> \u2014 zeigt den Ablauf des Algorithmus</li>\
+<li><strong>Geschlecht</strong> \u2014 Schaltfl\u00E4chen M (m\u00E4nnlich), W (weiblich), ? (unbekannt)</li>\
+<li><strong>Alter</strong> \u2014 numerisches Feld mit Schaltfl\u00E4chen -5, -1, +1, +5 (Bereich 0\u2013150)</li>\
+<li><strong>K\u00F6rperverletzungen</strong> \u2014 Schaltfl\u00E4che zum \u00D6ffnen des Verletzungsdiagramms (siehe Abschnitt 4)</li>\
+<li><strong>Notizen</strong> \u2014 Feld f\u00FCr zus\u00E4tzliche Informationen (Verletzungen, Unfallmechanismus usw.)</li>\
+</ul>\
+<p>Verf\u00FCgbare Aktionen:</p>\
+<ul>\
+<li><strong>\u2713 PATIENT BEST\u00C4TIGEN</strong> \u2014 f\u00FCgt den Patienten zur Liste hinzu</li>\
+<li><strong>\u21BA NEU STARTEN</strong> \u2014 setzt den Assistenten auf Schritt 1 zur\u00FCck</li>\
+<li><strong>FARBE MANUELL \u00C4NDERN</strong> \u2014 \u00F6ffnet eine Reihe von 4 Schaltfl\u00E4chen (T1\u2013T4) zur manuellen Kategorie\u00E4nderung</li>\
+</ul>\
+<h3>Patientenliste vor Ort</h3>\
+<p>Unterhalb des Assistenten wird die Liste \u201EPatienten vor Ort\u201C angezeigt, sortiert nach Priorit\u00E4t (T1 \u2192 T2 \u2192 T3 \u2192 T4).</p>\
+<p>Jede Patientenkarte enth\u00E4lt:</p>\
+<ul>\
+<li>Farbmarkierung (z. B. P-001)</li>\
+<li>Kategorie, Geschlecht/Alter, Registrierungszeit</li>\
+<li>Notizenfeld (bearbeitbar)</li>\
+<li>Verletzungsschaltfl\u00E4che (\uD83E\uDE7B) mit Zusammenfassung</li>\
+<li>4 Resichtungspunkte (T1\u2013T4) \u2014 klicken Sie, um die Kategorie zu \u00E4ndern</li>\
+<li>L\u00F6schschaltfl\u00E4che (\u2715)</li>\
+<li>Resichtungsmarkierung (\u21BAn), falls die Kategorie ge\u00E4ndert wurde</li>\
+</ul>\
+<h3>Transportliste</h3>\
+<p>Der Bereich \u201EIm Transport\u201C erscheint, wenn Patienten auf dem Weg zum Krankenhaus sind. Jede Karte zeigt:</p>\
+<ul>\
+<li>Patientenmarkierung mit Kategoriefarbe</li>\
+<li>Route: Team \u2192 Krankenhaus \u2192 Abfahrtszeit</li>\
+<li>Schaltfl\u00E4che \u201E\u00E4ndern\u201C \u2014 \u00C4nderung des Zielkrankenhauses</li>\
+<li>Schaltfl\u00E4che \u201E\u2713 Zugestellt\u201C \u2014 markiert die Zustellung und gibt das Rettungsteam frei</li>\
+</ul>\
+<hr>\
+<h2>4. K\u00F6rperverletzungsdiagramm</h2>\
+<p>Die Schaltfl\u00E4che \u201E\uD83E\uDE7B K\u00F6rperverletzungen\u201C \u00F6ffnet ein interaktives K\u00F6rperdiagramm.</p>\
+<h3>Diagrammansicht</h3>\
+<p>Es werden zwei K\u00F6rperumrisse nebeneinander angezeigt:</p>\
+<ul>\
+<li><strong>VORNE</strong> (Front) \u2014 Kopf, Brustkorb, Bauch, Arme, Beine</li>\
+<li><strong>HINTEN</strong> (R\u00FCcken) \u2014 Kopf, oberer R\u00FCcken, unterer R\u00FCcken, Arme, Beine</li>\
+</ul>\
+<p>An den Seiten sind die Seitenbezeichnungen sichtbar: <strong>L</strong> (links) und <strong>R</strong> (rechts), beim R\u00FCckansicht gespiegelt.</p>\
+<p>Klicken Sie auf eine K\u00F6rperzone, um sie auszuw\u00E4hlen.</p>\
+<h3>Zonenverletzungspanel</h3>\
+<p>Nach Auswahl einer Zone \u00F6ffnet sich ein Panel mit 7 Verletzungstypen zur Markierung:</p>\
+<ul>\
+<li>Fraktur</li>\
+<li>Blutung</li>\
+<li>Verbrennung</li>\
+<li>Wunde</li>\
+<li>Schwellung</li>\
+<li>Schmerz</li>\
+<li>Amputation</li>\
+</ul>\
+<p>Markierte Typen sind mit \u2713 gekennzeichnet. Jeder kann per Klick ein-/ausgeschaltet werden.</p>\
+<p>Am unteren Rand des Panels:</p>\
+<ul>\
+<li><strong>\u2715 NEIN</strong> \u2014 verwirft die \u00C4nderungen in dieser Zone</li>\
+<li><strong>\u2713 JA</strong> \u2014 best\u00E4tigt die Verletzungen f\u00FCr die ausgew\u00E4hlte Zone</li>\
+</ul>\
+<h3>Diagramm best\u00E4tigen</h3>\
+<p>Nach Markierung der Verletzungen in allen erforderlichen Zonen:</p>\
+<ul>\
+<li><strong>\u2713 JA</strong> \u2014 best\u00E4tigt das gesamte Verletzungsdiagramm</li>\
+<li><strong>\u2715 NEIN</strong> \u2014 verwirft alle \u00C4nderungen und kehrt zum Zustand vor dem \u00D6ffnen zur\u00FCck</li>\
+</ul>\
+<p>Markierte Verletzungen sind sichtbar:</p>\
+<ul>\
+<li>Auf der Patientenkarte als Kurzzusammenfassung (z. B. \u201E\uD83E\uDE7B Kopf: Fraktur, Blutung\u201C)</li>\
+<li>Im Bericht beim jeweiligen Patienten</li>\
+</ul>\
+<hr>\
+<h2>5. Disponierung</h2>\
+<h3>Modale Konfigurationsfenster</h3>\
+<p>Beim ersten Aufrufen der Registerkarte Disponierung erscheinen nacheinander 3 Dialoge:</p>\
+<p><strong>1. Leitender Notarzt (LNA)</strong></p>\
+<ul>\
+<li>Feld f\u00FCr Name des LNA</li>\
+<li>Schaltfl\u00E4che zum Datenimport vom Disponenten (siehe Abschnitt 6)</li>\
+<li>\u00DCBERSPRINGEN oder SPEICHERN</li>\
+</ul>\
+<p><strong>2. Rettungsteams</strong></p>\
+<ul>\
+<li>Frage: \u201EKennen Sie die zum Einsatzort disponierten Rettungsteams?\u201C</li>\
+<li>JA \u2192 Formular zum Hinzuf\u00FCgen von Teams (Name + Hinzuf\u00FCgen-Schaltfl\u00E4che)</li>\
+<li>NEIN \u2192 Standard-Teams verwenden (S-01, S-02, P-01, P-02, P-03, LPR)</li>\
+<li>BEST\u00C4TIGEN oder \u00DCBERSPRINGEN (STANDARD)</li>\
+</ul>\
+<p><strong>3. Zielkrankenh\u00E4user</strong></p>\
+<ul>\
+<li>Formular zum Hinzuf\u00FCgen von Krankenh\u00E4usern mit Kapazit\u00E4t:\
+<ul>\
+<li>Krankenhausname</li>\
+<li>\uD83D\uDD34 Rote Kapazit\u00E4t (T1) \u2014 Anzahl der Betten</li>\
+<li>\uD83D\uDFE1 Gelbe Kapazit\u00E4t (T2) \u2014 Anzahl der Betten</li>\
+</ul></li>\
+<li>BEST\u00C4TIGEN oder \u00DCBERSPRINGEN (STANDARD)</li>\
+</ul>\
+<p>Jeder Dialog erscheint nur einmal pro Ereignis.</p>\
+<h3>Disponierungsformular</h3>\
+<p>Der Bereich \u201ETransport disponieren\u201C enth\u00E4lt:</p>\
+<ol>\
+<li><strong>Patient</strong> \u2014 Dropdown-Liste mit Patienten vor Ort, sortiert nach Priorit\u00E4t</li>\
+<li><strong>Rettungsteam</strong> \u2014 Liste verf\u00FCgbarer Teams (besetzte Teams sind ausgeblendet)</li>\
+<li><strong>Krankenhaus</strong> \u2014 Krankenhausliste mit Belegungsinformation:\
+<ul>\
+<li>Format: \u201EKrankenhausname [\uD83D\uDD34 belegt/gesamt \uD83D\uDFE1 belegt/gesamt]\u201C</li>\
+<li>Krankenh\u00E4user ohne freie Pl\u00E4tze in der Patientenkategorie sind mit Warnung gekennzeichnet</li>\
+</ul></li>\
+<li><strong>TRANSPORT DISPONIEREN</strong> \u2014 Schaltfl\u00E4che aktiv, wenn alle Felder ausgef\u00FCllt sind</li>\
+</ol>\
+<h3>Verwaltungspanels</h3>\
+<p>Unter dem Formular befinden sich zwei Panels (auf breiten Bildschirmen nebeneinander, auf schmalen untereinander):</p>\
+<p><strong>Krankenh\u00E4user</strong> (Betten GESAMT):</p>\
+<ul>\
+<li>Krankenhausliste mit bearbeitbaren Kapazit\u00E4tsfeldern (\uD83D\uDD34 und \uD83D\uDFE1)</li>\
+<li>Neue Krankenh\u00E4user hinzuf\u00FCgen</li>\
+<li>Krankenh\u00E4user l\u00F6schen (\u2715)</li>\
+<li>Liste ein-/ausklappen</li>\
+</ul>\
+<p><strong>Rettungsteams:</strong></p>\
+<ul>\
+<li>Teamliste mit L\u00F6schschaltfl\u00E4chen</li>\
+<li>Neue Teams hinzuf\u00FCgen</li>\
+<li>Liste ein-/ausklappen</li>\
+</ul>\
+<h3>Transporthistorie</h3>\
+<p>Am unteren Rand des Disponierungsbereichs (standardm\u00E4\u00DFig eingeklappt). Ausklappen zeigt eine chronologische Liste aller Transporte mit:</p>\
+<ul>\
+<li>Patientenmarkierung mit Farbe</li>\
+<li>Team \u2192 Krankenhaus \u2192 Abfahrtszeit</li>\
+<li>Status (im Transport / zugestellt)</li>\
+</ul>\
+<hr>\
+<h2>6. Datenimport vom Disponenten</h2>\
+<p>Diese Funktion erm\u00F6glicht dem Disponenten, Daten (Ereignisname, LNA, Rettungsteams, Krankenh\u00E4user mit Kapazit\u00E4t) an den Rettungsdienst vor Ort zu senden.</p>\
+<h3>Methode 1 \u2014 SMS-Link (Ein-Klick)</h3>\
+<p>Der Disponent sendet eine SMS mit einem Link im Format:</p>\
+<pre><code>https://0xjaqbek.github.io/triage/?i=DATEN_BASE64</code></pre>\
+<p>Nach Anklicken des Links:</p>\
+<ol>\
+<li>Die Anwendung \u00F6ffnet sich aus dem Cache (kein Internet erforderlich, wenn installiert)</li>\
+<li>Eine Datenvorschau erscheint: Ereignisname, LNA, Teams, Krankenh\u00E4user</li>\
+<li><strong>IMPORTIEREN</strong> \u2014 importiert die Daten und \u00F6ffnet die Sichtung</li>\
+<li><strong>ABLEHNEN</strong> \u2014 ignoriert die Daten</li>\
+</ol>\
+<h3>Methode 2 \u2014 Daten einf\u00FCgen</h3>\
+<p>Falls der Link die Anwendung nicht \u00F6ffnet (gesperrte Ger\u00E4te):</p>\
+<ol>\
+<li>\u00D6ffnen Sie die Anwendung, navigieren Sie zu Disponierung</li>\
+<li>Klicken Sie im LNA-Dialog auf <strong>\uD83D\uDCE5 DATEN VOM DISPONENTEN IMPORTIEREN</strong></li>\
+<li>F\u00FCgen Sie den SMS-Inhalt ein (ganzer Link oder nur der Base64-Code)</li>\
+<li>Die Datenvorschau erscheint automatisch</li>\
+<li><strong>IMPORTIEREN</strong> \u2014 best\u00E4tigt die Daten</li>\
+</ol>\
+<h3>Import w\u00E4hrend eines Ereignisses</h3>\
+<p>Falls das Ereignis bereits l\u00E4uft und Sie gesichtete Patienten haben:</p>\
+<ul>\
+<li><strong>Patienten</strong> \u2014 bleiben erhalten (werden niemals gel\u00F6scht)</li>\
+<li><strong>EAL</strong> \u2014 bleibt erhalten</li>\
+<li><strong>LNA</strong> \u2014 wird durch die Disponenten-Daten ersetzt</li>\
+<li><strong>Rettungsteams</strong> \u2014 werden durch die Disponenten-Daten ersetzt</li>\
+<li><strong>Krankenh\u00E4user</strong> \u2014 werden durch die Disponenten-Daten ersetzt</li>\
+<li><strong>Ereignisname</strong> \u2014 zusammengef\u00FChrt: \u201EIhr Name | Disponenten-Name (Disponent)\u201C</li>\
+</ul>\
+<p>Eine gelbe Warnung in der Vorschau informiert \u00FCber die Beibehaltung der Patienten und des EAL.</p>\
+<hr>\
+<h2>7. Disponentenmodus</h2>\
+<p>Erreichbar \u00FCber den Link \u201EDisponentenmodus \u2192\u201C auf dem Startbildschirm oder unter der Adresse <code>/dyspozytor/</code>.</p>\
+<p>Die Seite erm\u00F6glicht dem Disponenten, Daten f\u00FCr das Team vor Ort vorzubereiten und zu senden.</p>\
+<h3>Formular</h3>\
+<ol>\
+<li><strong>Ereignisname</strong> \u2014 z. B. \u201EMCI Krak\u00F3w-Nowa Huta\u201C</li>\
+<li><strong>Leitender Notarzt (LNA)</strong> \u2014 Name</li>\
+<li><strong>Rettungsteams</strong> \u2014 einzeln hinzuf\u00FCgen (Name + Schaltfl\u00E4che \u201E+\u201C)</li>\
+<li><strong>Zielkrankenh\u00E4user</strong> \u2014 Name + Kapazit\u00E4t \uD83D\uDD34 und \uD83D\uDFE1 (+ Hinzuf\u00FCgen-Schaltfl\u00E4che)</li>\
+</ol>\
+<h3>Versand</h3>\
+<ul>\
+<li><strong>\uD83D\uDCCB Datenvorschau</strong> \u2014 zeigt eine Zusammenfassung mit Zeichenanzahl und SMS-Anzahl</li>\
+<li><strong>\uD83D\uDCF1 SMS senden</strong> \u2014 \u00F6ffnet die SMS-Anwendung mit fertigem Link</li>\
+<li><strong>\uD83D\uDCCB Daten kopieren</strong> \u2014 kopiert den Link in die Zwischenablage</li>\
+</ul>\
+<p>Die Daten werden in Base64 kodiert (kompatibel mit SMS GSM-7 \u2014 bis zu 1530 Zeichen in 10 SMS-Segmenten). Es k\u00F6nnen ca. 20 Krankenh\u00E4user und 20 Teams \u00FCbermittelt werden.</p>\
+<hr>\
+<h2>8. Bericht</h2>\
+<h3>Visueller Bericht</h3>\
+<p>Der Bereich \u201EBericht f\u00FCr den Disponenten\u201C wird automatisch generiert und enth\u00E4lt:</p>\
+<p><strong>Kopfzeile:</strong></p>\
+<ul>\
+<li>Ereignisname, Startzeit, Berichtszeit</li>\
+<li>EAL und LNA (falls angegeben)</li>\
+<li>Endzeit (falls das Ereignis beendet wurde)</li>\
+</ul>\
+<p><strong>Zusammenfassung:</strong></p>\
+<ul>\
+<li>Farbmarkierungen mit Patientenanzahl in jeder Kategorie</li>\
+<li>Gesamtzahl der Patienten</li>\
+</ul>\
+<p><strong>Krankenh\u00E4user</strong> (separater Block f\u00FCr jedes Krankenhaus mit Transporten):</p>\
+<ul>\
+<li>Krankenhausname, Patientenanzahl, Kapazit\u00E4tsinformation</li>\
+<li>Patientenliste mit: Markierung, Alter/Geschlecht, Team, Zeit, Status (IM TRANSPORT / ZUGESTELLT)</li>\
+<li>Resichtungshistorie (z. B. \u21BAT1\u2192T2\u2192T1)</li>\
+<li>Krankenhaus-\u00C4nderungshistorie (z. B. \u21C4Krankenhaus1\u2192Krankenhaus2)</li>\
+<li>Verletzungszusammenfassung</li>\
+</ul>\
+<p><strong>Patienten vor Ort</strong> (falls noch jemand verblieben ist):</p>\
+<ul>\
+<li>Liste mit: Markierung, Alter/Geschlecht, Kategorie, Notizen, Verletzungen</li>\
+</ul>\
+<h3>Textbericht</h3>\
+<p>Die Schaltfl\u00E4che \u201E\uD83D\uDCCB Textbericht\u201C \u00F6ffnet ein Dialogfeld mit dem vollst\u00E4ndigen Bericht im Textformat. Er enth\u00E4lt die vollst\u00E4ndige Patientenliste mit Notizen, Geschlecht, Alter und Sichtungspfad.</p>\
+<h3>Bericht versenden</h3>\
+<ul>\
+<li><strong>\uD83D\uDCCB In Zwischenablage kopieren</strong> \u2014 kopiert den vollst\u00E4ndigen Berichtstext</li>\
+<li><strong>\uD83D\uDCE4 Senden</strong> \u2014 \u00F6ffnet Optionen:\
+<ul>\
+<li><strong>SMS</strong> \u2014 \u00F6ffnet die native SMS-Anwendung mit dem Berichtsinhalt</li>\
+<li><strong>E-Mail</strong> \u2014 \u00F6ffnet den E-Mail-Client mit Betreff und Berichtsinhalt</li>\
+</ul></li>\
+</ul>\
+<h3>Ereignis beenden</h3>\
+<p>Die Schaltfl\u00E4che <strong>EREIGNIS BEENDEN</strong> in der Berichtskopfzeile:</p>\
+<ul>\
+<li>Speichert die Endzeit</li>\
+<li>\u00C4ndert sich zu <strong>BEENDIGUNG R\u00DCCKG\u00C4NGIG MACHEN</strong> (umkehrbar)</li>\
+<li>Die Endzeit erscheint im Bericht</li>\
+</ul>\
+<hr>\
+<h2>9. Resichtung und Krankenhauswechsel</h2>\
+<h3>Resichtung</h3>\
+<p>Auf der Patientenkarte im Bereich \u201EPatienten vor Ort\u201C befinden sich 4 farbige Punkte (T1\u2013T4). Das Anklicken einer anderen als der aktuellen Kategorie:</p>\
+<ol>\
+<li>\u00D6ffnet ein Best\u00E4tigungsfenster: \u201EKategorie des Patienten P-001 von T1 auf T2 \u00E4ndern?\u201C</li>\
+<li><strong>BEST\u00C4TIGEN</strong> \u2014 \u00E4ndert die Kategorie, speichert in der Historie</li>\
+<li><strong>ABBRECHEN</strong> \u2014 keine \u00C4nderung</li>\
+</ol>\
+<p>Resichtungshistorie:</p>\
+<ul>\
+<li>Markierung \u21BAn auf der Patientenkarte (n = Anzahl der \u00C4nderungen)</li>\
+<li>Vollst\u00E4ndige Historie im Bericht (z. B. T1\u2192T2\u2192T1 mit Uhrzeiten)</li>\
+</ul>\
+<h3>Krankenhauswechsel w\u00E4hrend des Transports</h3>\
+<p>Auf der Patientenkarte \u201EIm Transport\u201C die Schaltfl\u00E4che \u201E\u00E4ndern\u201C:</p>\
+<ol>\
+<li>\u00D6ffnet einen Dialog mit dem aktuellen Krankenhaus</li>\
+<li>Dropdown-Liste mit verf\u00FCgbaren Krankenh\u00E4usern (mit Kapazit\u00E4tsinformation)</li>\
+<li><strong>BEST\u00C4TIGEN</strong> \u2014 \u00E4ndert das Krankenhaus, speichert in der Historie</li>\
+<li><strong>ABBRECHEN</strong> \u2014 keine \u00C4nderung</li>\
+</ol>\
+<p>Die Krankenhaus-\u00C4nderungshistorie ist im Bericht sichtbar (\u21C4Krankenhaus1\u2192Krankenhaus2).</p>\
+<hr>\
+<h2>10. Installation und Offline-Modus</h2>\
+<h3>Installation als PWA</h3>\
+<p><strong>Android (Chrome):</strong></p>\
+<ol>\
+<li>\u00D6ffnen Sie die Anwendung in Chrome</li>\
+<li>Tippen Sie auf \u22EE (Men\u00FC) in der oberen rechten Ecke</li>\
+<li>W\u00E4hlen Sie \u201EZum Startbildschirm hinzuf\u00FCgen\u201C</li>\
+<li>Tippen Sie auf \u201EInstallieren\u201C</li>\
+</ol>\
+<p><strong>iOS (Safari):</strong></p>\
+<ol>\
+<li>\u00D6ffnen Sie die Anwendung in Safari</li>\
+<li>Tippen Sie auf \u2399 (Teilen)</li>\
+<li>Scrollen Sie nach unten und w\u00E4hlen Sie \u201EZum Home-Bildschirm\u201C</li>\
+</ol>\
+<p>Nach der Installation funktioniert die Anwendung als eigenst\u00E4ndige App mit vollem Offline-Modus.</p>\
+<h3>Offline-Modus</h3>\
+<p>Die Anwendung speichert sich nach dem ersten Laden im Ger\u00E4tecache. Alle Funktionen funktionieren ohne Internetverbindung:</p>\
+<ul>\
+<li>Patientensichtung</li>\
+<li>Transportdisponierung</li>\
+<li>Berichtserstellung</li>\
+<li>Datenimport (Einf\u00FCgen)</li>\
+</ul>\
+<p>Internet wird nur ben\u00F6tigt f\u00FCr: erstes Herunterladen, Aktualisierung sowie SMS-/E-Mail-Versand (\u00FCber native Ger\u00E4te-Anwendungen).</p>\
+<h3>Download als HTML-Datei</h3>\
+<p>Die Schaltfl\u00E4che <strong>\u2B07 Herunterladen</strong> auf dem Startbildschirm l\u00E4dt die Anwendung als eigenst\u00E4ndige HTML-Datei herunter. Diese kann auf einen USB-Stick \u00FCbertragen und auf jedem Computer mit Browser ge\u00F6ffnet werden.</p>\
+<hr>\
+<h2>11. Datenschutz</h2>\
+<ul>\
+<li>Alle Daten werden <strong>ausschlie\u00DFlich auf dem Ger\u00E4t</strong> gespeichert (localStorage)</li>\
+<li>Es werden <strong>keine Daten</strong> an externe Server gesendet</li>\
+<li>Keine Analytik, kein Tracking, keine Telemetrie</li>\
+<li>Keine Tracking-Cookies</li>\
+<li>SMS- und E-Mail-Funktionen nutzen die nativen Ger\u00E4te-Anwendungen \u2014 die App sendet keine Nachrichten direkt</li>\
+<li>Datenl\u00F6schung: Verwenden Sie \u201EEreignis beenden\u201C oder l\u00F6schen Sie die Browserdaten</li>\
+</ul>\
+<p>Die vollst\u00E4ndige Datenschutzerkl\u00E4rung ist unter <code>/privacy/</code> verf\u00FCgbar.</p>';
+
+CONTENT.cs = '<h1>N\u00E1vod k obsluze TRIAGE MCI</h1>\
+<h2>1. Co je TRIAGE MCI</h2>\
+<p>TRIAGE MCI je webov\u00E1 aplikace (PWA) pro t\u0159\u00EDd\u011Bn\u00ED a \u0159\u00EDzen\u00ED hromadn\u00E9ho ne\u0161t\u011Bst\u00ED (MCI) zalo\u017Een\u00E1 na algoritmu START. Umo\u017E\u0148uje:</p>\
+<ul>\
+<li>Klasifikaci pacient\u016F do 4 kategori\u00ED (T1\u2013T4)</li>\
+<li>\u0158\u00EDzen\u00ED transportu do nemocnic</li>\
+<li>Sledov\u00E1n\u00ED kapacity nemocnic</li>\
+<li>Generov\u00E1n\u00ED a odes\u00EDl\u00E1n\u00ED hl\u00E1\u0161en\u00ED</li>\
+<li>Import dat od dispe\u010Dera</li>\
+</ul>\
+<p>Aplikace funguje pln\u011B offline. Ve\u0161ker\u00E1 data jsou uchov\u00E1v\u00E1na v\u00FDhradn\u011B na za\u0159\u00EDzen\u00ED u\u017Eivatele \u2014 \u017E\u00E1dn\u00E9 informace nejsou odes\u00EDl\u00E1ny na extern\u00ED servery.</p>\
+<p>Podporuje 7 jazyk\u016F: pol\u0161tinu, angli\u010Dtinu, ital\u0161tinu, francouz\u0161tinu, n\u011Bm\u010Dinu, \u010De\u0161tinu, portugal\u0161tinu.</p>\
+<hr>\
+<h2>2. Zah\u00E1jen\u00ED ud\u00E1losti</h2>\
+<h3>\u00DAvodn\u00ED obrazovka</h3>\
+<p>Po spu\u0161t\u011Bn\u00ED aplikace se zobraz\u00ED obrazovka konfigurace ud\u00E1losti:</p>\
+<ol>\
+<li><strong>Volba jazyka</strong> \u2014 v\u00FDb\u011Br v horn\u00ED \u010D\u00E1sti obrazovky. Zm\u011Bna jazyka okam\u017Eit\u011B p\u0159elo\u017E\u00ED cel\u00E9 rozhran\u00ED.</li>\
+<li><strong>N\u00E1zev ud\u00E1losti</strong> \u2014 povinn\u00E9 pole. Zadejte lokalizaci a typ ud\u00E1losti (nap\u0159. \u201ENehoda D1 km 312\u201C). Zobraz\u00ED se v hl\u00E1\u0161en\u00EDch.</li>\
+<li><strong>KAM</strong> \u2014 voliteln\u00E9 pole. Vedouc\u00ED zdravotnick\u00E9 akce \u2014 jm\u00E9no a p\u0159\u00EDjmen\u00ED osoby koordinuj\u00EDc\u00ED \u010Dinnost na m\u00EDst\u011B.</li>\
+<li><strong>Zobrazit n\u00E1pov\u011Bdu</strong> \u2014 p\u0159ep\u00EDna\u010D zap\u00EDnaj\u00EDc\u00ED bubliny s kontextov\u00FDmi tipy v cel\u00E9 aplikaci. U\u017Eite\u010Dn\u00E9 p\u0159i prvn\u00EDm pou\u017Eit\u00ED.</li>\
+<li><strong>ZAH\u00C1JIT TRIAGE</strong> \u2014 zah\u00E1j\u00ED ud\u00E1lost a spust\u00ED \u010Dasom\u00EDru.</li>\
+</ol>\
+<h3>Obnoven\u00ED ud\u00E1losti</h3>\
+<p>Pokud je v pam\u011Bti za\u0159\u00EDzen\u00ED ulo\u017Eena p\u0159edchoz\u00ED ud\u00E1lost, p\u0159i spu\u0161t\u011Bn\u00ED se zobraz\u00ED volba:</p>\
+<ul>\
+<li><strong>POKRA\u010COVAT</strong> \u2014 obnov\u00ED ulo\u017Eenou ud\u00E1lost se v\u0161emi daty</li>\
+<li><strong>NOV\u00C1 UD\u00C1LOST</strong> \u2014 vyma\u017Ee p\u0159edchoz\u00ED data a za\u010Dne znovu</li>\
+</ul>\
+<hr>\
+<h2>3. T\u0159\u00EDd\u011Bn\u00ED (algoritmus START)</h2>\
+<h3>Navigace</h3>\
+<p>Aplikace m\u00E1 3 z\u00E1lo\u017Eky v horn\u00ED \u010D\u00E1sti obrazovky:</p>\
+<ul>\
+<li><strong>T\u0158\u00CDD\u011AN\u00CD</strong> \u2014 klasifikace pacient\u016F</li>\
+<li><strong>DISPONOV\u00C1N\u00CD</strong> \u2014 transport a \u0159\u00EDzen\u00ED</li>\
+<li><strong>HL\u00C1\u0160EN\u00CD</strong> \u2014 souhrn a export</li>\
+</ul>\
+<p>Statistick\u00FD panel pod navigac\u00ED zobrazuje po\u010Det pacient\u016F v ka\u017Ed\u00E9 kategorii: \uD83D\uDD34 T1, \uD83D\uDFE1 T2, \uD83D\uDFE2 T3, \u26AB T4 a celkem.</p>\
+<h3>Pr\u016Fvodce t\u0159\u00EDd\u011Bn\u00EDm START</h3>\
+<p>Pr\u016Fvodce v\u00E1s provede 6krokov\u00FDm algoritmem START. Na ka\u017Ed\u00E9m kroku odpov\u00EDd\u00E1te ANO nebo NE:</p>\
+<p><strong>Krok 1 \u2014 Chod\u00ED pacient?</strong></p>\
+<ul>\
+<li>ANO \u2192 T3 Zelen\u00FD (odlo\u017Een\u00FD)</li>\
+<li>NE \u2192 p\u0159ejd\u011Bte ke kroku 2</li>\
+</ul>\
+<p><strong>Krok 2 \u2014 D\u00FDch\u00E1 spont\u00E1nn\u011B?</strong></p>\
+<ul>\
+<li>ANO \u2192 p\u0159ejd\u011Bte ke kroku 4 (hodnocen\u00ED dechov\u00E9 frekvence)</li>\
+<li>NE \u2192 p\u0159ejd\u011Bte ke kroku 3</li>\
+</ul>\
+<p><strong>Krok 3 \u2014 Zpr\u016Fchodn\u011Bte d\u00FDchac\u00ED cesty. D\u00FDch\u00E1 po zpr\u016Fchodn\u011Bn\u00ED?</strong></p>\
+<ul>\
+<li>ANO \u2192 T1 \u010Cerven\u00FD (neodkladn\u00FD)</li>\
+<li>NE \u2192 T4 \u010Cern\u00FD (\u00FA\u010Drt\u00ED)</li>\
+</ul>\
+<p><strong>Krok 4 \u2014 Je dechov\u00E1 frekvence v norm\u011B (\u2264 30/min)?</strong></p>\
+<ul>\
+<li>ANO \u2192 p\u0159ejd\u011Bte ke kroku 5</li>\
+<li>NE \u2192 T1 \u010Cerven\u00FD (neodkladn\u00FD)</li>\
+</ul>\
+<p><strong>Krok 5 \u2014 Je kapil\u00E1rn\u00ED n\u00E1vrat v norm\u011B (\u2264 2 s) a pulz na radi\u00E1ln\u00ED tepn\u011B p\u0159\u00EDtomen?</strong></p>\
+<ul>\
+<li>ANO \u2192 p\u0159ejd\u011Bte ke kroku 6</li>\
+<li>NE \u2192 T1 \u010Cerven\u00FD (neodkladn\u00FD)</li>\
+</ul>\
+<p><strong>Krok 6 \u2014 Spln\u00ED jednoduch\u00E9 pokyny?</strong></p>\
+<ul>\
+<li>ANO \u2192 T2 \u017Dlut\u00FD (nal\u00E9hav\u00FD)</li>\
+<li>NE \u2192 T1 \u010Cerven\u00FD (neodkladn\u00FD)</li>\
+</ul>\
+<p>Ke ka\u017Ed\u00E9 ot\u00E1zce je n\u00E1pov\u011Bda (hint) zobrazen\u00E1 pod ot\u00E1zkou \u2014 popisuje, jak dan\u00FD parametr posoudit.</p>\
+<h3>Karta v\u00FDsledku</h3>\
+<p>Po dokon\u010Den\u00ED t\u0159\u00EDd\u011Bn\u00ED se zobraz\u00ED karta v\u00FDsledku s:</p>\
+<ul>\
+<li><strong>Barevn\u00FD \u0161t\u00EDtek</strong> \u2014 velk\u00FD \u010Dtverec s kategori\u00ED (T1/T2/T3/T4)</li>\
+<li><strong>Rozhodovac\u00ED cesta</strong> \u2014 zobrazuje pr\u016Fb\u011Bh algoritmu</li>\
+<li><strong>Pohlav\u00ED</strong> \u2014 tla\u010D\u00EDtka M (mu\u017E), \u017D (\u017Eena), ? (nezn\u00E1m\u00E9)</li>\
+<li><strong>V\u011Bk</strong> \u2014 \u010D\u00EDseln\u00E9 pole s tla\u010D\u00EDtky -5, -1, +1, +5 (rozsah 0\u2013150)</li>\
+<li><strong>Poran\u011Bn\u00ED t\u011Bla</strong> \u2014 tla\u010D\u00EDtko otev\u00EDraj\u00EDc\u00ED diagram poran\u011Bn\u00ED (viz odd\u00EDl 4)</li>\
+<li><strong>Pozn\u00E1mky</strong> \u2014 pole pro dopl\u0148uj\u00EDc\u00ED informace (poran\u011Bn\u00ED, mechanismus \u00FArazu atd.)</li>\
+</ul>\
+<p>Dostupn\u00E9 akce:</p>\
+<ul>\
+<li><strong>\u2713 POTVRDIT PACIENTA</strong> \u2014 p\u0159id\u00E1 pacienta do seznamu</li>\
+<li><strong>\u21BA ZNOVU</strong> \u2014 resetuje pr\u016Fvodce na krok 1</li>\
+<li><strong>ZM\u011ANIT BARVU RU\u010CN\u011A</strong> \u2014 otev\u0159e \u0159adu 4 tla\u010D\u00EDtek (T1\u2013T4) pro ru\u010Dn\u00ED zm\u011Bnu kategorie</li>\
+</ul>\
+<h3>Seznam pacient\u016F na m\u00EDst\u011B</h3>\
+<p>Pod pr\u016Fvodcem se zobrazuje seznam \u201EPacienti na m\u00EDst\u011B\u201C \u0159azen\u00FD podle priority (T1 \u2192 T2 \u2192 T3 \u2192 T4).</p>\
+<p>Ka\u017Ed\u00E1 karta pacienta obsahuje:</p>\
+<ul>\
+<li>Barevn\u00FD \u0161t\u00EDtek (nap\u0159. P-001)</li>\
+<li>Kategorii, pohlav\u00ED/v\u011Bk, \u010Das registrace</li>\
+<li>Pole pozn\u00E1mek (editovateln\u00E9)</li>\
+<li>Tla\u010D\u00EDtko poran\u011Bn\u00ED (\uD83E\uDE7B) se souhrnem</li>\
+<li>4 barevn\u00E9 te\u010Dky re-tri\u00E1\u017Ee (T1\u2013T4) \u2014 klikn\u011Bte pro zm\u011Bnu kategorie</li>\
+<li>Tla\u010D\u00EDtko smaz\u00E1n\u00ED (\u2715)</li>\
+<li>Zna\u010Dku re-tri\u00E1\u017Ee (\u21BAn), pokud byla kategorie m\u011Bn\u011Bna</li>\
+</ul>\
+<h3>Seznam v transportu</h3>\
+<p>Sekce \u201EV transportu\u201C se zobraz\u00ED, kdy\u017E jsou pacienti na cest\u011B do nemocnice. Ka\u017Ed\u00E1 karta obsahuje:</p>\
+<ul>\
+<li>\u0160t\u00EDtek pacienta s barvou kategorie</li>\
+<li>Trasu: T\u00FDm \u2192 Nemocnice \u2192 \u010Das odjezdu</li>\
+<li>Tla\u010D\u00EDtko \u201Ezm\u011Bnit\u201C \u2014 zm\u011Bna c\u00EDlov\u00E9 nemocnice</li>\
+<li>Tla\u010D\u00EDtko \u201E\u2713 Doru\u010Den\u201C \u2014 ozna\u010D\u00ED doru\u010Den\u00ED a uvoln\u00ED t\u00FDm ZZS</li>\
+</ul>\
+<hr>\
+<h2>4. Diagram poran\u011Bn\u00ED t\u011Bla</h2>\
+<p>Tla\u010D\u00EDtko \u201E\uD83E\uDE7B Poran\u011Bn\u00ED t\u011Bla\u201C otev\u00EDr\u00E1 interaktivn\u00ED diagram t\u011Bla.</p>\
+<h3>Zobrazen\u00ED diagramu</h3>\
+<p>Zobrazeny jsou dva obrysy t\u011Bla vedle sebe:</p>\
+<ul>\
+<li><strong>P\u0158EDN\u00CD</strong> (front) \u2014 hlava, hrudn\u00EDk, b\u0159icho, pa\u017Ee, nohy</li>\
+<li><strong>ZADN\u00CD</strong> (back) \u2014 hlava, horn\u00ED \u010D\u00E1st zad, doln\u00ED \u010D\u00E1st zad, pa\u017Ee, nohy</li>\
+</ul>\
+<p>Po stran\u00E1ch jsou viditeln\u00E1 ozna\u010Den\u00ED stran: <strong>L</strong> (lev\u00E1) a <strong>P</strong> (prav\u00E1), obr\u00E1cen\u00E1 pro zadn\u00ED pohled.</p>\
+<p>Klikn\u011Bte na z\u00F3nu t\u011Bla pro jej\u00ED v\u00FDb\u011Br.</p>\
+<h3>Panel poran\u011Bn\u00ED z\u00F3ny</h3>\
+<p>Po v\u00FDb\u011Bru z\u00F3ny se otev\u0159e panel se 7 typy poran\u011Bn\u00ED k za\u0161krtnut\u00ED:</p>\
+<ul>\
+<li>Zlomenina</li>\
+<li>Krv\u00E1cen\u00ED</li>\
+<li>Pop\u00E1lenina</li>\
+<li>R\u00E1na</li>\
+<li>Otok</li>\
+<li>Bolest</li>\
+<li>Amputace</li>\
+</ul>\
+<p>Za\u0161krtnut\u00E9 typy jsou ozna\u010Deny \u2713. Ka\u017Ed\u00FD lze zapnout/vypnout kliknut\u00EDm.</p>\
+<p>Ve spodn\u00ED \u010D\u00E1sti panelu:</p>\
+<ul>\
+<li><strong>\u2715 NE</strong> \u2014 zahod\u00ED zm\u011Bny v t\u00E9to z\u00F3n\u011B</li>\
+<li><strong>\u2713 ANO</strong> \u2014 potvrd\u00ED poran\u011Bn\u00ED pro vybranou z\u00F3nu</li>\
+</ul>\
+<h3>Potvrzen\u00ED diagramu</h3>\
+<p>Po zazna\u010Den\u00ED poran\u011Bn\u00ED ve v\u0161ech pot\u0159ebn\u00FDch z\u00F3n\u00E1ch:</p>\
+<ul>\
+<li><strong>\u2713 ANO</strong> \u2014 potvrd\u00ED cel\u00FD diagram poran\u011Bn\u00ED</li>\
+<li><strong>\u2715 NE</strong> \u2014 zahod\u00ED v\u0161echny zm\u011Bny a vr\u00E1t\u00ED stav p\u0159ed otev\u0159en\u00EDm</li>\
+</ul>\
+<p>Zazna\u010Den\u00E1 poran\u011Bn\u00ED jsou viditeln\u00E1:</p>\
+<ul>\
+<li>Na kart\u011B pacienta jako zkr\u00E1cen\u00FD souhrn (nap\u0159. \u201E\uD83E\uDE7B Hlava: Zlomenina, Krv\u00E1cen\u00ED\u201C)</li>\
+<li>V hl\u00E1\u0161en\u00ED u dan\u00E9ho pacienta</li>\
+</ul>\
+<hr>\
+<h2>5. Disponov\u00E1n\u00ED</h2>\
+<h3>Mod\u00E1ln\u00ED okna konfigurace</h3>\
+<p>P\u0159i prvn\u00EDm vstupu do z\u00E1lo\u017Eky Disponov\u00E1n\u00ED se postupn\u011B zobraz\u00ED 3 mod\u00E1ln\u00ED okna:</p>\
+<p><strong>1. Vedouc\u00ED zdravotnick\u00E9 slu\u017Eby (GDM)</strong></p>\
+<ul>\
+<li>Pole pro jm\u00E9no a p\u0159\u00EDjmen\u00ED GDM</li>\
+<li>Tla\u010D\u00EDtko importu dat od dispe\u010Dera (viz odd\u00EDl 6)</li>\
+<li>P\u0158ESKO\u010CIT nebo ULO\u017DIT</li>\
+</ul>\
+<p><strong>2. T\u00FDmy ZZS</strong></p>\
+<ul>\
+<li>Ot\u00E1zka: \u201EZn\u00E1te t\u00FDmy ZZS vyslan\u00E9 na m\u00EDsto?\u201C</li>\
+<li>ANO \u2192 formul\u00E1\u0159 pro p\u0159id\u00E1v\u00E1n\u00ED t\u00FDm\u016F (n\u00E1zev + tla\u010D\u00EDtko p\u0159idat)</li>\
+<li>NE \u2192 pou\u017Eij\u00ED se v\u00FDchoz\u00ED t\u00FDmy (S-01, S-02, P-01, P-02, P-03, LPR)</li>\
+<li>POTVRDIT nebo P\u0158ESKO\u010CIT (V\u00DDCHOZ\u00CD)</li>\
+</ul>\
+<p><strong>3. C\u00EDlov\u00E9 nemocnice</strong></p>\
+<ul>\
+<li>Formul\u00E1\u0159 pro p\u0159id\u00E1v\u00E1n\u00ED nemocnic s kapacitou:\
+<ul>\
+<li>N\u00E1zev nemocnice</li>\
+<li>\uD83D\uDD34 \u010Cerven\u00E1 kapacita (T1) \u2014 po\u010Det l\u016F\u017Eek</li>\
+<li>\uD83D\uDFE1 \u017Dlut\u00E1 kapacita (T2) \u2014 po\u010Det l\u016F\u017Eek</li>\
+</ul></li>\
+<li>POTVRDIT nebo P\u0158ESKO\u010CIT (V\u00DDCHOZ\u00CD)</li>\
+</ul>\
+<p>Ka\u017Ed\u00E9 mod\u00E1ln\u00ED okno se zobraz\u00ED pouze jednou za ud\u00E1lost.</p>\
+<h3>Formul\u00E1\u0159 disponov\u00E1n\u00ED</h3>\
+<p>Sekce \u201EDisponovat transport\u201C obsahuje:</p>\
+<ol>\
+<li><strong>Pacient</strong> \u2014 rozbalovac\u00ED seznam pacient\u016F na m\u00EDst\u011B, \u0159azen\u00FD podle priority</li>\
+<li><strong>T\u00FDm ZZS</strong> \u2014 seznam dostupn\u00FDch t\u00FDm\u016F (obsazen\u00E9 t\u00FDmy jsou skryt\u00E9)</li>\
+<li><strong>Nemocnice</strong> \u2014 seznam nemocnic s informac\u00ED o obsazenosti:\
+<ul>\
+<li>Form\u00E1t: \u201EN\u00E1zev nemocnice [\uD83D\uDD34 obsazeno/celkem \uD83D\uDFE1 obsazeno/celkem]\u201C</li>\
+<li>Nemocnice bez voln\u00FDch m\u00EDst v kategorii pacienta jsou ozna\u010Deny varov\u00E1n\u00EDm</li>\
+</ul></li>\
+<li><strong>DISPONOVAT TRANSPORT</strong> \u2014 tla\u010D\u00EDtko aktivn\u00ED po vypln\u011Bn\u00ED v\u0161ech pol\u00ED</li>\
+</ol>\
+<h3>Panely spr\u00E1vy</h3>\
+<p>Pod formul\u00E1\u0159em se nach\u00E1zej\u00ED dva panely (na \u0161irok\u00FDch obrazovk\u00E1ch vedle sebe, na \u00FAzk\u00FDch pod sebou):</p>\
+<p><strong>Nemocnice</strong> (l\u016F\u017Eka CELKEM):</p>\
+<ul>\
+<li>Seznam nemocnic s editovateln\u00FDmi poli kapacity (\uD83D\uDD34 a \uD83D\uDFE1)</li>\
+<li>P\u0159id\u00E1v\u00E1n\u00ED nov\u00FDch nemocnic</li>\
+<li>Maz\u00E1n\u00ED nemocnic (\u2715)</li>\
+<li>Sbalen\u00ED/rozbalen\u00ED seznamu</li>\
+</ul>\
+<p><strong>T\u00FDmy ZZS:</strong></p>\
+<ul>\
+<li>Seznam t\u00FDm\u016F s tla\u010D\u00EDtky pro smaz\u00E1n\u00ED</li>\
+<li>P\u0159id\u00E1v\u00E1n\u00ED nov\u00FDch t\u00FDm\u016F</li>\
+<li>Sbalen\u00ED/rozbalen\u00ED seznamu</li>\
+</ul>\
+<h3>Historie transport\u016F</h3>\
+<p>Ve spodn\u00ED \u010D\u00E1sti sekce disponov\u00E1n\u00ED (ve v\u00FDchoz\u00EDm stavu sbalen\u00E1). Rozbalte pro zobrazen\u00ED chronologick\u00E9ho seznamu v\u0161ech transport\u016F s:</p>\
+<ul>\
+<li>\u0160t\u00EDtek pacienta s barvou</li>\
+<li>T\u00FDm \u2192 Nemocnice \u2192 \u010Das odjezdu</li>\
+<li>Stav (v transportu / doru\u010Den)</li>\
+</ul>\
+<hr>\
+<h2>6. Import dat od dispe\u010Dera</h2>\
+<p>Funkce umo\u017E\u0148uje dispe\u010Derovi odeslat data (n\u00E1zev ud\u00E1losti, GDM, t\u00FDmy ZZS, nemocnice s kapacitou) z\u00E1chran\u00E1\u0159i v ter\u00E9nu.</p>\
+<h3>Metoda 1 \u2014 SMS odkaz (jedno kliknut\u00ED)</h3>\
+<p>Dispe\u010Der ode\u0161le SMS s odkazem ve form\u00E1tu:</p>\
+<pre><code>https://0xjaqbek.github.io/triage/?i=DATA_BASE64</code></pre>\
+<p>Po kliknut\u00ED na odkaz:</p>\
+<ol>\
+<li>Aplikace se otev\u0159e z cache (nevy\u017Eaduje internet, pokud je nainstalov\u00E1na)</li>\
+<li>Zobraz\u00ED se n\u00E1hled dat: n\u00E1zev ud\u00E1losti, GDM, t\u00FDmy, nemocnice</li>\
+<li><strong>IMPORTOVAT</strong> \u2014 importuje data a otev\u0159e t\u0159\u00EDd\u011Bn\u00ED</li>\
+<li><strong>ZAM\u00CDTNOUT</strong> \u2014 ignoruje data</li>\
+</ol>\
+<h3>Metoda 2 \u2014 Vlo\u017Een\u00ED dat</h3>\
+<p>Pokud odkaz neotev\u0159e aplikaci (zablokovan\u00E1 za\u0159\u00EDzen\u00ED):</p>\
+<ol>\
+<li>Otev\u0159ete aplikaci, p\u0159ejd\u011Bte do Disponov\u00E1n\u00ED</li>\
+<li>V mod\u00E1ln\u00EDm okn\u011B GDM klikn\u011Bte na <strong>\uD83D\uDCE5 IMPORTOVAT DATA OD DISPE\u010CERA</strong></li>\
+<li>Vlo\u017Ete obsah SMS (cel\u00FD odkaz nebo samotn\u00FD k\u00F3d Base64)</li>\
+<li>N\u00E1hled dat se zobraz\u00ED automaticky</li>\
+<li><strong>IMPORTOVAT</strong> \u2014 potvrd\u00ED data</li>\
+</ol>\
+<h3>Import v pr\u016Fb\u011Bhu ud\u00E1losti</h3>\
+<p>Pokud je ud\u00E1lost ji\u017E zah\u00E1jena a m\u00E1te vyt\u0159\u00EDd\u011Bn\u00E9 pacienty:</p>\
+<ul>\
+<li><strong>Pacienti</strong> \u2014 zachov\u00E1ni (nikdy nejsou maz\u00E1ni)</li>\
+<li><strong>KAM</strong> \u2014 zachov\u00E1n</li>\
+<li><strong>GDM</strong> \u2014 nahrazen daty od dispe\u010Dera</li>\
+<li><strong>T\u00FDmy ZZS</strong> \u2014 nahrazeny daty od dispe\u010Dera</li>\
+<li><strong>Nemocnice</strong> \u2014 nahrazeny daty od dispe\u010Dera</li>\
+<li><strong>N\u00E1zev ud\u00E1losti</strong> \u2014 slou\u010Den: \u201EV\u00E1\u0161 n\u00E1zev | N\u00E1zev dispe\u010Dera (dispe\u010Der)\u201C</li>\
+</ul>\
+<p>\u017Dlut\u00E9 varov\u00E1n\u00ED v n\u00E1hledu informuje o zachov\u00E1n\u00ED pacient\u016F a KAM.</p>\
+<hr>\
+<h2>7. Re\u017Eim dispe\u010Dera</h2>\
+<p>Dostupn\u00FD p\u0159es odkaz \u201ERe\u017Eim dispe\u010Dera \u2192\u201C na \u00FAvodn\u00ED obrazovce nebo na adrese <code>/dyspozytor/</code>.</p>\
+<p>Str\u00E1nka umo\u017E\u0148uje dispe\u010Derovi p\u0159ipravit a odeslat data pro t\u00FDm v ter\u00E9nu.</p>\
+<h3>Formul\u00E1\u0159</h3>\
+<ol>\
+<li><strong>N\u00E1zev ud\u00E1losti</strong> \u2014 nap\u0159. \u201EMCI Praha-H\u00E1je\u201C</li>\
+<li><strong>Hlavn\u00ED dispe\u010Der zdravotnick\u00E9 slu\u017Eby (GDM)</strong> \u2014 jm\u00E9no a p\u0159\u00EDjmen\u00ED</li>\
+<li><strong>T\u00FDmy ZZS</strong> \u2014 p\u0159id\u00E1vejte jednotliv\u011B (n\u00E1zev + tla\u010D\u00EDtko \u201E+\u201C)</li>\
+<li><strong>C\u00EDlov\u00E9 nemocnice</strong> \u2014 n\u00E1zev + kapacita \uD83D\uDD34 a \uD83D\uDFE1 (+ tla\u010D\u00EDtko p\u0159idat)</li>\
+</ol>\
+<h3>Odesl\u00E1n\u00ED</h3>\
+<ul>\
+<li><strong>\uD83D\uDCCB N\u00E1hled dat</strong> \u2014 zobraz\u00ED souhrn s velikost\u00ED ve znac\u00EDch a po\u010Dtem SMS</li>\
+<li><strong>\uD83D\uDCF1 Odeslat SMS</strong> \u2014 otev\u0159e SMS aplikaci s p\u0159ipraven\u00FDm odkazem</li>\
+<li><strong>\uD83D\uDCCB Kop\u00EDrovat data</strong> \u2014 zkop\u00EDruje odkaz do schr\u00E1nky</li>\
+</ul>\
+<p>Data jsou k\u00F3dov\u00E1na v Base64 (kompatibilita s SMS GSM-7 \u2014 a\u017E 1530 znak\u016F v 10 segmentech SMS). Pojme p\u0159ibli\u017En\u011B 20 nemocnic a 20 t\u00FDm\u016F.</p>\
+<hr>\
+<h2>8. Hl\u00E1\u0161en\u00ED</h2>\
+<h3>Vizu\u00E1ln\u00ED hl\u00E1\u0161en\u00ED</h3>\
+<p>Sekce \u201EHl\u00E1\u0161en\u00ED pro dispe\u010Dera\u201C se generuje automaticky a obsahuje:</p>\
+<p><strong>Z\u00E1hlav\u00ED:</strong></p>\
+<ul>\
+<li>N\u00E1zev ud\u00E1losti, \u010Das zah\u00E1jen\u00ED, \u010Das hl\u00E1\u0161en\u00ED</li>\
+<li>KAM a GDM (pokud jsou zad\u00E1ny)</li>\
+<li>\u010Cas ukon\u010Den\u00ED (pokud je ud\u00E1lost ukon\u010Dena)</li>\
+</ul>\
+<p><strong>Souhrn:</strong></p>\
+<ul>\
+<li>Barevn\u00E9 \u0161t\u00EDtky s po\u010Dtem pacient\u016F v ka\u017Ed\u00E9 kategorii</li>\
+<li>Celkov\u00FD po\u010Det pacient\u016F</li>\
+</ul>\
+<p><strong>Nemocnice</strong> (samostatn\u00FD blok pro ka\u017Edou nemocnici s transporty):</p>\
+<ul>\
+<li>N\u00E1zev nemocnice, po\u010Det pacient\u016F, informace o kapacit\u011B</li>\
+<li>Seznam pacient\u016F s: \u0161t\u00EDtek, v\u011Bk/pohlav\u00ED, t\u00FDm, \u010Das, stav (V TRANSPORTU / DORU\u010CEN)</li>\
+<li>Historie re-tri\u00E1\u017Ee (nap\u0159. \u21BAT1\u2192T2\u2192T1)</li>\
+<li>Historie zm\u011Bn nemocnice (nap\u0159. \u21C4Nemocnice1\u2192Nemocnice2)</li>\
+<li>Souhrn poran\u011Bn\u00ED</li>\
+</ul>\
+<p><strong>Pacienti na m\u00EDst\u011B</strong> (pokud n\u011Bkdo zb\u00FDv\u00E1):</p>\
+<ul>\
+<li>Seznam s: \u0161t\u00EDtek, v\u011Bk/pohlav\u00ED, kategorie, pozn\u00E1mky, poran\u011Bn\u00ED</li>\
+</ul>\
+<h3>Textov\u00E9 hl\u00E1\u0161en\u00ED</h3>\
+<p>Tla\u010D\u00EDtko \u201E\uD83D\uDCCB Textov\u00E9 hl\u00E1\u0161en\u00ED\u201C otev\u0159e mod\u00E1ln\u00ED okno s \u00FApln\u00FDm hl\u00E1\u0161en\u00EDm v textov\u00E9m form\u00E1tu. Obsahuje kompletn\u00ED seznam pacient\u016F s pozn\u00E1mkami, pohlav\u00EDm, v\u011Bkem a cestou t\u0159\u00EDd\u011Bn\u00ED.</p>\
+<h3>Odesl\u00E1n\u00ED hl\u00E1\u0161en\u00ED</h3>\
+<ul>\
+<li><strong>\uD83D\uDCCB Kop\u00EDrovat do schr\u00E1nky</strong> \u2014 zkop\u00EDruje \u00FApln\u00FD text hl\u00E1\u0161en\u00ED</li>\
+<li><strong>\uD83D\uDCE4 Odeslat</strong> \u2014 otev\u0159e mo\u017Enosti:\
+<ul>\
+<li><strong>SMS</strong> \u2014 otev\u0159e nativn\u00ED SMS aplikaci s obsahem hl\u00E1\u0161en\u00ED</li>\
+<li><strong>Email</strong> \u2014 otev\u0159e emailov\u00E9ho klienta s p\u0159edm\u011Btem a obsahem hl\u00E1\u0161en\u00ED</li>\
+</ul></li>\
+</ul>\
+<h3>Ukon\u010Den\u00ED ud\u00E1losti</h3>\
+<p>Tla\u010D\u00EDtko <strong>UKON\u010CIT UD\u00C1LOST</strong> v z\u00E1hlav\u00ED hl\u00E1\u0161en\u00ED:</p>\
+<ul>\
+<li>Ulo\u017E\u00ED \u010Das ukon\u010Den\u00ED</li>\
+<li>Zm\u011Bn\u00ED se na <strong>ZRU\u0160IT UKON\u010CEN\u00CD</strong> (vratn\u00E9)</li>\
+<li>\u010Cas ukon\u010Den\u00ED se zobraz\u00ED v hl\u00E1\u0161en\u00ED</li>\
+</ul>\
+<hr>\
+<h2>9. Re-tri\u00E1\u017E a zm\u011Bna nemocnice</h2>\
+<h3>Re-tri\u00E1\u017E</h3>\
+<p>Na kart\u011B pacienta v sekci \u201EPacienti na m\u00EDst\u011B\u201C se nach\u00E1zej\u00ED 4 barevn\u00E9 te\u010Dky (T1\u2013T4). Kliknut\u00ED na jinou kategorii ne\u017E aktu\u00E1ln\u00ED:</p>\
+<ol>\
+<li>Otev\u0159e potvrzovac\u00ED okno: \u201EZm\u011Bnit kategorii pacienta P-001 z T1 na T2?\u201C</li>\
+<li><strong>POTVRDIT</strong> \u2014 zm\u011Bn\u00ED kategorii, ulo\u017E\u00ED do historie</li>\
+<li><strong>ZRU\u0160IT</strong> \u2014 bez zm\u011Bn</li>\
+</ol>\
+<p>Historie re-tri\u00E1\u017Ee:</p>\
+<ul>\
+<li>Zna\u010Dka \u21BAn na kart\u011B pacienta (n = po\u010Det zm\u011Bn)</li>\
+<li>\u00DApln\u00E1 historie v hl\u00E1\u0161en\u00ED (nap\u0159. T1\u2192T2\u2192T1 s \u010Dasy)</li>\
+</ul>\
+<h3>Zm\u011Bna nemocnice v transportu</h3>\
+<p>Na kart\u011B pacienta \u201EV transportu\u201C tla\u010D\u00EDtko \u201Ezm\u011Bnit\u201C:</p>\
+<ol>\
+<li>Otev\u0159e mod\u00E1ln\u00ED okno s aktu\u00E1ln\u00ED nemocnic\u00ED</li>\
+<li>Rozbalovac\u00ED seznam s dostupn\u00FDmi nemocnicemi (s informac\u00ED o kapacit\u011B)</li>\
+<li><strong>POTVRDIT</strong> \u2014 zm\u011Bn\u00ED nemocnici, ulo\u017E\u00ED do historie</li>\
+<li><strong>ZRU\u0160IT</strong> \u2014 bez zm\u011Bn</li>\
+</ol>\
+<p>Historie zm\u011Bn nemocnice je viditeln\u00E1 v hl\u00E1\u0161en\u00ED (\u21C4Nemocnice1\u2192Nemocnice2).</p>\
+<hr>\
+<h2>10. Instalace a offline re\u017Eim</h2>\
+<h3>Instalace jako PWA</h3>\
+<p><strong>Android (Chrome):</strong></p>\
+<ol>\
+<li>Otev\u0159ete aplikaci v Chrome</li>\
+<li>Klepn\u011Bte na \u22EE (menu) v prav\u00E9m horn\u00EDm rohu</li>\
+<li>Zvolte \u201EP\u0159idat na domovskou obrazovku\u201C</li>\
+<li>Klepn\u011Bte na \u201ENainstalovat\u201C</li>\
+</ol>\
+<p><strong>iOS (Safari):</strong></p>\
+<ol>\
+<li>Otev\u0159ete aplikaci v Safari</li>\
+<li>Klepn\u011Bte na \u2399 (Sd\u00EDlet)</li>\
+<li>Posu\u0148te dol\u016F a zvolte \u201EP\u0159idat na plochu\u201C</li>\
+</ol>\
+<p>Po instalaci aplikace funguje jako samostatn\u00E1 aplikace s pln\u00FDm offline re\u017Eimem.</p>\
+<h3>Offline re\u017Eim</h3>\
+<p>Aplikace se po prvn\u00EDm na\u010Dten\u00ED ulo\u017E\u00ED do cache za\u0159\u00EDzen\u00ED. V\u0161echny funkce funguj\u00ED bez p\u0159ipojen\u00ED k internetu:</p>\
+<ul>\
+<li>T\u0159\u00EDd\u011Bn\u00ED pacient\u016F</li>\
+<li>Disponov\u00E1n\u00ED transportu</li>\
+<li>Generov\u00E1n\u00ED hl\u00E1\u0161en\u00ED</li>\
+<li>Import dat (vlo\u017Een\u00ED)</li>\
+</ul>\
+<p>Internet je pot\u0159eba pouze pro: prvn\u00ED sta\u017Een\u00ED, aktualizaci a odes\u00EDl\u00E1n\u00ED SMS/email\u016F (p\u0159es nativn\u00ED aplikace za\u0159\u00EDzen\u00ED).</p>\
+<h3>Sta\u017Een\u00ED jako HTML soubor</h3>\
+<p>Tla\u010D\u00EDtko <strong>\u2B07 St\u00E1hnout</strong> na \u00FAvodn\u00ED obrazovce st\u00E1hne aplikaci jako samostatn\u00FD HTML soubor. Lze jej p\u0159en\u00E9st na flash disk a spustit na libovoln\u00E9m po\u010D\u00EDta\u010Di s prohl\u00ED\u017Ee\u010Dem.</p>\
+<hr>\
+<h2>11. Soukrom\u00ED</h2>\
+<ul>\
+<li>Ve\u0161ker\u00E1 data jsou uchov\u00E1v\u00E1na <strong>v\u00FDhradn\u011B na za\u0159\u00EDzen\u00ED</strong> (localStorage)</li>\
+<li>\u017D\u00E1dn\u00E1 data <strong>nejsou odes\u00EDl\u00E1na</strong> na extern\u00ED servery</li>\
+<li>\u017D\u00E1dn\u00E1 analytika, sledov\u00E1n\u00ED, telemetrie</li>\
+<li>\u017D\u00E1dn\u00E9 sledovac\u00ED cookies</li>\
+<li>Funkce SMS a email vyu\u017E\u00EDvaj\u00ED nativn\u00ED aplikace za\u0159\u00EDzen\u00ED \u2014 aplikace neodes\u00EDl\u00E1 zpr\u00E1vy p\u0159\u00EDmo</li>\
+<li>Smaz\u00E1n\u00ED dat: pou\u017Eijte \u201EUkon\u010Dit ud\u00E1lost\u201C nebo vyma\u017Ete data prohl\u00ED\u017Ee\u010De</li>\
+</ul>\
+<p>\u00DApln\u00E9 z\u00E1sady ochrany soukrom\u00ED jsou dostupn\u00E9 na adrese <code>/privacy/</code>.</p>';
+
+CONTENT.pt = '<h1>Manual de utiliza\u00E7\u00E3o TRIAGE MCI</h1>\
+<h2>1. O que \u00E9 o TRIAGE MCI</h2>\
+<p>O TRIAGE MCI \u00E9 uma aplica\u00E7\u00E3o web (PWA) para triagem e gest\u00E3o de incidentes com m\u00FAltiplas v\u00EDtimas (MCI), baseada no algoritmo START. Permite:</p>\
+<ul>\
+<li>Classifica\u00E7\u00E3o de pacientes em 4 categorias (T1\u2013T4)</li>\
+<li>Gest\u00E3o de transporte para hospitais</li>\
+<li>Monitoriza\u00E7\u00E3o da capacidade hospitalar</li>\
+<li>Gera\u00E7\u00E3o e envio de relat\u00F3rios</li>\
+<li>Importa\u00E7\u00E3o de dados do operador de central</li>\
+</ul>\
+<p>A aplica\u00E7\u00E3o funciona totalmente offline. Todos os dados s\u00E3o armazenados exclusivamente no dispositivo do utilizador \u2014 nenhuma informa\u00E7\u00E3o \u00E9 enviada para servidores externos.</p>\
+<p>Suporta 7 idiomas: polaco, ingl\u00EAs, italiano, franc\u00EAs, alem\u00E3o, checo, portugu\u00EAs.</p>\
+<hr>\
+<h2>2. In\u00EDcio do incidente</h2>\
+<h3>Ecr\u00E3 inicial</h3>\
+<p>Ao abrir a aplica\u00E7\u00E3o, surge o ecr\u00E3 de configura\u00E7\u00E3o do incidente:</p>\
+<ol>\
+<li><strong>Sele\u00E7\u00E3o de idioma</strong> \u2014 seletor no topo do ecr\u00E3. A altera\u00E7\u00E3o do idioma traduz imediatamente toda a interface.</li>\
+<li><strong>Nome do incidente</strong> \u2014 campo obrigat\u00F3rio. Introduza a localiza\u00E7\u00E3o e o tipo de incidente (ex.: \u201CAcidente A1 km 312\u201D). Aparecer\u00E1 nos relat\u00F3rios.</li>\
+<li><strong>KAM</strong> \u2014 campo opcional. Respons\u00E1vel pela A\u00E7\u00E3o M\u00E9dica \u2014 nome da pessoa que coordena as opera\u00E7\u00F5es no local.</li>\
+<li><strong>Mostrar dicas</strong> \u2014 interruptor que ativa bal\u00F5es com sugest\u00F5es contextuais em toda a aplica\u00E7\u00E3o. \u00DAtil na primeira utiliza\u00E7\u00E3o.</li>\
+<li><strong>INICIAR TRIAGE</strong> \u2014 inicia o incidente e arranca o cron\u00F3metro.</li>\
+</ol>\
+<h3>Retomar incidente</h3>\
+<p>Se existir um incidente guardado na mem\u00F3ria do dispositivo, ao iniciar surgir\u00E1 a op\u00E7\u00E3o:</p>\
+<ul>\
+<li><strong>CONTINUAR</strong> \u2014 retoma o incidente guardado com todos os dados</li>\
+<li><strong>NOVO INCIDENTE</strong> \u2014 apaga os dados anteriores e come\u00E7a de novo</li>\
+</ul>\
+<hr>\
+<h2>3. Triagem (algoritmo START)</h2>\
+<h3>Navega\u00E7\u00E3o</h3>\
+<p>A aplica\u00E7\u00E3o tem 3 separadores na parte superior do ecr\u00E3:</p>\
+<ul>\
+<li><strong>TRIAGEM</strong> \u2014 classifica\u00E7\u00E3o de pacientes</li>\
+<li><strong>DESPACHO</strong> \u2014 transporte e gest\u00E3o</li>\
+<li><strong>RELAT\u00D3RIO</strong> \u2014 resumo e exporta\u00E7\u00E3o</li>\
+</ul>\
+<p>A barra de estat\u00EDsticas abaixo da navega\u00E7\u00E3o mostra o n\u00FAmero de pacientes em cada categoria: \uD83D\uDD34 T1, \uD83D\uDFE1 T2, \uD83D\uDFE2 T3, \u26AB T4 e o total.</p>\
+<h3>Assistente de triagem START</h3>\
+<p>O assistente guia-o atrav\u00E9s do algoritmo START em 6 passos. Em cada passo responde SIM ou N\u00C3O:</p>\
+<p><strong>Passo 1 \u2014 O paciente caminha?</strong></p>\
+<ul>\
+<li>SIM \u2192 T3 Verde (diferido)</li>\
+<li>N\u00C3O \u2192 avan\u00E7ar para o passo 2</li>\
+</ul>\
+<p><strong>Passo 2 \u2014 Respira espontaneamente?</strong></p>\
+<ul>\
+<li>SIM \u2192 avan\u00E7ar para o passo 4 (avalia\u00E7\u00E3o da frequ\u00EAncia respirat\u00F3ria)</li>\
+<li>N\u00C3O \u2192 avan\u00E7ar para o passo 3</li>\
+</ul>\
+<p><strong>Passo 3 \u2014 Permeabilize a via a\u00E9rea. Respira ap\u00F3s permeabiliza\u00E7\u00E3o?</strong></p>\
+<ul>\
+<li>SIM \u2192 T1 Vermelho (imediato)</li>\
+<li>N\u00C3O \u2192 T4 Preto (\u00F3bito)</li>\
+</ul>\
+<p><strong>Passo 4 \u2014 A frequ\u00EAncia respirat\u00F3ria \u00E9 normal (\u2264 30/min)?</strong></p>\
+<ul>\
+<li>SIM \u2192 avan\u00E7ar para o passo 5</li>\
+<li>N\u00C3O \u2192 T1 Vermelho (imediato)</li>\
+</ul>\
+<p><strong>Passo 5 \u2014 O tempo de preenchimento capilar \u00E9 normal (\u2264 2 seg.) e o pulso radial est\u00E1 presente?</strong></p>\
+<ul>\
+<li>SIM \u2192 avan\u00E7ar para o passo 6</li>\
+<li>N\u00C3O \u2192 T1 Vermelho (imediato)</li>\
+</ul>\
+<p><strong>Passo 6 \u2014 Obedece a comandos simples?</strong></p>\
+<ul>\
+<li>SIM \u2192 T2 Amarelo (urgente)</li>\
+<li>N\u00C3O \u2192 T1 Vermelho (imediato)</li>\
+</ul>\
+<p>Cada pergunta tem uma dica (hint) vis\u00EDvel abaixo \u2014 descreve como avaliar o respetivo par\u00E2metro.</p>\
+<h3>Cart\u00E3o de resultado</h3>\
+<p>Ap\u00F3s a conclus\u00E3o da triagem surge o cart\u00E3o de resultado com:</p>\
+<ul>\
+<li><strong>Marcador colorido</strong> \u2014 quadrado grande com a categoria (T1/T2/T3/T4)</li>\
+<li><strong>Percurso decis\u00F3rio</strong> \u2014 mostra o caminho seguido no algoritmo</li>\
+<li><strong>Sexo</strong> \u2014 bot\u00F5es M (masculino), F (feminino), ? (desconhecido)</li>\
+<li><strong>Idade</strong> \u2014 campo num\u00E9rico com bot\u00F5es -5, -1, +1, +5 (intervalo 0\u2013150)</li>\
+<li><strong>Les\u00F5es corporais</strong> \u2014 bot\u00E3o que abre o diagrama de les\u00F5es (ver sec\u00E7\u00E3o 4)</li>\
+<li><strong>Notas</strong> \u2014 campo para informa\u00E7\u00F5es adicionais (les\u00F5es, mecanismo de trauma, etc.)</li>\
+</ul>\
+<p>A\u00E7\u00F5es dispon\u00EDveis:</p>\
+<ul>\
+<li><strong>\u2713 CONFIRMAR PACIENTE</strong> \u2014 adiciona o paciente \u00E0 lista</li>\
+<li><strong>\u21BA RECOME\u00C7AR</strong> \u2014 reinicia o assistente a partir do passo 1</li>\
+<li><strong>ALTERAR COR MANUALMENTE</strong> \u2014 abre uma fila de 4 bot\u00F5es (T1\u2013T4) para altera\u00E7\u00E3o manual da categoria</li>\
+</ul>\
+<h3>Lista de pacientes no local</h3>\
+<p>Abaixo do assistente \u00E9 apresentada a lista \u201CPacientes no local\u201D, ordenada por prioridade (T1 \u2192 T2 \u2192 T3 \u2192 T4).</p>\
+<p>Cada cart\u00E3o de paciente cont\u00E9m:</p>\
+<ul>\
+<li>Marcador colorido (ex.: P-001)</li>\
+<li>Categoria, sexo/idade, hora de registo</li>\
+<li>Campo de notas (edit\u00E1vel)</li>\
+<li>Bot\u00E3o de les\u00F5es (\uD83E\uDE7B) com resumo</li>\
+<li>4 pontos de retriagem (T1\u2013T4) \u2014 clique para alterar a categoria</li>\
+<li>Bot\u00E3o de elimina\u00E7\u00E3o (\u2715)</li>\
+<li>Marcador de retriagem (\u21BAn) caso a categoria tenha sido alterada</li>\
+</ul>\
+<h3>Lista em transporte</h3>\
+<p>A sec\u00E7\u00E3o \u201CEm transporte\u201D aparece quando h\u00E1 pacientes a caminho do hospital. Cada cart\u00E3o mostra:</p>\
+<ul>\
+<li>Marcador do paciente com a cor da categoria</li>\
+<li>Rota: Equipa \u2192 Hospital \u2192 hora de sa\u00EDda</li>\
+<li>Bot\u00E3o \u201Calterar\u201D \u2014 altera\u00E7\u00E3o do hospital de destino</li>\
+<li>Bot\u00E3o \u201C\u2713 Entregue\u201D \u2014 marca como entregue e liberta a equipa de emerg\u00EAncia</li>\
+</ul>\
+<hr>\
+<h2>4. Diagrama de les\u00F5es corporais</h2>\
+<p>O bot\u00E3o \u201C\uD83E\uDE7B Les\u00F5es corporais\u201D abre um diagrama corporal interativo.</p>\
+<h3>Vista do diagrama</h3>\
+<p>S\u00E3o apresentados dois contornos do corpo lado a lado:</p>\
+<ul>\
+<li><strong>FRENTE</strong> (front) \u2014 cabe\u00E7a, t\u00F3rax, abd\u00F3men, bra\u00E7os, pernas</li>\
+<li><strong>COSTAS</strong> (back) \u2014 cabe\u00E7a, parte superior das costas, parte inferior das costas, bra\u00E7os, pernas</li>\
+</ul>\
+<p>Nos lados s\u00E3o vis\u00EDveis as indica\u00E7\u00F5es de lateralidade: <strong>E</strong> (esquerda) e <strong>D</strong> (direita), invertidas na vista posterior.</p>\
+<p>Clique numa zona do corpo para a selecionar.</p>\
+<h3>Painel de les\u00F5es da zona</h3>\
+<p>Ao selecionar uma zona, abre-se um painel com 7 tipos de les\u00E3o para assinalar:</p>\
+<ul>\
+<li>Fratura</li>\
+<li>Hemorragia</li>\
+<li>Queimadura</li>\
+<li>Ferida</li>\
+<li>Edema</li>\
+<li>Dor</li>\
+<li>Amputa\u00E7\u00E3o</li>\
+</ul>\
+<p>Os tipos assinalados s\u00E3o marcados com \u2713. Cada um pode ser ativado/desativado com um clique.</p>\
+<p>Na parte inferior do painel:</p>\
+<ul>\
+<li><strong>\u2715 N\u00C3O</strong> \u2014 descarta as altera\u00E7\u00F5es nesta zona</li>\
+<li><strong>\u2713 SIM</strong> \u2014 confirma as les\u00F5es para a zona selecionada</li>\
+</ul>\
+<h3>Confirma\u00E7\u00E3o do diagrama</h3>\
+<p>Ap\u00F3s assinalar as les\u00F5es em todas as zonas necess\u00E1rias:</p>\
+<ul>\
+<li><strong>\u2713 SIM</strong> \u2014 confirma todo o diagrama de les\u00F5es</li>\
+<li><strong>\u2715 N\u00C3O</strong> \u2014 descarta todas as altera\u00E7\u00F5es e regressa ao estado anterior \u00E0 abertura</li>\
+</ul>\
+<p>As les\u00F5es assinaladas s\u00E3o vis\u00EDveis:</p>\
+<ul>\
+<li>No cart\u00E3o do paciente como resumo abreviado (ex.: \u201C\uD83E\uDE7B Cabe\u00E7a: Fratura, Hemorragia\u201D)</li>\
+<li>No relat\u00F3rio junto ao respetivo paciente</li>\
+</ul>\
+<hr>\
+<h2>5. Despacho</h2>\
+<h3>Janelas modais de configura\u00E7\u00E3o</h3>\
+<p>Ao entrar pela primeira vez no separador Despacho, surgem sequencialmente 3 janelas modais:</p>\
+<p><strong>1. Diretor de Gest\u00E3o M\u00E9dica (GDM)</strong></p>\
+<ul>\
+<li>Campo para nome do GDM</li>\
+<li>Bot\u00E3o de importa\u00E7\u00E3o de dados do operador de central (ver sec\u00E7\u00E3o 6)</li>\
+<li>SALTAR ou GUARDAR</li>\
+</ul>\
+<p><strong>2. Equipas de emerg\u00EAncia</strong></p>\
+<ul>\
+<li>Pergunta: \u201CConhece as equipas de emerg\u00EAncia enviadas para o local?\u201D</li>\
+<li>SIM \u2192 formul\u00E1rio para adicionar equipas (nome + bot\u00E3o adicionar)</li>\
+<li>N\u00C3O \u2192 utilizar equipas predefinidas (S-01, S-02, P-01, P-02, P-03, LPR)</li>\
+<li>CONFIRMAR ou SALTAR (PREDEFINIDAS)</li>\
+</ul>\
+<p><strong>3. Hospitais de destino</strong></p>\
+<ul>\
+<li>Formul\u00E1rio para adicionar hospitais com capacidade:\
+<ul>\
+<li>Nome do hospital</li>\
+<li>\uD83D\uDD34 Capacidade vermelha (T1) \u2014 n\u00FAmero de camas</li>\
+<li>\uD83D\uDFE1 Capacidade amarela (T2) \u2014 n\u00FAmero de camas</li>\
+</ul></li>\
+<li>CONFIRMAR ou SALTAR (PREDEFINIDOS)</li>\
+</ul>\
+<p>Cada janela modal aparece apenas uma vez por incidente.</p>\
+<h3>Formul\u00E1rio de despacho</h3>\
+<p>A sec\u00E7\u00E3o \u201CDespachar transporte\u201D cont\u00E9m:</p>\
+<ol>\
+<li><strong>Paciente</strong> \u2014 lista pendente com pacientes no local, ordenada por prioridade</li>\
+<li><strong>Equipa de emerg\u00EAncia</strong> \u2014 lista de equipas dispon\u00EDveis (equipas ocupadas ficam ocultas)</li>\
+<li><strong>Hospital</strong> \u2014 lista de hospitais com informa\u00E7\u00E3o de ocupa\u00E7\u00E3o:\
+<ul>\
+<li>Formato: \u201CNome do hospital [\uD83D\uDD34 ocupados/total \uD83D\uDFE1 ocupados/total]\u201D</li>\
+<li>Hospitais sem vagas na categoria do paciente assinalados com aviso</li>\
+</ul></li>\
+<li><strong>DESPACHAR TRANSPORTE</strong> \u2014 bot\u00E3o ativo quando todos os campos est\u00E3o preenchidos</li>\
+</ol>\
+<h3>Pain\u00E9is de gest\u00E3o</h3>\
+<p>Abaixo do formul\u00E1rio encontram-se dois pain\u00E9is (lado a lado em ecr\u00E3s largos, sobrepostos em ecr\u00E3s estreitos):</p>\
+<p><strong>Hospitais</strong> (camas TOTAIS):</p>\
+<ul>\
+<li>Lista de hospitais com campos de capacidade edit\u00E1veis (\uD83D\uDD34 e \uD83D\uDFE1)</li>\
+<li>Adi\u00E7\u00E3o de novos hospitais</li>\
+<li>Elimina\u00E7\u00E3o de hospitais (\u2715)</li>\
+<li>Expandir/recolher a lista</li>\
+</ul>\
+<p><strong>Equipas de emerg\u00EAncia:</strong></p>\
+<ul>\
+<li>Lista de equipas com bot\u00F5es de elimina\u00E7\u00E3o</li>\
+<li>Adi\u00E7\u00E3o de novas equipas</li>\
+<li>Expandir/recolher a lista</li>\
+</ul>\
+<h3>Hist\u00F3rico de transportes</h3>\
+<p>Na parte inferior da sec\u00E7\u00E3o de despacho (recolhido por defeito). Expanda para ver a lista cronol\u00F3gica de todos os transportes com:</p>\
+<ul>\
+<li>Marcador do paciente com cor</li>\
+<li>Equipa \u2192 Hospital \u2192 hora de sa\u00EDda</li>\
+<li>Estado (em transporte / entregue)</li>\
+</ul>\
+<hr>\
+<h2>6. Importa\u00E7\u00E3o de dados do operador de central</h2>\
+<p>Esta fun\u00E7\u00E3o permite ao operador de central enviar dados (nome do incidente, GDM, equipas de emerg\u00EAncia, hospitais com capacidade) para o socorrista no terreno.</p>\
+<h3>M\u00E9todo 1 \u2014 Link por SMS (um clique)</h3>\
+<p>O operador de central envia um SMS com um link no formato:</p>\
+<pre><code>https://0xjaqbek.github.io/triage/?i=DADOS_BASE64</code></pre>\
+<p>Ao clicar no link:</p>\
+<ol>\
+<li>A aplica\u00E7\u00E3o abre a partir da cache (n\u00E3o necessita de internet se estiver instalada)</li>\
+<li>Surge uma pr\u00E9-visualiza\u00E7\u00E3o dos dados: nome do incidente, GDM, equipas, hospitais</li>\
+<li><strong>IMPORTAR</strong> \u2014 importa os dados e abre a triagem</li>\
+<li><strong>REJEITAR</strong> \u2014 ignora os dados</li>\
+</ol>\
+<h3>M\u00E9todo 2 \u2014 Colar dados</h3>\
+<p>Se o link n\u00E3o abrir a aplica\u00E7\u00E3o (dispositivos bloqueados):</p>\
+<ol>\
+<li>Abra a aplica\u00E7\u00E3o, v\u00E1 ao separador Despacho</li>\
+<li>Na janela modal do GDM clique em <strong>\uD83D\uDCE5 IMPORTAR DADOS DO OPERADOR</strong></li>\
+<li>Cole o conte\u00FAdo do SMS (o link completo ou apenas o c\u00F3digo Base64)</li>\
+<li>A pr\u00E9-visualiza\u00E7\u00E3o dos dados surgir\u00E1 automaticamente</li>\
+<li><strong>IMPORTAR</strong> \u2014 confirma os dados</li>\
+</ol>\
+<h3>Importa\u00E7\u00E3o durante o incidente</h3>\
+<p>Se o incidente j\u00E1 estiver em curso e tiver pacientes triados:</p>\
+<ul>\
+<li><strong>Pacientes</strong> \u2014 mantidos (nunca s\u00E3o eliminados)</li>\
+<li><strong>KAM</strong> \u2014 mantido</li>\
+<li><strong>GDM</strong> \u2014 substitu\u00EDdo pelos dados do operador</li>\
+<li><strong>Equipas de emerg\u00EAncia</strong> \u2014 substitu\u00EDdas pelos dados do operador</li>\
+<li><strong>Hospitais</strong> \u2014 substitu\u00EDdos pelos dados do operador</li>\
+<li><strong>Nome do incidente</strong> \u2014 combinado: \u201CO seu nome | Nome do operador (operador)\u201D</li>\
+</ul>\
+<p>Um aviso amarelo na pr\u00E9-visualiza\u00E7\u00E3o informa sobre a manuten\u00E7\u00E3o dos pacientes e do KAM.</p>\
+<hr>\
+<h2>7. Modo operador de central</h2>\
+<p>Acess\u00EDvel atrav\u00E9s do link \u201CModo operador de central \u2192\u201D no ecr\u00E3 inicial ou no endere\u00E7o <code>/dyspozytor/</code>.</p>\
+<p>Esta p\u00E1gina permite ao operador de central preparar e enviar dados para a equipa no terreno.</p>\
+<h3>Formul\u00E1rio</h3>\
+<ol>\
+<li><strong>Nome do incidente</strong> \u2014 ex.: \u201CMCI Lisboa-Expo\u201D</li>\
+<li><strong>Diretor de Gest\u00E3o M\u00E9dica (GDM)</strong> \u2014 nome completo</li>\
+<li><strong>Equipas de emerg\u00EAncia</strong> \u2014 adicionar uma a uma (nome + bot\u00E3o \u201C+\u201D)</li>\
+<li><strong>Hospitais de destino</strong> \u2014 nome + capacidade \uD83D\uDD34 e \uD83D\uDFE1 (+ bot\u00E3o adicionar)</li>\
+</ol>\
+<h3>Envio</h3>\
+<ul>\
+<li><strong>\uD83D\uDCCB Pr\u00E9-visualiza\u00E7\u00E3o dos dados</strong> \u2014 mostra o resumo com o tamanho em caracteres e n\u00FAmero de SMS</li>\
+<li><strong>\uD83D\uDCF1 Enviar SMS</strong> \u2014 abre a aplica\u00E7\u00E3o de SMS com o link pronto</li>\
+<li><strong>\uD83D\uDCCB Copiar dados</strong> \u2014 copia o link para a \u00E1rea de transfer\u00EAncia</li>\
+</ul>\
+<p>Os dados s\u00E3o codificados em Base64 (compatibilidade com SMS GSM-7 \u2014 at\u00E9 1530 caracteres em 10 segmentos de SMS). Comporta aproximadamente 20 hospitais e 20 equipas.</p>\
+<hr>\
+<h2>8. Relat\u00F3rio</h2>\
+<h3>Relat\u00F3rio visual</h3>\
+<p>A sec\u00E7\u00E3o \u201CRelat\u00F3rio para o operador\u201D \u00E9 gerada automaticamente e cont\u00E9m:</p>\
+<p><strong>Cabe\u00E7alho:</strong></p>\
+<ul>\
+<li>Nome do incidente, hora de in\u00EDcio, hora do relat\u00F3rio</li>\
+<li>KAM e GDM (se indicados)</li>\
+<li>Hora de encerramento (se o incidente estiver encerrado)</li>\
+</ul>\
+<p><strong>Resumo:</strong></p>\
+<ul>\
+<li>Marcadores coloridos com o n\u00FAmero de pacientes em cada categoria</li>\
+<li>N\u00FAmero total de pacientes</li>\
+</ul>\
+<p><strong>Hospitais</strong> (bloco separado para cada hospital com transportes):</p>\
+<ul>\
+<li>Nome do hospital, n\u00FAmero de pacientes, informa\u00E7\u00E3o de capacidade</li>\
+<li>Lista de pacientes com: marcador, idade/sexo, equipa, hora, estado (EM TRANSPORTE / ENTREGUE)</li>\
+<li>Hist\u00F3rico de retriagem (ex.: \u21BAT1\u2192T2\u2192T1)</li>\
+<li>Hist\u00F3rico de altera\u00E7\u00F5es de hospital (ex.: \u21C4Hospital1\u2192Hospital2)</li>\
+<li>Resumo de les\u00F5es</li>\
+</ul>\
+<p><strong>Pacientes no local</strong> (se algu\u00E9m permanecer):</p>\
+<ul>\
+<li>Lista com: marcador, idade/sexo, categoria, notas, les\u00F5es</li>\
+</ul>\
+<h3>Relat\u00F3rio textual</h3>\
+<p>O bot\u00E3o \u201C\uD83D\uDCCB Relat\u00F3rio textual\u201D abre uma janela modal com o relat\u00F3rio completo em formato de texto. Cont\u00E9m a lista completa de pacientes com notas, sexo, idade e percurso de triagem.</p>\
+<h3>Envio do relat\u00F3rio</h3>\
+<ul>\
+<li><strong>\uD83D\uDCCB Copiar para a \u00E1rea de transfer\u00EAncia</strong> \u2014 copia o texto completo do relat\u00F3rio</li>\
+<li><strong>\uD83D\uDCE4 Enviar</strong> \u2014 abre op\u00E7\u00F5es:\
+<ul>\
+<li><strong>SMS</strong> \u2014 abre a aplica\u00E7\u00E3o nativa de SMS com o conte\u00FAdo do relat\u00F3rio</li>\
+<li><strong>Email</strong> \u2014 abre o cliente de email com o assunto e conte\u00FAdo do relat\u00F3rio</li>\
+</ul></li>\
+</ul>\
+<h3>Encerramento do incidente</h3>\
+<p>Bot\u00E3o <strong>ENCERRAR INCIDENTE</strong> no cabe\u00E7alho do relat\u00F3rio:</p>\
+<ul>\
+<li>Regista a hora de encerramento</li>\
+<li>Transforma-se em <strong>REVERTER ENCERRAMENTO</strong> (revers\u00EDvel)</li>\
+<li>A hora de encerramento aparece no relat\u00F3rio</li>\
+</ul>\
+<hr>\
+<h2>9. Retriagem e altera\u00E7\u00E3o de hospital</h2>\
+<h3>Retriagem</h3>\
+<p>No cart\u00E3o do paciente na sec\u00E7\u00E3o \u201CPacientes no local\u201D encontram-se 4 pontos coloridos (T1\u2013T4). Clicar numa categoria diferente da atual:</p>\
+<ol>\
+<li>Abre uma janela de confirma\u00E7\u00E3o: \u201CAlterar a categoria do paciente P-001 de T1 para T2?\u201D</li>\
+<li><strong>CONFIRMAR</strong> \u2014 altera a categoria, regista no hist\u00F3rico</li>\
+<li><strong>CANCELAR</strong> \u2014 sem altera\u00E7\u00F5es</li>\
+</ol>\
+<p>Hist\u00F3rico de retriagem:</p>\
+<ul>\
+<li>Marcador \u21BAn no cart\u00E3o do paciente (n = n\u00FAmero de altera\u00E7\u00F5es)</li>\
+<li>Hist\u00F3rico completo no relat\u00F3rio (ex.: T1\u2192T2\u2192T1 com horas)</li>\
+</ul>\
+<h3>Altera\u00E7\u00E3o de hospital durante o transporte</h3>\
+<p>No cart\u00E3o do paciente \u201CEm transporte\u201D, bot\u00E3o \u201Calterar\u201D:</p>\
+<ol>\
+<li>Abre uma janela modal com o hospital atual</li>\
+<li>Lista pendente com hospitais dispon\u00EDveis (com informa\u00E7\u00E3o de capacidade)</li>\
+<li><strong>CONFIRMAR</strong> \u2014 altera o hospital, regista no hist\u00F3rico</li>\
+<li><strong>CANCELAR</strong> \u2014 sem altera\u00E7\u00F5es</li>\
+</ol>\
+<p>O hist\u00F3rico de altera\u00E7\u00F5es de hospital \u00E9 vis\u00EDvel no relat\u00F3rio (\u21C4Hospital1\u2192Hospital2).</p>\
+<hr>\
+<h2>10. Instala\u00E7\u00E3o e modo offline</h2>\
+<h3>Instala\u00E7\u00E3o como PWA</h3>\
+<p><strong>Android (Chrome):</strong></p>\
+<ol>\
+<li>Abra a aplica\u00E7\u00E3o no Chrome</li>\
+<li>Toque em \u22EE (menu) no canto superior direito</li>\
+<li>Selecione \u201CAdicionar ao ecr\u00E3 inicial\u201D</li>\
+<li>Toque em \u201CInstalar\u201D</li>\
+</ol>\
+<p><strong>iOS (Safari):</strong></p>\
+<ol>\
+<li>Abra a aplica\u00E7\u00E3o no Safari</li>\
+<li>Toque em \u2399 (Partilhar)</li>\
+<li>Deslize para baixo e selecione \u201CAdicionar ao ecr\u00E3 inicial\u201D</li>\
+</ol>\
+<p>Ap\u00F3s a instala\u00E7\u00E3o, a aplica\u00E7\u00E3o funciona como uma aplica\u00E7\u00E3o independente com modo offline completo.</p>\
+<h3>Modo offline</h3>\
+<p>Ap\u00F3s o primeiro carregamento, a aplica\u00E7\u00E3o \u00E9 guardada na cache do dispositivo. Todas as funcionalidades operam sem liga\u00E7\u00E3o \u00E0 internet:</p>\
+<ul>\
+<li>Triagem de pacientes</li>\
+<li>Despacho de transporte</li>\
+<li>Gera\u00E7\u00E3o de relat\u00F3rios</li>\
+<li>Importa\u00E7\u00E3o de dados (colagem)</li>\
+</ul>\
+<p>A internet \u00E9 necess\u00E1ria apenas para: o primeiro download, atualiza\u00E7\u00F5es e envio de SMS/email (atrav\u00E9s das aplica\u00E7\u00F5es nativas do dispositivo).</p>\
+<h3>Download como ficheiro HTML</h3>\
+<p>O bot\u00E3o <strong>\u2B07 Descarregar</strong> no ecr\u00E3 inicial descarrega a aplica\u00E7\u00E3o como um ficheiro HTML aut\u00F3nomo. Pode ser transferido para uma pen USB e executado em qualquer computador com navegador.</p>\
+<hr>\
+<h2>11. Privacidade</h2>\
+<ul>\
+<li>Todos os dados s\u00E3o armazenados <strong>exclusivamente no dispositivo</strong> (localStorage)</li>\
+<li>Nenhum dado <strong>\u00E9 enviado</strong> para servidores externos</li>\
+<li>Sem anal\u00EDtica, rastreamento ou telemetria</li>\
+<li>Sem cookies de rastreamento</li>\
+<li>As fun\u00E7\u00F5es de SMS e email utilizam as aplica\u00E7\u00F5es nativas do dispositivo \u2014 a aplica\u00E7\u00E3o n\u00E3o envia mensagens diretamente</li>\
+<li>Elimina\u00E7\u00E3o de dados: utilize \u201CEncerrar incidente\u201D ou limpe os dados do navegador</li>\
+</ul>\
+<p>A pol\u00EDtica de privacidade completa est\u00E1 dispon\u00EDvel em <code>/privacy/</code>.</p>';
+
+(function(){
+var lang = localStorage.getItem('triageLang') || 'pl';
+if (!CONTENT[lang]) lang = 'pl';
+document.getElementById('content').innerHTML = CONTENT[lang];
+})();
+</script>
+</body>
+</html>

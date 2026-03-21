@@ -1653,7 +1653,9 @@ body.help-on .help-bubble:not(.dismissed) {
       <h2 style="margin:0">TRIAGE MCI</h2>
       <button class="btn-changelog" onclick="openChangelog()" data-i18n="btn_changelog">Changelog</button>
     </div>
-    <div class="info-version">v2.3.0</div>
+    <div class="info-version">v2.4.0</div>
+
+    <a href="./instrukcja/" style="display:inline-block;margin:10px 0;padding:8px 18px;background:rgba(96,165,250,0.12);border:2px solid var(--blue);color:var(--white);border-radius:8px;font-size:13px;font-weight:600;text-decoration:none;font-family:var(--font)" data-i18n="btn_instructions">📖 Instrukcje</a>
 
     <div class="info-section">
       <h3 data-i18n="info_about_title">O aplikacji</h3>
@@ -1698,6 +1700,14 @@ body.help-on .help-bubble:not(.dismissed) {
 <div id="changelogModal" class="info-overlay hidden" onclick="if(event.target===this)closeChangelog()">
   <div class="info-box">
     <h2 data-i18n="changelog_title">Changelog</h2>
+    <div class="info-section">
+      <h3>v2.4.0</h3>
+      <ul class="changelog-list">
+        <li data-i18n="cl_240_1">Strona instrukcji dostępna z panelu informacyjnego</li>
+        <li data-i18n="cl_240_2">Instrukcje w 7 językach (PL, EN, IT, FR, DE, CS, PT)</li>
+        <li data-i18n="cl_240_3">Język instrukcji ustawiany automatycznie z ekranu startowego</li>
+      </ul>
+    </div>
     <div class="info-section">
       <h3>v2.3.0</h3>
       <ul class="changelog-list">
@@ -2314,6 +2324,7 @@ const TRANSLATIONS = {
     help_manage_hospitals: 'Dodawaj i usuwaj szpitale docelowe. 🔴 i 🟡 oznaczają liczbę łóżek dla pacjentów czerwonych (T1) i żółtych (T2).',
     help_report: 'Automatycznie generowany raport ze zdarzenia. Możesz skopiować tekst lub wysłać przez SMS/e-mail.',
     btn_changelog: 'Changelog',
+    btn_instructions: '📖 Instrukcje',
     changelog_title: 'Historia zmian',
     cl_103_1: 'Dodano dymki pomocy z przełącznikiem na ekranie startowym',
     cl_103_2: 'Ulepszono układ przycisków wysyłania w modalu raportu',
@@ -2417,6 +2428,9 @@ const TRANSLATIONS = {
     cl_220_6: 'Pojemność szpitali w jednym wierszu z nazwą',
     cl_220_7: 'Wycentrowane elementy wyniku segregacji',
     cl_220_8: 'Próg dwukolumnowego widoku zarządzania zmieniony na ~750px',
+    cl_240_1: 'Strona instrukcji dostępna z panelu informacyjnego',
+    cl_240_2: 'Instrukcje w 7 językach (PL, EN, IT, FR, DE, CS, PT)',
+    cl_240_3: 'Język instrukcji ustawiany automatycznie z ekranu startowego',
     cl_230_1: 'Import danych od dyspozytora przez SMS/link lub wklejenie',
     cl_230_2: 'Strona dyspozytora do przygotowania i wysyłki danych ZRM/szpitali',
     cl_230_3: 'Import w trakcie zdarzenia zachowuje pacjentów i KAM',
@@ -2587,6 +2601,7 @@ const TRANSLATIONS = {
     help_manage_hospitals: 'Add or remove destination hospitals. 🔴 and 🟡 indicate bed capacity for red (T1) and yellow (T2) patients.',
     help_report: 'Auto-generated event report. Copy the text or send via SMS/email.',
     btn_changelog: 'Changelog',
+    btn_instructions: '📖 Instructions',
     changelog_title: 'Changelog',
     cl_103_1: 'Added help bubbles with toggle on the setup screen',
     cl_103_2: 'Improved send button layout in report modal',
@@ -2690,6 +2705,9 @@ const TRANSLATIONS = {
     cl_220_6: 'Hospital capacity in single row with name',
     cl_220_7: 'Centered triage result elements',
     cl_220_8: 'Two-column manage panel breakpoint changed to ~750px',
+    cl_240_1: 'Instruction page accessible from the info panel',
+    cl_240_2: 'Instructions in 7 languages (PL, EN, IT, FR, DE, CS, PT)',
+    cl_240_3: 'Instruction language set automatically from the start screen',
     cl_230_1: 'Dispatcher data import via SMS/link or paste',
     cl_230_2: 'Dispatcher page for preparing and sending ZRM/hospital data',
     cl_230_3: 'Mid-event import preserves patients and MCI Commander',
@@ -2860,6 +2878,7 @@ const TRANSLATIONS = {
     help_manage_hospitals: 'Aggiungi o rimuovi ospedali di destinazione. 🔴 e 🟡 indicano i posti letto per pazienti rossi (T1) e gialli (T2).',
     help_report: 'Rapporto evento generato automaticamente. Copia il testo o invia via SMS/email.',
     btn_changelog: 'Changelog',
+    btn_instructions: '📖 Istruzioni',
     changelog_title: 'Cronologia modifiche',
     cl_103_1: 'Aggiunti suggerimenti con interruttore nella schermata iniziale',
     cl_103_2: 'Migliorato layout pulsanti invio nel modale rapporto',
@@ -2963,6 +2982,9 @@ const TRANSLATIONS = {
     cl_220_6: 'Capacità ospedaliera in riga singola con il nome',
     cl_220_7: 'Elementi risultato triage centrati',
     cl_220_8: 'Soglia pannello gestione a due colonne cambiata a ~750px',
+    cl_240_1: 'Pagina istruzioni accessibile dal pannello informativo',
+    cl_240_2: 'Istruzioni in 7 lingue (PL, EN, IT, FR, DE, CS, PT)',
+    cl_240_3: 'Lingua delle istruzioni impostata automaticamente dalla schermata iniziale',
     cl_230_1: 'Importazione dati dal dispatcher via SMS/link o incolla',
     cl_230_2: 'Pagina dispatcher per preparare e inviare dati ZRM/ospedali',
     cl_230_3: 'Importazione durante evento preserva pazienti e comandante',
@@ -3133,6 +3155,7 @@ const TRANSLATIONS = {
     help_manage_hospitals: 'Ajoutez ou supprimez les hôpitaux de destination. 🔴 et 🟡 indiquent la capacité en lits pour les patients rouges (T1) et jaunes (T2).',
     help_report: 'Rapport d\'événement généré automatiquement. Copiez le texte ou envoyez par SMS/e-mail.',
     btn_changelog: 'Changelog',
+    btn_instructions: '📖 Instructions',
     changelog_title: 'Historique des modifications',
     cl_103_1: 'Ajout des bulles d\'aide avec interrupteur sur l\'écran d\'accueil',
     cl_103_2: 'Amélioration de la disposition des boutons d\'envoi dans le modal rapport',
@@ -3236,6 +3259,9 @@ const TRANSLATIONS = {
     cl_220_6: 'Capacité hospitalière sur une seule ligne avec le nom',
     cl_220_7: 'Éléments du résultat de triage centrés',
     cl_220_8: 'Seuil du panneau de gestion à deux colonnes changé à ~750px',
+    cl_240_1: 'Page d\'instructions accessible depuis le panneau d\'information',
+    cl_240_2: 'Instructions en 7 langues (PL, EN, IT, FR, DE, CS, PT)',
+    cl_240_3: 'Langue des instructions définie automatiquement depuis l\'écran d\'accueil',
     cl_230_1: 'Import des données du dispatcher via SMS/lien ou collage',
     cl_230_2: 'Page dispatcher pour préparer et envoyer les données ZRM/hôpitaux',
     cl_230_3: 'Import en cours d\'événement préserve patients et commandant',
@@ -3406,6 +3432,7 @@ const TRANSLATIONS = {
     help_manage_hospitals: 'Zielkrankenhäuser hinzufügen oder entfernen. 🔴 und 🟡 zeigen die Bettenkapazität für rote (T1) und gelbe (T2) Patienten.',
     help_report: 'Automatisch generierter Ereignisbericht. Text kopieren oder per SMS/E-Mail senden.',
     btn_changelog: 'Changelog',
+    btn_instructions: '📖 Anleitung',
     changelog_title: 'Änderungsprotokoll',
     cl_103_1: 'Hilfe-Blasen mit Schalter auf dem Startbildschirm hinzugefügt',
     cl_103_2: 'Layout der Senden-Schaltflächen im Berichtsmodal verbessert',
@@ -3509,6 +3536,9 @@ const TRANSLATIONS = {
     cl_220_6: 'Krankenhauskapazität in einer Zeile mit dem Namen',
     cl_220_7: 'Triage-Ergebniselemente zentriert',
     cl_220_8: 'Zweispaltige Verwaltungsansicht-Schwelle auf ~750px geändert',
+    cl_240_1: 'Anleitungsseite über das Info-Panel erreichbar',
+    cl_240_2: 'Anleitung in 7 Sprachen (PL, EN, IT, FR, DE, CS, PT)',
+    cl_240_3: 'Anleitungssprache wird automatisch vom Startbildschirm übernommen',
     cl_230_1: 'Datenimport vom Dispatcher per SMS/Link oder Einfügen',
     cl_230_2: 'Dispatcher-Seite zur Vorbereitung und Versendung von ZRM-/Krankenhausdaten',
     cl_230_3: 'Import während Ereignis bewahrt Patienten und Einsatzleiter',
@@ -3679,6 +3709,7 @@ const TRANSLATIONS = {
     help_manage_hospitals: 'Přidávejte nebo odebírejte cílové nemocnice. 🔴 a 🟡 označují kapacitu lůžek pro červené (T1) a žluté (T2) pacienty.',
     help_report: 'Automaticky vygenerované hlášení z události. Zkopírujte text nebo odešlete přes SMS/e-mail.',
     btn_changelog: 'Changelog',
+    btn_instructions: '📖 Návod',
     changelog_title: 'Historie změn',
     cl_103_1: 'Přidány nápovědné bubliny s přepínačem na úvodní obrazovce',
     cl_103_2: 'Vylepšeno rozvržení tlačítek odesílání v modalu hlášení',
@@ -3782,6 +3813,9 @@ const TRANSLATIONS = {
     cl_220_6: 'Kapacita nemocnice v jednom řádku s názvem',
     cl_220_7: 'Vycentrované prvky výsledku třídění',
     cl_220_8: 'Práh dvousloupcového panelu správy změněn na ~750px',
+    cl_240_1: 'Stránka s návodem přístupná z informačního panelu',
+    cl_240_2: 'Návod v 7 jazycích (PL, EN, IT, FR, DE, CS, PT)',
+    cl_240_3: 'Jazyk návodu nastaven automaticky z úvodní obrazovky',
     cl_230_1: 'Import dat od dispečera přes SMS/odkaz nebo vložení',
     cl_230_2: 'Stránka dispečera pro přípravu a odeslání dat ZRM/nemocnic',
     cl_230_3: 'Import během události zachovává pacienty a velitele',
@@ -3952,6 +3986,7 @@ const TRANSLATIONS = {
     help_manage_hospitals: 'Adicione ou remova hospitais de destino. 🔴 e 🟡 indicam a capacidade de leitos para pacientes vermelhos (T1) e amarelos (T2).',
     help_report: 'Relatório do evento gerado automaticamente. Copie o texto ou envie por SMS/e-mail.',
     btn_changelog: 'Changelog',
+    btn_instructions: '📖 Instruções',
     changelog_title: 'Histórico de alterações',
     cl_103_1: 'Adicionadas dicas de ajuda com interruptor no ecrã inicial',
     cl_103_2: 'Melhorado layout dos botões de envio no modal de relatório',
@@ -4055,6 +4090,9 @@ const TRANSLATIONS = {
     cl_220_6: 'Capacidade hospitalar em linha única com o nome',
     cl_220_7: 'Elementos do resultado de triagem centralizados',
     cl_220_8: 'Limiar do painel de gestão de duas colunas alterado para ~750px',
+    cl_240_1: 'Página de instruções acessível a partir do painel de informação',
+    cl_240_2: 'Instruções em 7 idiomas (PL, EN, IT, FR, DE, CS, PT)',
+    cl_240_3: 'Idioma das instruções definido automaticamente a partir do ecrã inicial',
     cl_230_1: 'Importação de dados do dispatcher via SMS/link ou colagem',
     cl_230_2: 'Página do dispatcher para preparar e enviar dados ZRM/hospitais',
     cl_230_3: 'Importação durante evento preserva pacientes e comandante',
