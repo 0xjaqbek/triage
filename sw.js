@@ -1,4 +1,4 @@
-const CACHE_NAME = 'triage-pwa-v39';
+const CACHE_NAME = 'triage-pwa-v40';
 const ASSETS = [
   './',
   './index.html',

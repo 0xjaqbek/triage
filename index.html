@@ -376,7 +376,7 @@ body {
 
 .manage-panel {
   flex: 1;
-  min-width: 240px;
+  min-width: min(360px, 100%);
 }
 
 .manage-box {
@@ -1078,6 +1078,7 @@ body.help-on .help-bubble:not(.dismissed) {
   gap: 8px;
   margin-top: 12px;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .btn-confirm {
@@ -1477,12 +1478,12 @@ body.help-on .help-bubble:not(.dismissed) {
 .cap-input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
 
 .manage-hospital-item {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  grid-template-rows: auto auto;
-  gap: 4px 8px;
+  display: flex;
   align-items: center;
+  gap: 8px;
 }
+.manage-hospital-item > span:first-child { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.manage-hospital-item > .btn-rm { margin-left: 16px; }
 
 /* HOSPITAL CHANGE BUTTON */
 
@@ -1511,13 +1512,13 @@ body.help-on .help-bubble:not(.dismissed) {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 8px 14px;
-  background: var(--surface);
-  border: 2px solid var(--border2);
-  color: var(--text2);
-  border-radius: 6px;
+  padding: 14px 24px;
+  background: rgba(96,165,250,0.12);
+  border: 2px solid var(--blue);
+  color: var(--white);
+  border-radius: 8px;
   cursor: pointer;
-  font-size: 13px;
+  font-size: 17px;
   font-weight: 600;
   font-family: var(--font);
 }
@@ -1558,11 +1559,12 @@ body.help-on .help-bubble:not(.dismissed) {
 
 .btn-injury-mini {
   display: inline-flex; align-items: center; gap: 4px;
-  padding: 6px 10px; background: transparent; border: 1px dashed var(--border2);
-  color: var(--text3); border-radius: 6px; cursor: pointer; font-size: 11px;
-  font-family: var(--font); max-width: 100%; overflow: hidden; text-overflow: ellipsis;
+  padding: 6px 12px; background: var(--surface); border: 2px solid var(--border2);
+  color: var(--white); border-radius: 6px; cursor: pointer; font-size: 12px;
+  font-weight: 600; font-family: var(--font); max-width: 100%; overflow: hidden;
+  text-overflow: ellipsis; min-height: 32px;
 }
-.btn-injury-mini.has-data { border-color: var(--red); border-style: solid; color: var(--text2); }
+.btn-injury-mini.has-data { border-color: var(--red); color: var(--white); background: rgba(220,38,38,0.15); }
 </style>
 </head>
 <body>
@@ -1651,7 +1653,7 @@ body.help-on .help-bubble:not(.dismissed) {
   <div class="info-box" style="position:relative;">
     <button class="btn-changelog" onclick="openChangelog()" data-i18n="btn_changelog">Changelog</button>
     <h2>TRIAGE MCI</h2>
-    <div class="info-version">v2.1.1</div>
+    <div class="info-version">v2.2.0</div>
 
     <div class="info-section">
       <h3 data-i18n="info_about_title">O aplikacji</h3>
@@ -1696,6 +1698,19 @@ body.help-on .help-bubble:not(.dismissed) {
 <div id="changelogModal" class="info-overlay hidden" onclick="if(event.target===this)closeChangelog()">
   <div class="info-box">
     <h2 data-i18n="changelog_title">Changelog</h2>
+    <div class="info-section">
+      <h3>v2.2.0</h3>
+      <ul class="changelog-list">
+        <li data-i18n="cl_220_1">Diagram obrażeń ciała (9 stref, 7 typów urazów) z widokiem przód/tył</li>
+        <li data-i18n="cl_220_2">Pytania segregacji przeformułowane na logikę pozytywnego wyniku (TAK = lepiej)</li>
+        <li data-i18n="cl_220_3">Ikony 🔴/🟡 zamiast R:/Y: w liście szpitali</li>
+        <li data-i18n="cl_220_4">Blokada ujemnego wieku pacjenta</li>
+        <li data-i18n="cl_220_5">Większe pola pojemności szpitali z kolorowymi obramowaniami</li>
+        <li data-i18n="cl_220_6">Pojemność szpitali w jednym wierszu z nazwą</li>
+        <li data-i18n="cl_220_7">Wycentrowane elementy wyniku segregacji</li>
+        <li data-i18n="cl_220_8">Próg dwukolumnowego widoku zarządzania zmieniony na ~750px</li>
+      </ul>
+    </div>
     <div class="info-section">
       <h3>v2.1.1</h3>
       <ul class="changelog-list">
@@ -1820,7 +1835,7 @@ body.help-on .help-bubble:not(.dismissed) {
             <div class="result-path" id="resultPath"></div>
           </div>
         </div>
-        <div class="sex-age-row" style="margin-top:12px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
+        <div class="sex-age-row" style="margin-top:12px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center;">
           <div style="display:flex;align-items:center;gap:6px;">
             <span class="form-label" style="margin:0;font-size:14px;color:var(--text2)" data-i18n="sex_label">Płeć:</span>
             <input type="hidden" id="patientSex" value="">
@@ -1837,7 +1852,7 @@ body.help-on .help-bubble:not(.dismissed) {
             <button type="button" class="age-step-btn" onclick="stepAge(5)">+5</button>
           </div>
         </div>
-        <div style="margin-top:10px">
+        <div style="margin-top:10px;text-align:center">
           <button class="btn-injury-diagram" id="btnInjuryResult" onclick="openInjuryModalForResult()">🩻 <span data-i18n="btn_body_diagram">Obrażenia ciała</span></button>
         </div>
         <div style="margin-top:10px">
@@ -2024,9 +2039,10 @@ body.help-on .help-bubble:not(.dismissed) {
       <div id="hospSetupList" style="display:flex;flex-direction:column;gap:6px;margin-bottom:12px;max-height:200px;overflow-y:auto"></div>
       <div style="display:flex;flex-direction:column;gap:8px">
         <input class="event-input" id="hospSetupName" style="width:100%;font-size:14px;padding:10px 12px" placeholder="Nazwa szpitala..." data-i18n-placeholder="hosp_setup_name_placeholder">
-        <div style="display:flex;gap:10px;align-items:center">
-          <label style="display:flex;align-items:center;gap:4px;color:var(--text2);font-size:14px">🔴<input type="number" class="cap-input" id="hospSetupRed" min="0" placeholder="0" style="width:56px;padding:8px 4px;font-size:16px;text-align:center;border-radius:6px;border:2px solid var(--border)"></label>
-          <label style="display:flex;align-items:center;gap:4px;color:var(--text2);font-size:14px">🟡<input type="number" class="cap-input" id="hospSetupYellow" min="0" placeholder="0" style="width:56px;padding:8px 4px;font-size:16px;text-align:center;border-radius:6px;border:2px solid var(--border)"></label>
+        <div style="font-size:11px;color:var(--text3);margin-bottom:2px" data-i18n="hosp_setup_cap_desc">Liczba łóżek WSZYSTKICH (pojemność szpitala):</div>
+        <div style="display:flex;gap:12px;align-items:center">
+          <label style="display:flex;align-items:center;gap:6px;color:var(--red);font-size:16px;font-weight:700">🔴<input type="number" class="cap-input" id="hospSetupRed" min="0" placeholder="0" style="width:70px;padding:10px 6px;font-size:18px;text-align:center;border-radius:8px;border:2px solid var(--red);background:var(--bg);color:var(--white)"></label>
+          <label style="display:flex;align-items:center;gap:6px;color:var(--yellow);font-size:16px;font-weight:700">🟡<input type="number" class="cap-input" id="hospSetupYellow" min="0" placeholder="0" style="width:70px;padding:10px 6px;font-size:18px;text-align:center;border-radius:8px;border:2px solid var(--yellow);background:var(--bg);color:var(--white)"></label>
         </div>
         <button class="btn-dispatch" style="width:100%;padding:10px 14px;font-size:14px" onclick="addHospitalSetupItem()" data-i18n="hosp_setup_add">+ DODAJ SZPITAL</button>
       </div>
@@ -2164,12 +2180,12 @@ const TRANSLATIONS = {
     airway_h: 'Odchyl głowę, unieś żuchwę — oceń ponownie oddech',
     airway_yes_r: 'Brak oddechu → po udrożnieniu oddycha → T1 Czerwony',
     airway_no_r: 'Brak oddechu po udrożnieniu dróg oddechowych → T4 Czarny',
-    rr_q: 'Częstość oddechów > 30/min?',
+    rr_q: 'Czy częstość oddechów jest prawidłowa (30/min lub mniej)?',
     rr_h: 'Policz oddechy przez 15 sekund × 4 lub oceń orientacyjnie',
-    rr_yes_r: 'Oddycha > 30/min → T1 Czerwony',
-    cap_q: 'Nawrót kapilarny > 2 sek.\nlub brak tętna na tt. promieniowej?',
+    rr_no_r: 'Oddycha > 30/min → T1 Czerwony',
+    cap_q: 'Czy nawrót kapilarny jest prawidłowy (2 sek. równo lub krócej) i tętno na tt. promieniowej obecne?',
     cap_h: 'Uciśnij paznokieć na 5 sek. — oceń powrót zabarwienia. Sprawdź tętno.',
-    cap_yes_r: 'Nawrót kapilarny > 2s / brak tętna → T1 Czerwony',
+    cap_no_r: 'Nawrót kapilarny > 2s / brak tętna → T1 Czerwony',
     mental_q: 'Czy spełnia proste polecenia?',
     mental_h: '„Pokaż 2 palce", „Zamknij oczy", „Ściśnij moją rękę"',
     mental_yes_r: 'Oddycha prawidłowo, krąży, przytomny → T2 Żółty',
@@ -2285,6 +2301,7 @@ const TRANSLATIONS = {
     hosp_setup_skip: 'POMIŃ (DOMYŚLNE)',
     hosp_setup_confirm: 'ZATWIERDŹ',
     hosp_setup_add: '+ DODAJ SZPITAL',
+    hosp_setup_cap_desc: 'Liczba łóżek WSZYSTKICH (pojemność szpitala):',
     team_setup_title: 'Zespoły ZRM',
     team_setup_text: 'Czy znasz zespoły ZRM zadysponowane na miejsce zdarzenia?',
     team_setup_name_placeholder: 'np. G0119 — karetka S',
@@ -2410,12 +2427,12 @@ const TRANSLATIONS = {
     airway_h: 'Tilt the head, lift the jaw — reassess breathing',
     airway_yes_r: 'Not breathing → breathes after airway opened → T1 Red',
     airway_no_r: 'No breathing after airway opening → T4 Black',
-    rr_q: 'Respiratory rate > 30/min?',
+    rr_q: 'Is the respiratory rate normal (30/min or less)?',
     rr_h: 'Count breaths for 15 seconds × 4 or estimate',
-    rr_yes_r: 'Breathing > 30/min → T1 Red',
-    cap_q: 'Capillary refill > 2 sec\nor absent radial pulse?',
+    rr_no_r: 'Breathing > 30/min → T1 Red',
+    cap_q: 'Is capillary refill normal (2 sec or less) and radial pulse present?',
     cap_h: 'Press the nail bed for 5 sec — assess colour return. Check pulse.',
-    cap_yes_r: 'Capillary refill > 2s / no pulse → T1 Red',
+    cap_no_r: 'Capillary refill > 2s / no pulse → T1 Red',
     mental_q: 'Does the patient follow simple commands?',
     mental_h: '"Show 2 fingers", "Close your eyes", "Squeeze my hand"',
     mental_yes_r: 'Breathing normal, circulation OK, conscious → T2 Yellow',
@@ -2531,6 +2548,7 @@ const TRANSLATIONS = {
     hosp_setup_skip: 'SKIP (DEFAULTS)',
     hosp_setup_confirm: 'CONFIRM',
     hosp_setup_add: '+ ADD HOSPITAL',
+    hosp_setup_cap_desc: 'TOTAL bed count (hospital capacity):',
     team_setup_title: 'EMS Teams',
     team_setup_text: 'Do you know which EMS teams have been dispatched to the scene?',
     team_setup_name_placeholder: 'e.g. ALS-01 ambulance',
@@ -2656,12 +2674,12 @@ const TRANSLATIONS = {
     airway_h: 'Inclina la testa, solleva la mandibola — rivaluta il respiro',
     airway_yes_r: 'Non respira → respira dopo apertura vie aeree → T1 Rosso',
     airway_no_r: 'Non respira dopo apertura vie aeree → T4 Nero',
-    rr_q: 'Frequenza respiratoria > 30/min?',
+    rr_q: 'La frequenza respiratoria è normale (30/min o meno)?',
     rr_h: 'Conta i respiri per 15 secondi × 4 o stima approssimativamente',
-    rr_yes_r: 'Respira > 30/min → T1 Rosso',
-    cap_q: 'Refill capillare > 2 sec\no assenza di polso radiale?',
+    rr_no_r: 'Respira > 30/min → T1 Rosso',
+    cap_q: 'Il refill capillare è normale (2 sec o meno) e il polso radiale è presente?',
     cap_h: 'Premi l\'unghia per 5 sec — valuta il ritorno del colore. Controlla il polso.',
-    cap_yes_r: 'Refill capillare > 2s / assenza polso → T1 Rosso',
+    cap_no_r: 'Refill capillare > 2s / assenza polso → T1 Rosso',
     mental_q: 'Esegue comandi semplici?',
     mental_h: '"Mostra 2 dita", "Chiudi gli occhi", "Stringi la mia mano"',
     mental_yes_r: 'Respira normalmente, circolo OK, cosciente → T2 Giallo',
@@ -2777,6 +2795,7 @@ const TRANSLATIONS = {
     hosp_setup_skip: 'SALTA (PREDEFINITI)',
     hosp_setup_confirm: 'CONFERMA',
     hosp_setup_add: '+ AGGIUNGI OSPEDALE',
+    hosp_setup_cap_desc: 'Numero TOTALE di posti letto (capacità ospedaliera):',
     team_setup_title: 'Squadre MSA/MSB',
     team_setup_text: 'Conosci le squadre inviate sul posto?',
     team_setup_name_placeholder: 'es. MSA-01 ambulanza',
@@ -2902,12 +2921,12 @@ const TRANSLATIONS = {
     airway_h: 'Inclinez la tête, soulevez le menton — réévaluez la respiration',
     airway_yes_r: 'Ne respire pas → respire après libération → T1 Rouge',
     airway_no_r: 'Ne respire pas après libération des voies aériennes → T4 Noir',
-    rr_q: 'Fréquence respiratoire > 30/min ?',
+    rr_q: 'La fréquence respiratoire est-elle normale (30/min ou moins) ?',
     rr_h: 'Comptez les respirations pendant 15 secondes × 4 ou estimez',
-    rr_yes_r: 'Respire > 30/min → T1 Rouge',
-    cap_q: 'Recoloration capillaire > 2 sec\nou absence de pouls radial ?',
+    rr_no_r: 'Respire > 30/min → T1 Rouge',
+    cap_q: 'La recoloration capillaire est-elle normale (2 sec ou moins) et le pouls radial présent ?',
     cap_h: 'Appuyez sur l\'ongle pendant 5 sec — évaluez le retour de couleur. Vérifiez le pouls.',
-    cap_yes_r: 'Recoloration capillaire > 2s / pas de pouls → T1 Rouge',
+    cap_no_r: 'Recoloration capillaire > 2s / pas de pouls → T1 Rouge',
     mental_q: 'Le patient exécute-t-il des ordres simples ?',
     mental_h: '« Montrez 2 doigts », « Fermez les yeux », « Serrez ma main »',
     mental_yes_r: 'Respire normalement, circulation OK, conscient → T2 Jaune',
@@ -3023,6 +3042,7 @@ const TRANSLATIONS = {
     hosp_setup_skip: 'PASSER (DÉFAUTS)',
     hosp_setup_confirm: 'CONFIRMER',
     hosp_setup_add: '+ AJOUTER HÔPITAL',
+    hosp_setup_cap_desc: 'Nombre TOTAL de lits (capacité hospitalière) :',
     team_setup_title: 'Équipes SMUR/VSAV',
     team_setup_text: 'Connaissez-vous les équipes envoyées sur les lieux ?',
     team_setup_name_placeholder: 'ex. SMUR-01 ambulance',
@@ -3148,12 +3168,12 @@ const TRANSLATIONS = {
     airway_h: 'Kopf überstrecken, Kinn anheben — Atmung erneut beurteilen',
     airway_yes_r: 'Keine Atmung → atmet nach Freimachen → T1 Rot',
     airway_no_r: 'Keine Atmung nach Freimachen der Atemwege → T4 Schwarz',
-    rr_q: 'Atemfrequenz > 30/min?',
+    rr_q: 'Ist die Atemfrequenz normal (30/min oder weniger)?',
     rr_h: 'Atemzüge 15 Sekunden zählen × 4 oder schätzen',
-    rr_yes_r: 'Atmet > 30/min → T1 Rot',
-    cap_q: 'Rekapillarisierung > 2 Sek.\noder fehlender Radialpuls?',
+    rr_no_r: 'Atmet > 30/min → T1 Rot',
+    cap_q: 'Ist die Rekapillarisierung normal (2 Sek. oder weniger) und Radialpuls vorhanden?',
     cap_h: 'Nagelbett 5 Sek. drücken — Farbwiederkehr beurteilen. Puls prüfen.',
-    cap_yes_r: 'Rekapillarisierung > 2s / kein Puls → T1 Rot',
+    cap_no_r: 'Rekapillarisierung > 2s / kein Puls → T1 Rot',
     mental_q: 'Befolgt der Patient einfache Befehle?',
     mental_h: '„Zeigen Sie 2 Finger", „Schließen Sie die Augen", „Drücken Sie meine Hand"',
     mental_yes_r: 'Atmet normal, Kreislauf OK, bei Bewusstsein → T2 Gelb',
@@ -3269,6 +3289,7 @@ const TRANSLATIONS = {
     hosp_setup_skip: 'ÜBERSPRINGEN (STANDARD)',
     hosp_setup_confirm: 'BESTÄTIGEN',
     hosp_setup_add: '+ KRANKENHAUS HINZUFÜGEN',
+    hosp_setup_cap_desc: 'GESAMT-Bettenanzahl (Krankenhauskapazität):',
     team_setup_title: 'Rettungsteams',
     team_setup_text: 'Kennen Sie die zum Einsatzort entsandten Teams?',
     team_setup_name_placeholder: 'z.B. RTW-01 Rettungswagen',
@@ -3394,12 +3415,12 @@ const TRANSLATIONS = {
     airway_h: 'Zakloňte hlavu, zvedněte bradu — znovu zhodnoťte dýchání',
     airway_yes_r: 'Nedýchá → dýchá po zprůchodnění → T1 Červený',
     airway_no_r: 'Nedýchá po zprůchodnění dýchacích cest → T4 Černý',
-    rr_q: 'Dechová frekvence > 30/min?',
+    rr_q: 'Je dechová frekvence normální (30/min nebo méně)?',
     rr_h: 'Počítejte dechy po 15 sekund × 4 nebo odhadněte',
-    rr_yes_r: 'Dýchá > 30/min → T1 Červený',
-    cap_q: 'Kapilární návrat > 2 sek.\nnebo chybí pulz na radiální tepně?',
+    rr_no_r: 'Dýchá > 30/min → T1 Červený',
+    cap_q: 'Je kapilární návrat normální (2 sek. nebo méně) a radiální pulz přítomen?',
     cap_h: 'Stiskněte nehet na 5 sek. — zhodnoťte návrat barvy. Zkontrolujte pulz.',
-    cap_yes_r: 'Kapilární návrat > 2s / chybí pulz → T1 Červený',
+    cap_no_r: 'Kapilární návrat > 2s / chybí pulz → T1 Červený',
     mental_q: 'Splní pacient jednoduché příkazy?',
     mental_h: '„Ukažte 2 prsty", „Zavřete oči", „Stiskněte mi ruku"',
     mental_yes_r: 'Dýchá normálně, oběh OK, při vědomí → T2 Žlutý',
@@ -3515,6 +3536,7 @@ const TRANSLATIONS = {
     hosp_setup_skip: 'PŘESKOČIT (VÝCHOZÍ)',
     hosp_setup_confirm: 'POTVRDIT',
     hosp_setup_add: '+ PŘIDAT NEMOCNICI',
+    hosp_setup_cap_desc: 'CELKOVÝ počet lůžek (kapacita nemocnice):',
     team_setup_title: 'Záchranné týmy',
     team_setup_text: 'Znáte týmy vyslané na místo události?',
     team_setup_name_placeholder: 'např. RZP-01 sanitka',
@@ -3640,12 +3662,12 @@ const TRANSLATIONS = {
     airway_h: 'Incline a cabeça, eleve o queixo — reavalie a respiração',
     airway_yes_r: 'Não respira → respira após permeabilização → T1 Vermelho',
     airway_no_r: 'Não respira após permeabilização da via aérea → T4 Preto',
-    rr_q: 'Frequência respiratória > 30/min?',
+    rr_q: 'A frequência respiratória é normal (30/min ou menos)?',
     rr_h: 'Conte as respirações durante 15 segundos × 4 ou estime',
-    rr_yes_r: 'Respira > 30/min → T1 Vermelho',
-    cap_q: 'Preenchimento capilar > 2 seg\nou ausência de pulso radial?',
+    rr_no_r: 'Respira > 30/min → T1 Vermelho',
+    cap_q: 'O preenchimento capilar é normal (2 seg ou menos) e o pulso radial está presente?',
     cap_h: 'Pressione a unha durante 5 seg — avalie o retorno da cor. Verifique o pulso.',
-    cap_yes_r: 'Preenchimento capilar > 2s / sem pulso → T1 Vermelho',
+    cap_no_r: 'Preenchimento capilar > 2s / sem pulso → T1 Vermelho',
     mental_q: 'O paciente cumpre ordens simples?',
     mental_h: '"Mostre 2 dedos", "Feche os olhos", "Aperte a minha mão"',
     mental_yes_r: 'Respira normalmente, circulação OK, consciente → T2 Amarelo',
@@ -3761,6 +3783,7 @@ const TRANSLATIONS = {
     hosp_setup_skip: 'PULAR (PADRÃO)',
     hosp_setup_confirm: 'CONFIRMAR',
     hosp_setup_add: '+ ADICIONAR HOSPITAL',
+    hosp_setup_cap_desc: 'Número TOTAL de leitos (capacidade hospitalar):',
     team_setup_title: 'Equipas VMER/SIV',
     team_setup_text: 'Conhece as equipas enviadas para o local?',
     team_setup_name_placeholder: 'ex. VMER-01 ambulância',
@@ -4026,8 +4049,8 @@ function getSteps() {
     { id:'walk', question:t('walk_q'), hint:t('walk_h'), yes:{result:'T3',reason:t('walk_yes_r')}, no:{next:'breathing'} },
     { id:'breathing', question:t('breathing_q'), hint:t('breathing_h'), yes:{next:'rr'}, no:{next:'airway'} },
     { id:'airway', question:t('airway_q'), hint:t('airway_h'), yes:{result:'T1',reason:t('airway_yes_r')}, no:{result:'T4',reason:t('airway_no_r')} },
-    { id:'rr', question:t('rr_q'), hint:t('rr_h'), yes:{result:'T1',reason:t('rr_yes_r')}, no:{next:'cap'} },
-    { id:'cap', question:t('cap_q'), hint:t('cap_h'), yes:{result:'T1',reason:t('cap_yes_r')}, no:{next:'mental'} },
+    { id:'rr', question:t('rr_q'), hint:t('rr_h'), yes:{next:'cap'}, no:{result:'T1',reason:t('rr_no_r')} },
+    { id:'cap', question:t('cap_q'), hint:t('cap_h'), yes:{next:'mental'}, no:{result:'T1',reason:t('cap_no_r')} },
     { id:'mental', question:t('mental_q'), hint:t('mental_h'), yes:{result:'T2',reason:t('mental_yes_r')}, no:{result:'T1',reason:t('mental_no_r')} },
   ];
 }
@@ -4318,9 +4341,9 @@ function renderPatients() {
         <div class="p-time">${t(p.triage.toLowerCase()+'_text')}${demoStr ? ' • ' + demoStr : ''} • ${p.time}${(p.triageHistory && p.triageHistory.length) ? ' <span class="retriage-badge" title="' + p.triageHistory.map(h=>h.from+'→'+h.to+' '+h.time).join(', ') + '">↺' + p.triageHistory.length + '</span>' : ''}</div>
       </div>
       <button class="btn-remove" onclick="removePatient(${p.id})" title="${t('btn_remove')}">✕</button>
-      <div style="grid-column:1/-1"><button class="btn-injury-mini${Object.keys(p.injuries||{}).length ? ' has-data' : ''}" onclick="openInjuryModal(${p.id})">🩻 ${Object.keys(p.injuries||{}).length ? injurySummaryText(p.injuries) : t('btn_body_diagram_empty')}</button></div>
       <input class="p-notes" placeholder="${t('notes_placeholder2')}" value="${escHtml(p.notes)}" oninput="updateNotes(${p.id},this.value)">
       <div class="p-card-actions">
+        <button class="btn-injury-mini${Object.keys(p.injuries||{}).length ? ' has-data' : ''}" onclick="openInjuryModal(${p.id})">🩻 ${Object.keys(p.injuries||{}).length ? injurySummaryText(p.injuries) : t('btn_body_diagram_empty')}</button>
         <div class="triage-dots">${dots}</div>
       </div>
     </div>`;
@@ -4407,12 +4430,12 @@ function renderManage() {
   hospitals.forEach(h => {
     const usage = getHospitalUsage(h.id);
     hHtml += `<div class="manage-item manage-hospital-item">
-      <span style="grid-column:1;grid-row:1">${escHtml(h.name)}</span>
-      <button class="btn-rm" onclick="removeHospital(${h.id})" style="grid-column:2;grid-row:1/3;align-self:center">✕</button>
-      <div class="cap-inputs" style="grid-column:1;grid-row:2">
+      <span>${escHtml(h.name)}</span>
+      <div class="cap-inputs">
         <label class="cap-label">🔴<input type="number" class="cap-input" min="0" value="${h.redCapacity || ''}" placeholder="0" onchange="updateHospitalCapacity(${h.id},'redCapacity',this.value)" title="${t('capacity_red')}"></label>
         <label class="cap-label">🟡<input type="number" class="cap-input" min="0" value="${h.yellowCapacity || ''}" placeholder="0" onchange="updateHospitalCapacity(${h.id},'yellowCapacity',this.value)" title="${t('capacity_yellow')}"></label>
       </div>
+      <button class="btn-rm" onclick="removeHospital(${h.id})">✕</button>
     </div>`;
   });
   document.getElementById('hospitalsList').innerHTML = hHtml;
