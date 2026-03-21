@@ -1,4 +1,4 @@
-const CACHE_NAME = 'triage-pwa-v40';
+const CACHE_NAME = 'triage-pwa-v41';
 const ASSETS = [
   './',
   './index.html',
@@ -6,7 +6,9 @@ const ASSETS = [
   './icons/favicon-32.png',
   './icons/icon-192.png',
   './icons/icon-512.png',
-  './icons/apple-touch-icon.png'
+  './icons/apple-touch-icon.png',
+  './dyspozytor/',
+  './dyspozytor/index.html'
 ];
 
 // Install: precache all assets

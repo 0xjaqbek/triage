@@ -1994,9 +1994,44 @@ body.help-on .help-bubble:not(.dismissed) {
       <p style="color:var(--text2);font-size:12px;margin-bottom:12px" data-i18n="gdm_modal_text">Wprowadź imię i nazwisko GDM (Głównego Dyspozytora Medycznego).</p>
       <input id="gdmNameInput" class="event-input" style="width:100%;font-size:13px" placeholder="Imię i nazwisko GDM" data-i18n-placeholder="gdm_input_placeholder">
     </div>
+    <div style="padding:0 16px 8px">
+      <button class="btn-dispatch" style="width:100%;padding:10px 14px;font-size:13px;background:rgba(96,165,250,0.12);border:2px solid var(--blue);color:var(--white);border-radius:8px" onclick="openImportModal()" data-i18n="gdm_import">📥 IMPORTUJ DANE OD DYSPOZYTORA</button>
+    </div>
     <div class="modal-footer" style="justify-content:flex-end;gap:8px;padding:12px 16px">
       <button class="btn-modal-close" onclick="closeGdmModal()" data-i18n="gdm_skip">POMIŃ</button>
       <button class="btn-dispatch" style="padding:8px 20px;font-size:12px" onclick="saveGdm()" data-i18n="gdm_save">ZAPISZ</button>
+    </div>
+  </div>
+</div>
+
+<!-- IMPORT DATA MODAL -->
+<div class="modal-overlay" id="importModal">
+  <div class="modal" style="max-width:420px">
+    <div class="modal-header">
+      <div class="modal-title" data-i18n="import_title">Importuj dane</div>
+      <button class="modal-close" onclick="closeImportModal()">&times;</button>
+    </div>
+    <div class="modal-body" style="padding:16px">
+      <p style="color:var(--text2);font-size:12px;margin-bottom:12px" data-i18n="import_text">Wklej dane otrzymane od dyspozytora (SMS lub email):</p>
+      <textarea id="importDataInput" style="width:100%;min-height:80px;background:var(--bg);border:1px solid var(--border2);color:var(--white);border-radius:8px;padding:10px;font-size:12px;font-family:var(--font);resize:vertical" placeholder="https://.../?i=... lub sam kod Base64"></textarea>
+      <div id="importPreview" style="display:none;margin-top:12px;padding:10px;background:var(--bg);border:1px solid var(--border);border-radius:8px"></div>
+      <div id="importError" style="display:none;margin-top:8px;color:var(--red);font-size:12px"></div>
+    </div>
+    <div class="modal-footer" style="justify-content:flex-end;gap:8px;padding:12px 16px">
+      <button class="btn-modal-close" onclick="closeImportModal()" data-i18n="import_cancel">ANULUJ</button>
+      <button class="btn-dispatch" style="padding:8px 20px;font-size:12px" id="importConfirmBtn" onclick="confirmImport()" data-i18n="import_confirm" disabled>IMPORTUJ</button>
+    </div>
+  </div>
+</div>
+
+<!-- IMPORT URL OVERLAY -->
+<div class="info-overlay hidden" id="importUrlOverlay" onclick="if(event.target===this)rejectUrlImport()">
+  <div class="info-box" style="max-width:400px;text-align:left">
+    <h2 style="font-size:18px;margin-bottom:12px" data-i18n="import_url_title">Dane od dyspozytora</h2>
+    <div id="importUrlPreview" style="margin-bottom:16px"></div>
+    <div style="display:flex;gap:10px">
+      <button class="btn-info-close" style="flex:1;background:var(--green);color:#000;font-weight:700" onclick="acceptUrlImport()" data-i18n="import_accept">IMPORTUJ</button>
+      <button class="btn-info-close" style="flex:1" onclick="rejectUrlImport()" data-i18n="import_reject">ODRZUĆ</button>
     </div>
   </div>
 </div>
@@ -2295,6 +2330,16 @@ const TRANSLATIONS = {
     gdm_input_placeholder: 'Imię i nazwisko GDM',
     gdm_skip: 'POMIŃ',
     gdm_save: 'ZAPISZ',
+    gdm_import: '📥 IMPORTUJ DANE OD DYSPOZYTORA',
+    import_title: 'Importuj dane',
+    import_text: 'Wklej dane otrzymane od dyspozytora (SMS lub email):',
+    import_cancel: 'ANULUJ',
+    import_confirm: 'IMPORTUJ',
+    import_error: 'Nieprawidłowy format danych',
+    import_url_title: 'Dane od dyspozytora',
+    import_accept: 'IMPORTUJ',
+    import_reject: 'ODRZUĆ',
+    event_imported: 'Zdarzenie (import)',
     hosp_setup_title: 'Szpitale docelowe',
     hosp_setup_text: 'Dodaj szpitale i ich pojemność. Pomiń, aby zachować domyślne.',
     hosp_setup_name_placeholder: 'Nazwa szpitala...',
@@ -2542,6 +2587,16 @@ const TRANSLATIONS = {
     gdm_input_placeholder: 'Medical Director name',
     gdm_skip: 'SKIP',
     gdm_save: 'SAVE',
+    gdm_import: '📥 IMPORT DISPATCHER DATA',
+    import_title: 'Import data',
+    import_text: 'Paste data received from dispatcher (SMS or email):',
+    import_cancel: 'CANCEL',
+    import_confirm: 'IMPORT',
+    import_error: 'Invalid data format',
+    import_url_title: 'Data from dispatcher',
+    import_accept: 'IMPORT',
+    import_reject: 'REJECT',
+    event_imported: 'Event (imported)',
     hosp_setup_title: 'Destination hospitals',
     hosp_setup_text: 'Add hospitals and their capacity. Skip to keep defaults.',
     hosp_setup_name_placeholder: 'Hospital name...',
@@ -2789,6 +2844,16 @@ const TRANSLATIONS = {
     gdm_input_placeholder: 'Nome del Direttore Medico',
     gdm_skip: 'SALTA',
     gdm_save: 'SALVA',
+    gdm_import: '📥 IMPORTA DATI DAL DISPATCHER',
+    import_title: 'Importa dati',
+    import_text: 'Incolla i dati ricevuti dal dispatcher (SMS o email):',
+    import_cancel: 'ANNULLA',
+    import_confirm: 'IMPORTA',
+    import_error: 'Formato dati non valido',
+    import_url_title: 'Dati dal dispatcher',
+    import_accept: 'IMPORTA',
+    import_reject: 'RIFIUTA',
+    event_imported: 'Evento (importato)',
     hosp_setup_title: 'Ospedali destinazione',
     hosp_setup_text: 'Aggiungi ospedali e capacità. Salta per mantenere i predefiniti.',
     hosp_setup_name_placeholder: 'Nome ospedale...',
@@ -3036,6 +3101,16 @@ const TRANSLATIONS = {
     gdm_input_placeholder: 'Nom du Directeur Médical',
     gdm_skip: 'PASSER',
     gdm_save: 'ENREGISTRER',
+    gdm_import: '📥 IMPORTER DONNÉES DU DISPATCHER',
+    import_title: 'Importer les données',
+    import_text: 'Collez les données reçues du dispatcher (SMS ou email) :',
+    import_cancel: 'ANNULER',
+    import_confirm: 'IMPORTER',
+    import_error: 'Format de données invalide',
+    import_url_title: 'Données du dispatcher',
+    import_accept: 'IMPORTER',
+    import_reject: 'REJETER',
+    event_imported: 'Événement (importé)',
     hosp_setup_title: 'Hôpitaux de destination',
     hosp_setup_text: 'Ajoutez des hôpitaux et leur capacité. Passez pour garder les défauts.',
     hosp_setup_name_placeholder: 'Nom de l\'hôpital...',
@@ -3283,6 +3358,16 @@ const TRANSLATIONS = {
     gdm_input_placeholder: 'Name des Leitenden Notarztes',
     gdm_skip: 'ÜBERSPRINGEN',
     gdm_save: 'SPEICHERN',
+    gdm_import: '📥 DATEN VOM DISPATCHER IMPORTIEREN',
+    import_title: 'Daten importieren',
+    import_text: 'Fügen Sie die vom Dispatcher erhaltenen Daten ein (SMS oder E-Mail):',
+    import_cancel: 'ABBRECHEN',
+    import_confirm: 'IMPORTIEREN',
+    import_error: 'Ungültiges Datenformat',
+    import_url_title: 'Daten vom Dispatcher',
+    import_accept: 'IMPORTIEREN',
+    import_reject: 'ABLEHNEN',
+    event_imported: 'Ereignis (importiert)',
     hosp_setup_title: 'Zielkrankenhäuser',
     hosp_setup_text: 'Krankenhäuser und Kapazität hinzufügen. Überspringen für Standardwerte.',
     hosp_setup_name_placeholder: 'Krankenhausname...',
@@ -3530,6 +3615,16 @@ const TRANSLATIONS = {
     gdm_input_placeholder: 'Jméno vedoucího lékaře',
     gdm_skip: 'PŘESKOČIT',
     gdm_save: 'ULOŽIT',
+    gdm_import: '📥 IMPORTOVAT DATA OD DISPEČERA',
+    import_title: 'Importovat data',
+    import_text: 'Vložte data přijatá od dispečera (SMS nebo email):',
+    import_cancel: 'ZRUŠIT',
+    import_confirm: 'IMPORTOVAT',
+    import_error: 'Neplatný formát dat',
+    import_url_title: 'Data od dispečera',
+    import_accept: 'IMPORTOVAT',
+    import_reject: 'ODMÍTNOUT',
+    event_imported: 'Událost (importováno)',
     hosp_setup_title: 'Cílové nemocnice',
     hosp_setup_text: 'Přidejte nemocnice a kapacitu. Přeskočte pro výchozí.',
     hosp_setup_name_placeholder: 'Název nemocnice...',
@@ -3777,6 +3872,16 @@ const TRANSLATIONS = {
     gdm_input_placeholder: 'Nome do Diretor Médico',
     gdm_skip: 'PULAR',
     gdm_save: 'SALVAR',
+    gdm_import: '📥 IMPORTAR DADOS DO DISPATCHER',
+    import_title: 'Importar dados',
+    import_text: 'Cole os dados recebidos do dispatcher (SMS ou email):',
+    import_cancel: 'CANCELAR',
+    import_confirm: 'IMPORTAR',
+    import_error: 'Formato de dados inválido',
+    import_url_title: 'Dados do dispatcher',
+    import_accept: 'IMPORTAR',
+    import_reject: 'REJEITAR',
+    event_imported: 'Evento (importado)',
     hosp_setup_title: 'Hospitais de destino',
     hosp_setup_text: 'Adicione hospitais e capacidade. Pule para manter os padrões.',
     hosp_setup_name_placeholder: 'Nome do hospital...',
@@ -4923,7 +5028,152 @@ document.getElementById('teamSetupModal').addEventListener('click', function(e) 
 document.getElementById('hospitalSetupModal').addEventListener('click', function(e) {
   if (e.target === this) skipHospitalSetup();
 });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeInfo(); closeGdmModal(); closeTeamSetupModal(); closeHospitalSetupModal(); closeRetriageModal(); closeHospitalChangeModal(); closeInjuryModal(); } });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeInfo(); closeGdmModal(); closeTeamSetupModal(); closeHospitalSetupModal(); closeRetriageModal(); closeHospitalChangeModal(); closeInjuryModal(); if(document.getElementById('importModal').classList.contains('open'))closeImportModal(); } });
+
+// ===== DATA IMPORT =====
+let pendingImportData = null;
+
+function decodeImportData(input) {
+  try {
+    let b64 = input.trim();
+    // Extract base64 from URL if full link pasted
+    const match = b64.match(/[?&]i=([A-Za-z0-9+/=]+)/);
+    if (match) b64 = match[1];
+    // Try decoding base64
+    const binary = atob(b64);
+    const bytes = new Uint8Array(binary.length);
+    for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+    const json = new TextDecoder().decode(bytes);
+    const data = JSON.parse(json);
+    // Validate structure
+    if (typeof data !== 'object') return null;
+    if (data.zrm && !Array.isArray(data.zrm)) return null;
+    if (data.szp && !Array.isArray(data.szp)) return null;
+    return data;
+  } catch(e) { return null; }
+}
+
+function renderImportPreviewHtml(data) {
+  let html = '';
+  if (data.gdm) html += `<div style="font-size:13px;color:var(--white);margin-bottom:6px">👤 GDM: <strong>${escHtml(data.gdm)}</strong></div>`;
+  if (data.zrm && data.zrm.length) {
+    html += '<div style="font-size:12px;color:var(--text2);margin-top:6px">🚑 ZRM:</div>';
+    data.zrm.forEach(t => html += `<div style="font-size:12px;color:var(--white);padding-left:14px">• ${escHtml(t)}</div>`);
+  }
+  if (data.szp && data.szp.length) {
+    html += '<div style="font-size:12px;color:var(--text2);margin-top:6px">🏥 Szpitale:</div>';
+    data.szp.forEach(h => html += `<div style="font-size:12px;color:var(--white);padding-left:14px">• ${escHtml(h.n)} — 🔴${h.r||0} 🟡${h.y||0}</div>`);
+  }
+  if (!html) html = '<div style="color:var(--text3);font-size:12px">Brak danych</div>';
+  return html;
+}
+
+function applyImportData(data) {
+  if (data.gdm) gdmName = data.gdm;
+  if (data.zrm && data.zrm.length) {
+    teams = data.zrm.map((name, i) => ({ id: Date.now() + i, name }));
+  }
+  if (data.szp && data.szp.length) {
+    hospitals = data.szp.map((h, i) => ({ id: Date.now() + 100 + i, name: h.n, redCapacity: h.r || 0, yellowCapacity: h.y || 0 }));
+  }
+  gdmModalShown = true;
+  teamSetupShown = true;
+  hospitalSetupShown = true;
+  saveState();
+  renderAll();
+}
+
+// --- Paste import (from GDM modal) ---
+function openImportModal() {
+  document.getElementById('gdmModal').classList.remove('open');
+  document.getElementById('importDataInput').value = '';
+  document.getElementById('importPreview').style.display = 'none';
+  document.getElementById('importError').style.display = 'none';
+  document.getElementById('importConfirmBtn').disabled = true;
+  pendingImportData = null;
+  document.getElementById('importModal').classList.add('open');
+  document.getElementById('importDataInput').focus();
+}
+
+function closeImportModal() {
+  document.getElementById('importModal').classList.remove('open');
+  // Return to GDM modal
+  openGdmModal();
+}
+
+document.addEventListener('input', function(e) {
+  if (e.target.id !== 'importDataInput') return;
+  const val = e.target.value.trim();
+  const preview = document.getElementById('importPreview');
+  const error = document.getElementById('importError');
+  const btn = document.getElementById('importConfirmBtn');
+  if (!val) { preview.style.display = 'none'; error.style.display = 'none'; btn.disabled = true; pendingImportData = null; return; }
+  const data = decodeImportData(val);
+  if (data) {
+    preview.innerHTML = renderImportPreviewHtml(data);
+    preview.style.display = 'block';
+    error.style.display = 'none';
+    btn.disabled = false;
+    pendingImportData = data;
+  } else {
+    preview.style.display = 'none';
+    error.textContent = t('import_error') || 'Nieprawidłowy format danych';
+    error.style.display = 'block';
+    btn.disabled = true;
+    pendingImportData = null;
+  }
+});
+
+function confirmImport() {
+  if (!pendingImportData) return;
+  applyImportData(pendingImportData);
+  document.getElementById('importModal').classList.remove('open');
+  pendingImportData = null;
+}
+
+// --- URL import (from link click) ---
+function checkUrlImport() {
+  const params = new URLSearchParams(window.location.search);
+  const encoded = params.get('i');
+  if (!encoded) return false;
+  const data = decodeImportData(encoded);
+  if (!data) return false;
+  pendingImportData = data;
+  // Show preview overlay
+  document.getElementById('importUrlPreview').innerHTML = renderImportPreviewHtml(data);
+  document.getElementById('importUrlOverlay').classList.remove('hidden');
+  return true;
+}
+
+function acceptUrlImport() {
+  if (!pendingImportData) return;
+  applyImportData(pendingImportData);
+  pendingImportData = null;
+  document.getElementById('importUrlOverlay').classList.add('hidden');
+  // Clear URL params
+  window.history.replaceState({}, '', window.location.pathname);
+  // Start event if not started and go to triage (segregacja)
+  if (!eventName) {
+    eventName = t('event_imported') || 'Zdarzenie (import)';
+    eventTime = now();
+  }
+  currentView = 'triage';
+  document.getElementById('setup').classList.add('hidden');
+  document.getElementById('btnDownload').classList.add('hidden');
+  document.getElementById('btnInfo').classList.add('hidden');
+  document.getElementById('app').classList.remove('hidden');
+  updateHeaderTime();
+  setInterval(updateHeaderTime, 1000);
+  resetWizard();
+  switchView('triage');
+  saveState();
+}
+
+function rejectUrlImport() {
+  pendingImportData = null;
+  document.getElementById('importUrlOverlay').classList.add('hidden');
+  window.history.replaceState({}, '', window.location.pathname);
+}
 
 // ===== GDM MODAL =====
 function openGdmModal() {
@@ -5291,6 +5541,8 @@ function freshEvent() {
   if (langSelect) langSelect.value = currentLang;
   applyStaticTranslations();
   initHelp();
+  // Check for URL import (?i=...)
+  if (checkUrlImport()) return; // Wait for user to accept/reject
 })();
 
 // ===== INSTALL BANNERS (iOS + Android) =====

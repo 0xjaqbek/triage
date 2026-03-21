@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dyspozytor – TRIAGE MCI</title>
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="theme-color" content="#0C0F14">
+<style>
+:root {
+  --bg: #0C0F14;
+  --surface: #1A1F2B;
+  --border: #2A3040;
+  --border2: #3A4050;
+  --text: #F8FAFC;
+  --text2: #94A3B8;
+  --text3: #64748B;
+  --white: #E8ECF1;
+  --red: #DC2626;
+  --yellow: #EAB308;
+  --blue: #60A5FA;
+  --green: #22C55E;
+  --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  padding: 16px;
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100vh;
+}
+h1 { font-size: 22px; margin-bottom: 4px; text-align: center; }
+.subtitle { font-size: 13px; color: var(--text2); text-align: center; margin-bottom: 20px; }
+.section { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px; margin-bottom: 14px; }
+.section-title { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+.section-desc { font-size: 11px; color: var(--text3); margin-bottom: 10px; }
+input[type="text"], input[type="number"] {
+  background: var(--bg); border: 1px solid var(--border2); color: var(--white);
+  border-radius: 8px; padding: 10px 12px; font-size: 14px; font-family: var(--font);
+  width: 100%; outline: none;
+}
+input:focus { border-color: var(--blue); }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 10px 16px; border-radius: 8px; border: none; cursor: pointer;
+  font-size: 14px; font-weight: 600; font-family: var(--font); width: 100%;
+}
+.btn-add { background: var(--surface); border: 2px dashed var(--border2); color: var(--text2); }
+.btn-add:hover { border-color: var(--blue); color: var(--blue); }
+.btn-primary { background: var(--blue); color: #000; }
+.btn-primary:hover { opacity: 0.9; }
+.btn-green { background: var(--green); color: #000; }
+.btn-green:hover { opacity: 0.9; }
+.btn-outline { background: transparent; border: 2px solid var(--border2); color: var(--text2); }
+.btn-outline:hover { border-color: var(--text); color: var(--text); }
+.btn-rm {
+  background: none; border: 1px solid var(--border2); color: var(--text3);
+  border-radius: 4px; cursor: pointer; font-size: 10px; padding: 2px 6px;
+}
+.btn-rm:hover { border-color: var(--red); color: var(--red); }
+.item-row {
+  display: flex; align-items: center; gap: 8px; padding: 8px 10px;
+  background: var(--bg); border-radius: 6px; margin-bottom: 6px;
+}
+.item-row span { flex: 1; font-size: 13px; color: var(--white); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cap-badge { font-size: 11px; white-space: nowrap; }
+.add-row { display: flex; gap: 8px; margin-top: 8px; }
+.add-row input { flex: 1; }
+.hosp-caps { display: flex; gap: 10px; align-items: center; margin-top: 6px; }
+.hosp-caps label {
+  display: flex; align-items: center; gap: 4px; font-size: 14px; font-weight: 700;
+}
+.hosp-caps input[type="number"] {
+  width: 60px; padding: 8px 4px; font-size: 16px; text-align: center; border-radius: 8px;
+}
+.hosp-caps .cap-red { border: 2px solid var(--red); color: var(--red); }
+.hosp-caps .cap-yellow { border: 2px solid var(--yellow); color: var(--yellow); }
+.output-box {
+  background: var(--bg); border: 1px solid var(--border2); border-radius: 8px;
+  padding: 12px; margin-top: 12px; word-break: break-all; font-size: 12px;
+  color: var(--text2); max-height: 120px; overflow-y: auto; display: none;
+}
+.actions { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
+.preview { margin-top: 14px; padding: 12px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; display: none; }
+.preview h3 { font-size: 13px; color: var(--text2); margin-bottom: 6px; }
+.preview .p-item { font-size: 12px; color: var(--white); padding: 2px 0; }
+.status { text-align: center; font-size: 13px; color: var(--green); margin-top: 8px; display: none; }
+.back { display: inline-block; margin-bottom: 12px; font-size: 13px; color: var(--blue); text-decoration: none; }
+.back:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<a class="back" href="../">← TRIAGE MCI</a>
+
+<h1>Dyspozytor</h1>
+<p class="subtitle">Przygotuj dane dla zespołu w terenie</p>
+
+<!-- GDM -->
+<div class="section">
+  <div class="section-title">👤 Kierownik Działań Medycznych (GDM)</div>
+  <input type="text" id="gdmInput" placeholder="Imię i nazwisko GDM">
+</div>
+
+<!-- ZRM TEAMS -->
+<div class="section">
+  <div class="section-title">🚑 Zespoły ZRM</div>
+  <div class="section-desc">Zespoły zadysponowane na miejsce zdarzenia</div>
+  <div id="teamList"></div>
+  <div class="add-row">
+    <input type="text" id="teamNameInput" placeholder="Nazwa zespołu (np. K01 Kraków)">
+    <button class="btn btn-add" style="width:auto;min-width:44px;padding:10px" onclick="addTeam()">+</button>
+  </div>
+</div>
+
+<!-- HOSPITALS -->
+<div class="section">
+  <div class="section-title">🏥 Szpitale docelowe</div>
+  <div class="section-desc">Szpitale i ich pojemność łóżkowa (WSZYSTKIE łóżka)</div>
+  <div id="hospList"></div>
+  <div style="margin-top:8px">
+    <input type="text" id="hospNameInput" placeholder="Nazwa szpitala" style="margin-bottom:6px">
+    <div class="hosp-caps">
+      <label>🔴<input type="number" class="cap-red" id="hospRedInput" min="0" placeholder="0"></label>
+      <label>🟡<input type="number" class="cap-yellow" id="hospYellowInput" min="0" placeholder="0"></label>
+      <button class="btn btn-add" style="width:auto;min-width:44px;padding:8px 12px" onclick="addHospital()">+</button>
+    </div>
+  </div>
+</div>
+
+<!-- PREVIEW -->
+<div class="preview" id="preview"></div>
+
+<!-- ACTIONS -->
+<div class="actions">
+  <button class="btn btn-primary" onclick="generateAndPreview()">📋 Podgląd danych</button>
+  <button class="btn btn-green" onclick="sendSms()">📱 Wyślij SMS</button>
+  <button class="btn btn-outline" onclick="copyData()">📋 Kopiuj dane</button>
+</div>
+
+<div class="output-box" id="outputBox"></div>
+<div class="status" id="status"></div>
+
+<script>
+let zrmTeams = [];
+let hospItems = [];
+
+function escHtml(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+// --- TEAMS ---
+function addTeam() {
+  const input = document.getElementById('teamNameInput');
+  const name = (input.value || '').trim();
+  if (!name) { input.focus(); return; }
+  zrmTeams.push(name);
+  input.value = '';
+  input.focus();
+  renderTeams();
+}
+function removeTeam(i) { zrmTeams.splice(i, 1); renderTeams(); }
+function renderTeams() {
+  document.getElementById('teamList').innerHTML = zrmTeams.map((t, i) =>
+    `<div class="item-row"><span>${escHtml(t)}</span><button class="btn-rm" onclick="removeTeam(${i})">✕</button></div>`
+  ).join('');
+}
+
+// --- HOSPITALS ---
+function addHospital() {
+  const nameInput = document.getElementById('hospNameInput');
+  const name = (nameInput.value || '').trim();
+  if (!name) { nameInput.focus(); return; }
+  const r = Math.max(0, parseInt(document.getElementById('hospRedInput').value) || 0);
+  const y = Math.max(0, parseInt(document.getElementById('hospYellowInput').value) || 0);
+  hospItems.push({ n: name, r, y });
+  nameInput.value = '';
+  document.getElementById('hospRedInput').value = '';
+  document.getElementById('hospYellowInput').value = '';
+  nameInput.focus();
+  renderHospitals();
+}
+function removeHospital(i) { hospItems.splice(i, 1); renderHospitals(); }
+function renderHospitals() {
+  document.getElementById('hospList').innerHTML = hospItems.map((h, i) =>
+    `<div class="item-row">
+      <span>${escHtml(h.n)}</span>
+      <span class="cap-badge">🔴${h.r} 🟡${h.y}</span>
+      <button class="btn-rm" onclick="removeHospital(${i})">✕</button>
+    </div>`
+  ).join('');
+}
+
+// --- ENCODE ---
+function buildData() {
+  const gdm = (document.getElementById('gdmInput').value || '').trim();
+  const data = {};
+  if (gdm) data.gdm = gdm;
+  if (zrmTeams.length) data.zrm = zrmTeams;
+  if (hospItems.length) data.szp = hospItems;
+  return data;
+}
+
+function encode(data) {
+  const json = JSON.stringify(data);
+  // Use UTF-8 safe Base64 encoding
+  const bytes = new TextEncoder().encode(json);
+  let binary = '';
+  bytes.forEach(b => binary += String.fromCharCode(b));
+  return btoa(binary);
+}
+
+function buildLink(encoded) {
+  return 'https://0xjaqbek.github.io/triage/?i=' + encoded;
+}
+
+// --- ACTIONS ---
+function generateAndPreview() {
+  const data = buildData();
+  if (!data.gdm && !data.zrm && !data.szp) {
+    showStatus('Wprowadź przynajmniej jedną daną', true);
+    return;
+  }
+  const el = document.getElementById('preview');
+  let html = '<h3>Podgląd danych do wysłania:</h3>';
+  if (data.gdm) html += `<div class="p-item">👤 GDM: <strong>${escHtml(data.gdm)}</strong></div>`;
+  if (data.zrm) {
+    html += '<div class="p-item" style="margin-top:6px">🚑 ZRM:</div>';
+    data.zrm.forEach(t => html += `<div class="p-item" style="padding-left:16px">• ${escHtml(t)}</div>`);
+  }
+  if (data.szp) {
+    html += '<div class="p-item" style="margin-top:6px">🏥 Szpitale:</div>';
+    data.szp.forEach(h => html += `<div class="p-item" style="padding-left:16px">• ${escHtml(h.n)} — 🔴${h.r} 🟡${h.y}</div>`);
+  }
+  const encoded = encode(data);
+  const link = buildLink(encoded);
+  html += `<div style="margin-top:10px;font-size:11px;color:var(--text3)">Rozmiar: ${encoded.length} znaków (${Math.ceil(encoded.length / 153)} SMS)</div>`;
+  el.innerHTML = html;
+  el.style.display = 'block';
+
+  const out = document.getElementById('outputBox');
+  out.textContent = link;
+  out.style.display = 'block';
+}
+
+function sendSms() {
+  const data = buildData();
+  if (!data.gdm && !data.zrm && !data.szp) {
+    showStatus('Wprowadź przynajmniej jedną daną', true);
+    return;
+  }
+  const encoded = encode(data);
+  const link = buildLink(encoded);
+  window.location.href = 'sms:?body=' + encodeURIComponent(link);
+}
+
+function copyData() {
+  const data = buildData();
+  if (!data.gdm && !data.zrm && !data.szp) {
+    showStatus('Wprowadź przynajmniej jedną daną', true);
+    return;
+  }
+  const encoded = encode(data);
+  const link = buildLink(encoded);
+  navigator.clipboard.writeText(link).then(() => {
+    showStatus('Skopiowano do schowka!');
+  }).catch(() => {
+    // Fallback
+    const ta = document.createElement('textarea');
+    ta.value = link;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showStatus('Skopiowano do schowka!');
+  });
+}
+
+function showStatus(msg, isError) {
+  const el = document.getElementById('status');
+  el.textContent = msg;
+  el.style.color = isError ? 'var(--red)' : 'var(--green)';
+  el.style.display = 'block';
+  setTimeout(() => el.style.display = 'none', 3000);
+}
+
+// Enter key support
+document.getElementById('teamNameInput').addEventListener('keydown', e => { if (e.key === 'Enter') addTeam(); });
+document.getElementById('hospNameInput').addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('hospRedInput').focus(); });
+</script>
+
+</body>
+</html>
