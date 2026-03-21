@@ -91,26 +91,11 @@ input:focus { border-color: var(--blue); }
 .status { text-align: center; font-size: 13px; color: var(--green); margin-top: 8px; display: none; }
 .back { display: inline-block; margin-bottom: 12px; font-size: 13px; color: var(--blue); text-decoration: none; }
 .back:hover { text-decoration: underline; }
-.lang-select {
-  display: block; margin: 0 auto 16px; padding: 8px 12px;
-  background: var(--surface); color: var(--text); border: 1px solid var(--border2);
-  border-radius: 10px; font-size: 13px; font-weight: 700; font-family: var(--font); cursor: pointer;
-}
 </style>
 </head>
 <body>
 
 <a class="back" href="../">← TRIAGE MCI</a>
-
-<select class="lang-select" id="langSelect" onchange="setLanguage(this.value)">
-  <option value="pl">🇵🇱 PL</option>
-  <option value="en">🇬🇧 EN</option>
-  <option value="it">🇮🇹 IT</option>
-  <option value="fr">🇫🇷 FR</option>
-  <option value="de">🇩🇪 DE</option>
-  <option value="cs">🇨🇿 CS</option>
-  <option value="pt">🇵🇹 PT</option>
-</select>
 
 <h1 data-i18n="title">Dyspozytor</h1>
 <p class="subtitle" data-i18n="subtitle">Przygotuj dane dla zespołu w terenie</p>
@@ -337,14 +322,6 @@ let hospItems = [];
 
 function t(key) { return (TRANSLATIONS[currentLang] || TRANSLATIONS.pl)[key] || TRANSLATIONS.pl[key] || key; }
 
-function setLanguage(lang) {
-  currentLang = lang;
-  localStorage.setItem('triageLang', lang);
-  document.documentElement.lang = lang;
-  document.getElementById('langSelect').value = lang;
-  applyTranslations();
-}
-
 function applyTranslations() {
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
@@ -501,7 +478,6 @@ document.getElementById('teamNameInput').addEventListener('keydown', e => { if (
 document.getElementById('hospNameInput').addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('hospRedInput').focus(); });
 
 // Init
-document.getElementById('langSelect').value = currentLang;
 document.documentElement.lang = currentLang;
 applyTranslations();
 </script>
