@@ -910,9 +910,6 @@ body.help-on .help-bubble:not(.dismissed) {
 .btn-info-close:hover { background: var(--border2); }
 
 .btn-changelog {
-  position: absolute;
-  top: 16px;
-  right: 16px;
   padding: 4px 10px;
   background: transparent;
   color: var(--text3);
@@ -1651,9 +1648,11 @@ body.help-on .help-bubble:not(.dismissed) {
 <!-- INFO MODAL -->
 <div id="infoModal" class="info-overlay hidden" onclick="if(event.target===this)closeInfo()">
   <div class="info-box" style="position:relative;">
-    <button class="btn-changelog" onclick="openChangelog()" data-i18n="btn_changelog">Changelog</button>
     <div style="font-size:11px;color:var(--text3);margin-bottom:8px"><span data-i18n="setup_footer">Zgłoszenia i propozycje ulepszeń:</span> <a href="mailto:jaqbek.eth@gmail.com" style="color:var(--text2)">jaqbek.eth@gmail.com</a></div>
-    <h2>TRIAGE MCI</h2>
+    <div style="display:flex;align-items:center;justify-content:center;gap:12px">
+      <h2 style="margin:0">TRIAGE MCI</h2>
+      <button class="btn-changelog" onclick="openChangelog()" data-i18n="btn_changelog">Changelog</button>
+    </div>
     <div class="info-version">v2.3.0</div>
 
     <div class="info-section">
