@@ -97,7 +97,7 @@ input:focus { border-color: var(--blue); }
 
 <a class="back" href="../">← TRIAGE MCI</a>
 
-<div style="position:relative"><h1 data-i18n="title">Dyspozytor</h1><span id="expTrigger" style="position:absolute;top:0;right:0;font-size:10px;opacity:0.15;cursor:default;user-select:none">🔬</span></div>
+<h1 data-i18n="title">Dyspozytor</h1>
 <p class="subtitle" data-i18n="subtitle">Przygotuj dane dla zespołu w terenie</p>
 
 <!-- EVENT NAME -->
@@ -400,7 +400,7 @@ function encode(data) {
 }
 
 function buildLink(encoded) {
-  return 'https://0xjaqbek.github.io/triage/?i=' + encoded;
+  return 'https://0xjaqbek.github.io/triage/experiment.html?i=' + encoded;
 }
 
 // --- ACTIONS ---
@@ -480,23 +480,6 @@ document.getElementById('hospNameInput').addEventListener('keydown', e => { if (
 // Init
 document.documentElement.lang = currentLang;
 applyTranslations();
-
-// Triple-tap experiment mode trigger
-(function() {
-  var el = document.getElementById('expTrigger');
-  if (!el) return;
-  var taps = 0, timer = null;
-  el.addEventListener('click', function(e) {
-    e.stopPropagation();
-    taps++;
-    if (timer) clearTimeout(timer);
-    if (taps >= 3) {
-      taps = 0;
-      window.location.href = './experiment.html';
-    }
-    timer = setTimeout(function() { taps = 0; }, 800);
-  });
-})();
 </script>
 
 </body>

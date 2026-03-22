@@ -1648,7 +1648,7 @@ body.help-on .help-bubble:not(.dismissed) {
 <!-- INFO MODAL -->
 <div id="infoModal" class="info-overlay hidden" onclick="if(event.target===this)closeInfo()">
   <div class="info-box" style="position:relative;">
-    <span id="expTrigger" style="position:absolute;top:6px;right:6px;font-size:10px;opacity:0.15;cursor:default;user-select:none">🔬</span>
+    <span id="expTrigger" onclick="expShowPanel()" style="position:absolute;top:6px;right:6px;font-size:10px;opacity:0.15;cursor:default;user-select:none">🔬</span>
     <div style="font-size:11px;color:var(--text3);margin-bottom:8px"><span data-i18n="setup_footer">Zgłoszenia i propozycje ulepszeń:</span> <a href="mailto:jaqbek.eth@gmail.com" style="color:var(--text2)">jaqbek.eth@gmail.com</a></div>
     <div style="display:flex;align-items:center;justify-content:space-between">
       <h2 style="margin:0">TRIAGE MCI</h2>
@@ -4190,6 +4190,74 @@ let teamSetupShown = false;
 let hospitalSetupShown = false;
 let eventEndTime = '';
 
+// ===== EXPERIMENT MODE =====
+let expLog = [];
+let expParticipantId = '';
+let expScenario = '';
+let expActive = false;
+
+function expLogEvent(action, detail) {
+  if (!expActive) return;
+  expLog.push({
+    t: Date.now(),
+    ts: now(),
+    action,
+    detail: detail || {}
+  });
+}
+
+function expStart() {
+  const pid = document.getElementById('expParticipantId').value.trim();
+  const scn = document.getElementById('expScenario').value.trim();
+  if (!pid) { document.getElementById('expParticipantId').focus(); return; }
+  expParticipantId = pid;
+  expScenario = scn;
+  expLog = [];
+  expActive = true;
+  expLogEvent('experiment_start', { participantId: pid, scenario: scn });
+  document.getElementById('expSetupPanel').classList.add('hidden');
+  document.getElementById('expRecIndicator').classList.remove('hidden');
+}
+
+function expStop() {
+  if (!expActive) return;
+  expLogEvent('experiment_stop', {});
+  expActive = false;
+  document.getElementById('expRecIndicator').classList.add('hidden');
+}
+
+function expExport() {
+  const data = {
+    meta: {
+      participantId: expParticipantId,
+      scenario: expScenario,
+      exportTime: new Date().toISOString(),
+      eventName,
+      eventTime,
+      eventEndTime,
+      totalEvents: expLog.length
+    },
+    log: expLog,
+    state: {
+      patients: JSON.parse(JSON.stringify(patients)),
+      transports: JSON.parse(JSON.stringify(transports)),
+      teams: JSON.parse(JSON.stringify(teams)),
+      hospitals: JSON.parse(JSON.stringify(hospitals))
+    }
+  };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `exp_${expParticipantId}_${expScenario}_${new Date().toISOString().slice(0,19).replace(/:/g,'-')}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function expShowPanel() {
+  document.getElementById('expSetupPanel').classList.toggle('hidden');
+}
+
 // ===== PERSISTENCE =====
 function saveState() {
   try {
@@ -4268,6 +4336,7 @@ function startEvent() {
   eventName = input.value.trim();
   kamName = (document.getElementById('kamNameInput')?.value || '').trim();
   eventTime = now();
+  expLogEvent('event_start', { eventName, kamName });
   document.getElementById('setup').classList.add('hidden');
   document.getElementById('btnDownload').classList.add('hidden');
   document.getElementById('btnInfo').classList.add('hidden');
@@ -4294,6 +4363,7 @@ document.getElementById('hospSetupName').addEventListener('keydown', e => { if (
 let currentView = 'triage';
 
 function switchView(v) {
+  expLogEvent('tab_switch', { from: currentView, to: v });
   currentView = v;
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b.dataset.view === v));
   ['triage', 'dispatch', 'report'].forEach(id => {
@@ -4327,6 +4397,7 @@ let wizResult = null;
 function getStepIndex(id) { return getSteps().findIndex(s => s.id === id); }
 
 function resetWizard() {
+  expLogEvent('wizard_start', { patientNumber: nextId });
   wizStep = 0;
   wizPath = [];
   wizResult = null;
@@ -4368,6 +4439,7 @@ function renderWizard() {
 function wizAnswer(yes) {
   const step = getSteps()[wizStep];
   const branch = yes ? step.yes : step.no;
+  expLogEvent('wizard_answer', { step: step.id, answer: yes ? 'YES' : 'NO' });
 
   wizPath.push({ step: step.id, question: step.question.replace(/\n/g, ' '), answer: yes ? t('btn_yes') : t('btn_no') });
 
@@ -4381,6 +4453,7 @@ function wizAnswer(yes) {
 }
 
 function showResult(triage, reason) {
+  expLogEvent('triage_result', { category: triage, reason });
   const tr = TRIAGE[triage];
   document.getElementById('triageWizard').style.display = 'none';
   document.getElementById('triageResult').style.display = '';
@@ -4427,6 +4500,9 @@ function confirmPatient() {
   if (!wizResult) return;
   const notes = document.getElementById('resultNotes').value.trim();
   const pathStr = wizPath.map(p => p.question.split('.')[0].trim() + ': ' + p.answer).join(', ');
+  const sex = document.getElementById('patientSex') ? document.getElementById('patientSex').value : '';
+  const age = document.getElementById('patientAge') ? document.getElementById('patientAge').value : '';
+  expLogEvent('patient_confirmed', { tag: 'P-' + String(nextId).padStart(3, '0'), category: wizResult, sex, age, path: pathStr, hasInjuries: Object.keys(pendingInjuries || {}).length > 0 });
   addPatient(wizResult, notes, pathStr, pendingInjuries);
   resetWizard();
 }
@@ -4465,7 +4541,10 @@ function removePatient(id) {
 
 function markDelivered(id) {
   const p = patients.find(x => x.id === id);
-  if (p) p.status = 'dostarczony';
+  if (p) {
+    expLogEvent('patient_delivered', { patient: p.tag, hospital: (hospitals.find(h => h.id === p.hospitalId) || {}).name });
+    p.status = 'dostarczony';
+  }
   renderAll();
   saveState();
 }
@@ -4482,6 +4561,7 @@ function dispatchTransport() {
   const hosp = hospitals.find(x => x.id === hId);
   if (!p || !team || !hosp) return;
 
+  expLogEvent('dispatch_transport', { patient: p.tag, category: p.triage, team: team.name, hospital: hosp.name });
   p.status = 'transportowany';
   p.teamId = tId;
   p.hospitalId = hId;
@@ -5497,10 +5577,12 @@ function confirmHospitalSetup() {
 function toggleEventEnd() {
   if (eventEndTime) {
     if (!confirm(t('confirm_revert_end'))) return;
+    expLogEvent('event_end_reverted', {});
     eventEndTime = '';
   } else {
     if (!confirm(t('confirm_end_event'))) return;
     eventEndTime = now();
+    expLogEvent('event_end', { endTime: eventEndTime });
   }
   updateEndEventBtn();
   renderAll();
@@ -5538,6 +5620,7 @@ function confirmRetriage() {
   if (!pendingRetriage) return;
   const p = patients.find(x => x.id === pendingRetriage.id);
   if (p) {
+    expLogEvent('retriage', { patient: p.tag, from: p.triage, to: pendingRetriage.newT });
     p.triageHistory = p.triageHistory || [];
     p.triageHistory.push({ from: p.triage, to: pendingRetriage.newT, time: now() });
     p.triage = pendingRetriage.newT;
@@ -5578,6 +5661,7 @@ function confirmHospitalChange() {
   if (p) {
     const oldHosp = hospitals.find(h => h.id === p.hospitalId);
     const newHosp = hospitals.find(h => h.id === newHId);
+    expLogEvent('hospital_change', { patient: p.tag, from: oldHosp ? oldHosp.name : '—', to: newHosp ? newHosp.name : '—' });
     p.hospitalChangeHistory = p.hospitalChangeHistory || [];
     p.hospitalChangeHistory.push({ from: oldHosp ? oldHosp.name : '—', to: newHosp ? newHosp.name : '—', time: now() });
     p.hospitalId = newHId;
@@ -5763,23 +5847,57 @@ function dismissInstallBanner(platform) {
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('./sw.js');
 }
+</script>
 
-// Triple-tap experiment mode trigger
-(function() {
-  var el = document.getElementById('expTrigger');
-  if (!el) return;
-  var taps = 0, timer = null;
-  el.addEventListener('click', function(e) {
-    e.stopPropagation();
-    taps++;
-    if (timer) clearTimeout(timer);
-    if (taps >= 3) {
-      taps = 0;
-      window.location.href = './experiment.html';
-    }
-    timer = setTimeout(function() { taps = 0; }, 800);
-  });
-})();
+<!-- EXPERIMENT SETUP PANEL -->
+<div id="expSetupPanel" class="hidden" style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:99999;background:#1a1a2e;border:2px solid #f59e0b;border-radius:12px;padding:24px;width:320px;box-shadow:0 0 40px rgba(245,158,11,0.3)">
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px">
+    <span style="font-size:20px">🔬</span>
+    <h3 style="margin:0;color:#f59e0b;font-family:var(--font)">Experiment Mode</h3>
+  </div>
+  <label style="display:block;color:var(--text2);font-size:12px;margin-bottom:4px;font-family:var(--font)">Participant ID</label>
+  <input id="expParticipantId" type="text" placeholder="e.g. P01, S12..." style="width:100%;box-sizing:border-box;padding:8px 12px;background:#16213e;border:1px solid #334155;border-radius:6px;color:var(--white);font-family:var(--font);font-size:14px;margin-bottom:12px">
+  <label style="display:block;color:var(--text2);font-size:12px;margin-bottom:4px;font-family:var(--font)">Scenario</label>
+  <input id="expScenario" type="text" placeholder="e.g. A1, B2..." style="width:100%;box-sizing:border-box;padding:8px 12px;background:#16213e;border:1px solid #334155;border-radius:6px;color:var(--white);font-family:var(--font);font-size:14px;margin-bottom:16px">
+  <div style="display:flex;gap:8px">
+    <button onclick="expStart()" style="flex:1;padding:10px;background:#f59e0b;color:#000;border:none;border-radius:6px;font-weight:700;font-family:var(--font);cursor:pointer;font-size:14px">START REC</button>
+    <button onclick="document.getElementById('expSetupPanel').classList.add('hidden')" style="flex:1;padding:10px;background:#334155;color:var(--white);border:none;border-radius:6px;font-family:var(--font);cursor:pointer;font-size:14px">Cancel</button>
+  </div>
+</div>
+
+<!-- REC INDICATOR -->
+<div id="expRecIndicator" class="hidden" style="position:fixed;top:8px;right:8px;z-index:99998;display:flex;align-items:center;gap:6px;background:rgba(26,26,46,0.9);border:1px solid #ef4444;border-radius:20px;padding:4px 12px 4px 8px;cursor:pointer" onclick="expShowExportPanel()">
+  <div style="width:10px;height:10px;border-radius:50%;background:#ef4444;animation:expBlink 1s infinite"></div>
+  <span style="color:#ef4444;font-size:11px;font-weight:700;font-family:var(--font)">REC</span>
+</div>
+
+<!-- EXPORT PANEL (shown by clicking REC) -->
+<div id="expExportPanel" class="hidden" style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:99999;background:#1a1a2e;border:2px solid #f59e0b;border-radius:12px;padding:24px;width:320px;box-shadow:0 0 40px rgba(245,158,11,0.3)">
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+    <span style="font-size:20px">🔬</span>
+    <h3 style="margin:0;color:#f59e0b;font-family:var(--font)">Experiment Log</h3>
+  </div>
+  <div id="expExportInfo" style="color:var(--text2);font-size:13px;font-family:var(--font);margin-bottom:16px"></div>
+  <div style="display:flex;flex-direction:column;gap:8px">
+    <button onclick="expExport()" style="padding:10px;background:#22c55e;color:#000;border:none;border-radius:6px;font-weight:700;font-family:var(--font);cursor:pointer;font-size:14px">📥 Export JSON</button>
+    <button onclick="expStop();document.getElementById('expExportPanel').classList.add('hidden')" style="padding:10px;background:#ef4444;color:#fff;border:none;border-radius:6px;font-weight:700;font-family:var(--font);cursor:pointer;font-size:14px">⏹ Stop Recording</button>
+    <button onclick="document.getElementById('expExportPanel').classList.add('hidden')" style="padding:10px;background:#334155;color:var(--white);border:none;border-radius:6px;font-family:var(--font);cursor:pointer;font-size:14px">Close</button>
+  </div>
+</div>
+
+<style>
+@keyframes expBlink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0.3; }
+}
+</style>
+
+<script>
+function expShowExportPanel() {
+  const info = document.getElementById('expExportInfo');
+  info.innerHTML = `<b>Participant:</b> ${expParticipantId}<br><b>Scenario:</b> ${expScenario}<br><b>Events logged:</b> ${expLog.length}<br><b>Patients:</b> ${patients.length}`;
+  document.getElementById('expExportPanel').classList.remove('hidden');
+}
 </script>
 
 </body>

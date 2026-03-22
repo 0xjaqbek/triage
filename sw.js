@@ -1,4 +1,4 @@
-const CACHE_NAME = 'triage-pwa-v47';
+const CACHE_NAME = 'triage-pwa-v48';
 const ASSETS = [
   './',
   './index.html',
@@ -10,7 +10,9 @@ const ASSETS = [
   './dyspozytor/',
   './dyspozytor/index.html',
   './instrukcja/',
-  './instrukcja/index.html'
+  './instrukcja/index.html',
+  './experiment.html',
+  './dyspozytor/experiment.html'
 ];
 
 // Install: precache all assets
