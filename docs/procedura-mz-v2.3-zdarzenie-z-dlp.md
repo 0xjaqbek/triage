@@ -49,6 +49,10 @@ Warszawa 2024 rok
 25. [Opis karty zestawienia uwag, spostrzeżeń i wniosków](#25-opis-karty-zestawienia-uwag-spostrzeżeń-i-wniosków)
 26. [Spis załączników](#spis-załączników)
 27. [Załącznik nr 1 – Karta działań DM-W](#załącznik-nr-1--karta-działań-dyspozytora-medycznego-wysyłającego-dm-w)
+28. [Załącznik nr 6 – Karta działań KAM](#załącznik-nr-6--karta-działań-kierującego-akcją-medyczną-kam)
+29. [Załącznik nr 12 – Tabela Dyslokacji Poszkodowanych](#załącznik-nr-12--tabela-dyslokacji-poszkodowanych)
+30. [Załącznik nr 13 – Tabela Szpitale](#załącznik-nr-13--tabela-szpitale)
+31. [Załącznik nr 14 – Raport z przebiegu zdarzenia](#załącznik-nr-14--raport-z-przebiegu-zdarzenia-z-dużą-liczbą-poszkodowanych)
 
 ---
 
@@ -915,5 +919,497 @@ Przyjęcie RAPORTU OD KAM Z ROZPOZNANIA WSTĘPNEGO: TAK/NIE, Godzina: \_\_\_\_\_
 | "P" | \_\_\_\_\_\_\_\_\_\_ |
 | "LZRM" | \_\_\_\_\_\_\_\_\_\_ |
 | KRYPTONIMY ZRM: | \_\_\_\_\_\_\_\_\_\_ |
+
+[powrót do spisu treści](#spis-treści)
+
+---
+
+## Załącznik nr 6 — KARTA działań KIERUJĄCEGO AKCJĄ MEDYCZNĄ (KAM)
+
+### Opis działań KAM
+
+1. PRZYJĘCIE FUNKCJI KAM
+   1.1. ZMIANA KAM — jeśli dotyczy
+2. DYSCYPLINA KORESPONDENCJI RADIOWEJ
+3. USTALENIE PODZIAŁU ZADAŃ I ZASAD KOMUNIKACJI W ZESPOLE
+4. WERYFIKACJA OPTYMALNEJ DROGI DOTARCIA
+5. POSTĘPOWANIE NA MIEJSCU ZDARZENIA
+   5.1. W przypadku NIEOBECNOŚCI podmiotów KSRG
+   5.2. W przypadku OBECNOŚCI podmiotów KSRG
+6. WYMIANA INFORMACJI POMIĘDZY KAM a DM-W
+7. RAPORT KAM — SEGREGACJA WTÓRNA
+8. DYSLOKACJA POSZKODOWANYCH
+9. RAPORT KAM — SEGREGACJA WTÓRNA, WYMIANA INFORMACJI Z DM-W/GDM
+10. ZAKOŃCZENIE DZIAŁAŃ
+11. PODSUMOWANIE
+
+---
+
+### 1. PRZYJĘCIE FUNKCJI KAM
+
+#### 1.1 ZMIANA KAM — jeśli dotyczy
+
+| Pole | TAK/NIE | Godzina |
+|------|---------|---------|
+| Potwierdzenie GDM przejęcia funkcji KAM przez inny ZRM — przejdź do karty działania ZRM | TAK/NIE | \_\_\_\_\_ |
+| Potwierdzenie GDM przyjęcie funkcji KAM | TAK/NIE | \_\_\_\_\_ |
+| Przekazanie/potwierdzenie GDM informacji dotyczącej charakteru zaistniałego zdarzenia | TAK/NIE | \_\_\_\_\_ |
+
+---
+
+### 2. DYSCYPLINA KORESPONDENCJI RADIOWEJ
+
+### 3. USTALENIE PODZIAŁU ZADAŃ I ZASAD KOMUNIKACJI W ZESPOLE
+
+| Pole | TAK/NIE | Uwagi |
+|------|---------|-------|
+| Wyznaczenie osoby/osób prowadzących segregację medyczną | TAK/NIE | Liczba osób: \_\_\_\_\_ |
+| Ustalenie zasad komunikacji w swoim zespole | TAK/NIE | |
+
+### 4. WERYFIKACJA OPTYMALNEJ DROGI DOTARCIA
+
+| Pole | TAK/NIE |
+|------|---------|
+| Weryfikacja lokalizacji i optymalnej drogi dotarcia | TAK/NIE |
+| Przekazanie DM-W informacji związanej z lokalizacją i optymalną drogą dotarcia do miejsca zdarzenia | TAK/NIE |
+| Przyjęcie informacji od DM-W o zasadach korzystania z łączności radiowej | TAK/NIE |
+| Ustawienie radiotelefonów na kanale: \_\_\_\_\_\_\_\_\_\_ | TAK/NIE |
+| Zakaz nadawania na czas prowadzenia działań bez wcześniejszego wywołania przez KAM lub DM-W | TAK/NIE |
+| Zasada „Minimum czasu nadawania — maksimum treści" | TAK/NIE |
+| Konieczność nasłuchu na kanale: \_\_\_\_\_\_\_\_\_\_ | TAK/NIE |
+| Kontakt z dyspozytorem medycznym w oparciu o inny kanał łączności radiowej — na kanale \_\_\_\_\_ lub za pośrednictwem telefonu komórkowego | TAK/NIE |
+| Przekazanie ZRM zasad korzystania z łączności radiowej w trakcie trwania zdarzenia | TAK/NIE |
+
+**KRYPTONIMY RADIOWE:**
+
+| Rola | Kryptonim |
+|------|-----------|
+| GDM | „DYSPOZYTOR GŁÓWNY" |
+| DM-W | „DYSPOZYTOR WYSYŁAJĄCY" |
+| KAM | „KIERUJĄCY AKCJĄ MEDYCZNĄ" |
+| WKRM | „WOJEWÓDZKI KOORDYNATOR" |
+
+---
+
+### 5. POSTĘPOWANIE NA MIEJSCU ZDARZENIA
+
+#### 5.1. W przypadku NIEOBECNOŚCI innych podmiotów ratowniczych
+
+**SEGREGACJA PIERWOTNA — RAPORT KAM** (Godzina: \_\_\_\_\_)
+
+| Pole | TAK/NIE |
+|------|---------|
+| ROZPOZNANIE WSTĘPNE — w tym SEGREGACJA PIERWOTNA | TAK/NIE |
+
+| Grupa | Liczba poszkodowanych |
+|-------|----------------------|
+| CZERWONA | \_\_\_\_\_ |
+| ŻÓŁTA | \_\_\_\_\_ |
+| ZIELONA | \_\_\_\_\_ |
+
+O godz. \_\_\_\_\_ obsługiwane zdarzenie jest zdarzeniem: MNOGIM TAK/NIE | MASOWYM TAK/NIE
+
+#### 5.2. W przypadku OBECNOŚCI innych podmiotów ratowniczych
+
+| Pole | TAK/NIE | Godzina |
+|------|---------|---------|
+| Zgłoszenie się do KDR/KD | TAK/NIE | |
+| Uzyskanie informacji od KDR/KD o warunkach bezpieczeństwa w tym zasięg strefy zagrożenia | TAK/NIE | \_\_\_\_\_ |
+| Uzyskanie informacji od KDR/KD o wynikach segregacji pierwotnej | TAK/NIE | |
+| Rozpoczęto koordynację nad akcją medyczną | TAK/NIE | \_\_\_\_\_ |
+
+Ewentualny dalszy kontakt z KDR/KD za pośrednictwem drogi radiowej — KRYPTONIM RADIOWY: \_\_\_\_\_\_\_\_\_\_
+
+| Grupa | Liczba poszkodowanych |
+|-------|----------------------|
+| CZERWONA | \_\_\_\_\_ |
+| ŻÓŁTA | \_\_\_\_\_ |
+| ZIELONA | \_\_\_\_\_ |
+
+**SEGREGACJA PIERWOTNA — w razie potrzeby:**
+
+| Pole | TAK/NIE |
+|------|---------|
+| Weryfikacja warunków panujących na miejscu zdarzenia ze szczególnym uwzględnieniem zagrożeń | TAK/NIE |
+| Przeprowadzenie segregacji pierwotnej z wykorzystaniem wszystkich sił dostępnych na miejscu zdarzenia | TAK/NIE |
+| Zdarzenie HAZMAT/CBRNE | TAK/NIE |
+
+Godzina: \_\_\_\_\_ Rodzaj czynnika: \_\_\_\_\_\_\_\_\_\_
+
+| Grupa | Liczba poszkodowanych |
+|-------|----------------------|
+| CZERWONA | \_\_\_\_\_ |
+| ŻÓŁTA | \_\_\_\_\_ |
+| ZIELONA | \_\_\_\_\_ |
+
+O godz. \_\_\_\_\_ obsługiwane zdarzenie jest zdarzeniem: MNOGIM TAK/NIE | MASOWYM TAK/NIE
+
+**Kontynuacja 5.2:**
+
+| Pole | TAK/NIE |
+|------|---------|
+| Weryfikacja identyfikacji poszkodowanych w pierwszej kolejności z grupy „CZERWONEJ" | TAK/NIE |
+| Rozpoczęcie udzielania medycznych czynności ratunkowych u poszkodowanych z grupy „CZERWONEJ" a następnie z grupy „ŻÓŁTEJ" | TAK/NIE |
+
+**Pozyskanie od KDR/KD informacji w zakresie:**
+
+| Pole | TAK/NIE |
+|------|---------|
+| Lokalizacja punktu/obszaru pomocy medycznej | TAK/NIE |
+| Miejsce zgrupowania poszkodowanych chodzących | TAK/NIE |
+| Punkt przyjęcia sił i środków | TAK/NIE |
+| Miejsce składowania zwłok | TAK/NIE |
+| Miejsce lądowania śmigłowców | TAK/NIE |
+| Zdarzenie HAZMAT/CBRNE | TAK/NIE |
+
+Godzina: \_\_\_\_\_ Rodzaj czynnika: \_\_\_\_\_\_\_\_\_\_
+
+---
+
+### 6. WYMIANA INFORMACJI POMIĘDZY KAM a DM-W — RAPORT KAM Z SEGREGACJI PIERWOTNEJ
+
+| Pole | TAK/NIE | Godzina |
+|------|---------|---------|
+| Przekazanie raportu z rozpoznania WSTĘPNEGO — w tym SEGREGACJI PIERWOTNEJ | TAK/NIE | \_\_\_\_\_ |
+| Przyjęcie od DM-W informacji o liczbie zadysponowanych ZRM | TAK/NIE | |
+
+| Typ ZRM | Liczba |
+|---------|--------|
+| "S" | \_\_\_\_\_ |
+| "P" | \_\_\_\_\_ |
+| "LZRM" | \_\_\_\_\_ |
+
+KRYPTONIMY ZRM: \_\_\_\_\_\_\_\_\_\_
+KRYPTONIMY ZRM (LZRM): \_\_\_\_\_\_\_\_\_\_
+
+| Pole | TAK/NIE |
+|------|---------|
+| Wprowadzenie otrzymanych kryptonimów ZRM do TABELI DYSLOKACJI POSZKODOWANYCH [zał. nr 12] | TAK/NIE |
+| Przyjęcie informacji od DM-W o zadysponowanych służbach | TAK/NIE |
+
+| Służba | TAK/NIE |
+|--------|---------|
+| PSP | TAK/NIE |
+| PP | TAK/NIE |
+| Inne: \_\_\_\_\_ | TAK/NIE |
+| Inne: \_\_\_\_\_ | TAK/NIE |
+
+| Pole | TAK/NIE |
+|------|---------|
+| Czy liczba zadysponowanych ZRM jest w tym momencie wystarczająca | TAK/NIE |
+| Jeśli „NIE" — zgłoś DM-W zapotrzebowanie na kolejne ZRM: "S" \_\_\_ "P" \_\_\_ | |
+| Odwołanie zadysponowanych ZRM (tylko po TWOJEJ decyzji) | TAK/NIE |
+
+Godzina: \_\_\_\_\_ KRYPTONIMY odwołanych ZRM: \_\_\_\_\_\_\_\_\_\_
+
+---
+
+### 7. RAPORT KAM — SEGREGACJA WTÓRNA
+
+| Pole | TAK/NIE | Godzina |
+|------|---------|---------|
+| Przekazanie DM-W raportu z SEGREGACJI WTÓRNEJ | TAK/NIE | \_\_\_\_\_ |
+
+| Grupa | Liczba poszkodowanych |
+|-------|----------------------|
+| CZERWONA | \_\_\_\_\_ |
+| ŻÓŁTA | \_\_\_\_\_ |
+| ZIELONA | \_\_\_\_\_ |
+| CZARNA | \_\_\_\_\_ |
+
+| Pole | TAK/NIE |
+|------|---------|
+| Wprowadzenie uzyskanych danych do TABELI POSZKODOWANYCH | TAK/NIE |
+| Przyjęcie od DM-W informacji o liczbie zadysponowanych kolejnych ZRM | TAK/NIE |
+
+| Typ ZRM | Liczba |
+|---------|--------|
+| "S" | \_\_\_\_\_ |
+| "P" | \_\_\_\_\_ |
+| "LZRM" | \_\_\_\_\_ |
+
+KRYPTONIMY ZRM: \_\_\_\_\_\_\_\_\_\_
+
+| Pole | TAK/NIE |
+|------|---------|
+| Czy liczba zadysponowanych ZRM jest w tym momencie wystarczająca | TAK/NIE |
+| Jeśli „NIE" — zgłoś DM-W zapotrzebowanie na kolejne ZRM: "S" \_\_\_ "P" \_\_\_ | |
+| Odwołanie zadysponowanych ZRM (tylko po TWOJEJ decyzji) | TAK/NIE |
+
+Godzina: \_\_\_\_\_ KRYPTONIMY odwołanych ZRM: \_\_\_\_\_\_\_\_\_\_
+
+| Pole | TAK/NIE |
+|------|---------|
+| Przyjęcie od DM-W informacji o wyznaczonych szpitalach (oddziałach) dla poszkodowanych z grupy „CZERWONEJ", „ŻÓŁTEJ" i „ZIELONEJ" oraz dostępności w ciągu 1 godz. i 2 godz. (przy założeniu wstrzymania planowych zabiegów operacyjnych): liczby bloków operacyjnych i ich rodzaju z zespołami operacyjnymi, stanowisk IT (z respiratorem), liczby dostępnych respiratorów (poza stanowiskami IT) — patrz TABELA SZPITALE | TAK/NIE |
+| Przekazanie informacji DM-W o ustalonej dyslokacji poszkodowanych z grupy „CZERWONEJ" i „ŻÓŁTEJ" — patrz TABELA DYSLOKACJI POSZKODOWANYCH | TAK/NIE |
+
+---
+
+### 8. DYSLOKACJA POSZKODOWANYCH
+
+> **PAMIĘTAJ!!!**
+>
+> Właściwa dyslokacja poszkodowanych jest, oprócz działań na miejscu, kluczowym elementem wpływającym na skuteczność akcji ratowniczej.
+>
+> Odpowiednie zaplanowanie dyslokacji pozwoli na uniknięcie sytuacji „przeniesienia zdarzenia do szpitala", a pacjentom zapewni szybszy dostęp do najwłaściwszego dla nich leczenia.
+>
+> Prowadź wspólnie z KAM dyslokację poszkodowanych w oparciu o stan zdrowia poszkodowanych, czas transportu, dostępność leczenia specjalistycznego, możliwości terapeutycznych ZRM podczas transportu (ZRM „P", „S", „LZRM").
+>
+> Przy dyslokacji poszkodowanych współpracuj z DM-WS, personelem SOR, izb przyjęć, oddziałów specjalistycznych.
+>
+> W szczególnych sytuacjach należy rozważyć możliwość przemieszczania poszkodowanych z wykorzystaniem środków transportu będących w dyspozycji KSRG poprzez zgłoszenie przez KAM prośby w tym zakresie do KDR/KD.
+
+---
+
+### 9. RAPORT KAM — SEGREGACJA WTÓRNA, WYMIANA INFORMACJI Z DM-W/GDM
+
+| Pole | TAK/NIE | Godzina |
+|------|---------|---------|
+| Przekazanie DM-W raportu z SEGREGACJI WTÓRNEJ | TAK/NIE | \_\_\_\_\_ |
+
+| Grupa | Liczba poszkodowanych |
+|-------|----------------------|
+| CZERWONA | \_\_\_\_\_ |
+| ŻÓŁTA | \_\_\_\_\_ |
+| ZIELONA | \_\_\_\_\_ |
+| CZARNA | \_\_\_\_\_ |
+
+| Pole | TAK/NIE |
+|------|---------|
+| Wprowadzenie uzyskanych danych do TABELI POSZKODOWANYCH | TAK/NIE |
+| Przyjęcie od DM-W informacji o liczbie zadysponowanych kolejnych ZRM | TAK/NIE |
+
+| Typ ZRM | Liczba |
+|---------|--------|
+| "S" | \_\_\_\_\_ |
+| "P" | \_\_\_\_\_ |
+| "LZRM" | \_\_\_\_\_ |
+
+KRYPTONIMY ZRM: \_\_\_\_\_\_\_\_\_\_
+
+| Pole | TAK/NIE |
+|------|---------|
+| Czy liczba zadysponowanych ZRM jest w tym momencie wystarczająca | TAK/NIE |
+| Jeśli „NIE" — zgłoś DM-W zapotrzebowanie na kolejne ZRM: "S" \_\_\_ "P" \_\_\_ | |
+| Odwołanie zadysponowanych ZRM (tylko po TWOJEJ decyzji) | TAK/NIE |
+
+Godzina: \_\_\_\_\_ KRYPTONIMY odwołanych ZRM: \_\_\_\_\_\_\_\_\_\_
+
+| Pole | TAK/NIE |
+|------|---------|
+| Przyjęcie od DM-W informacji o wyznaczonych szpitalach (oddziałach) dla poszkodowanych z grupy „CZERWONEJ" i „ŻÓŁTEJ" oraz dostępności w ciągu 1 godz. i 2 godz. (przy założeniu wstrzymania planowych zabiegów operacyjnych): liczby bloków operacyjnych i ich rodzaju z zespołami operacyjnymi, stanowisk IT (z respiratorem), liczby dostępnych respiratorów (poza stanowiskami IT) — patrz TABELA SZPITALE | TAK/NIE |
+| Przekazanie informacji DM-W o ustalonej dyslokacji poszkodowanych z grupy „CZERWONEJ" i „ŻÓŁTEJ" — patrz TABELA DYSLOKACJI POSZKODOWANYCH | TAK/NIE |
+
+---
+
+### 10. ZAKOŃCZENIE DZIAŁAŃ
+
+| Pole | TAK/NIE | Godzina |
+|------|---------|---------|
+| Przekazanie DM-W informacji o godzinie zakończenia akcji medycznych czynności ratunkowych na miejscu zdarzenia (godzina przekazania ostatniego pacjenta w SOR/CU/CUD/IP/JOS) | TAK/NIE | \_\_\_\_\_ |
+
+### 11. PODSUMOWANIE
+
+Ocena przebiegu działań — ARKUSZ OCENY PRZEBIEGU ZDARZENIA DLA KIERUJĄCEGO AKCJĄ MEDYCZNYCH CZYNNOŚCI RATUNKOWYCH [zał. nr 20]: TAK/NIE
+
+[powrót do spisu treści](#spis-treści)
+
+---
+
+## Załącznik nr 12 — TABELA DYSLOKACJI POSZKODOWANYCH
+
+Tabela dyslokacji poszkodowanych jest formularzem do rejestracji poszkodowanych z podziałem na 4 grupy segregacyjne. Formularz zawiera pozycje numerowane od 1 do 89 (i więcej). Każda strona obejmuje ok. 22 pozycji.
+
+**Dla każdego poszkodowanego rejestruje się:**
+
+### Struktura wiersza dla grupy „CZERWONI", „ŻÓŁCI", „ZIELONI"
+
+Każdy wiersz zawiera:
+- **Nr porządkowy** poszkodowanego (1, 2, 3, ...)
+- **Diagram ciała** — schemat sylwetki (przód i tył) z 13 oznaczonymi strefami anatomicznymi do zaznaczenia obrażeń
+- **Dodatkowy opis** — pole tekstowe na opis obrażeń
+- **ZRM** — kryptonim zespołu ratownictwa medycznego transportującego poszkodowanego
+- **Szpital** — nazwa podmiotu leczniczego docelowego
+
+### Struktura wiersza dla grupy „CZARNY"
+
+Każdy wiersz zawiera:
+- **Nr porządkowy** poszkodowanego (1, 2, 3, ...)
+- **Diagram ciała** — schemat sylwetki z 13 strefami (jak wyżej)
+
+> **Uwaga:** Grupa „CZARNY" nie zawiera pól „Dodatkowy opis", „ZRM" ani „Szpital" — osoby zmarłe nie podlegają dyslokacji.
+
+### Grupy segregacyjne w tabeli
+
+| Grupa | Kolor | Pola |
+|-------|-------|------|
+| „CZERWONI" | Czerwony | Diagram ciała (13 stref), Dodatkowy opis, ZRM, Szpital |
+| „ŻÓŁCI" | Żółty | Diagram ciała (13 stref), Dodatkowy opis, ZRM, Szpital |
+| „ZIELONI" | Zielony | Diagram ciała (13 stref), Dodatkowy opis, ZRM, Szpital |
+| „CZARNY" | Czarny | Diagram ciała (13 stref) |
+
+### Strefy anatomiczne diagramu ciała (13 stref)
+
+Diagram ciała (przód i tył sylwetki) zawiera 13 ponumerowanych stref:
+
+1. Głowa (przód)
+2. Szyja
+3. Klatka piersiowa (przód)
+4. Brzuch
+5. Miednica
+6. Prawe ramię / przedramię
+7. Lewe ramię / przedramię
+8. Prawa dłoń
+9. Lewa dłoń
+10. Prawe udo / podudzie
+11. Lewe udo / podudzie
+12. Prawa stopa
+13. Lewa stopa
+
+(+ odpowiedniki na stronie tylnej: plecy, głowa tył, kończyny tył)
+
+### Zakres numeracji
+
+Formularz obejmuje pozycje **1–89** (rozłożone na 4 strony po ok. 22 pozycje), z możliwością rozszerzenia.
+
+[powrót do spisu treści](#spis-treści)
+
+---
+
+## Załącznik nr 13 — TABELA SZPITALE
+
+Tabela Szpitale służy do rejestracji możliwości przyjęcia poszkodowanych przez podmioty lecznicze. Formularz przewiduje miejsce na dane **co najmniej 12 szpitali** (po 3 szpitale na stronę, 5 stron), z możliwością rozszerzenia.
+
+### Struktura karty dla każdego szpitala
+
+**Dane identyfikacyjne:**
+- Nazwa podmiotu leczniczego: \_\_\_\_\_\_\_\_\_\_
+- Nr telefonu: \_\_\_\_\_\_\_\_\_\_
+
+**Możliwość przyjęcia poszkodowanych z grupy:**
+- „CZERWONEJ": \_\_\_\_\_
+- „ŻÓŁTEJ": \_\_\_\_\_
+
+**DOSTĘPNOŚĆ** (przy założeniu wstrzymania planowych zabiegów operacyjnych):
+
+| Zasób | W ciągu 1 godz. | W ciągu 2 godz. | Uwagi |
+|-------|-----------------|-----------------|-------|
+| Liczba stanowisk ITM (z respiratorem) | \_\_\_ | \_\_\_ | |
+| Liczba wolnych RESP. (poza stanowiskami IT) | \_\_\_ | \_\_\_ | |
+| Liczba stanowisk IN | \_\_\_ | \_\_\_ | |
+| \_\_\_\_\_\_\_\_\_\_ | \_\_\_ | \_\_\_ | |
+
+**BLOKI OPERACYJNE:**
+
+| Rodzaj bloku operacyjnego | W ciągu 1 godz. | W ciągu 2 godz. | Uwagi |
+|---------------------------|-----------------|-----------------|-------|
+| \_\_\_\_\_\_\_\_\_\_ | \_\_\_ | \_\_\_ | |
+| \_\_\_\_\_\_\_\_\_\_ | \_\_\_ | \_\_\_ | |
+| \_\_\_\_\_\_\_\_\_\_ | \_\_\_ | \_\_\_ | |
+
+**Oddziały szpitalne:**
+
+| Oddział | W ciągu 1 godz. | W ciągu 2 godz. | Uwagi |
+|---------|-----------------|-----------------|-------|
+| OIT | \_\_\_ | \_\_\_ | |
+| N-chir (neurochirurgia) | \_\_\_ | \_\_\_ | |
+| Ortopedia | \_\_\_ | \_\_\_ | |
+| Chirurgia ogólna | \_\_\_ | \_\_\_ | |
+| Chirurgia naczyniowa | \_\_\_ | \_\_\_ | |
+| SOR | \_\_\_ | \_\_\_ | |
+| \_\_\_\_\_\_\_\_\_\_ | \_\_\_ | \_\_\_ | |
+
+[powrót do spisu treści](#spis-treści)
+
+---
+
+## Załącznik nr 14 — RAPORT Z PRZEBIEGU ZDARZENIA Z DUŻĄ LICZBĄ POSZKODOWANYCH
+
+### Sekcja 1. Dysponent
+
+Nazwa dysponenta: \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+### Sekcja 2. Data zdarzenia
+
+- Data wystąpienia zdarzenia z dużą liczbą poszkodowanych: \_\_\_\_\_\_\_\_\_\_
+- Godzina przyjęcia powiadomienia o zdarzeniu przez DM: \_\_\_\_\_\_\_\_\_\_
+
+### Sekcja 3. Data zakończenia
+
+- Data zakończenia akcji medycznych czynności ratunkowych (godzina przekazania ostatniego pacjenta do SOR/CU/CUD/IP/JOS): \_\_\_\_\_\_\_\_\_\_
+- Godzina zakończenia akcji medycznych czynności ratunkowych: \_\_\_\_\_\_\_\_\_\_
+
+### Sekcja 4. GDM
+
+- Imię i nazwisko GDM: \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+- KOD GDM: \_\_\_\_\_\_\_\_\_\_
+
+### Sekcja 5. ZRM
+
+Liczba i rodzaj ZRM uczestniczących w zdarzeniu:
+
+| Typ ZRM | Liczba |
+|---------|--------|
+| "S" | \_\_\_\_\_ |
+| "P" | \_\_\_\_\_ |
+| "LZRM" | \_\_\_\_\_ |
+
+Kryptonimy ZRM biorących udział w zdarzeniu: \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+### Sekcja 6. KAM
+
+| Imię i nazwisko KAM | Kryptonim ZRM | Pełnił funkcję KAM od godz. | do godz. | Lekarz | Ratownik Medyczny | Pielęgniarka |
+|----------------------|---------------|------------------------------|----------|--------|-------------------|--------------|
+| \_\_\_\_\_\_\_\_\_\_ | \_\_\_\_\_ | \_\_\_\_\_ | \_\_\_\_\_ | TAK/NIE | TAK/NIE | TAK/NIE |
+| \_\_\_\_\_\_\_\_\_\_ | \_\_\_\_\_ | \_\_\_\_\_ | \_\_\_\_\_ | TAK/NIE | TAK/NIE | TAK/NIE |
+| \_\_\_\_\_\_\_\_\_\_ | \_\_\_\_\_ | \_\_\_\_\_ | \_\_\_\_\_ | TAK/NIE | TAK/NIE | TAK/NIE |
+| \_\_\_\_\_\_\_\_\_\_ | \_\_\_\_\_ | \_\_\_\_\_ | \_\_\_\_\_ | TAK/NIE | TAK/NIE | TAK/NIE |
+| \_\_\_\_\_\_\_\_\_\_ | \_\_\_\_\_ | \_\_\_\_\_ | \_\_\_\_\_ | TAK/NIE | TAK/NIE | TAK/NIE |
+
+### Sekcja 7. Zestawienie poszkodowanych uczestniczących w zdarzeniu
+
+W załączeniu do RAPORTU — zestawienie poszkodowanych uczestniczących w zdarzeniu: TAK/NIE
+
+**Łączna liczba poszkodowanych:** \_\_\_\_\_\_\_\_\_\_
+
+w tym:
+
+| Kategoria | Liczba |
+|-----------|--------|
+| Liczba poszkodowanych przetransportowanych do SOR/IP/JOS **drogą powietrzną** | \_\_\_\_\_ |
+| Liczba poszkodowanych przetransportowanych do SOR/IP/JOS **drogą naziemną przez ZRM** | \_\_\_\_\_ |
+| Liczba poszkodowanych przetransportowanych do SOR/IP/JOS **drogą naziemną bez wykorzystania ZRM** — z wykorzystaniem innych środków transportu | \_\_\_\_\_ |
+| Liczba poszkodowanych przetransportowanych do SOR/IP/JOS **drogą wodną** | \_\_\_\_\_ |
+| Liczba poszkodowanych, którym udzielono pomocy **w miejscu zdarzenia** bez konieczności transportu do SOR/IP/JOS | \_\_\_\_\_ |
+| Liczba poszkodowanych, którym udzielono pomocy w miejscu zdarzenia ale **nie wyrazili zgody na transport** do SOR/IP/JOS | \_\_\_\_\_ |
+| Liczba poszkodowanych, którzy **odmówili udzielenia pomocy** (brak zgody na badanie) | \_\_\_\_\_ |
+| Liczba poszkodowanych, którzy **samodzielnie oddalili się** z miejsca zdarzenia | \_\_\_\_\_ |
+
+### Sekcja 8. Wysłanie do WKRM
+
+RAPORT z przebiegu zdarzenia Z DUŻĄ LICZBĄ POSZKODOWANYCH został przesłany: TAK/NIE
+
+do WKRM województwa: \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+### Sekcja 9. Autor raportu
+
+- RAPORT przygotował: \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+- Godzina: \_\_\_\_\_\_\_\_\_\_
+- Podpis: \_\_\_\_\_\_\_\_\_\_
+
+---
+
+### Załącznik do Raportu — Tabela per-szpital
+
+Tabela rejestrująca liczbę poszkodowanych przekazanych do poszczególnych podmiotów leczniczych z podziałem na grupy segregacyjne i zespoły ratownictwa medycznego.
+
+| Podmiot leczniczy | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | ... |
+|---|---|---|---|---|---|---|---|---|---|---|
+| Oznaczenie ZRM | | | | | | | | | | |
+| Liczba poszkodowanych w grupie „CZERWONEJ" | | | | | | | | | | |
+| Liczba poszkodowanych w grupie „ŻÓŁTEJ" | | | | | | | | | | |
+| Liczba poszkodowanych w grupie „ZIELONEJ" | | | | | | | | | | |
+
+Tabela przewiduje miejsce na co najmniej 18 podmiotów leczniczych (rozłożone na 3 strony po ok. 9), z możliwością rozszerzenia.
 
 [powrót do spisu treści](#spis-treści)
