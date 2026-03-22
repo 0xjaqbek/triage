@@ -1876,7 +1876,7 @@ body.help-on .help-bubble:not(.dismissed) {
           <button class="btn-injury-diagram" id="btnInjuryResult" onclick="openInjuryModalForResult()">🩻 <span data-i18n="btn_body_diagram">Obrażenia ciała</span></button>
         </div>
         <div style="margin-top:10px">
-          <input class="p-notes" id="resultNotes" placeholder="Dodatkowe notatki (obrażenia, mechanizm...)" data-i18n-placeholder="notes_placeholder">
+          <input class="p-notes" id="resultNotes" placeholder="Dodatkowy opis (obrażenia, mechanizm...)" data-i18n-placeholder="notes_placeholder">
         </div>
         <div class="result-actions">
           <button class="btn-confirm" onclick="confirmPatient()" data-i18n="confirm_patient">✓ ZATWIERDŹ PACJENTA</button>
@@ -1988,7 +1988,7 @@ body.help-on .help-bubble:not(.dismissed) {
     <!-- REPORT VIEW -->
     <div id="view-report" class="hidden">
       <div class="report-header-row">
-        <div class="section-title" style="margin-bottom:0" data-i18n="report_title">Raport dla dyspozytora</div>
+        <div class="section-title" style="margin-bottom:0" data-i18n="report_title">Raport z przebiegu zdarzenia</div>
         <div style="display:flex;gap:6px;align-items:center;">
           <button class="btn-end-event" id="btnEndEvent" onclick="toggleEventEnd()" data-i18n="btn_end_event">ZAKOŃCZ ZDARZENIE</button>
           <button class="btn-copy" onclick="copyReport()" data-i18n="btn_report_text">📋 Raport tekstowy</button>
@@ -2007,7 +2007,7 @@ body.help-on .help-bubble:not(.dismissed) {
 <div class="modal-overlay" id="gdmModal">
   <div class="modal" style="max-width:360px">
     <div class="modal-header">
-      <div class="modal-title" data-i18n="gdm_modal_title">Kierownik Działań Medycznych</div>
+      <div class="modal-title" data-i18n="gdm_modal_title">Główny Dyspozytor Medyczny</div>
       <button class="modal-close" onclick="closeGdmModal()">&times;</button>
     </div>
     <div class="modal-body" style="padding:16px">
@@ -2249,8 +2249,8 @@ const TRANSLATIONS = {
     confirm_patient: '✓ ZATWIERDŹ PACJENTA',
     restart_wizard: '↺ OD NOWA',
     override_color: 'ZMIEŃ KOLOR RĘCZNIE',
-    notes_placeholder: 'Dodatkowe notatki (obrażenia, mechanizm...)',
-    notes_placeholder2: 'Notatki (obrażenia, mechanizm...)',
+    notes_placeholder: 'Dodatkowy opis (obrażenia, mechanizm...)',
+    notes_placeholder2: 'Dodatkowy opis (obrażenia, mechanizm...)',
     patients_onsite: 'Pacjenci na miejscu',
     patients_empty: 'Brak zarejestrowanych pacjentów',
     change_to: 'Zmień na',
@@ -2272,7 +2272,7 @@ const TRANSLATIONS = {
     new_team_placeholder: 'Nowy zespół...',
     new_hospital_placeholder: 'Nowy szpital...',
     history_title: 'Historia transportów',
-    report_title: 'Raport dla dyspozytora',
+    report_title: 'Raport z przebiegu zdarzenia',
     btn_report_text: '📋 Raport tekstowy',
     report_total: 'Razem:',
     report_unknown: 'Nieznany',
@@ -2347,7 +2347,7 @@ const TRANSLATIONS = {
     rpt_kam: 'KAM:',
     rpt_gdm: 'GDM:',
     rpt_end: 'Zakończenie:',
-    gdm_modal_title: 'Kierownik Działań Medycznych',
+    gdm_modal_title: 'Główny Dyspozytor Medyczny',
     gdm_modal_text: 'Wprowadź imię i nazwisko GDM (Głównego Dyspozytora Medycznego).',
     gdm_input_placeholder: 'Imię i nazwisko GDM',
     gdm_skip: 'POMIŃ',
@@ -2526,7 +2526,7 @@ const TRANSLATIONS = {
     confirm_patient: '✓ CONFIRM PATIENT',
     restart_wizard: '↺ RESTART',
     override_color: 'OVERRIDE COLOUR',
-    notes_placeholder: 'Additional notes (injuries, mechanism...)',
+    notes_placeholder: 'Additional description (injuries, mechanism...)',
     notes_placeholder2: 'Notes (injuries, mechanism...)',
     patients_onsite: 'Patients on scene',
     patients_empty: 'No registered patients',
@@ -2549,7 +2549,7 @@ const TRANSLATIONS = {
     new_team_placeholder: 'New team...',
     new_hospital_placeholder: 'New hospital...',
     history_title: 'Transport history',
-    report_title: 'Report for dispatcher',
+    report_title: 'Event report',
     btn_report_text: '📋 Text report',
     report_total: 'Total:',
     report_unknown: 'Unknown',
@@ -2622,11 +2622,11 @@ const TRANSLATIONS = {
     sex_label: 'Sex:',
     age_label: 'Age:',
     rpt_kam: 'MCI Commander:',
-    rpt_gdm: 'Medical Director:',
+    rpt_gdm: 'Chief Medical Dispatcher:',
     rpt_end: 'End:',
-    gdm_modal_title: 'Medical Director',
-    gdm_modal_text: 'Enter the name of the Medical Director (GDM).',
-    gdm_input_placeholder: 'Medical Director name',
+    gdm_modal_title: 'Chief Medical Dispatcher',
+    gdm_modal_text: 'Enter the name of the Chief Medical Dispatcher (GDM).',
+    gdm_input_placeholder: 'Chief Medical Dispatcher name',
     gdm_skip: 'SKIP',
     gdm_save: 'SAVE',
     gdm_import: '📥 IMPORT DISPATCHER DATA',
@@ -2675,7 +2675,7 @@ const TRANSLATIONS = {
     cl_200_1: 'MCI Commander field on setup screen',
     cl_200_2: 'Patient sex and age at triage',
     cl_200_3: 'Hospital capacity tracking (RED/YELLOW) with warnings',
-    cl_200_4: 'Medical Director modal on first dispatch entry',
+    cl_200_4: 'Chief Medical Dispatcher modal on first dispatch entry',
     cl_200_5: 'Reversible event end button',
     cl_200_6: 'Retriage confirmation with change history',
     cl_200_7: 'Hospital change during transport',
