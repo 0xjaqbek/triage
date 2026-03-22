@@ -161,9 +161,9 @@ Eksperyment przeprowadzono według następującego protokołu:
 **Faza 2: Sesja 1 (bez limitu czasu)**
 Każdy uczestnik indywidualnie realizował uproszczony zakres zadań Kierującego Akcją Medyczną (KAM) zgodnie z Procedurą MZ v2.3, w interakcji z prowadzącym pełniącym rolę Dyspozytora Medycznego (DM). Sesja składała się z czterech podfaz:
 
-**Podfaza A: Segregacja pierwotna.** Uczestnik samodzielnie przeprowadzał segregację 12 poszkodowanych (na kartach) algorytmem START. W sesji z aplikacją uczestnik najpierw wpisywał nazwę zdarzenia i swoje dane jako KAM na ekranie startowym, a przy każdym pacjencie mógł opcjonalnie oznaczyć płeć (M/K/?) i wiek. Prowadzący (DM) nie inicjował kontaktu w tej podfazie. Czas mierzony od momentu otwarcia koperty z kartami.
+**Podfaza A: Segregacja pierwotna.** Uczestnik samodzielnie przeprowadzał segregację 12 poszkodowanych (na kartach) algorytmem START. W sesji z aplikacją uczestnik najpierw wpisywał nazwę zdarzenia i swoje dane jako KAM na ekranie startowym, a przy każdym pacjencie oznaczał płeć (M/K/?), wiek oraz obrażenia na interaktywnym diagramie ciała (wybierając strefy anatomiczne i typy obrażeń). W sesji tradycyjnej uczestnik zaznaczał obrażenia na papierowym diagramie ciała i wpisywał opis tekstowy. Prowadzący (DM) nie inicjował kontaktu w tej podfazie. Czas mierzony od momentu otwarcia koperty z kartami.
 
-**Podfaza B: Raport z rozpoznania wstępnego i przygotowanie danych.** Po zakończeniu segregacji uczestnik przekazywał prowadzącemu (DM) ustny raport z rozpoznania wstępnego: liczba poszkodowanych w poszczególnych grupach segregacyjnych. Prowadzący potwierdzał odbiór raportu, przekazywał informacje o zadysponowanych ZRM (4 zespoły) oraz szczegółowe dane o możliwościach szpitali, w tym pojemność wyrażoną liczbą miejsc dla grupy czerwonej i żółtej (wg standaryzowanej karty informacyjnej, identycznej dla wszystkich uczestników i obu metod). W sesji z aplikacją po przekazaniu danych o szpitalach następował dodatkowy krok (B.5): uczestnik samodzielnie wprowadzał do aplikacji zespoły ZRM oraz szpitale z ich pojemnościami (RED/YELLOW). Krok ten **nie był mierzony** — stanowił stałą procedurę wejściową charakterystyczną dla metody cyfrowej, analogiczną do zapoznania się z wydrukowaną kartą informacyjną w sesji tradycyjnej. Następnie prowadzący wydawał polecenie rozpoczęcia dyslokacji.
+**Podfaza B: Raport z rozpoznania wstępnego i przygotowanie danych.** Po zakończeniu segregacji uczestnik przekazywał prowadzącemu (DM) ustny raport z rozpoznania wstępnego: liczba poszkodowanych w poszczególnych grupach segregacyjnych. Prowadzący potwierdzał odbiór raportu i przekazywał informacje o zadysponowanych ZRM (4 zespoły) oraz szczegółowe dane o możliwościach szpitali, w tym pojemność wyrażoną liczbą miejsc dla grupy czerwonej i żółtej. W sesji tradycyjnej prowadzący podawał te dane słownie (wg standaryzowanej karty informacyjnej, identycznej dla wszystkich uczestników). W sesji z aplikacją prowadzący wysyłał na urządzenie uczestnika SMS z linkiem zawierającym zakodowane dane scenariuszowe (nazwy ZRM, szpitale z pojemnością RED/YELLOW), przygotowany wcześniej za pomocą strony dyspozytora (`/dyspozytor/`). Uczestnik tapał link, dane importowały się automatycznie do aplikacji — eliminując konieczność ręcznego wpisywania. Krok ten odzwierciedlał realistyczny przepływ informacji DM-W → KAM, w którym dane logistyczne przekazywane są kanałem komunikacyjnym (w praktyce: łączność radiowa; w eksperymencie: SMS). Krok importu **nie był mierzony** — stanowił stałą procedurę wejściową, analogiczną do zapoznania się z wydrukowaną kartą informacyjną w sesji tradycyjnej. Następnie prowadzący wydawał polecenie rozpoczęcia dyslokacji.
 
 **Podfaza C: Dyslokacja (dwie tury).** Dyslokacja przebiegała w dwóch turach, odzwierciedlających realistyczny cykl dysponowania ZRM. W Turze 1 uczestnik dysponował poszkodowanych przy użyciu 4 dostępnych zespołów ZRM (priorytetyzując grupę czerwoną). W sesji z aplikacją przy pierwszym wejściu w moduł DYSPONOWANIE wyświetlało się okno modalne z polem na imię i nazwisko Głównego Dyspozytora Medycznego (GDM) — uczestnik mógł je wypełnić lub pominąć. Aplikacja dynamicznie wyświetlała informacje o zajętości szpitali i ostrzeżenia „BRAK MIEJSC" w przypadku przekroczenia zadeklarowanej pojemności (ostrzeżenia informacyjne — wybór szpitala pozostawał zawsze możliwy). Po wyczerpaniu ZRM prowadzący (DM) odczytywał standaryzowany komunikat o powrocie wszystkich 4 zespołów (ZRM P-01, ZRM P-02, ZRM S-01, LZRM), po czym w Turze 2 uczestnik dysponował pozostałych poszkodowanych z grupy żółtej — wybierając spośród 4 dostępnych ZRM. W sesji z aplikacją dostępny był przycisk zmiany szpitala docelowego w trakcie transportu, z rejestracją historii zmian. Metodą tradycyjną: wypełnianie Tabeli Dyslokacji. Z aplikacją: moduł DYSPONOWANIE. Prowadzący (DM) był dostępny do udzielania odpowiedzi na pytania logistyczne (wg standaryzowanej biblioteki odpowiedzi). Komunikat o powrocie ZRM był odczytywany natychmiast (bez symulacji czasu przejazdu), standaryzowany i identyczny dla każdego uczestnika.
 
@@ -194,12 +194,14 @@ Metoda segregacji (dwa poziomy: tradycyjna vs. aplikacja TRIAGE MCI).
 
 | Zmienna | Typ | Jednostka/Skala | Sposób pomiaru |
 |---------|-----|-----------------|----------------|
-| t_A — czas segregacji | Ilościowa ciągła | Sekundy | Stoper [A]: od otwarcia koperty do deklaracji zakończenia segregacji |
-| t_C1 — czas dyslokacji Tura 1 | Ilościowa ciągła | Sekundy | Stoper [C1]: od polecenia dyslokacji (B.6) do zadysponowania 4 poszkodowanych |
-| t_C2 — czas dyslokacji Tura 2 | Ilościowa ciągła | Sekundy | Stoper [C2]: od komunikatu DM o powrocie ZRM do deklaracji zakończenia dyslokacji |
-| t_D — czas raportu | Ilościowa ciągła | Sekundy | Stoper [D]: od polecenia DM do deklaracji ukończenia raportu |
-| t_suma — czas łączny | Ilościowa ciągła | Sekundy | t_A + t_C1 + t_C2 + t_D (wymiany DM i krok B.5 wyłączone — stałe) |
+| t_A — czas segregacji | Ilościowa ciągła | Sekundy | Stoper [A] + logger eksperymentalny*: od otwarcia koperty do deklaracji zakończenia segregacji |
+| t_C1 — czas dyslokacji Tura 1 | Ilościowa ciągła | Sekundy | Stoper [C1] + logger*: od polecenia dyslokacji (B.6) do zadysponowania 4 poszkodowanych |
+| t_C2 — czas dyslokacji Tura 2 | Ilościowa ciągła | Sekundy | Stoper [C2] + logger*: od komunikatu DM o powrocie ZRM do deklaracji zakończenia dyslokacji |
+| t_D — czas raportu | Ilościowa ciągła | Sekundy | Stoper [D] + logger*: od polecenia DM do deklaracji ukończenia raportu |
+| t_suma — czas łączny | Ilościowa ciągła | Sekundy | t_A + t_C1 + t_C2 + t_D (wymiany DM i krok importu wyłączone — stałe) |
+| t_pacjent — czas per pacjent | Ilościowa ciągła | Sekundy | Logger*: od rozpoczęcia kreatora START do potwierdzenia pacjenta (dostępne wyłącznie w sesji z aplikacją) |
 | Trafność klasyfikacji | Ilościowa dyskretna | Odsetek (0-100%) | Zgodność z kluczem: liczba prawidłowych / 12 × 100% |
+| Ścieżka decyzyjna | Jakościowa | Sekwencja kroków | Logger*: pełna sekwencja odpowiedzi TAK/NIE w kreatorze START per pacjent (dostępne wyłącznie w sesji z aplikacją) |
 | Kompletność raportu | Ilościowa dyskretna | Punkty (0-10) | Standaryzowana lista kontrolna Raport GDM [zał. 14] |
 | Jakość dyslokacji | Ilościowa dyskretna | Punkty (0-12) | Kompletność (0-6 pkt) + zgodność z pojemnością szpitali (0-6 pkt) |
 | Ocena użyteczności (SUS) | Ilościowa ciągła | Punkty (0-100) | Kwestionariusz SUS |
@@ -217,6 +219,8 @@ Metoda segregacji (dwa poziomy: tradycyjna vs. aplikacja TRIAGE MCI).
 - Poziom znajomości algorytmu START przed badaniem.
 
 Zmienne zakłócające kontrolowano poprzez: (a) schemat crossover (każdy uczestnik jest swoją własną kontrolą), (b) rejestrację zmiennych demograficznych i zawodowych umożliwiającą analizę podgrup, (c) randomizację kolejności.
+
+*\*Logger eksperymentalny:* W sesjach z aplikacją wykorzystano wbudowany tryb eksperymentalny (`experiment.html`) — osobną wersję aplikacji z loggerem rejestrującym każdą akcję uczestnika ze znacznikiem czasowym o precyzji milisekundowej (Unix timestamp). Logger rejestruje m.in.: rozpoczęcie kreatora START, każdą odpowiedź TAK/NIE z identyfikatorem kroku algorytmu, wynik triażu, potwierdzenie pacjenta (z kategorią, płcią, wiekiem, ścieżką decyzyjną), przejścia między zakładkami, wysyłkę transportu, dostarczenie pacjenta, zamknięcie zdarzenia. Po zakończeniu sesji dane eksportowane są jako plik JSON zawierający: metadane (identyfikator uczestnika, scenariusz, czas), pełny chronologiczny log akcji oraz snapshot końcowego stanu aplikacji (pacjenci, transporty, zespoły, szpitale). Logger działa w tle i nie wpływa na interfejs ani przepływ pracy uczestnika (jedynym widocznym elementem jest mały wskaźnik REC w rogu ekranu). Tryb eksperymentalny aktywowany jest przez prowadzącego przed rozpoczęciem sesji. Dane z loggera stanowią uzupełnienie pomiarów stoperem — umożliwiają precyzyjną analizę czasu per pacjent (t_pacjent) oraz rekonstrukcję pełnej ścieżki decyzyjnej, co nie jest dostępne w sesji tradycyjnej. Stoper pozostaje podstawowym narzędziem pomiarowym dla porównywalności między metodami, a logger dostarcza dodatkowych danych analitycznych wyłącznie dla sesji z aplikacją.
 
 ### 3.4.6. Lista kontrolna kompletności raportu
 
@@ -402,8 +406,12 @@ Aplikacja TRIAGE MCI jest progresywną aplikacją internetową (PWA — *Progres
 - **Praca offline:** Pełna funkcjonalność bez dostępu do internetu dzięki mechanizmowi Service Worker;
 - **Przechowywanie danych:** Lokalnie na urządzeniu użytkownika (localStorage), bez transmisji na zewnętrzne serwery;
 - **Wielojęzyczność:** Interfejs dostępny w 7 językach (polski, angielski, włoski, francuski, niemiecki, czeski, portugalski);
+- **Strona dyspozytora:** Osobna strona (`/dyspozytor/`) umożliwiająca operatorowi centrali przygotowanie i wysyłkę danych scenariuszowych (ZRM, szpitale z pojemnością) do urządzenia KAM w terenie za pomocą linku SMS zakodowanego w Base64 (kompatybilnego z GSM-7);
+- **Instalacja offline:** Oprócz standardowej instalacji PWA z przeglądarki, dostępny jest przenośny serwer HTTP (`triage-server.exe`, napisany w Go), umożliwiający instalację aplikacji na urządzeniach bez dostępu do internetu;
+- **Instrukcja obsługi:** Wbudowana strona instrukcji (`/instrukcja/`) dostępna z panelu informacyjnego, zawierająca pełny podręcznik użytkownika w 7 językach;
+- **Tryb eksperymentalny:** Osobna wersja aplikacji (`experiment.html`) z wbudowanym loggerem akcji rejestrującym każdą czynność uczestnika ze znacznikiem czasowym o precyzji milisekundowej — szczegółowy opis w sekcji 3.4.5;
 - **Licencja:** Otwarte oprogramowanie (GPLv3), bezpłatne;
-- **Wersja użyta w badaniu:** v2.0.0.
+- **Wersja użyta w badaniu:** v2.4.0.
 
 ### 3.6.2. Funkcjonalność i odpowiedniość z Procedurą MZ v2.3
 
@@ -412,11 +420,17 @@ Aplikacja realizuje trzy główne funkcje, z których każda odpowiada konkretne
 **Moduł segregacji (SEGREGACJA)** — odpowiednik: **Tabela Dyslokacji Poszkodowanych** [zał. nr 12]
 Interaktywny kreator prowadzący użytkownika krok po kroku przez algorytm START. Na każdym etapie wyświetlane jest pytanie kliniczne z podpowiedzią. Użytkownik odpowiada TAK/NIE, a aplikacja automatycznie klasyfikuje pacjenta do odpowiedniej kategorii (T1-T4). Każdy pacjent otrzymuje automatyczny numer indywidualny (P-001, P-002...), analogicznie do numeracji w Tabeli Dyslokacji. Po zakończeniu segregacji możliwe jest dodanie notatek o obrażeniach, opcjonalne oznaczenie płci (M/K/?) i wieku (stepper ±1/±5) oraz ręczna korekta kategorii (override). Ścieżka decyzyjna jest automatycznie rejestrowana. Podział pacjentów na grupy kolorystyczne (czerwona, żółta, zielona, czarna) odpowiada grupom zdefiniowanym w procedurze. Zmiana kategorii pacjenta (retriage) wymaga potwierdzenia w oknie modalnym i jest rejestrowana z historią zmian (z → na, czas).
 
+**Diagram obrażeń ciała** — uzupełnienie dokumentacji pacjenta w module segregacji.
+Interaktywny diagram SVG ciała ludzkiego z widokiem przód i tył, obejmujący 9 stref anatomicznych (głowa, klatka piersiowa, brzuch, ramiona lewe/prawe, nogi lewe/prawe, górna/dolna część pleców). Dla każdej strefy dostępnych jest 7 typów obrażeń do zaznaczenia: złamanie, krwotok, oparzenie, rana, obrzęk, ból, amputacja. Zaznaczone obrażenia są widoczne w karcie pacjenta jako skrócone podsumowanie oraz w raporcie końcowym. Diagram stanowi cyfrowy odpowiednik pola „Obrażenia" na papierowej karcie segregacyjnej, umożliwiając ustrukturyzowaną dokumentację obrażeń w miejsce opisu tekstowego.
+
 **Ekran startowy** — odpowiednik: nagłówek **Raportu GDM** [zał. nr 14]
 Przed rozpoczęciem triage użytkownik wpisuje nazwę zdarzenia oraz imię i nazwisko Kierującego Akcją Medyczną (KAM). Dane te są automatycznie uwzględniane w generowanym raporcie.
 
 **Moduł dysponowania (DYSPONOWANIE)** — odpowiednik: **Tabela Szpitali** [zał. nr 13] + część dyslokacyjna **Tabeli Dyslokacji** [zał. nr 12]
 Umożliwia przypisanie pacjenta do zespołu ratownictwa medycznego (ZRM) i wskazanie szpitala docelowego — realizując funkcję dyslokacji poszkodowanych, którą Procedura MZ v2.3 definiuje jako wspólne zadanie KAM i DM-W. Zawiera edytowalną listę zespołów i szpitali z możliwością definiowania pojemności szpitali (liczba miejsc RED i YELLOW). Aplikacja dynamicznie oblicza zajętość i wyświetla ostrzeżenia „BRAK MIEJSC" w przypadku przekroczenia zadeklarowanej pojemności (ostrzeżenie jest informacyjne — wybór szpitala jest zawsze możliwy). Przy pierwszym wejściu w moduł wyświetla się okno modalne z polem na imię i nazwisko Głównego Dyspozytora Medycznego (GDM), które można wypełnić lub pominąć. W trakcie transportu dostępny jest przycisk „zmień" umożliwiający zmianę szpitala docelowego z rejestracją historii zmian. Wyświetla statusy transportów (w trakcie / dostarczony) i historię dysponowania.
+
+**Import danych od dyspozytora** — cyfrowy odpowiednik przekazywania informacji słownych przez DM-W.
+Aplikacja umożliwia import danych scenariuszowych (nazwa zdarzenia, GDM, lista ZRM, szpitale z pojemnością RED/YELLOW) za pośrednictwem linku SMS. Dane są kodowane w formacie Base64 kompatybilnym z GSM-7 (do ~1530 znaków w 10 segmentach SMS, co pozwala na przesłanie danych ok. 20 szpitali i 20 zespołów). Po tapnięciu linku przez KAM w terenie aplikacja otwiera się z zaimportowanymi danymi — eliminując konieczność ręcznego wpisywania nazw zespołów i szpitali. Do przygotowania i wysyłki danych służy osobna strona dyspozytora (`/dyspozytor/`). Mechanizm ten odzwierciedla realistyczny przepływ informacji DM-W → KAM zdefiniowany w Procedurze MZ v2.3, przy czym kanałem komunikacji jest SMS zamiast łączności radiowej.
 
 **Moduł raportowania (RAPORT)** — odpowiednik: **Raport GDM z przebiegu zdarzenia** [zał. nr 14]
 Automatyczne generowanie raportu ze zdarzenia zawierającego elementy wymagane przez Procedurę MZ v2.3: dane KAM i GDM, zestawienie liczbowe poszkodowanych z podziałem na grupy segregacyjne (z opcjonalnymi danymi demograficznymi: płeć, wiek), rozkład pacjentów wg szpitali docelowych z informacją o zajętości pojemności, przypisanie ZRM do pacjentów, statusy transportów, historię retriaży i zmian szpitali, listę pacjentów pozostających na miejscu. Raport dostępny w formie wizualnej (w aplikacji) i tekstowej (do skopiowania do schowka lub wysłania). Moduł zawiera odwracalny przycisk ZAKOŃCZ ZDARZENIE rejestrujący godzinę zakończenia akcji.
@@ -428,6 +442,11 @@ Poniższa tabela zestawia odpowiedniość funkcjonalną:
 | Tabela Dyslokacji Poszkodowanych | zał. 12 | Segregacja + Dysponowanie | Papierowa | Cyfrowa (automatyczna) |
 | Tabela Szpitali (pojemność) | zał. 13 | Dysponowanie | Papierowa | Cyfrowa (edytowalna, dynamiczne obliczanie zajętości) |
 | Raport GDM z przebiegu zdarzenia | zał. 14 | Ekran startowy + Raport | Papierowa | Cyfrowa (auto-generowana, dane KAM/GDM z ekranu startowego i modalu) |
+
+**Dodatkowe funkcje wspomagające:**
+
+- **Dymki pomocy kontekstowej** — 15 podpowiedzi rozmieszczonych na wszystkich ekranach aplikacji, aktywowanych przełącznikiem na ekranie startowym. Wyjaśniają znaczenie poszczególnych elementów interfejsu i kroków algorytmu START. Przydatne przy pierwszym kontakcie z aplikacją.
+- **Raport tekstowy z wysyłką** — oprócz wizualnej prezentacji raportu w aplikacji, dostępna jest wersja tekstowa z możliwością skopiowania do schowka lub wysłania przez SMS/email za pomocą natywnych aplikacji urządzenia.
 
 ### 3.6.3. Uzasadnienie wyboru technologii PWA
 

@@ -46,9 +46,9 @@ Poniższe elementy MUSZĄ być identyczne dla każdego uczestnika, niezależnie 
 
 **Sesja z aplikacją:**
 - [ ] Koperta z 12 kartami pacjentów (potasowane!)
-- [ ] Smartfon z TRIAGE MCI v2.0 (ekran startowy — nowe zdarzenie, puste listy zespołów i szpitali)
-- [ ] Uczestnik sam doda ZRM, szpitale (z pojemnością RED/YELLOW), KAM i GDM w trakcie sesji
-- [ ] ~~Karta informacyjna szpitali~~ (podasz po segregacji, nie wcześniej!)
+- [ ] Smartfon z TRIAGE MCI v2.4.0 — wersja eksperymentalna (`experiment.html`), ekran startowy
+- [ ] Przygotowany SMS z danymi scenariuszowymi (z `dyspozytor/experiment.html`) — wyślij PRZED sesją, uczestnik tapnie link w Podfazie B
+- [ ] ~~Karta informacyjna szpitali~~ (uczestnik otrzyma dane przez SMS, nie kartę papierową)
 
 ### Materiały prowadzącego
 
@@ -59,7 +59,9 @@ Poniższe elementy MUSZĄ być identyczne dla każdego uczestnika, niezależnie 
 - [ ] Klucz referencyjny — dyslokacja (z scenariusze-eksperyment.md)
 - [ ] Karta ocen (formularz obserwatora, jeden na sesję)
 - [ ] Lista kontrolna kompletności raportu (Raport GDM)
-- [ ] Karta informacyjna szpitali (do wręczenia uczestnikowi w Podfazie B)
+- [ ] Karta informacyjna szpitali (do podania słownie w sesji tradycyjnej)
+- [ ] Przygotowane linki SMS z danymi scenariuszowymi (Scenariusz 1 i 2) — wygenerowane z `dyspozytor/experiment.html`
+- [ ] Dostęp do urządzenia uczestnika w celu aktywacji trybu REC (lub instrukcja dla uczestnika)
 
 ---
 
@@ -202,19 +204,21 @@ Odczytaj:
 >
 > Szpital Powiatowy: Izba Przyjęć, jedno stanowisko intensywnej terapii. Bez bloku operacyjnego. Czas dojazdu dwadzieścia pięć minut. Nie przyjmuje poszkodowanych z grupy czerwonej. Może przyjąć do trzech poszkodowanych z grupy żółtej.
 
-*(Wręcz uczestnikowi wydrukowaną Kartę informacyjną szpitali.)*
+**[SESJA TRADYCYJNA]:** *(Wręcz uczestnikowi wydrukowaną Kartę informacyjną szpitali.)*
 
-**Krok B.5 — Wprowadzenie danych do aplikacji (tylko sesja z aplikacją)**
+**[SESJA Z APLIKACJĄ]:** *(Pomiń wręczanie karty. Przejdź do kroku B.5.)*
 
-**⏱ Stoper NIE działa — wprowadzanie danych jest stałą procedurą, nie mierzoną zmienną.**
+**Krok B.5 — Import danych od dyspozytora (tylko sesja z aplikacją)**
+
+**⏱ Stoper NIE działa — import danych jest stałą procedurą, nie mierzoną zmienną.**
 
 Odczytaj:
 
-> [SESJA Z APLIKACJĄ]: Proszę teraz przejść do zakładki DYSPONOWANIE w aplikacji i wprowadzić dane: najpierw usunąć domyślne zespoły i szpitale, a następnie dodać cztery podane zespoły ZRM oraz trzy szpitale z podanymi pojemnościami (liczba miejsc dla grupy czerwonej i żółtej). Proszę korzystać z karty informacyjnej szpitali.
+> [SESJA Z APLIKACJĄ]: Jako dyspozytor medyczny wysyłam teraz na Pana/Pani urządzenie SMS z danymi logistycznymi — informacjami o zespołach ZRM i szpitalach z ich pojemnościami. Proszę otworzyć otrzymanego SMS-a i tapnąć link. Dane zostaną zaimportowane automatycznie do aplikacji.
 >
 > [SESJA TRADYCYJNA]: *(pomiń ten krok)*
 
-*(Poczekaj, aż uczestnik wprowadzi dane. Nie mierz czasu. Nie pomagaj — jeśli pyta, odpowiedz: „Informacje są na karcie szpitali." Gdy uczestnik powie, że gotowy — przejdź do B.6.)*
+*(Wyślij przygotowany wcześniej SMS z linkiem z `dyspozytor/experiment.html`. Poczekaj, aż uczestnik tapnie link i dane się zaimportują. Jeśli link nie otwiera aplikacji — poproś uczestnika o otwarcie aplikacji ręcznie i wklejenie danych z SMS-a w modalu GDM → przycisk „Importuj dane od dyspozytora". Gdy dane są zaimportowane — przejdź do B.6.)*
 
 **Krok B.6 — Polecenie dyslokacji**
 
@@ -442,7 +446,7 @@ Wręcz:
 | Korekta błędnej segregacji uczestnika | NIE koryguj. Powtórz dokładnie to, co uczestnik powiedział |
 | Różne tempo mówienia w różnych sesjach | Czytaj z karty w jednakowym tempie |
 | Zapomnienie o uruchomieniu/zatrzymaniu stopera | Wydrukuj ściągawkę: A→start, „skończyłem segregację"→stop A, po B.6→start C1, „brak ZRM"→stop C1, po komunikacie→start C2, „gotowe"→stop C2, po poleceniu raportu→start D, „raport gotowy"→stop D |
-| Pominięcie kroku B.5 (dane w aplikacji) | Sesja z aplikacją: po wręczeniu karty szpitali POCZEKAJ, aż uczestnik doda szpitale (z pojemnością) i ZRM w aplikacji |
+| Pominięcie kroku B.5 (import SMS) | Sesja z aplikacją: po podaniu danych o szpitalach wyślij SMS z linkiem. POCZEKAJ, aż uczestnik tapnie link i dane się zaimportują |
 | Rozmowa towarzyska w trakcie przerwy | Ograniczaj kontakt w przerwie do minimum |
 
 ---
@@ -482,7 +486,7 @@ Wręcz:
 | U__ | 1 |  |  | | | | | | |
 | U__ | 2 |  |  | | | | | | |
 
-**Pomiar:** Każda faza mierzona osobnym stoperem (start/stop). Wymiany DM (Podfaza B w tym B.5 — wprowadzanie danych do aplikacji, komunikat o powrocie ZRM) NIE są mierzone — to stałe, identyczne dla każdego uczestnika.
+**Pomiar:** Każda faza mierzona osobnym stoperem (start/stop). Wymiany DM (Podfaza B w tym B.5 — import danych SMS, komunikat o powrocie ZRM) NIE są mierzone — to stałe, identyczne dla każdego uczestnika. W sesji z aplikacją dodatkowo działa logger eksperymentalny (tryb REC) rejestrujący akcje z precyzją milisekundową — dane eksportowane po sesji jako JSON (patrz sekcja J).
 
 **Obliczenia:**
 - t_dyslokacja = t_C1 + t_C2
@@ -513,9 +517,25 @@ Losowanie: użyj generatora liczb losowych lub metody kopertowej. Przygotuj komp
 - [ ] Oba zestawy kart pacjentów odebrane i odłożone
 - [ ] Tabela Dyslokacji (papierowa) zebrana i oznaczona kodem uczestnika
 - [ ] Raport papierowy zebrany i oznaczony kodem uczestnika
-- [ ] Zrzut ekranu / eksport z aplikacji zapisany
+- [ ] **EKSPORT JSON z loggera eksperymentalnego:** tapnij REC (prawy górny róg) → Export JSON → zapisz plik `exp_[ID]_[scenariusz]_[data].json`
+- [ ] **STOP nagrywania:** w panelu eksportu kliknij „Stop Recording"
 - [ ] Arkusz czasów wypełniony dla obu sesji
 - [ ] Karta ocen wypełniona dla obu sesji
 - [ ] Kwestionariusz SUS + preferencje + dane demograficzne zebrane
 - [ ] Aplikacja zresetowana (nowe zdarzenie, puste listy) dla następnego uczestnika
 - [ ] Nowy komplet kart pacjentów przygotowany i potasowany
+
+## J. Aktywacja trybu eksperymentalnego (przed sesją z aplikacją)
+
+Tryb eksperymentalny rejestruje każdą akcję uczestnika z precyzją milisekundową. Aktywuj go **przed** rozpoczęciem sesji:
+
+1. Otwórz aplikację na urządzeniu uczestnika (`experiment.html` — upewnij się, że to wersja eksperymentalna, nie produkcyjna)
+2. Otwórz panel Info (przycisk Info na ekranie startowym)
+3. Tapnij ikonę 🔬 w prawym górnym rogu info-boxa — otworzy się panel Experiment Mode
+4. Wpisz **Participant ID** (kod uczestnika, np. U01) i **Scenario** (np. S1 lub S2)
+5. Kliknij **START REC** — w prawym górnym rogu ekranu pojawi się migający czerwony wskaźnik REC
+6. Zamknij panel Info — uczestnik może rozpocząć sesję
+
+**UWAGA:** Nie zamykaj ani nie odświeżaj aplikacji w trakcie sesji — log jest przechowywany w pamięci.
+
+Po zakończeniu sesji: eksportuj JSON (patrz Checklist zakończenia, sekcja I).

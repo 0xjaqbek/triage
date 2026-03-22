@@ -92,3 +92,5 @@ Niniejsza praca ma charakter badawczy i składa się z ośmiu rozdziałów.
 **Rozdział 8 (Streszczenie)** zawiera streszczenie pracy w języku polskim i angielskim.
 
 Pracę uzupełniają: bibliografia, spis tabel, spis rycin oraz aneksy (kwestionariusz ankiety, scenariusze symulacyjne, formularz zgody, kwestionariusz SUS w wersji polskiej).
+
+**Zakres funkcjonalny badania eksperymentalnego:** Badanie obejmuje ocenę głównego przepływu pracy KAM: segregacja algorytmem START (z dokumentacją obrażeń na diagramie ciała, oznaczeniem płci i wieku) → dyslokacja poszkodowanych (z wykorzystaniem importu danych od dyspozytora przez SMS) → raport ze zdarzenia. Aplikacja TRIAGE MCI w wersji v2.4.0 zawiera również funkcje nieobjęte oceną eksperymentalną: moduł strony dyspozytora, retriaż z potwierdzeniem i historią zmian, zmiana szpitala docelowego w trakcie transportu, dymki pomocy kontekstowej, wielojęzyczność interfejsu (7 języków) oraz wbudowana instrukcja obsługi. Funkcje te stanowią kompletne narzędzie operacyjne, lecz ich formalna ewaluacja wykracza poza zakres niniejszej pracy i została wskazana jako kierunek przyszłych badań (rozdział 6).

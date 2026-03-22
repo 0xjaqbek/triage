@@ -118,6 +118,10 @@ Niniejsze badanie obarczone jest ograniczeniami, które należy uwzględnić prz
 
 5. **Specyficzność narzędzia.** Wyniki dotyczą konkretnej aplikacji (TRIAGE MCI) i nie mogą być automatycznie uogólniane na inne rozwiązania cyfrowe do segregacji medycznej.
 
+6. **Zakres testowanych funkcji.** Badanie obejmowało główny przepływ pracy KAM: segregację, dyslokację i raport. Aplikacja TRIAGE MCI v2.4.0 zawiera również funkcje nieobjęte formalną oceną eksperymentalną: retriaż z potwierdzeniem i historią zmian, zmianę szpitala docelowego w trakcie transportu, moduł strony dyspozytora do przygotowywania danych, dymki pomocy kontekstowej oraz wielojęzyczność interfejsu. Ewaluacja tych funkcji stanowi potencjalny kierunek przyszłych badań.
+
+7. **Asymetria narzędzi pomiarowych.** W sesjach z aplikacją dostępny był wbudowany logger eksperymentalny rejestrujący akcje z precyzją milisekundową (czas per pacjent, pełna ścieżka decyzyjna). Dane te nie mają odpowiednika w sesjach tradycyjnych, w których pomiar ograniczony był do stopera i analizy wytworzonej dokumentacji. Dane z loggera wykorzystano wyłącznie jako uzupełniającą analizę eksploracyjną, a nie jako podstawowe narzędzie porównawcze.
+
 ### 6.5.2. Ograniczenia ankiety
 
 1. **Dobór próby.** Metoda kuli śnieżnej i dystrybucja przez media społecznościowe mogą prowadzić do nadreprezentacji osób aktywnych online i potencjalnie bardziej otwartych na nowe technologie. Wyniki mogą zatem zawyżać pozytywny stosunek do cyfryzacji w porównaniu z ogółem populacji ratowników medycznych w Polsce.
@@ -141,3 +145,9 @@ Na podstawie uzyskanych wyników i zidentyfikowanych ograniczeń można zapropon
 5. **Porównanie algorytmów.** Rozszerzenie aplikacji o inne algorytmy segregacyjne (SALT, Sieve/Sort) i porównanie ich efektywności w wersji cyfrowej.
 
 6. **Badanie w kontekście międzynarodowym.** Wielojęzyczność aplikacji TRIAGE MCI (7 języków) umożliwia przeprowadzenie analogicznych badań porównawczych w innych krajach europejskich.
+
+7. **Ewaluacja funkcji retriażu i zmiany szpitala.** Zaprojektowanie scenariuszy wymagających dynamicznej reklasyfikacji pacjentów i zmiany szpitala docelowego w trakcie transportu — funkcji dostępnych w aplikacji, lecz nieobjętych niniejszym badaniem.
+
+8. **Ewaluacja przepływu dyspozytor–KAM.** Badanie z udziałem par uczestników (dyspozytor + KAM), w którym dyspozytor przygotowuje i wysyła dane scenariuszowe za pomocą modułu dyspozytora, a KAM importuje je na urządzeniu w terenie. Pozwoliłoby to na ocenę pełnego łańcucha komunikacyjnego zdefiniowanego w Procedurze MZ v2.3.
+
+9. **Analiza diagramu obrażeń vs. opis tekstowy.** Porównanie kompletności i dokładności dokumentacji obrażeń między interaktywnym diagramem ciała (aplikacja) a papierowym diagramem z polem tekstowym, z oceną czasu dokumentacji i zgodności z kluczem referencyjnym.
