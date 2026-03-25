@@ -1903,17 +1903,9 @@ body.help-on .help-bubble:not(.dismissed) {
           <span data-i18n="help_patient_list">Lista pacjentów na miejscu zdarzenia, posortowana wg priorytetu.</span>
         </div>
       </div>
-      <div class="section" id="transportSection" style="display:none">
-        <div class="help-bubble" data-help-id="help-transport-list" data-arrow="down" style="position:relative;margin-bottom:8px;left:0;right:0;">
-          <button class="help-close" onclick="dismissBubble('help-transport-list')">✕</button>
-          <span data-i18n="help_transport_list">Pacjenci aktualnie transportowani do szpitali.</span>
-        </div>
-        <div class="section-title" id="transportTitle">W transporcie (0)</div>
-        <div id="transportingList"></div>
-        <div class="help-bubble" data-help-id="help-delivered-btn" data-arrow="up-right" style="position:relative;margin-top:8px;left:auto;right:0;margin-left:auto;">
-          <button class="help-close" onclick="dismissBubble('help-delivered-btn')">✕</button>
-          <span data-i18n="help_delivered_btn">Oznacza pacjenta jako dostarczonego do szpitala. Zespół ZRM zostaje zwolniony i ponownie pojawia się na liście do dyspozycji.</span>
-        </div>
+      <div class="section" id="historySection" style="display:none;margin-top:20px">
+        <div class="section-title manage-toggle" onclick="toggleManageBox(this)"><span data-i18n="history_title">Historia transportów</span><span class="manage-toggle-btn" data-i18n="manage_expand">pokaż</span></div>
+        <div class="manage-box collapsed" id="historyList"></div>
       </div>
     </div>
 
@@ -1979,9 +1971,17 @@ body.help-on .help-bubble:not(.dismissed) {
         </div>
       </div>
 
-      <div class="section" id="historySection" style="display:none;margin-top:20px">
-        <div class="section-title manage-toggle" onclick="toggleManageBox(this)"><span data-i18n="history_title">Historia transportów</span><span class="manage-toggle-btn" data-i18n="manage_expand">pokaż</span></div>
-        <div class="manage-box collapsed" id="historyList"></div>
+      <div class="section" id="transportSection" style="display:none">
+        <div class="help-bubble" data-help-id="help-transport-list" data-arrow="down" style="position:relative;margin-bottom:8px;left:0;right:0;">
+          <button class="help-close" onclick="dismissBubble('help-transport-list')">✕</button>
+          <span data-i18n="help_transport_list">Pacjenci aktualnie transportowani do szpitali.</span>
+        </div>
+        <div class="section-title" id="transportTitle">W transporcie (0)</div>
+        <div id="transportingList"></div>
+        <div class="help-bubble" data-help-id="help-delivered-btn" data-arrow="up-right" style="position:relative;margin-top:8px;left:auto;right:0;margin-left:auto;">
+          <button class="help-close" onclick="dismissBubble('help-delivered-btn')">✕</button>
+          <span data-i18n="help_delivered_btn">Oznacza pacjenta jako dostarczonego do szpitala. Zespół ZRM zostaje zwolniony i ponownie pojawia się na liście do dyspozycji.</span>
+        </div>
       </div>
     </div>
 
