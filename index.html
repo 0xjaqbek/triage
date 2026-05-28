@@ -5861,12 +5861,114 @@ if ('serviceWorker' in navigator) {
 
 // ===== MZ DOCUMENT GENERATION =====
 function openMzModal() {
-  document.getElementById('mzModalBody').innerHTML = '<p style="color:var(--text2);font-size:12px">Ładowanie...</p>';
+  renderMzModalBody();
   document.getElementById('mzModal').classList.add('open');
 }
+
 function closeMzModal() {
   document.getElementById('mzModal').classList.remove('open');
 }
+
+function toggleMzSection(id) {
+  document.getElementById(id).classList.toggle('mz-skipped');
+}
+
+function mzSection(id, title, bodyHtml) {
+  return `<div class="mz-section" id="${id}">
+    <div class="mz-section-header">
+      <span class="mz-section-title">${title}</span>
+      <button class="mz-skip-btn" onclick="toggleMzSection('${id}')">Pomiń →</button>
+    </div>
+    <div class="mz-section-body">${bodyHtml}</div>
+  </div>`;
+}
+
+function renderMzModalBody() {
+  const transportedCount = patients.filter(p => p.hospitalId).length;
+  const onSceneCount = patients.filter(p => p.status === 'na_miejscu').length;
+
+  // Section 1: Dane ogólne
+  const sec1 = mzSection('mz-sec-general', 'Dane ogólne (Raport — Sek. 1, 8, 9)', `
+    <div class="mz-field-row"><label>Dysponent (dyspozytornia)</label><input class="mz-field-input" id="mz-dysponent" placeholder="np. WSRM w Warszawie"></div>
+    <div class="mz-field-row"><label>WKRM województwo</label><input class="mz-field-input" id="mz-wkrm" placeholder="np. mazowieckie"></div>
+    <div class="mz-field-row"><label>Wysłano do WKRM</label><select class="mz-select" id="mz-sent-wkrm"><option value="NIE">NIE</option><option value="TAK">TAK</option></select></div>
+    <div class="mz-field-row"><label>Autor raportu</label><input class="mz-field-input" id="mz-author" placeholder="Imię i nazwisko"></div>
+  `);
+
+  // Section 2: Typy ZRM
+  const zrmRows = teams.length
+    ? teams.map(tm => `<div class="mz-field-row"><label>${escHtml(tm.name)}</label><select class="mz-select" id="mz-zrm-${tm.id}"><option value="P">P</option><option value="S">S</option><option value="LZRM">LZRM</option></select></div>`).join('')
+    : '<p style="color:var(--text3);font-size:12px">Brak zespołów ZRM</p>';
+  const sec2 = mzSection('mz-sec-zrm', 'Typy ZRM (Raport — Sek. 5)', zrmRows);
+
+  // Section 3: KAM
+  const sec3 = mzSection('mz-sec-kam', 'Szczegóły KAM (Raport — Sek. 6)', `
+    <div class="mz-field-row"><label>Imię i nazwisko KAM</label><input class="mz-field-input" id="mz-kam-name" value="${escHtml(kamName)}"></div>
+    <div class="mz-field-row"><label>Rola KAM</label><select class="mz-select" id="mz-kam-role"><option value="Ratownik Medyczny">Ratownik Medyczny</option><option value="Lekarz">Lekarz</option><option value="Pielęgniarka">Pielęgniarka</option></select></div>
+    <div class="mz-field-row"><label>Pełnił funkcję od</label><input class="mz-field-input" id="mz-kam-from" value="${escHtml(eventTime)}"></div>
+    <div class="mz-field-row"><label>Pełnił funkcję do</label><input class="mz-field-input" id="mz-kam-to" value="${escHtml(eventEndTime)}"></div>
+  `);
+
+  // Section 4: Sposoby transportu
+  const sec4 = mzSection('mz-sec-transport', 'Sposoby transportu (Raport — Sek. 7)', `
+    <div class="mz-field-row mz-field-readonly"><label>Łącznie poszkodowanych (auto)</label><span class="mz-auto-value">${patients.length}</span></div>
+    <div class="mz-field-row mz-field-readonly"><label>Przetransportowanych (auto)</label><span class="mz-auto-value">${transportedCount}</span></div>
+    <div class="mz-field-row mz-field-readonly"><label>Pozostali na miejscu (auto)</label><span class="mz-auto-value">${onSceneCount}</span></div>
+    <div class="mz-field-row"><label>Drogą powietrzną</label><input class="mz-field-input mz-number" id="mz-tr-air" type="number" min="0" value="0"></div>
+    <div class="mz-field-row"><label>Drogą naziemną bez ZRM</label><input class="mz-field-input mz-number" id="mz-tr-ground-other" type="number" min="0" value="0"></div>
+    <div class="mz-field-row"><label>Drogą wodną</label><input class="mz-field-input mz-number" id="mz-tr-water" type="number" min="0" value="0"></div>
+    <div class="mz-field-row"><label>Na miejscu bez transportu</label><input class="mz-field-input mz-number" id="mz-tr-onscene" type="number" min="0" value="0"></div>
+    <div class="mz-field-row"><label>Nie wyrazili zgody</label><input class="mz-field-input mz-number" id="mz-tr-no-consent" type="number" min="0" value="0"></div>
+    <div class="mz-field-row"><label>Odmówili udzielenia pomocy</label><input class="mz-field-input mz-number" id="mz-tr-refused" type="number" min="0" value="0"></div>
+    <div class="mz-field-row"><label>Samodzielnie oddalili się</label><input class="mz-field-input mz-number" id="mz-tr-left" type="number" min="0" value="0"></div>
+  `);
+
+  // Section 5: Dane szpitali
+  const deptLabels = ['OIT','N-chir (neurochirurgia)','Ortopedia','Chirurgia ogólna','Chirurgia naczyniowa','SOR'];
+  const deptKeys   = ['oit','neurochir','ortopedia','chir-ogolna','chir-naczyniowa','sor'];
+
+  const hospCards = hospitals.map(h => {
+    const deptRows = deptLabels.map((d, i) => `<tr><td>${d}</td>
+      <td><input class="mz-field-input mz-number" id="mz-h${h.id}-dept-${deptKeys[i]}-1h" type="number" min="0" placeholder="—"></td>
+      <td><input class="mz-field-input mz-number" id="mz-h${h.id}-dept-${deptKeys[i]}-2h" type="number" min="0" placeholder="—"></td></tr>`).join('');
+    return `<div class="mz-hospital-card">
+      <div class="mz-hospital-card-header" onclick="this.parentElement.classList.toggle('mz-collapsed')">
+        🏥 ${escHtml(h.name)}
+        <span style="color:var(--text3);font-size:11px;margin-left:6px">🔴${h.redCapacity} 🟡${h.yellowCapacity}</span>
+        <span style="flex:1"></span><span style="font-size:10px;color:var(--text3)">▲</span>
+      </div>
+      <div class="mz-hospital-card-body">
+        <div class="mz-field-row"><label>Nr telefonu</label><input class="mz-field-input" id="mz-h${h.id}-phone" placeholder="________"></div>
+        <table class="mz-table">
+          <thead><tr><th>Zasób</th><th>1 godz.</th><th>2 godz.</th></tr></thead>
+          <tbody>
+            <tr><td>Stanowiska ITM (z resp.)</td>
+              <td><input class="mz-field-input mz-number" id="mz-h${h.id}-itm-1h" type="number" min="0" placeholder="—"></td>
+              <td><input class="mz-field-input mz-number" id="mz-h${h.id}-itm-2h" type="number" min="0" placeholder="—"></td></tr>
+            <tr><td>Wolne respiratory (poza ITM)</td>
+              <td><input class="mz-field-input mz-number" id="mz-h${h.id}-resp-1h" type="number" min="0" placeholder="—"></td>
+              <td><input class="mz-field-input mz-number" id="mz-h${h.id}-resp-2h" type="number" min="0" placeholder="—"></td></tr>
+            <tr><td>Stanowiska IN</td>
+              <td><input class="mz-field-input mz-number" id="mz-h${h.id}-in-1h" type="number" min="0" placeholder="—"></td>
+              <td><input class="mz-field-input mz-number" id="mz-h${h.id}-in-2h" type="number" min="0" placeholder="—"></td></tr>
+            <tr><td>Bloki operacyjne</td>
+              <td><input class="mz-field-input mz-number" id="mz-h${h.id}-or-1h" type="number" min="0" placeholder="—"></td>
+              <td><input class="mz-field-input mz-number" id="mz-h${h.id}-or-2h" type="number" min="0" placeholder="—"></td></tr>
+          </tbody>
+        </table>
+        <table class="mz-table" style="margin-top:8px">
+          <thead><tr><th>Oddział</th><th>1 godz.</th><th>2 godz.</th></tr></thead>
+          <tbody>${deptRows}</tbody>
+        </table>
+      </div>
+    </div>`;
+  }).join('') || '<p style="color:var(--text3);font-size:12px">Brak szpitali</p>';
+
+  const sec5 = mzSection('mz-sec-hospitals', 'Dane szpitali (Tabela Szpitali — Zał. 13)', hospCards);
+
+  document.getElementById('mzModalBody').innerHTML = sec1 + sec2 + sec3 + sec4 + sec5;
+}
+
 function downloadMzDocs() {
   closeMzModal();
   alert('TODO: generateMzHtml()');
