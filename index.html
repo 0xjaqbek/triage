@@ -5969,6 +5969,77 @@ function renderMzModalBody() {
   document.getElementById('mzModalBody').innerHTML = sec1 + sec2 + sec3 + sec4 + sec5;
 }
 
+function genZal12() {
+  const ZONE_NAMES = {
+    head:'Głowa', chest:'Kl. piersiowa', abdomen:'Brzuch',
+    upperBack:'Górna cz. pleców', lowerBack:'Dolna cz. pleców',
+    leftArm:'Lewa ręka', rightArm:'Prawa ręka',
+    leftLeg:'Lewa noga', rightLeg:'Prawa noga'
+  };
+  const TYPE_NAMES = {
+    fracture:'złamanie', bleeding:'krwawienie', burn:'oparzenie',
+    wound:'rana', swelling:'obrzęk', pain:'ból', amputation:'amputacja'
+  };
+
+  function injText(inj) {
+    if (!inj) return '';
+    return Object.entries(inj)
+      .filter(([, types]) => types && types.length)
+      .map(([zone, types]) => `${ZONE_NAMES[zone]||zone}: ${types.map(ty => TYPE_NAMES[ty]||ty).join(', ')}`)
+      .join('<br>');
+  }
+
+  const groups = [
+    { key:'T1', label:'CZERWONI', bg:'#dc2626', textColor:'#fff' },
+    { key:'T2', label:'ŻÓŁCI',    bg:'#ca8a04', textColor:'#000' },
+    { key:'T3', label:'ZIELONI',  bg:'#16a34a', textColor:'#fff' },
+    { key:'T4', label:'CZARNI',   bg:'#374151', textColor:'#fff', black:true }
+  ];
+
+  let html = `<div class="mz-doc-header">
+    <div class="mz-doc-num">ZAŁĄCZNIK NR 12</div>
+    <h2>TABELA DYSLOKACJI POSZKODOWANYCH</h2>
+    <p>Zdarzenie: ${escHtml(eventName||'________')} &nbsp;|&nbsp; Data: ${escHtml(eventTime||'________')} &nbsp;|&nbsp; KAM: ${escHtml(kamName||'________')}</p>
+  </div>`;
+
+  let globalNr = 1;
+  for (const g of groups) {
+    const pts = patients.filter(p => p.triage === g.key);
+    const cols = g.black ? 3 : 5;
+    html += `<table class="mz-triage-table">
+      <thead>
+        <tr style="background:${g.bg}">
+          <th colspan="${cols}" style="color:${g.textColor};font-size:13px;padding:6px 10px;text-align:left">
+            ${g.label} — ${pts.length} poszkodowanych
+          </th>
+        </tr>
+        <tr class="mz-triage-col-header">
+          <th style="width:36px">Nr</th>
+          <th>Obrażenia ciała</th>
+          <th>Dodatkowy opis</th>
+          ${g.black ? '' : '<th style="width:90px">ZRM</th><th style="width:130px">Szpital</th>'}
+        </tr>
+      </thead>
+      <tbody>`;
+    if (pts.length === 0) {
+      html += `<tr><td colspan="${cols}" style="text-align:center;color:#888;padding:10px;font-style:italic">Brak poszkodowanych w tej grupie</td></tr>`;
+    } else {
+      pts.forEach(p => {
+        const team = teams.find(t => t.id === p.teamId);
+        const hosp = hospitals.find(h => h.id === p.hospitalId);
+        html += `<tr>
+          <td style="text-align:center;font-weight:700">${globalNr++}</td>
+          <td>${injText(p.injuries)}</td>
+          <td>${p.notes ? escHtml(p.notes) : ''}</td>
+          ${g.black ? '' : `<td>${team ? escHtml(team.name) : '________'}</td><td>${hosp ? escHtml(hosp.name) : '________'}</td>`}
+        </tr>`;
+      });
+    }
+    html += `</tbody></table>`;
+  }
+  return html;
+}
+
 function collectMzSupplement() {
   const v  = id => (document.getElementById(id)?.value  || '').trim();
   const n  = id => parseInt(document.getElementById(id)?.value || '0') || 0;
