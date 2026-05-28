@@ -1562,6 +1562,15 @@ body.help-on .help-bubble:not(.dismissed) {
   text-overflow: ellipsis; min-height: 32px;
 }
 .btn-injury-mini.has-data { border-color: var(--red); color: var(--white); background: rgba(220,38,38,0.15); }
+/* ===== MZ DOCUMENT GENERATION ===== */
+.btn-generate-mz {
+  display: block; width: 100%; padding: 14px 20px; margin-top: 4px;
+  background: rgba(37,99,235,0.12); border: 2px solid #3b82f6;
+  border-radius: 10px; color: #93c5fd; font-size: 13px; font-weight: 700;
+  font-family: var(--font); letter-spacing: 0.05em; cursor: pointer;
+  text-transform: uppercase; transition: all 0.2s;
+}
+.btn-generate-mz:hover { background: rgba(37,99,235,0.28); color: #fff; }
 </style>
 </head>
 <body>
@@ -2001,6 +2010,9 @@ body.help-on .help-bubble:not(.dismissed) {
         <span data-i18n="help_report">Automatycznie generowany raport ze zdarzenia. Możesz skopiować tekst lub wysłać przez SMS/e-mail.</span>
       </div>
       <div id="reportContent"></div>
+      <div id="btnGenerateMzWrap" style="display:none;padding:0 0 24px">
+        <button class="btn-generate-mz" onclick="openMzModal()">📄 Generuj dokumenty MZ — Zał. 12, 13, 14</button>
+      </div>
     </div>
   </div>
 </div>
@@ -4813,6 +4825,8 @@ function renderReport() {
   }
 
   document.getElementById('reportContent').innerHTML = html;
+  const mzWrap = document.getElementById('btnGenerateMzWrap');
+  if (mzWrap) mzWrap.style.display = eventEndTime ? '' : 'none';
 }
 
 // ===== BODY INJURY DIAGRAM =====
