@@ -5969,9 +5969,63 @@ function renderMzModalBody() {
   document.getElementById('mzModalBody').innerHTML = sec1 + sec2 + sec3 + sec4 + sec5;
 }
 
+function collectMzSupplement() {
+  const v  = id => (document.getElementById(id)?.value  || '').trim();
+  const n  = id => parseInt(document.getElementById(id)?.value || '0') || 0;
+  const sk = id => !!document.getElementById(id)?.classList.contains('mz-skipped');
+
+  const deptKeys = ['oit','neurochir','ortopedia','chir-ogolna','chir-naczyniowa','sor'];
+  const transportedCount = patients.filter(p => p.hospitalId).length;
+  const air         = n('mz-tr-air');
+  const groundOther = n('mz-tr-ground-other');
+  const water       = n('mz-tr-water');
+
+  return {
+    skipGeneral:   sk('mz-sec-general'),
+    dysponent:     v('mz-dysponent'),
+    wkrmProvince:  v('mz-wkrm'),
+    sentToWkrm:    v('mz-sent-wkrm') === 'TAK',
+    reportAuthor:  v('mz-author'),
+
+    skipZrmTypes:  sk('mz-sec-zrm'),
+    zrmTypes:      Object.fromEntries(teams.map(tm => [tm.id, v(`mz-zrm-${tm.id}`) || 'P'])),
+
+    skipKam:       sk('mz-sec-kam'),
+    kamNameSup:    v('mz-kam-name') || kamName,
+    kamRole:       v('mz-kam-role') || 'Ratownik Medyczny',
+    kamFrom:       v('mz-kam-from') || eventTime,
+    kamTo:         v('mz-kam-to')   || eventEndTime,
+
+    skipTransport:        sk('mz-sec-transport'),
+    transportAir:         air,
+    transportGroundZrm:   Math.max(0, transportedCount - air - groundOther - water),
+    transportGroundOther: groundOther,
+    transportWater:       water,
+    transportOnScene:     n('mz-tr-onscene'),
+    transportNoConsent:   n('mz-tr-no-consent'),
+    transportRefused:     n('mz-tr-refused'),
+    transportLeft:        n('mz-tr-left'),
+
+    skipHospitals: sk('mz-sec-hospitals'),
+    hospitalData:  Object.fromEntries(hospitals.map(h => [h.id, {
+      phone:  v(`mz-h${h.id}-phone`),
+      itm1h:  v(`mz-h${h.id}-itm-1h`),  itm2h: v(`mz-h${h.id}-itm-2h`),
+      resp1h: v(`mz-h${h.id}-resp-1h`), resp2h: v(`mz-h${h.id}-resp-2h`),
+      in1h:   v(`mz-h${h.id}-in-1h`),   in2h:  v(`mz-h${h.id}-in-2h`),
+      or1h:   v(`mz-h${h.id}-or-1h`),   or2h:  v(`mz-h${h.id}-or-2h`),
+      depts:  Object.fromEntries(deptKeys.map(d => [d, {
+        h1: v(`mz-h${h.id}-dept-${d}-1h`),
+        h2: v(`mz-h${h.id}-dept-${d}-2h`)
+      }]))
+    }]))
+  };
+}
+
 function downloadMzDocs() {
+  const sup = collectMzSupplement();
+  console.log('[MZ] supplement collected:', sup);
   closeMzModal();
-  alert('TODO: generateMzHtml()');
+  alert('TODO: generateMzHtml(sup)');
 }
 </script>
 
