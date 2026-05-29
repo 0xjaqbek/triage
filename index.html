@@ -6040,6 +6040,60 @@ function genZal12() {
   return html;
 }
 
+function genZal13(sup) {
+  const fill = v => (v !== undefined && v !== null && v !== '') ? escHtml(String(v)) : '________';
+
+  const DEPT_LABELS = ['OIT','N-chir (neurochirurgia)','Ortopedia','Chirurgia ogólna','Chirurgia naczyniowa','SOR'];
+  const DEPT_KEYS   = ['oit','neurochir','ortopedia','chir-ogolna','chir-naczyniowa','sor'];
+
+  let html = `<div class="mz-doc-header">
+    <div class="mz-doc-num">ZAŁĄCZNIK NR 13</div>
+    <h2>TABELA SZPITALE</h2>
+    <p>Zdarzenie: ${escHtml(eventName||'________')}</p>
+  </div>`;
+
+  if (hospitals.length === 0) {
+    html += '<p style="color:#888;font-style:italic">Brak szpitali w zdarzeniu.</p>';
+    return html;
+  }
+
+  hospitals.forEach(h => {
+    const hd = (!sup.skipHospitals && sup.hospitalData && sup.hospitalData[h.id]) ? sup.hospitalData[h.id] : {};
+    const f  = k => fill(hd[k]);
+
+    const deptRows = DEPT_LABELS.map((d, i) => {
+      const dept = (hd.depts || {})[DEPT_KEYS[i]] || {};
+      return `<tr><td>${d}</td><td>${fill(dept.h1)}</td><td>${fill(dept.h2)}</td><td></td></tr>`;
+    }).join('');
+
+    html += `<div class="mz-hosp-card-print">
+      <div class="mz-hosp-title">${escHtml(h.name)}</div>
+      <div class="mz-hosp-meta">
+        Nr telefonu: <strong>${fill(hd.phone)}</strong>
+        &nbsp;&nbsp;Możliwość przyjęcia — CZERWONEJ: <strong>${h.redCapacity||'___'}</strong>
+        &nbsp;ŻÓŁTEJ: <strong>${h.yellowCapacity||'___'}</strong>
+      </div>
+      <p class="mz-sub-heading">DOSTĘPNOŚĆ (przy wstrzymaniu planowych zabiegów):</p>
+      <table class="mz-print-table">
+        <thead><tr><th>Zasób</th><th>W ciągu 1 godz.</th><th>W ciągu 2 godz.</th><th>Uwagi</th></tr></thead>
+        <tbody>
+          <tr><td>Liczba stanowisk ITM (z respiratorem)</td><td>${f('itm1h')}</td><td>${f('itm2h')}</td><td></td></tr>
+          <tr><td>Liczba wolnych RESP. (poza stanowiskami ITM)</td><td>${f('resp1h')}</td><td>${f('resp2h')}</td><td></td></tr>
+          <tr><td>Liczba stanowisk IN</td><td>${f('in1h')}</td><td>${f('in2h')}</td><td></td></tr>
+          <tr><td>Bloki operacyjne</td><td>${f('or1h')}</td><td>${f('or2h')}</td><td></td></tr>
+        </tbody>
+      </table>
+      <p class="mz-sub-heading" style="margin-top:8px">ODDZIAŁY:</p>
+      <table class="mz-print-table">
+        <thead><tr><th>Oddział</th><th>W ciągu 1 godz.</th><th>W ciągu 2 godz.</th><th>Uwagi</th></tr></thead>
+        <tbody>${deptRows}</tbody>
+      </table>
+    </div>`;
+  });
+
+  return html;
+}
+
 function collectMzSupplement() {
   const v  = id => (document.getElementById(id)?.value  || '').trim();
   const n  = id => parseInt(document.getElementById(id)?.value || '0') || 0;
