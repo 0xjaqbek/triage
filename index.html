@@ -6094,6 +6094,149 @@ function genZal13(sup) {
   return html;
 }
 
+function genZal14(sup) {
+  const fill = v => (v !== undefined && v !== null && v !== '') ? escHtml(String(v)) : '________';
+  const blank = () => '________';
+
+  const counts = { T1:0, T2:0, T3:0, T4:0 };
+  patients.forEach(p => counts[p.triage]++);
+
+  const zrmTypeCounts = { S:0, P:0, LZRM:0 };
+  if (!sup.skipZrmTypes) {
+    teams.forEach(tm => { zrmTypeCounts[sup.zrmTypes[tm.id] || 'P']++; });
+  }
+
+  const kamRole = sup.skipKam ? '' : (sup.kamRole || '');
+  const isLekarz   = kamRole === 'Lekarz'            ? 'TAK' : 'NIE';
+  const isRatownik = kamRole === 'Ratownik Medyczny' ? 'TAK' : 'NIE';
+  const isPieleg   = kamRole === 'Pielęgniarka'      ? 'TAK' : 'NIE';
+
+  const byHosp = {};
+  patients.filter(p => p.hospitalId).forEach(p => {
+    if (!byHosp[p.hospitalId]) byHosp[p.hospitalId] = { T1:0, T2:0, T3:0 };
+    if (p.triage !== 'T4') byHosp[p.hospitalId][p.triage]++;
+  });
+
+  const genTime = new Date().toLocaleTimeString('pl-PL', { hour:'2-digit', minute:'2-digit' });
+
+  return `<div class="mz-doc-header">
+    <div class="mz-doc-num">ZAŁĄCZNIK NR 14</div>
+    <h2>RAPORT Z PRZEBIEGU ZDARZENIA<br>Z DUŻĄ LICZBĄ POSZKODOWANYCH</h2>
+  </div>
+
+  <div class="mz-report-section">
+    <div class="mz-report-label">1. Dysponent</div>
+    <div class="mz-report-value">${fill(sup.skipGeneral ? '' : sup.dysponent)}</div>
+  </div>
+
+  <div class="mz-report-section">
+    <div class="mz-report-label">2. Data zdarzenia</div>
+    <div class="mz-report-value">
+      Data wystąpienia zdarzenia: ${fill(eventTime)}<br>
+      Godzina przyjęcia powiadomienia przez DM: ${fill(eventTime)}
+    </div>
+  </div>
+
+  <div class="mz-report-section">
+    <div class="mz-report-label">3. Data zakończenia akcji</div>
+    <div class="mz-report-value">${fill(eventEndTime)}</div>
+  </div>
+
+  <div class="mz-report-section">
+    <div class="mz-report-label">4. GDM</div>
+    <div class="mz-report-value">Imię i nazwisko GDM: ${fill(gdmName)} &nbsp;|&nbsp; KOD GDM: ________</div>
+  </div>
+
+  <div class="mz-report-section">
+    <div class="mz-report-label">5. ZRM</div>
+    <div class="mz-report-value">
+      <table class="mz-print-table" style="width:auto;margin-bottom:8px">
+        <thead><tr><th>Typ ZRM</th><th>Liczba</th></tr></thead>
+        <tbody>
+          <tr><td>"S"</td><td>${sup.skipZrmTypes ? blank() : zrmTypeCounts.S}</td></tr>
+          <tr><td>"P"</td><td>${sup.skipZrmTypes ? blank() : zrmTypeCounts.P}</td></tr>
+          <tr><td>"LZRM"</td><td>${sup.skipZrmTypes ? blank() : zrmTypeCounts.LZRM}</td></tr>
+        </tbody>
+      </table>
+      Kryptonimy ZRM biorących udział w zdarzeniu: ${teams.length ? teams.map(t => escHtml(t.name)).join(', ') : blank()}
+    </div>
+  </div>
+
+  <div class="mz-report-section">
+    <div class="mz-report-label">6. KAM</div>
+    <div class="mz-report-value">
+      <table class="mz-print-table">
+        <thead><tr><th>Imię i nazwisko</th><th>Kryptonim ZRM</th><th>Od godz.</th><th>Do godz.</th><th>Lekarz</th><th>Ratownik Med.</th><th>Pielęgniarka</th></tr></thead>
+        <tbody><tr>
+          <td>${fill(sup.skipKam ? '' : sup.kamNameSup)}</td>
+          <td>________</td>
+          <td>${fill(sup.skipKam ? '' : sup.kamFrom)}</td>
+          <td>${fill(sup.skipKam ? '' : sup.kamTo)}</td>
+          <td>${sup.skipKam ? blank() : isLekarz}</td>
+          <td>${sup.skipKam ? blank() : isRatownik}</td>
+          <td>${sup.skipKam ? blank() : isPieleg}</td>
+        </tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="mz-report-section">
+    <div class="mz-report-label">7. Zestawienie poszkodowanych uczestniczących w zdarzeniu</div>
+    <div class="mz-report-value">
+      <strong>Łączna liczba poszkodowanych: ${patients.length}</strong>
+      <table class="mz-print-table" style="margin-top:8px">
+        <thead><tr><th>Kategoria</th><th>Liczba</th></tr></thead>
+        <tbody>
+          <tr><td>Drogą powietrzną</td><td>${sup.skipTransport ? blank() : sup.transportAir}</td></tr>
+          <tr><td>Drogą naziemną przez ZRM</td><td>${sup.skipTransport ? blank() : sup.transportGroundZrm}</td></tr>
+          <tr><td>Drogą naziemną bez ZRM (inne środki transportu)</td><td>${sup.skipTransport ? blank() : sup.transportGroundOther}</td></tr>
+          <tr><td>Drogą wodną</td><td>${sup.skipTransport ? blank() : sup.transportWater}</td></tr>
+          <tr><td>Udzielono pomocy na miejscu, brak transportu do SOR/IP/JOS</td><td>${sup.skipTransport ? blank() : sup.transportOnScene}</td></tr>
+          <tr><td>Nie wyrazili zgody na transport do SOR/IP/JOS</td><td>${sup.skipTransport ? blank() : sup.transportNoConsent}</td></tr>
+          <tr><td>Odmówili udzielenia pomocy (brak zgody na badanie)</td><td>${sup.skipTransport ? blank() : sup.transportRefused}</td></tr>
+          <tr><td>Samodzielnie oddalili się z miejsca zdarzenia</td><td>${sup.skipTransport ? blank() : sup.transportLeft}</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="mz-report-section">
+    <div class="mz-report-label">8. Wysłanie do WKRM</div>
+    <div class="mz-report-value">
+      Raport przesłany: ${sup.skipGeneral ? blank() : (sup.sentToWkrm ? 'TAK' : 'NIE')}
+      &nbsp;|&nbsp; do WKRM województwa: ${fill(sup.skipGeneral ? '' : sup.wkrmProvince)}
+    </div>
+  </div>
+
+  <div class="mz-report-section">
+    <div class="mz-report-label">9. Autor raportu</div>
+    <div class="mz-report-value">
+      Raport przygotował: ${fill(sup.skipGeneral ? '' : sup.reportAuthor)}
+      &nbsp;|&nbsp; Godzina: ${genTime}
+    </div>
+  </div>
+
+  <div class="mz-report-section">
+    <div class="mz-report-label">Załącznik — Zestawienie poszkodowanych per podmiot leczniczy</div>
+    <div class="mz-report-value">
+      <table class="mz-print-table">
+        <thead><tr><th>Podmiot leczniczy</th><th>Czerwoni (T1)</th><th>Żółci (T2)</th><th>Zieloni (T3)</th><th>Łącznie</th></tr></thead>
+        <tbody>${hospitals.map(h => {
+          const hd = byHosp[h.id] || { T1:0, T2:0, T3:0 };
+          return `<tr>
+            <td>${escHtml(h.name)}</td>
+            <td>${hd.T1}</td><td>${hd.T2}</td><td>${hd.T3}</td>
+            <td><strong>${hd.T1 + hd.T2 + hd.T3}</strong></td>
+          </tr>`;
+        }).join('')}</tbody>
+      </table>
+      <p style="margin-top:6px">
+        Podsumowanie segregacji: 🔴 T1=${counts.T1} &nbsp; 🟡 T2=${counts.T2} &nbsp; 🟢 T3=${counts.T3} &nbsp; ⬛ T4=${counts.T4}
+      </p>
+    </div>
+  </div>`;
+}
+
 function collectMzSupplement() {
   const v  = id => (document.getElementById(id)?.value  || '').trim();
   const n  = id => parseInt(document.getElementById(id)?.value || '0') || 0;
