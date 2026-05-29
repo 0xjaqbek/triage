@@ -1708,7 +1708,7 @@ body.help-on .help-bubble:not(.dismissed) {
       <h2 style="margin:0">TRIAGE MCI</h2>
       <button class="btn-changelog" onclick="openChangelog()" data-i18n="btn_changelog">Changelog</button>
     </div>
-    <div class="info-version">v2.4.0</div>
+    <div class="info-version">v2.5.0</div>
 
     <a href="./instrukcja/" style="display:inline-block;margin:10px 0;padding:8px 18px;background:rgba(96,165,250,0.12);border:2px solid var(--blue);color:var(--white);border-radius:8px;font-size:13px;font-weight:600;text-decoration:none;font-family:var(--font)" data-i18n="btn_instructions">📖 Instrukcje</a>
     <br>
@@ -1757,6 +1757,14 @@ body.help-on .help-bubble:not(.dismissed) {
 <div id="changelogModal" class="info-overlay hidden" onclick="if(event.target===this)closeChangelog()">
   <div class="info-box">
     <h2 data-i18n="changelog_title">Changelog</h2>
+    <div class="info-section">
+      <h3>v2.5.0</h3>
+      <ul class="changelog-list">
+        <li data-i18n="cl_250_1">Generowanie dokumentów MZ po zdarzeniu (Zał. 12 Tabela Dyslokacji, Zał. 13 Tabela Szpitali, Zał. 14 Raport GDM)</li>
+        <li data-i18n="cl_250_2">Modal uzupełnienia brakujących danych z opcją pominięcia do ręcznego uzupełnienia</li>
+        <li data-i18n="cl_250_3">Pobieranie gotowego pliku HTML z 3 dokumentami MZ gotowymi do wydruku jako PDF</li>
+      </ul>
+    </div>
     <div class="info-section">
       <h3>v2.4.0</h3>
       <ul class="changelog-list">
@@ -2505,6 +2513,9 @@ const TRANSLATIONS = {
     cl_220_6: 'Pojemność szpitali w jednym wierszu z nazwą',
     cl_220_7: 'Wycentrowane elementy wyniku segregacji',
     cl_220_8: 'Próg dwukolumnowego widoku zarządzania zmieniony na ~750px',
+    cl_250_1: 'Generowanie dokumentów MZ po zdarzeniu (Zał. 12 Tabela Dyslokacji, Zał. 13 Tabela Szpitali, Zał. 14 Raport GDM)',
+    cl_250_2: 'Modal uzupełnienia brakujących danych z opcją pominięcia do ręcznego uzupełnienia',
+    cl_250_3: 'Pobieranie gotowego pliku HTML z 3 dokumentami MZ gotowymi do wydruku jako PDF',
     cl_240_1: 'Strona instrukcji dostępna z panelu informacyjnego',
     cl_240_2: 'Instrukcje w 7 językach (PL, EN, IT, FR, DE, CS, PT)',
     cl_240_3: 'Język instrukcji ustawiany automatycznie z ekranu startowego',
@@ -2782,6 +2793,9 @@ const TRANSLATIONS = {
     cl_220_6: 'Hospital capacity in single row with name',
     cl_220_7: 'Centered triage result elements',
     cl_220_8: 'Two-column manage panel breakpoint changed to ~750px',
+    cl_250_1: 'MZ document generation after incident (Annex 12 Deployment Table, Annex 13 Hospitals Table, Annex 14 GDM Report)',
+    cl_250_2: 'Supplement modal for missing data with skip option for manual completion',
+    cl_250_3: 'Download ready-made HTML file with 3 MZ documents ready to print as PDF',
     cl_240_1: 'Instruction page accessible from the info panel',
     cl_240_2: 'Instructions in 7 languages (PL, EN, IT, FR, DE, CS, PT)',
     cl_240_3: 'Instruction language set automatically from the start screen',
@@ -3059,6 +3073,9 @@ const TRANSLATIONS = {
     cl_220_6: 'Capacità ospedaliera in riga singola con il nome',
     cl_220_7: 'Elementi risultato triage centrati',
     cl_220_8: 'Soglia pannello gestione a due colonne cambiata a ~750px',
+    cl_250_1: 'Generazione documenti MZ dopo l\'incidente (All. 12 Tabella Dislocatione, All. 13 Tabella Ospedali, All. 14 Rapporto GDM)',
+    cl_250_2: 'Finestra supplemento per i dati mancanti con opzione di salto per completamento manuale',
+    cl_250_3: 'Scarica il file HTML con 3 documenti MZ pronti per la stampa come PDF',
     cl_240_1: 'Pagina istruzioni accessibile dal pannello informativo',
     cl_240_2: 'Istruzioni in 7 lingue (PL, EN, IT, FR, DE, CS, PT)',
     cl_240_3: 'Lingua delle istruzioni impostata automaticamente dalla schermata iniziale',
@@ -3336,6 +3353,9 @@ const TRANSLATIONS = {
     cl_220_6: 'Capacité hospitalière sur une seule ligne avec le nom',
     cl_220_7: 'Éléments du résultat de triage centrés',
     cl_220_8: 'Seuil du panneau de gestion à deux colonnes changé à ~750px',
+    cl_250_1: 'Génération de documents MZ après l\'incident (Ann. 12 Tableau de déploiement, Ann. 13 Tableau des hôpitaux, Ann. 14 Rapport GDM)',
+    cl_250_2: 'Fenêtre de supplément pour les données manquantes avec option de saut pour remplissage manuel',
+    cl_250_3: 'Télécharger le fichier HTML avec 3 documents MZ prêts à imprimer en PDF',
     cl_240_1: 'Page d\'instructions accessible depuis le panneau d\'information',
     cl_240_2: 'Instructions en 7 langues (PL, EN, IT, FR, DE, CS, PT)',
     cl_240_3: 'Langue des instructions définie automatiquement depuis l\'écran d\'accueil',
@@ -3613,6 +3633,9 @@ const TRANSLATIONS = {
     cl_220_6: 'Krankenhauskapazität in einer Zeile mit dem Namen',
     cl_220_7: 'Triage-Ergebniselemente zentriert',
     cl_220_8: 'Zweispaltige Verwaltungsansicht-Schwelle auf ~750px geändert',
+    cl_250_1: 'Generierung von MZ-Dokumenten nach dem Ereignis (Anl. 12 Einsatztabelle, Anl. 13 Krankenhaustabelle, Anl. 14 GDM-Bericht)',
+    cl_250_2: 'Ergänzungsformular für fehlende Daten mit Überspringen-Option zur manuellen Vervollständigung',
+    cl_250_3: 'HTML-Datei mit 3 MZ-Dokumenten zum PDF-Druck herunterladen',
     cl_240_1: 'Anleitungsseite über das Info-Panel erreichbar',
     cl_240_2: 'Anleitung in 7 Sprachen (PL, EN, IT, FR, DE, CS, PT)',
     cl_240_3: 'Anleitungssprache wird automatisch vom Startbildschirm übernommen',
@@ -3890,6 +3913,9 @@ const TRANSLATIONS = {
     cl_220_6: 'Kapacita nemocnice v jednom řádku s názvem',
     cl_220_7: 'Vycentrované prvky výsledku třídění',
     cl_220_8: 'Práh dvousloupcového panelu správy změněn na ~750px',
+    cl_250_1: 'Generování dokumentů MZ po události (Příl. 12 Tabulka přemístění, Příl. 13 Tabulka nemocnic, Příl. 14 Zpráva GDM)',
+    cl_250_2: 'Doplňkový formulář pro chybějící data s možností přeskočení pro ruční vyplnění',
+    cl_250_3: 'Stáhnout HTML soubor s 3 dokumenty MZ připravenými k tisku jako PDF',
     cl_240_1: 'Stránka s návodem přístupná z informačního panelu',
     cl_240_2: 'Návod v 7 jazycích (PL, EN, IT, FR, DE, CS, PT)',
     cl_240_3: 'Jazyk návodu nastaven automaticky z úvodní obrazovky',
@@ -4167,6 +4193,9 @@ const TRANSLATIONS = {
     cl_220_6: 'Capacidade hospitalar em linha única com o nome',
     cl_220_7: 'Elementos do resultado de triagem centralizados',
     cl_220_8: 'Limiar do painel de gestão de duas colunas alterado para ~750px',
+    cl_250_1: 'Geração de documentos MZ após o incidente (Anx. 12 Tabela de implantação, Anx. 13 Tabela de hospitais, Anx. 14 Relatório GDM)',
+    cl_250_2: 'Janela suplementar para dados em falta com opção de saltar para preenchimento manual',
+    cl_250_3: 'Descarregar ficheiro HTML com 3 documentos MZ prontos para imprimir como PDF',
     cl_240_1: 'Página de instruções acessível a partir do painel de informação',
     cl_240_2: 'Instruções em 7 idiomas (PL, EN, IT, FR, DE, CS, PT)',
     cl_240_3: 'Idioma das instruções definido automaticamente a partir do ecrã inicial',
